@@ -5,3 +5,5 @@
 /AskAMech/AskAMech/bin/Debug/netcoreapp3.1
 /AskAMech/AskAMech/obj
 /AskAMech/.vs/AskAMech
+/AskAMech/AskAMech.Core/obj
+/AskAMech/AskAMech.Infrastructure/obj

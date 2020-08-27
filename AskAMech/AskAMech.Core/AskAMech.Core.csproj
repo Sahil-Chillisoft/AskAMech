@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Domain\" />
+    <Folder Include="Gateways\" />
+    <Folder Include="UseCases\Responses\" />
+    <Folder Include="UseCases\Requests\" />
+  </ItemGroup>
+
+</Project>

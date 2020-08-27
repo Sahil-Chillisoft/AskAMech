@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AskAMech.Web", "AskAMech\AskAMech.Web.csproj", "{F027E224-7CD4-461B-9D97-0059A52069D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AskAMech.Infrastructure", "AskAMech.Infrastructure\AskAMech.Infrastructure.csproj", "{92D07394-CE7A-4B86-A96A-D6ECFFE72CE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AskAMech.Core", "AskAMech.Core\AskAMech.Core.csproj", "{A4642389-36B8-439A-AC45-213700D084DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{F027E224-7CD4-461B-9D97-0059A52069D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F027E224-7CD4-461B-9D97-0059A52069D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F027E224-7CD4-461B-9D97-0059A52069D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92D07394-CE7A-4B86-A96A-D6ECFFE72CE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92D07394-CE7A-4B86-A96A-D6ECFFE72CE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92D07394-CE7A-4B86-A96A-D6ECFFE72CE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92D07394-CE7A-4B86-A96A-D6ECFFE72CE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4642389-36B8-439A-AC45-213700D084DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4642389-36B8-439A-AC45-213700D084DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4642389-36B8-439A-AC45-213700D084DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4642389-36B8-439A-AC45-213700D084DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
