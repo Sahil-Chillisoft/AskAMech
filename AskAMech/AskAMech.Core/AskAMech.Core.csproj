@@ -6,9 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Domain\" />
-    <Folder Include="Gateways\" />
-    <Folder Include="UseCases\Responses\" />
-    <Folder Include="UseCases\Requests\" />
   </ItemGroup>
 
 </Project>

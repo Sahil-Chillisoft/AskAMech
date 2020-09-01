@@ -1,0 +1,47 @@
+﻿@model AskAMech.Core.UseCases.Responses.LoginResponse
+
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginLabel">Login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <div class="input-group mb-3">
+                            <input type="text" id="Email" name="Email" placeholder="Email Address" required="required" class="form-control">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <i class="material-icons">person</i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <div class="input-group mb-3">
+                            <input type="password" id="Password" name="Password" placeholder="Password" required="required" class="form-control">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <i class="material-icons">lock</i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-save="modal">Login</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

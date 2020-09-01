@@ -30,7 +30,7 @@ create table Employee
 
 create table Users
 (
-	Id int not null primary key identity(1,1),
+	Id int not null primary key identity(1000,1),
 	Email varchar(100) not null unique,
 	Password varchar(100) not null,
 	UserRoleId int not null, 
