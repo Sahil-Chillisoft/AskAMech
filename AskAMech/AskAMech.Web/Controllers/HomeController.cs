@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using AskAMech.Core.UseCases.Requests;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AskAMech.Web.Models;
@@ -34,6 +35,13 @@ namespace AskAMech.Web.Controllers
         public IActionResult Login()
         {
             return PartialView("_Login");
+        }
+
+        [HttpPost]
+        public IActionResult Login(LoginRequest request)
+        {
+            //TODO: Implementation
+            return View("Index");
         }
 
         [HttpGet]

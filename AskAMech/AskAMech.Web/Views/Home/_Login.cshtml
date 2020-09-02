@@ -10,33 +10,50 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4">
-                        <div class="input-group mb-3">
-                            <input type="text" id="Email" name="Email" placeholder="Email Address" required="required" class="form-control">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <i class="material-icons">person</i>
+                <form>
+                    <div class="row md-Padding-Top-10">
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-10">
+                            <div class="input-group mb-3">
+                                <input type="text" id="Email" name="Email" placeholder="Email Address" required="required" class="form-control">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <i class="material-icons">person</i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4">
-                        <div class="input-group mb-3">
-                            <input type="password" id="Password" name="Password" placeholder="Password" required="required" class="form-control">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <i class="material-icons">lock</i>
+                    <div class="row">
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-10">
+                            <span asp-validation-for="Email"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-10">
+                            <div class="input-group mb-3">
+                                <input type="password" id="Password" name="Password" placeholder="Password" required="required" class="form-control">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <i class="material-icons">lock</i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-10">
+                            <span asp-validation-for="Password"></span>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-save="modal">Login</button>
