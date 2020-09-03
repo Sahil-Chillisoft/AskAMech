@@ -19,21 +19,29 @@
         '[data-save="modal"]',
         function (event) {
             event.preventDefault();
-            var form = $(this).parents('.modal').find('form');
-            var formData = form.serialize();
-            $.ajax({
-                url: 'Home/Login',
-                type: 'POST',
-                cache: false,
-                data: formData
-            }).done(function (data) {
-                var modalContent = $('.modal-body', data);
-                loginModal.find('.modal-body').replaceWith(modalContent);
-                var isValid = modalContent.find('[name="IsValid"]').val() === 'True';
-                if (isValid) {
-                    loginModal.find('.modal').modal('hide');
-                    //TODO: Load the dashboard page if valid 
-                }
-            });
+
+            var $form = $(this).parents('.modal').find('form');
+            $.validator.unobtrusive.parse($form);
+
+            if ($form.valid()) {
+                var formData = $form.serialize();
+                $.ajax({
+                    url: 'Home/Login',
+                    type: 'POST',
+                    cache: false,
+                    data: formData
+                }).done(function (data) {
+                    var modalContent = $('.modal-body', data);
+                    loginModal.find('.modal-body').replaceWith(modalContent);
+                    var isValid = modalContent.find('[name="IsValid"]').val() === 'True';
+                    if (isValid) {
+                        loginModal.find('.modal').modal('hide');
+                        //TODO: Load the dashboard page if valid 
+                    }
+                });
+            }
+            else {
+                return false;
+            }
         });
 });
