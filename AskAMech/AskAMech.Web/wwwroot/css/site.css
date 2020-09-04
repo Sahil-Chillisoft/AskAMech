@@ -15,6 +15,15 @@ a.navbar-brand {
     cursor: pointer;
 }
 
+.homebackground {
+    background-image: url('../images/gears.gif');
+    background-position: top;
+    background-size: contain;
+    background-repeat: repeat;
+    padding-top: 50px;
+}
+
+
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
@@ -31,6 +40,7 @@ a {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -59,6 +69,7 @@ button.accept-policy {
   line-height: inherit;
 }
 
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -78,6 +89,7 @@ body {
   line-height: 60px; /* Vertically center the text there */
 }
 
+
 /*Custom Padding
 /*-----------------------------------------*/
 .md-Padding-Top-10 {
@@ -96,10 +108,15 @@ body {
     padding-right: 5px
 }
 
+
 /*Google material icons
 /*-----------------------------------------*/
 .material-icons.md-30 {
     font-size: 30px;
+}
+
+.material-icons.md-45 {
+    font-size: 45px;
 }
 
 .material-icons.md-70 {
@@ -108,4 +125,92 @@ body {
 
 .material-icons-font {
     font-size: 20px;
+}
+
+
+/*Bootstrap card 
+/*-----------------------------------------*/
+.card-blue {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+.card-green {
+    color: #fff;
+    background-color: #32cd32;
+    border-color: #32cd32;
+}
+
+.card-orange {
+    color: #fff;
+    background-color: #FFA500;
+    border-color: #FFA500;
+}
+
+.card-body {
+    color: black;
+    background-color: #ffffff;
+}
+
+
+/*Info box
+/*-----------------------------------------*/
+.info-box {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    height: 70px;
+    display: flex;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.info-box .icon {
+    display: inline-block;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.12);
+    width: 80px;
+}
+
+.info-box .icon i {
+    color: #fff;
+    font-size: 50px;
+    line-height: 80px;
+}
+
+.info-box.hover-expand-effect:after {
+    background-color: rgba(0, 0, 0, 0.05);
+    content: ".";
+    position: absolute;
+    left: 80px;
+    top: 0;
+    width: 0;
+    height: 100%;
+    color: transparent;
+    -moz-transition: all 0.95s;
+    -o-transition: all 0.95s;
+    -webkit-transition: all 0.95s;
+    transition: all 0.95s;
+}
+
+.info-box.hover-expand-effect:hover:after {
+    width: 100%;
+}
+
+.info-box .content .number {
+    font-weight: normal;
+    font-size: 26px;
+    margin-top: 5px;
+}
+
+.info-box.hover-zoom-effect .icon {
+    overflow: hidden;
+}
+
+.info-box.hover-zoom-effect .icon i {
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
