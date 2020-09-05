@@ -13,47 +13,85 @@
     </div>
 
     <div class="row">
-        <div class="col-md-1">
-        </div>
-        <div class="col-md-10">
+        <div class="col-md-12">
             <div class="homebackground">
             </div>
-        </div>
-        <div class="col-md-1">
         </div>
     </div>
 
     <div class="row md-Padding-Top-50">
-        <div class="col-md-12">
-            <div class="card ">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+            <div class="card card-orange">
                 <div class="card-header">
-                    <h4>AskAMech is a public forum available to the anyone who has questions about vehicles.</h4>
+                    <h4 class="text-center">
+                        <i class="material-icons md-30">description</i>
+                        AskAMech is a public forum available to the anyone who has automotive related questions.
+                    </h4>
                 </div>
                 <div class="card-body">
                     <p>
-                        We believe in having a open community where communication about everything vehicle related can be discussed by public members as well as our very own certified mechanics who regularly
+                        We believe in having a open community where communication about everything automotive related
+                        can be discussed by public members as well as our very own certified mechanics who regularly
                         interact on the forum providing professional advice and answers to questions that have been posted.
+                    </p>
+                    <p>
+                        We know that owning a motor vehicle can cost lots of money to maintain and can be unpredictable at
+                        times and as a general vehicle owner you need to know the right kind of information about your vehicle
+                        thus AskAMech was created to provide a valuable service to the public where anyone can easily obtain the
+                        necessary advice about any automotive concern or issue they are having without the need of having the spend
+                        ridiculous amounts of money on hiring out mechanic services or buying unnecessary vehicle parts.
                     </p>
                 </div>
             </div>
         </div>
+        <div class="col-md-2">
+        </div>
     </div>
 
     <div class="row md-Padding-Top-50">
-        <div class="col-md-6">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-4">
             <div class="card card-blue">
-                <div class="card-header"><h4>Questions</h4></div>
-                <div class="card-body">Work in progress</div>
+                <div class="card-header">
+                    <h4 class="text-center">
+                        <i class="material-icons md-30">question_answer</i>
+                        About Questions
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>All questions and answers are publicly available for viewing by anyone without the need for a user account.</li>
+                        <li>All questions are based on categories for ease of asking or finding.</li>
+                        <li>Anyone can ask a question as long as you are registered as a member, registration is quick and easy.</li>
+                        <li>Easy search filtering is available to find the questions you are looking for.</li>
+                    </ul>
+                    <button asp-action="Questions" class="btn btn-info">View Questions</button>
+                </div>
             </div>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="card card-green">
-                <div class="card-header"><h4>Answers</h4></div>
-                <div class="card-body">Work in progress</div>
+                <div class="card-header">
+                    <h4 class="text-center">
+                        <i class="material-icons md-30">quickreply</i>
+                        About Answers
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>Get fast professional advice from certified mechanics as well as other public members.</li>
+                        <li>View a diversity of answers for a particular question from public users and certified mechanics.</li>
+                        <li>When you post a question and receive answers you can mark the best suitable answer as accepted so that everyone knows the most helpful answer.</li>
+                    </ul>
+                </div>
             </div>
         </div>
-
+        <div class="col-md-2">
+        </div>
     </div>
 
 </form>

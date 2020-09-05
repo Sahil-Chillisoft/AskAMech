@@ -51,6 +51,12 @@ namespace AskAMech.Web.Controllers
             throw new NotImplementedException();
         }
 
+        [HttpGet]
+        public IActionResult Questions()
+        {
+            throw new NotImplementedException();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
