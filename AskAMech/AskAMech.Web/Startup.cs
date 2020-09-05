@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AskAMech.Core.Gateways.Repositories;
 using AskAMech.Core.UseCases;
+using AskAMech.Infrastructure.Data.Helpers;
 using AskAMech.Infrastructure.Data.Repositories;
+using AskAMech.Web.Presenters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,7 +30,11 @@ namespace AskAMech.Web
         {
             services.AddControllersWithViews();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            
+            var connectionString = new SqlHelper(Configuration.GetConnectionString("AskAMechDbConnectionString"));
+            services.AddSingleton(connectionString);
 
+            services.AddTransient<IModelPresenter, ModelPresenter>();
             services.AddTransient<ILoginUseCase, LoginUseCase>();
 
             services.AddTransient<ILoginRepository, LoginRepository>();
