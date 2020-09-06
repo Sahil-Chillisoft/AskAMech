@@ -18,8 +18,14 @@ namespace AskAMech.Core.UseCases
 
         public void Execute(LoginRequest request, IPresenter presenter)
         {
-            var isAuthenticated = _loginRepository.AuthenticateUserLogin(request.Email, request.Password);
-            var response = new LoginResponse { IsAuthenticated = isAuthenticated };
+            var user = _loginRepository.GetUser(request.Email, request.Password);
+            /*
+             * TODO: Check if user object is not null.
+             * TODO: If user obj is not null updated user last logged in and set user manager class details.
+             * TODO: If user obj is null then return back a error response to the controller.
+             */
+
+            var response = new LoginResponse {IsAuthenticated = false};
             presenter.Success(response);
         }
     }

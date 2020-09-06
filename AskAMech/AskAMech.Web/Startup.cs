@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using AskAMech.Core.Gateways.Repositories;
 using AskAMech.Core.UseCases;
 using AskAMech.Infrastructure.Data.Helpers;
+using AskAMech.Infrastructure.Data.Mapping;
 using AskAMech.Infrastructure.Data.Repositories;
 using AskAMech.Web.Presenters;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,6 +32,9 @@ namespace AskAMech.Web
         {
             services.AddControllersWithViews();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            
+            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(c => c.AddProfile<MappingProfiles>(), typeof(Startup));
             
             var connectionString = new SqlHelper(Configuration.GetConnectionString("AskAMechDbConnectionString"));
             services.AddSingleton(connectionString);

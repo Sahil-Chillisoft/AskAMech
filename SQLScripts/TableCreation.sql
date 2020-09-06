@@ -34,7 +34,7 @@ create table Users
 	Email varchar(100) not null unique,
 	Password varchar(100) not null,
 	UserRoleId int not null, 
-	EmployeeId int not null,
+	EmployeeId int null,
 	DateLastLoggedIn datetime null,
 	DateCreated datetime not null default getdate(),
 	DateLastModified datetime not null
