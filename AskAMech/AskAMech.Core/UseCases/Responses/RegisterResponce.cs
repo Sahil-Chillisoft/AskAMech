@@ -7,7 +7,7 @@ namespace AskAMech.Core.UseCases.Responses
 {
     public class RegisterResponce
     {
-       [Required(ErrorMessage ="Username Required")]
+        [Required(ErrorMessage = "Username Required!")]
         public string Username { get; set; }
 
         [Required(ErrorMessage = "Email address required!")]
@@ -16,7 +16,8 @@ namespace AskAMech.Core.UseCases.Responses
 
         [Required(ErrorMessage = "Password required!")]
         public string Password { get; set; }
-        [Required(ErrorMessage ="Re-enter Password required")]
+
+        [Required(ErrorMessage = "Please re-enter your password.")]
         public string ConfirmPassword { get; set; }
     }
 }

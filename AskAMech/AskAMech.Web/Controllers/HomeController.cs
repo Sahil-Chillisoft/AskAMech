@@ -52,14 +52,15 @@ namespace AskAMech.Web.Controllers
             _loginUseCase.Execute(request, _modelPresenter);
             return View("Index");
         }
-        
+
         [HttpGet]
         public IActionResult Register()
         {
             return PartialView("_Register");
         }
-         [HttpPost]
-         public IActionResult Register(RegisterRequest req)
+
+        [HttpPost]
+        public IActionResult Register(RegisterRequest request)
         {
             return View("index");
         }
