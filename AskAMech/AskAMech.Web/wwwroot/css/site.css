@@ -214,3 +214,39 @@ body {
     -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
+
+.bg-limegreen {
+    background-color: #32CD32 !important;
+    color: #fff;
+    cursor: pointer;
+}
+
+.bg-blue {
+    background-color: #2e9fc7 !important;
+    color: #fff;
+    cursor: pointer;
+}
+
+.bg-yellow {
+    background-color: #ffca33 !important;
+    color: #fff;
+    cursor: pointer;
+}
+
+.bg-purple {
+    background-color: #8016F0 !important;
+    color: #fff;
+    cursor: pointer;
+}
+
+.bg-green {
+    background-color: #02b868 !important;
+    color: #fff;
+    cursor: pointer;
+}
+
+.bg-orange {
+    background-color: #f75b12 !important;
+    color: #fff;
+    cursor: pointer;
+}

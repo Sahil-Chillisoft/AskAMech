@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewData["Title"] = "UserDashboard";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-1">
+            <i class="material-icons md-70">vertical_split</i>
+        </div>
+        <div class="col-md-4">
+            <h1 class="display-4">My Dashboard</h1>
+        </div>
+    </div>
+
+    <div class="row md-Padding-Top-50">
+        <div class="col-md-4">
+            <div id="divMyQuestions" title="View Questions Created" onclick="Navigate(id)">
+                <div class="info-box bg-limegreen hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons">folder_special</i>
+                    </div>
+                    <div class="content">
+                        <div class="material-icons-font">My Questions</div>
+                        <div class="material-icons-font"><b>5</b></div>@*Temp KPI Indicator For Illustration*@
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div id="divMyAnswers" title="View Questions Where You Have Submitted An Answer" onclick="Navigate(id)">
+                <div class="info-box bg-blue hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons">star</i>
+                    </div>
+                    <div class="content">
+                        <div class="material-icons-font">MyAnswers</div>
+                        <div class="material-icons-font"><b>10</b></div>@*Temp KPI Indicator For Illustration*@
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div id="divLatestQuestions" title="View Latest Questions" onclick="Navigate(id)">
+                <div class="info-box bg-yellow hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons">photo_filter</i>
+                    </div>
+                    <div class="content">
+                        <div class="material-icons-font">Latest Questions</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row md-Padding-Top-10">
+        <div class="col-md-4">
+            <div id="divNewQuestion" title="Post A New Question" onclick="Navigate(id)">
+                <div class="info-box bg-purple hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons">add_comment</i>
+                    </div>
+                    <div class="content">
+                        <div class="material-icons-font">Post A New Question</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div id="divMyProfile" title="View And Edit Your User Profile" onclick="Navigate(id)">
+                <div class="info-box bg-orange hover-expand-effect">
+                    <div class="icon">
+                        <i class="material-icons">account_circle</i>
+                    </div>
+                    <div class="content">
+                        <div class="material-icons-font">Edit My Profile</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/Dashboard/userDashboard.js"></script>
+}
