@@ -15,14 +15,6 @@
         });
     });
 
-    $('#ConfirmPassword').keyup(function () {
-        console.log('Key press event');
-        alert('Key press');
-        if ($("#Password").val() !== $("#ConfirmPassword").val()) {
-            $("#msg").html("Password do not match").css("color", "red");
-        }
-    });
-
     registerModal.on('click',
         '[data-save="modal"]',
         function (event) {
