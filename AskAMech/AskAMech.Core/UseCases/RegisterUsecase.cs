@@ -7,7 +7,7 @@ using AskAMech.Core.UseCases.Responses;
 
 namespace AskAMech.Core.UseCases
 {
-    public class RegisterUsecase:IRegisterUsecase
+    public class RegisterUsecase: IRegisterUsecase
     {
         private readonly IRegisterRepository _registerRepository;
         public RegisterUsecase(IRegisterRepository registerRepository)
