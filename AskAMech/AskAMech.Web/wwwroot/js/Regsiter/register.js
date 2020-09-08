@@ -13,6 +13,14 @@
                 registerModal.find('.modal').modal('show');
             }
         });
+<<<<<<< HEAD:AskAMech/AskAMech.Web/wwwroot/js/Regsiter/register.js
+=======
+
+        $("#ConfirmPassword").keyup(function () {
+            if ($("#Password").val() != $("#ConfirmPassword").val()) {
+                $("#msg").html("Password do not match").css("color", "red");
+            });
+>>>>>>> fixing reg:AskAMech/AskAMech.Web/wwwroot/js/Register.js
     });
 
     registerModal.on('click',
