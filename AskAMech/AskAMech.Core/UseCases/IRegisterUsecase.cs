@@ -6,7 +6,7 @@ using AskAMech.Core.UseCases.Requests;
 
 namespace AskAMech.Core.UseCases
 {
-    public interface IRegisterUsecase : IUseCase<RegisterRequest>
+    public interface IRegisterUseCase : IUseCase<RegisterRequest>
     {
     }
 }

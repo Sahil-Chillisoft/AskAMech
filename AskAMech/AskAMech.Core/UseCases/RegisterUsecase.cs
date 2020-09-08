@@ -7,13 +7,17 @@ using AskAMech.Core.UseCases.Responses;
 
 namespace AskAMech.Core.UseCases
 {
-    public class RegisterUsecase: IRegisterUsecase
+    public class RegisterUseCase: IRegisterUseCase
     {
         private readonly IRegisterRepository _registerRepository;
-        public RegisterUsecase(IRegisterRepository registerRepository)
+        public RegisterUseCase(IRegisterRepository registerRepository)
         {
             _registerRepository = registerRepository ?? throw new ArgumentNullException(nameof(registerRepository));
         }
 
+        public void Execute(RegisterRequest request, IPresenter presenter)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

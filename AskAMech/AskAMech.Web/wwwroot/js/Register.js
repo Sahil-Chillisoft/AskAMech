@@ -13,13 +13,15 @@
                 registerModal.find('.modal').modal('show');
             }
         });
-
-        $("#ConfirmPassword").keyup(function () {
-            if ($("#Password").val() != $("#ConfirmPassword").val()) {
-                $("#msg").html("Password do not match").css("color", "red");
-        });
     });
-    
+
+    $('#ConfirmPassword').keyup(function () {
+        console.log('Key press event');
+        alert('Key press');
+        if ($("#Password").val() !== $("#ConfirmPassword").val()) {
+            $("#msg").html("Password do not match").css("color", "red");
+        }
+    });
 
     registerModal.on('click',
         '[data-save="modal"]',
@@ -38,16 +40,16 @@
                     data: formData
                 })
                     .done(function (data) {
-                    var modalContent = $('.modal-body', data);
+                        var modalContent = $('.modal-body', data);
                         registerModal.find('.modal-body')
                             .replaceWith(modalContent);
                         var isValid = modalContent.find('[name="IsValid"]')
                             .val() === 'True';
-                    if (isValid) {
-                        registerModal.find('.modal').modal('hide');
-                        //TODO: Load the dashboard page if valid 
-                    }
-                });
+                        if (isValid) {
+                            registerModal.find('.modal').modal('hide');
+                            //TODO: Load the dashboard page if valid 
+                        }
+                    });
             }
             else {
                 return false;
