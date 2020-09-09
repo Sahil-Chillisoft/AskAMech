@@ -17,7 +17,8 @@ namespace AskAMech.Core.UseCases
 
         public void Execute(RegisterRequest request, IPresenter presenter)
         {
-            throw new NotImplementedException();
+
+           // throw new NotImplementedException();
         }
     }
 }
