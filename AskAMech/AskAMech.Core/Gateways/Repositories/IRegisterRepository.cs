@@ -8,6 +8,7 @@ namespace AskAMech.Core.Gateways.Repositories
 {
    public interface IRegisterRepository
     {
-        int Create(RegisterResponce registerResponce);
+        int CreateUserM1(RegisterUser register);
+        int CreateUserM2(RegisterUser register);
     }
 }

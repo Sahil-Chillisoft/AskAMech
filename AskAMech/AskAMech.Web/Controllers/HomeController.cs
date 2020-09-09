@@ -19,12 +19,15 @@ namespace AskAMech.Web.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IModelPresenter _modelPresenter;
         private readonly ILoginUseCase _loginUseCase;
+        private readonly IRegisterUseCase _registerUseCase;
 
-        public HomeController(ILogger<HomeController> logger, IModelPresenter modelPresenter, ILoginUseCase loginUseCase)
+        public HomeController(ILogger<HomeController> logger, IModelPresenter modelPresenter, ILoginUseCase loginUseCase, IRegisterUseCase registerUseCase)
         {
             _logger = logger;
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _loginUseCase = loginUseCase ?? throw new ArgumentNullException(nameof(loginUseCase));
+            _registerUseCase = registerUseCase ?? throw new ArgumentNullException(nameof(registerUseCase));
+            
         }
 
         [HttpGet]
@@ -62,6 +65,7 @@ namespace AskAMech.Web.Controllers
         [HttpPost]
         public IActionResult Register(RegisterRequest request)
         {
+            _registerUseCase.Execute(request, _modelPresenter);
             return View("index");
         }
 

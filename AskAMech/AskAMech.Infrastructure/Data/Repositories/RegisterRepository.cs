@@ -24,23 +24,35 @@ namespace AskAMech.Infrastructure.Data.Repositories
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public int Create(RegisterResponce registerResponce)
+        public int CreateUserM1(RegisterUser register)
         {
             #region SQL
-            var sql = "BEGIN; " +
+            var sql =
                 "INSERT INTO [dbo].[Users](Email, Password)" +
-                "VALUES(@Email, @Password)" +
-                "INSERT INTO [dbo].[UserProfile](Username)" +
-                "VALUES(@Username)" +
-                "COMMIT";
+                "VALUES(@Email, @Password)";
             #endregion
 
             #region Execution
             using var con = new SqlConnection(_sqlHelper.ConnectionString);
-            var added = con.Execute(sql, registerResponce);
+            var added = con.Execute(sql, register);
             #endregion
             return added;
 
         }
-   }
+
+        public int CreateUserM2(RegisterUser register)
+        {
+            #region SQL
+
+            var sql = "INSERT INTO [dbo].[UserProfile](Username)" +
+            "VALUES(@Username)";
+            #endregion
+
+            #region Execution
+            using var conn = new SqlConnection(_sqlHelper.ConnectionString);
+            var added = conn.Execute(sql, register);
+            #endregion
+            return added;
+        }
+    }
 }
