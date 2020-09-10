@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AskAMech.Core.Gateways.Repositories;
 using AskAMech.Core.UseCases;
+using AskAMech.Core.UseCases.Interfaces;
 using AskAMech.Infrastructure.Data.Helpers;
 using AskAMech.Infrastructure.Data.Mapping;
 using AskAMech.Infrastructure.Data.Repositories;
@@ -41,8 +42,10 @@ namespace AskAMech.Web
 
             services.AddTransient<IModelPresenter, ModelPresenter>();
             services.AddTransient<ILoginUseCase, LoginUseCase>();
+            services.AddTransient<IRegisterUseCase, RegisterUseCase>();
 
-            services.AddTransient<ILoginRepository, LoginRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IUserProfileRepository, UserProfileRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

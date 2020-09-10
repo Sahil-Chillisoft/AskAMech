@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AskAMech.Core;
 using AskAMech.Core.UseCases;
+using AskAMech.Core.UseCases.Interfaces;
 using AskAMech.Core.UseCases.Requests;
 using AskAMech.Core.UseCases.Responses;
 using Microsoft.AspNetCore.Mvc;

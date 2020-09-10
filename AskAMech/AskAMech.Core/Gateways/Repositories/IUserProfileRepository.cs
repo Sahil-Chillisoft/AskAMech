@@ -5,8 +5,9 @@ using AskAMech.Core.Domain;
 
 namespace AskAMech.Core.Gateways.Repositories
 {
-    public interface ILoginRepository
+    public interface IUserProfileRepository
     {
-        User GetUser(string email, string password);
+        UserProfile GetUserProfile(int userId);
+        void Create(UserProfile userProfile);
     }
 }

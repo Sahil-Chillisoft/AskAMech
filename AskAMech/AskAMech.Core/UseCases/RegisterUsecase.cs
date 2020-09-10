@@ -5,22 +5,36 @@ using AskAMech.Core.Gateways.Repositories;
 using AskAMech.Core.UseCases.Requests;
 using AskAMech.Core.UseCases.Responses;
 using AskAMech.Core.Domain;
+using AskAMech.Core.UseCases.Interfaces;
 
 namespace AskAMech.Core.UseCases
 {
     public class RegisterUseCase: IRegisterUseCase
     {
-        private readonly IRegisterRepository _registerRepository;
-        public RegisterUseCase(IRegisterRepository registerRepository)
+        private readonly IUserRepository _userRepository;
+        public RegisterUseCase(IUserRepository userRepository)
         {
-            _registerRepository = registerRepository ?? throw new ArgumentNullException(nameof(registerRepository));
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
 
         public void Execute(RegisterRequest request, IPresenter presenter)
         {
-            //var user = _registerRepository.CreateUserM1(RegisterUser reg);
+            var user = new User
+            {
+                Email = request.Email,
+                Password = request.Password,
+                UserRoleId = (int) UserRole.PublicUser,
+                DateLastLoggedIn = DateTime.Now,
+                DateCreated = DateTime.Now,
+                DateLastModified = DateTime.Now
+            };
+            var userId = CreateNewUserAndGetId(user);
+        }
 
-             // throw new NotImplementedException();
+        private int CreateNewUserAndGetId(User user)
+        {
+            var userId = _userRepository.Create(user);
+            return userId;
         }
     }
 }
