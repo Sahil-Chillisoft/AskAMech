@@ -11,7 +11,8 @@ namespace AskAMech.Infrastructure.Data.Mapping
     {
         public MappingProfiles()
         {
-            CreateMap<UserEntity, User>().ReverseMap();
+            CreateMap<UserEntity, User>();
+            CreateMap<UserProfileEntity, UserProfile>();
         }
     }
 }

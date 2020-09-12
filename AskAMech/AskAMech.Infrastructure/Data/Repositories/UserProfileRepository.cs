@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
 using AskAMech.Core.Domain;
 using AskAMech.Core.Gateways.Repositories;
+using AskAMech.Infrastructure.Data.Entities;
 using AskAMech.Infrastructure.Data.Helpers;
 using AutoMapper;
+using Dapper;
 
 namespace AskAMech.Infrastructure.Data.Repositories
 {
-    public class UserProfileRepository: IUserProfileRepository
+    public class UserProfileRepository : IUserProfileRepository
     {
         private readonly SqlHelper _sqlHelper;
         private readonly IMapper _mapper;
@@ -21,7 +25,25 @@ namespace AskAMech.Infrastructure.Data.Repositories
 
         public UserProfile GetUserProfile(int userId)
         {
-            throw new NotImplementedException();
+            #region SQL
+
+            var sql = "select * from UserProfile ";
+            sql += "where UserId = @UserId";
+            
+            #endregion
+
+            #region Execution
+            
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            var userProfile = connection.Query<UserProfileEntity>(sql,
+                new
+                {
+                    UserId = userId
+                }).FirstOrDefault();
+            
+            #endregion
+
+            return userProfile == null ? new UserProfile() : _mapper.Map<UserProfile>(userProfile);
         }
 
         public void Create(UserProfile userProfile)

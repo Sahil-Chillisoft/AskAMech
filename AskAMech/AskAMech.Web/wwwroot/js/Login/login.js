@@ -36,12 +36,10 @@
                     var isValid = modalContent.find('[name="IsValid"]').val() === 'True';
                     if (isValid) {
                         loginModal.find('.modal').modal('hide');
-                        //TODO: Load the dashboard page if valid 
+                        $('.modal-backdrop').remove();
+                        window.location.href = '/Dashboard/UserDashboard';
                     }
                 });
-            }
-            else {
-                return false;
             }
         });
 });

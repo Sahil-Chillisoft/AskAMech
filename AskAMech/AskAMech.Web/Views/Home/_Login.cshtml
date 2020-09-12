@@ -13,6 +13,7 @@
                 <form>
                     <div asp-validation-summary="ModelOnly">
                     </div>
+                    <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
                     <div class="row md-Padding-Top-10">
                         <div class="col-md-1">
                         </div>
@@ -53,6 +54,12 @@
                         </div>
                         <div class="col-md-10">
                             <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+                            <label id="LoginErrorMessage" class="text-danger">@Model?.LoginErrorMessage</label>
                         </div>
                     </div>
                 </form>

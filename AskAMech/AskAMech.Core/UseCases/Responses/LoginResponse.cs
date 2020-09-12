@@ -13,7 +13,7 @@ namespace AskAMech.Core.UseCases.Responses
 
         [Required(ErrorMessage = "Password required!")]
         public string Password { get; set; }
-        
-        public bool IsAuthenticated { get; set; }
+
+        public string? LoginErrorMessage { get; set; }
     }
 }

@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AskAMech.Web.Models;
 using AskAMech.Web.Presenters;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace AskAMech.Web.Controllers
 {
@@ -28,7 +29,7 @@ namespace AskAMech.Web.Controllers
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _loginUseCase = loginUseCase ?? throw new ArgumentNullException(nameof(loginUseCase));
             _registerUseCase = registerUseCase ?? throw new ArgumentNullException(nameof(registerUseCase));
-            
+
         }
 
         [HttpGet]
@@ -53,8 +54,14 @@ namespace AskAMech.Web.Controllers
         public IActionResult Login(LoginRequest request)
         {
             _loginUseCase.Execute(request, _modelPresenter);
-            //TODO: WIP.
-            return View("Index");
+
+            if (_modelPresenter.HasValidationErrors)
+            {
+                ModelState.AddModelError("Login", "Incorrect Login Details");
+                return PartialView("_Login", _modelPresenter.Model);
+            }
+
+            return PartialView("_Login");
         }
 
         [HttpGet]

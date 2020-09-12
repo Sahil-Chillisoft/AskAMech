@@ -12,27 +12,49 @@ namespace AskAMech.Core.UseCases
     public class LoginUseCase : ILoginUseCase
     {
         private readonly IUserRepository _userRepository;
-        public LoginUseCase(IUserRepository userRepository)
+        private readonly IUserProfileRepository _userProfileRepository;
+
+        public LoginUseCase(IUserRepository userRepository, IUserProfileRepository userProfileRepository)
         {
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _userProfileRepository = userProfileRepository ?? throw new ArgumentNullException(nameof(userProfileRepository));
         }
 
         public void Execute(LoginRequest request, IPresenter presenter)
         {
-            //TODO: WIP
             var user = new User
             {
                 Email = request.Email,
                 Password = request.Password
             };
-            /*
-             * TODO: Check if user object is not null.
-             * TODO: If user obj is not null updated user last logged in and set user manager class details.
-             * TODO: If user obj is null then return back a error response to the controller.
-             */
 
-            var response = new LoginResponse {IsAuthenticated = false};
-            presenter.Success(response);
+            var getUser = _userRepository.GetUser(user);
+            var response = new LoginResponse();
+            
+            if (getUser.Id == 0)
+            {
+                response.Email = request.Email;
+                response.Password = request.Password;
+                response.LoginErrorMessage = "Error: Email address or password is incorrect";
+                presenter.Error(response, true);   
+            }
+            else
+            {
+                var userProfile = _userProfileRepository.GetUserProfile(getUser.Id);
+                if (userProfile.Id == 0)
+                {
+                    response.Email = request.Email;
+                    response.Password = request.Password;
+                    response.LoginErrorMessage = "Error: No associated user profile found for this user account, please contact support";
+                    presenter.Error(response, true);
+                }
+                else
+                {
+                    UserSecurityManager userSecurityManager = new UserSecurityManager(getUser.Id, userProfile.Username, true);
+                    _userRepository.UpdateLastLoggedInDate(getUser.Id);
+                    presenter.Success(response);
+                }
+            }
         }
     }
 }

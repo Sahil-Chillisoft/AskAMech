@@ -9,5 +9,6 @@ namespace AskAMech.Web.Presenters
     public interface IModelPresenter : IPresenter
     {
         object Model { get; }
+        bool HasValidationErrors { get; }
     }
 }

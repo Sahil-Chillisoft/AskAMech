@@ -4,6 +4,8 @@ using System.Text;
 using AskAMech.Core.Domain;
 using AskAMech.Core.Gateways.Repositories;
 using System.Data.SqlClient;
+using System.Linq;
+using AskAMech.Infrastructure.Data.Entities;
 using AskAMech.Infrastructure.Data.Helpers;
 using AutoMapper;
 using Dapper;
@@ -23,7 +25,26 @@ namespace AskAMech.Infrastructure.Data.Repositories
 
         public User GetUser(User user)
         {
-            throw new NotImplementedException();
+            #region SQL
+
+            var sql = "select * from Users ";
+            sql += "where email = @Email and password = @Password ";
+
+            #endregion
+
+            #region Execution
+
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            var getUser = connection.Query<UserEntity>(sql,
+                new
+                {
+                    Email = user.Email,
+                    Password = user.Password
+                }).FirstOrDefault();
+
+            #endregion
+
+            return getUser == null ? new User() : _mapper.Map<User>(getUser);
         }
 
         public int GetUserBy(int id)
@@ -57,7 +78,31 @@ namespace AskAMech.Infrastructure.Data.Repositories
                     DateLastModified = user.DateLastModified
                 });
             #endregion
+
             return userId;
+        }
+
+        public void UpdateLastLoggedInDate(int userId)
+        {
+            #region SQL
+
+            var sql = "update Users ";
+            sql += "set DateLastLoggedIn = @DateLastLoggedIn ";
+            sql += "where Id = @UserId ";
+
+            #endregion
+
+            #region Execution
+
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            connection.Execute(sql,
+                new
+                {
+                    DateLastLoggedIn = DateTime.Now,
+                    UserId = userId
+                });
+
+            #endregion
         }
     }
 }
