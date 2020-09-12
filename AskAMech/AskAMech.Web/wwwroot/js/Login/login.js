@@ -25,14 +25,19 @@
 
             if ($form.valid()) {
                 var formData = $form.serialize();
+                loginModal.find('[id="loadingImg"]').removeClass('hide');
+
                 $.ajax({
                     url: 'Home/Login',
                     type: 'POST',
                     cache: false,
                     data: formData
                 }).done(function (data) {
+                    loginModal.find('[id="loadingImg"]').addClass('hide');
+
                     var modalContent = $('.modal-body', data);
                     loginModal.find('.modal-body').replaceWith(modalContent);
+
                     var isValid = modalContent.find('[name="IsValid"]').val() === 'True';
                     if (isValid) {
                         loginModal.find('.modal').modal('hide');
