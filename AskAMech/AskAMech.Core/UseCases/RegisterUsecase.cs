@@ -19,6 +19,7 @@ namespace AskAMech.Core.UseCases
 
         public void Execute(RegisterRequest request, IPresenter presenter)
         {
+
             var user = new User
             {
                 Email = request.Email,
@@ -30,6 +31,7 @@ namespace AskAMech.Core.UseCases
             };
             var userId = CreateNewUserAndGetId(user);
         }
+
 
         private int CreateNewUserAndGetId(User user)
         {
