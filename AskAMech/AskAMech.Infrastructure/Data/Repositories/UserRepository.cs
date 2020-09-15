@@ -60,7 +60,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public int Create(User user)
         {
             #region SQL
-            var sql = "insert into Users (Email, Password, UserRoleId, DateLastLoggedIn, DateCreated, DateLastModified ";
+            var sql = "insert into Users (Email, Password, UserRoleId, DateLastLoggedIn, DateCreated, DateLastModified)";
             sql += "output inserted.Id ";
             sql += "values(@Email, @Password, @UserRoleId, @DateLastLoggedIn, @DateCreated, @DateLastModified)";
             #endregion

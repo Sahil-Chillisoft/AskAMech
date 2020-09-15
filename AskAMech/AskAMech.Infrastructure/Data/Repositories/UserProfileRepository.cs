@@ -46,9 +46,25 @@ namespace AskAMech.Infrastructure.Data.Repositories
             return userProfile == null ? new UserProfile() : _mapper.Map<UserProfile>(userProfile);
         }
 
-        public void Create(UserProfile userProfile)
+        public string Create(UserProfile userProfile)
         {
-            throw new NotImplementedException();
+            #region SQL
+            var sql = "insert into UserProfile (Username,DateLastModified)";
+            sql += "output inserted.Username ";
+            sql += "values(@Username, @DateLastModified)";
+            #endregion
+
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            var usename = connection.ExecuteScalar<string>(sql,
+                param: new
+                {
+                    Username = userProfile.Username,
+                    DateLastModified = userProfile.DateLastModified
+                });
+            #endregion
+
+            return usename;
         }
     }
 }

@@ -8,6 +8,6 @@ namespace AskAMech.Core.Gateways.Repositories
     public interface IUserProfileRepository
     {
         UserProfile GetUserProfile(int userId);
-        void Create(UserProfile userProfile);
+        string Create(UserProfile userProfile);
     }
 }

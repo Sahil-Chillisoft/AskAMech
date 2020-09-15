@@ -9,11 +9,13 @@ using AskAMech.Core.UseCases.Interfaces;
 
 namespace AskAMech.Core.UseCases
 {
-    public class RegisterUseCase: IRegisterUseCase
+    public class RegisterUseCase : IRegisterUseCase
     {
         private readonly IUserRepository _userRepository;
-        public RegisterUseCase(IUserRepository userRepository)
+        private readonly IUserProfileRepository _userProfileRepository;
+        public RegisterUseCase(IUserRepository userRepository, IUserProfileRepository userProfileRepository)
         {
+            _userProfileRepository = userProfileRepository ?? throw new ArgumentNullException(nameof(userProfileRepository));
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
 
@@ -24,12 +26,19 @@ namespace AskAMech.Core.UseCases
             {
                 Email = request.Email,
                 Password = request.Password,
-                UserRoleId = (int) UserRole.PublicUser,
+                UserRoleId = (int)UserRole.PublicUser,
                 DateLastLoggedIn = DateTime.Now,
                 DateCreated = DateTime.Now,
                 DateLastModified = DateTime.Now
             };
             var userId = CreateNewUserAndGetId(user);
+
+            var userProfile = new UserProfile
+            {
+                Username = request.Username,
+                DateLastModified = DateTime.Now
+            };
+            var username = CreateNewUser(userProfile);
         }
 
 
@@ -37,6 +46,12 @@ namespace AskAMech.Core.UseCases
         {
             var userId = _userRepository.Create(user);
             return userId;
+        }
+        private string CreateNewUser(UserProfile userProfile)
+        {
+            var username = _userProfileRepository.Create(userProfile);
+            return username;
+
         }
     }
 }

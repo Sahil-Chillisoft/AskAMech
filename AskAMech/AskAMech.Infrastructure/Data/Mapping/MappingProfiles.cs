@@ -13,6 +13,7 @@ namespace AskAMech.Infrastructure.Data.Mapping
         {
             CreateMap<UserEntity, User>();
             CreateMap<UserProfileEntity, UserProfile>();
+            
         }
     }
 }
