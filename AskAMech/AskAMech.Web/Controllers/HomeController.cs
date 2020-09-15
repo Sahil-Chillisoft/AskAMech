@@ -74,6 +74,7 @@ namespace AskAMech.Web.Controllers
         public IActionResult Register(RegisterRequest request)
         {
             _registerUseCase.Execute(request, _modelPresenter);
+            
             return View("index");
         }
 

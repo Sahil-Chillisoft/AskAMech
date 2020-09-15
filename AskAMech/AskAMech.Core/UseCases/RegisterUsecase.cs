@@ -35,6 +35,7 @@ namespace AskAMech.Core.UseCases
 
             var userProfile = new UserProfile
             {
+                UserId = userId,
                 Username = request.Username,
                 DateLastModified = DateTime.Now
             };

@@ -49,9 +49,9 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public string Create(UserProfile userProfile)
         {
             #region SQL
-            var sql = "insert into UserProfile (Username,DateLastModified)";
+            var sql = "insert into UserProfile (UserId,Username,DateLastModified)";
             sql += "output inserted.Username ";
-            sql += "values(@Username, @DateLastModified)";
+            sql += "values(@UserId, @Username, @DateLastModified)";
             #endregion
 
             #region Execution
@@ -59,6 +59,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             var usename = connection.ExecuteScalar<string>(sql,
                 param: new
                 {
+                    UserId=userProfile.UserId,
                     Username = userProfile.Username,
                     DateLastModified = userProfile.DateLastModified
                 });
