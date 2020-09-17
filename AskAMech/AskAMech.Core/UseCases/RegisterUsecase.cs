@@ -22,6 +22,25 @@ namespace AskAMech.Core.UseCases
         public void Execute(RegisterRequest request, IPresenter presenter)
         {
 
+            //TODO: Follow the following steps in achieving the validation for the user email and username.
+            /*
+             * Perform check to see if user email already exists in User table (you will need to create a repository method in the UserRepo for this and write sql to do the check)
+             * Perform check to see if username already exists in UserProfile table (you will need to create a repository method for this in the UserProfileRepo and write sql to do the check)
+             * If user email or username already exists then return appropriate error back to the controller via the error presenter.
+             * If user email and username do not exist then create the user.
+             * When the user is created get back the user id.
+             * Create the user profile afterwards with the user id.
+             * Once the user profile is created load the UserManager Constructor like how it is done in the LoginUseCase
+             * Finally return your success presenter.
+             */
+
+            /*
+             Sample Code:
+             var isExistingEmail = _userRepo.CheckExistingUserEmail(email address parameter);
+             var isExistingUsername = _userProfileRepo(username parameter);
+             ***Use if statements to drive the logic flow.***
+             */
+
             var user = new User
             {
                 Email = request.Email,
@@ -31,8 +50,7 @@ namespace AskAMech.Core.UseCases
                 DateCreated = DateTime.Now,
                 DateLastModified = DateTime.Now
             };
-
-            var userId = CreateNewUserAndGetId(user);
+            var userId = _userRepository.Create(user);
 
             var userProfile = new UserProfile
             {
@@ -40,13 +58,12 @@ namespace AskAMech.Core.UseCases
                 Username = request.Username,
                 DateLastModified = DateTime.Now
             };
-            var username = CreateNewUser(userProfile);
+            var username = _userProfileRepository.Create(userProfile);
 
-
-            var getuser = _userRepository.GetUser(user);
+            var getUser = _userRepository.GetUser(user);
             var response = new RegisterResponce();
 
-            if(getuser.Id==0)
+            if (getUser.Id == 0)
             {
                 response.Email = request.Email;
                 response.ErrorMessage = "Error: the email you entered already exist";
@@ -54,7 +71,7 @@ namespace AskAMech.Core.UseCases
             }
             else
             {
-                var usersProfile = _userProfileRepository.GetUserProfile(getuser.Id);
+                var usersProfile = _userProfileRepository.GetUserProfile(getUser.Id);
                 if (usersProfile.Id == 0)
                 {
                     response.Username = request.Username;
@@ -62,23 +79,10 @@ namespace AskAMech.Core.UseCases
                     presenter.Error(response, true);
                 }
                 else
-                { 
+                {
                     presenter.Success(response);
                 }
             }
-        }
-
-
-        private int CreateNewUserAndGetId(User user)
-        {
-            var userId = _userRepository.Create(user);
-            return userId;
-        }
-        private string CreateNewUser(UserProfile userProfile)
-        {
-            var username = _userProfileRepository.Create(userProfile);
-            return username;
-
         }
     }
 }
