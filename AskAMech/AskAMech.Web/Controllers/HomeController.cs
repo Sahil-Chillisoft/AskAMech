@@ -74,8 +74,14 @@ namespace AskAMech.Web.Controllers
         public IActionResult Register(RegisterRequest request)
         {
             _registerUseCase.Execute(request, _modelPresenter);
-            
-            return View("index");
+
+            if (_modelPresenter.HasValidationErrors)
+            {
+                ModelState.AddModelError("Register", "Incorrect Login Details");
+                return PartialView("_Register", _modelPresenter.Model);
+            }
+
+            return PartialView("_Register");
         }
 
         [HttpGet]

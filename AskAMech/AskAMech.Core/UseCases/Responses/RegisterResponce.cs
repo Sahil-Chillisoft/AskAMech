@@ -19,5 +19,6 @@ namespace AskAMech.Core.UseCases.Responses
 
         [Required(ErrorMessage = "Please re-enter your password.")]
         public string ConfirmPassword { get; set; }
+        public string? ErrorMessage { get; set; }
     }
 }

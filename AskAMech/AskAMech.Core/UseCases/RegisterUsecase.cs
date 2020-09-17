@@ -31,6 +31,7 @@ namespace AskAMech.Core.UseCases
                 DateCreated = DateTime.Now,
                 DateLastModified = DateTime.Now
             };
+
             var userId = CreateNewUserAndGetId(user);
 
             var userProfile = new UserProfile
@@ -40,6 +41,31 @@ namespace AskAMech.Core.UseCases
                 DateLastModified = DateTime.Now
             };
             var username = CreateNewUser(userProfile);
+
+
+            var getuser = _userRepository.GetUser(user);
+            var response = new RegisterResponce();
+
+            if(getuser.Id==0)
+            {
+                response.Email = request.Email;
+                response.ErrorMessage = "Error: the email you entered already exist";
+                presenter.Error(response, true);
+            }
+            else
+            {
+                var usersProfile = _userProfileRepository.GetUserProfile(getuser.Id);
+                if (usersProfile.Id == 0)
+                {
+                    response.Username = request.Username;
+                    response.ErrorMessage = "The username you entered has been used";
+                    presenter.Error(response, true);
+                }
+                else
+                { 
+                    presenter.Success(response);
+                }
+            }
         }
 
 
