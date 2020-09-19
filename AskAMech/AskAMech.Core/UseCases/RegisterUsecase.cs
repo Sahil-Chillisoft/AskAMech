@@ -50,36 +50,35 @@ namespace AskAMech.Core.UseCases
                 DateCreated = DateTime.Now,
                 DateLastModified = DateTime.Now
             };
-            var userId = _userRepository.Create(user);
-
-            var userProfile = new UserProfile
-            {
-                UserId = userId,
-                Username = request.Username,
-                DateLastModified = DateTime.Now
-            };
-            var username = _userProfileRepository.Create(userProfile);
-
-            var getUser = _userRepository.GetUser(user);
+            var isExistingEmail = _userRepository.IsUserEmailExist(user);
             var response = new RegisterResponce();
 
-            if (getUser.Id == 0)
+            if (isExistingEmail == true)
             {
                 response.Email = request.Email;
-                response.ErrorMessage = "Error: the email you entered already exist";
+                response.RegisterErrorMessage = "Error: the email you entered already exist";
                 presenter.Error(response, true);
             }
-            else
+             else
             {
-                var usersProfile = _userProfileRepository.GetUserProfile(getUser.Id);
-                if (usersProfile.Id == 0)
+                var userId = _userRepository.Create(user);
+
+                var userProfile = new UserProfile
+                {
+                    UserId = userId,
+                    Username = request.Username,
+                    DateLastModified = DateTime.Now
+                };
+                var isExistingUsername = _userProfileRepository.IsUserNameExist(userProfile);
+                if (isExistingUsername == true)
                 {
                     response.Username = request.Username;
-                    response.ErrorMessage = "The username you entered has been used";
+                    response.RegisterErrorMessage = "The username you entered has been used";
                     presenter.Error(response, true);
                 }
                 else
                 {
+                    var username = _userProfileRepository.Create(userProfile);
                     presenter.Success(response);
                 }
             }

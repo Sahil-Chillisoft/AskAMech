@@ -51,10 +51,26 @@ namespace AskAMech.Infrastructure.Data.Repositories
         {
             throw new NotImplementedException();
         }
-
-        public int GetUserBy(string email)
+        public int GetUserBy(string  email)
         {
             throw new NotImplementedException();
+        }
+         //Email
+        public bool IsUserEmailExist(User user)
+        {
+            #region SQL
+           var sql= "select cast(case when exists (select 1 from Users where Email =@Email) then 1 else 0 end as bit)";
+           // var sql = "select 1 where exists from Users";
+            //sql += "where Email = @Email";
+            #endregion
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            var getEmailExist = connection.ExecuteScalar<bool>(sql, param: new
+            {
+                Email = user.Email
+            });
+            #endregion
+            return getEmailExist;
         }
 
         public int Create(User user)

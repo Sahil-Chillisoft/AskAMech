@@ -46,6 +46,23 @@ namespace AskAMech.Infrastructure.Data.Repositories
             return userProfile == null ? new UserProfile() : _mapper.Map<UserProfile>(userProfile);
         }
 
+        public bool IsUserNameExist(UserProfile userProfile)
+        {
+            #region SQL
+            var sql = "select cast(case when exists (select 1 from UserProfile where Username = @Username) then 1 else 0 end as bit)";
+            //var sql = "select Username from UserProfile";
+            //sql += "where Username=@Username";
+            #endregion
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            var usernameExist = connection.ExecuteScalar<bool>(sql, param: new
+            {
+                Username = userProfile.Username
+            });
+            #endregion
+            return usernameExist;
+        }
+
         public string Create(UserProfile userProfile)
         {
             #region SQL
