@@ -13,6 +13,7 @@ namespace AskAMech.Core.UseCases
     {
         private readonly IUserRepository _userRepository;
         private readonly IUserProfileRepository _userProfileRepository;
+       
         public RegisterUseCase(IUserRepository userRepository, IUserProfileRepository userProfileRepository)
         {
             _userProfileRepository = userProfileRepository ?? throw new ArgumentNullException(nameof(userProfileRepository));
@@ -21,26 +22,42 @@ namespace AskAMech.Core.UseCases
 
         public void Execute(RegisterRequest request, IPresenter presenter)
         {
+            var response = new RegisterResponse();
 
-            //TODO: Follow the following steps in achieving the validation for the user email and username.
-            /*
-             * Perform check to see if user email already exists in User table (you will need to create a repository method in the UserRepo for this and write sql to do the check)
-             * Perform check to see if username already exists in UserProfile table (you will need to create a repository method for this in the UserProfileRepo and write sql to do the check)
-             * If user email or username already exists then return appropriate error back to the controller via the error presenter.
-             * If user email and username do not exist then create the user.
-             * When the user is created get back the user id.
-             * Create the user profile afterwards with the user id.
-             * Once the user profile is created load the UserManager Constructor like how it is done in the LoginUseCase
-             * Finally return your success presenter.
-             */
+            var isExistingEmail = _userRepository.IsExistingUserEmail(request.Email);
+            if (!isExistingEmail)
+            {
+                var isExistingUsername = _userProfileRepository.IsExistingUsername(request.Username);
+                if (!isExistingUsername)
+                {
 
-            /*
-             Sample Code:
-             var isExistingEmail = _userRepo.CheckExistingUserEmail(email address parameter);
-             var isExistingUsername = _userProfileRepo(username parameter);
-             ***Use if statements to drive the logic flow.***
-             */
+                    var userId = CreateUserAndReturnId(request);
+                    CreateUserProfile(userId, request.Username);
+                    UserSecurityManager userSecurityManager = new UserSecurityManager(userId, request.Username, true);
+                    _userRepository.UpdateLastLoggedInDate(userId);
+                    presenter.Success(response);
+                }
+                else
+                {
+                    response.Email = request.Email;
+                    response.Username = request.Username;
+                    response.Password = request.Password;
+                    response.RegisterErrorMessage = "Error: The username you entered already exists";
+                    presenter.Error(response, true);
+                }
+            }
+            else
+            {
+                response.Email = request.Email;
+                response.Username = request.Username;
+                response.Password = request.Password;
+                response.RegisterErrorMessage = "Error: The email you entered already exists";
+                presenter.Error(response, true);
+            }
+        }
 
+        private int CreateUserAndReturnId(RegisterRequest request)
+        {
             var user = new User
             {
                 Email = request.Email,
@@ -50,38 +67,20 @@ namespace AskAMech.Core.UseCases
                 DateCreated = DateTime.Now,
                 DateLastModified = DateTime.Now
             };
-            var isExistingEmail = _userRepository.IsUserEmailExist(user);
-            var response = new RegisterResponce();
 
-            if (isExistingEmail == true)
-            {
-                response.Email = request.Email;
-                response.RegisterErrorMessage = "Error: the email you entered already exist";
-                presenter.Error(response, true);
-            }
-             else
-            {
-                var userId = _userRepository.Create(user);
+            return _userRepository.Create(user);
+        }
 
-                var userProfile = new UserProfile
-                {
-                    UserId = userId,
-                    Username = request.Username,
-                    DateLastModified = DateTime.Now
-                };
-                var isExistingUsername = _userProfileRepository.IsUserNameExist(userProfile);
-                if (isExistingUsername == true)
-                {
-                    response.Username = request.Username;
-                    response.RegisterErrorMessage = "The username you entered has been used";
-                    presenter.Error(response, true);
-                }
-                else
-                {
-                    var username = _userProfileRepository.Create(userProfile);
-                    presenter.Success(response);
-                }
-            }
+        private void CreateUserProfile(int userId, string username)
+        {
+            var userProfile = new UserProfile
+            {
+                UserId = userId,
+                Username = username,
+                DateLastModified = DateTime.Now
+            };
+
+            _userProfileRepository.Create(userProfile);
         }
     }
 }

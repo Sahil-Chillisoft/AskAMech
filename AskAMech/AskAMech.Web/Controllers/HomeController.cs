@@ -77,7 +77,7 @@ namespace AskAMech.Web.Controllers
 
             if (_modelPresenter.HasValidationErrors)
             {
-                ModelState.AddModelError("Register", "Incorrect Login Details");
+                ModelState.AddModelError("Register", "Registration Details Invalid");
                 return PartialView("_Register", _modelPresenter.Model);
             }
 

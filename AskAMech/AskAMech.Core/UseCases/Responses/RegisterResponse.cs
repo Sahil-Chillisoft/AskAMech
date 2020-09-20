@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AskAMech.Core.UseCases.Responses
 {
-    public class RegisterResponce
+    public class RegisterResponse
     {
         [Required(ErrorMessage = "Username Required!")]
         public string Username { get; set; }
@@ -19,6 +19,7 @@ namespace AskAMech.Core.UseCases.Responses
 
         [Required(ErrorMessage = "Please re-enter your password.")]
         public string ConfirmPassword { get; set; }
+        
         public string? RegisterErrorMessage { get; set; }
     }
 }

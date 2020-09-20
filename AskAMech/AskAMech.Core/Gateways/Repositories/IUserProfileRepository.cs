@@ -8,7 +8,7 @@ namespace AskAMech.Core.Gateways.Repositories
     public interface IUserProfileRepository
     {
         UserProfile GetUserProfile(int userId);
-        bool IsUserNameExist(UserProfile userProfile);
+        bool IsExistingUsername(string username);
         string Create(UserProfile userProfile);
     }
 }

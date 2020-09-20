@@ -13,8 +13,13 @@ namespace AskAMech.Core.Domain
             IsAuthenticated = isAuthenticated;
         }
 
-        public static int UserId { get; set; }
-        public static string Username { get; set; }
-        public static bool IsAuthenticated { get; set; } = false;
+        public static int UserId { get; private set; }
+        public static string Username { get; private set; }
+        public static bool IsAuthenticated { get; private set; } = false;
+
+        public static void SignOut()
+        {
+            UserSecurityManager userSecurity = new UserSecurityManager(0, string.Empty, false);
+        }
     }
 }

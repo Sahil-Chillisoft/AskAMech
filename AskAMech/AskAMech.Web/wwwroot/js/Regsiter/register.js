@@ -26,32 +26,24 @@
                     var formData = $form.serialize();
                     registerModal.find('[id="loadingImg"]').removeClass('hide');
 
-
                     $.ajax({
                         url: 'Home/Register',
                         type: 'POST',
                         cache: false,
                         data: formData
-                    })
-                        .done(function (data) {
-                            registerModal.find('[id="loadingImg"]').removeClass('hide');
+                    }).done(function (data) {
+                        registerModal.find('[id="loadingImg"]').addClass('hide');
 
-                            var modalContent = $('.modal-body', data);
-                            registerModal.find('.modal-body')
-                                .replaceWith(modalContent);
+                        var modalContent = $('.modal-body', data);
+                        registerModal.find('.modal-body').replaceWith(modalContent);
 
-                            var isValid = modalContent.find('[name="IsValid"]')
-                                .val() === 'True';
-                            if (isValid) {
-                                registerModal.find('.modal').modal('hide');
-                                $('.modal-backdrop').remove();
-                                window.location.href = '/Home/Index';
-                                //TODO: Load the dashboard page if valid 
-                            }
-                        });
-                }
-                else {
-                    return false;
+                        var isValid = modalContent.find('[name="IsValid"]').val() === 'True';
+                        if (isValid) {
+                            registerModal.find('.modal').modal('hide');
+                            $('.modal-backdrop').remove();
+                            window.location.href = '/Dashboard/UserDashboard';
+                        }
+                    });
                 }
             });
     });

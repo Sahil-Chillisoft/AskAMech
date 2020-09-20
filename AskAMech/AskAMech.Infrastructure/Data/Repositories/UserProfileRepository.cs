@@ -29,38 +29,44 @@ namespace AskAMech.Infrastructure.Data.Repositories
 
             var sql = "select * from UserProfile ";
             sql += "where UserId = @UserId";
-            
+
             #endregion
 
             #region Execution
-            
+
             using var connection = new SqlConnection(_sqlHelper.ConnectionString);
             var userProfile = connection.Query<UserProfileEntity>(sql,
                 new
                 {
                     UserId = userId
                 }).FirstOrDefault();
-            
+
             #endregion
 
             return userProfile == null ? new UserProfile() : _mapper.Map<UserProfile>(userProfile);
         }
 
-        public bool IsUserNameExist(UserProfile userProfile)
+        public bool IsExistingUsername(string username)
         {
             #region SQL
-            var sql = "select cast(case when exists (select 1 from UserProfile where Username = @Username) then 1 else 0 end as bit)";
-            //var sql = "select Username from UserProfile";
-            //sql += "where Username=@Username";
+            var sql = "select case when exists ";
+            sql += "( ";
+            sql += "select username from UserProfile ";
+            sql += "where username = @Username ";
+            sql += ") then 1 else 0 ";
+            sql += "end";
             #endregion
+
             #region Execution
             using var connection = new SqlConnection(_sqlHelper.ConnectionString);
-            var usernameExist = connection.ExecuteScalar<bool>(sql, param: new
-            {
-                Username = userProfile.Username
-            });
+            var isExistingName = connection.ExecuteScalar<bool>(sql,
+                param: new
+                {
+                    Username = username
+                });
             #endregion
-            return usernameExist;
+
+            return isExistingName;
         }
 
         public string Create(UserProfile userProfile)
@@ -76,7 +82,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             var usename = connection.ExecuteScalar<string>(sql,
                 param: new
                 {
-                    UserId=userProfile.UserId,
+                    UserId = userProfile.UserId,
                     Username = userProfile.Username,
                     DateLastModified = userProfile.DateLastModified
                 });
