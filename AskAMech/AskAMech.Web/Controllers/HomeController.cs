@@ -90,6 +90,12 @@ namespace AskAMech.Web.Controllers
             throw new NotImplementedException();
         }
 
+        [HttpPost]
+        public IActionResult SignOut()
+        {
+            throw new NotImplementedException();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
