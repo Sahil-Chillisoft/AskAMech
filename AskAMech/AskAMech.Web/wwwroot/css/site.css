@@ -15,14 +15,6 @@ a.navbar-brand {
     cursor: pointer;
 }
 
-.homebackground {
-    background-image: url('../images/gears.gif');
-    background-position: top;
-    background-size: contain;
-    background-repeat: repeat;
-    padding-top: 50px;
-}
-
 .loadingImage {
     width: 45px;
     height: 45px;
@@ -227,12 +219,18 @@ body {
         }
 
 .bg-limegreen {
-    background-color: #32CD32 !important;
+    background-color: #32cd32 !important;
     color: #fff;
     cursor: pointer;
 }
 
 .bg-blue {
+    background-color: #0099ff !important;
+    color: #fff;
+    cursor: pointer;
+}
+
+.bg-blue2 {
     background-color: #2e9fc7 !important;
     color: #fff;
     cursor: pointer;
@@ -245,7 +243,7 @@ body {
 }
 
 .bg-purple {
-    background-color: #8016F0 !important;
+    background-color: #ac00e6 !important;
     color: #fff;
     cursor: pointer;
 }
@@ -261,28 +259,9 @@ body {
     color: #fff;
     cursor: pointer;
 }
-.bg-olive {
-    background-color: #808000 !important;
-    color: #fff;
-    cursor: pointer;
-}
-.bg-aqua {
-    background-color: #00FFFF !important;
-    color: #fff;
-    cursor: pointer;
-}
-.bg-teal {
-    background-color: #008080 !important;
-    color: #fff;
-    cursor: pointer;
-}
-.bg-fuchsia {
-    background-color: #FF00FF !important;
-    color: #fff;
-    cursor: pointer;
-}
-.bg-navy {
-    background-color: #000080 !important;
+
+.bg-lilac {
+    background-color: #cc3399 !important;
     color: #fff;
     cursor: pointer;
 }

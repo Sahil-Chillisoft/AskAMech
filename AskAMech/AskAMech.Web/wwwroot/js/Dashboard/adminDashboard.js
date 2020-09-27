@@ -6,7 +6,7 @@
         case 'divNewEmployees':
             window.location.href = '';
             break;
-        case 'divUserFromEmployee':
+        case 'divCreateUserFromEmployee':
             window.location.href = '';
             break;
         case 'divNewQuestionCategory':
