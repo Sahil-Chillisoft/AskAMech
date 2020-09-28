@@ -26,10 +26,11 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public User GetUser(User user)
         {
             #region SQL
-
-            var sql = "select * from Users ";
-            sql += "where email = @Email and password = @Password ";
-
+            var sql = @"
+                        select * 
+                        from Users 
+                        where email = @Email and password = @Password
+                      ";
             #endregion
 
             #region Execution
@@ -60,12 +61,15 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public bool IsExistingUserEmail(string email)
         {
             #region SQL
-            var sql = "select case when exists ";
-            sql += "( ";
-            sql += "select email from Users ";
-            sql += "where email = @Email ";
-            sql += ") then 1 else 0 ";
-            sql += "end";
+            var sql = @"
+                        select case when exists 
+                        (
+                            select email 
+                            from Users 
+                            where email = @Email 
+                        ) then 1 else 0
+                        end
+                      ";
             #endregion
 
             #region Execution
@@ -83,9 +87,11 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public int Create(User user)
         {
             #region SQL
-            var sql = "insert into Users (Email, Password, UserRoleId, DateLastLoggedIn, DateCreated, DateLastModified)";
-            sql += "output inserted.Id ";
-            sql += "values(@Email, @Password, @UserRoleId, @DateLastLoggedIn, @DateCreated, @DateLastModified)";
+            var sql = @"
+                        insert into Users (Email, Password, UserRoleId, DateLastLoggedIn, DateCreated, DateLastModified)
+                        output inserted.Id 
+                        values(@Email, @Password, @UserRoleId, @DateLastLoggedIn, @DateCreated, @DateLastModified)
+                      ";
             #endregion
 
             #region Execution
@@ -108,11 +114,11 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public void UpdateLastLoggedInDate(int userId)
         {
             #region SQL
-
-            var sql = "update Users ";
-            sql += "set DateLastLoggedIn = @DateLastLoggedIn ";
-            sql += "where Id = @UserId ";
-
+            var sql = @"
+                        update Users 
+                        set DateLastLoggedIn = @DateLastLoggedIn 
+                        where Id = @UserId 
+                      ";
             #endregion
 
             #region Execution

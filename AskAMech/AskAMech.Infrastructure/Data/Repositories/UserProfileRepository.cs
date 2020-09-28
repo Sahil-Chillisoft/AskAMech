@@ -26,10 +26,11 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public UserProfile GetUserProfile(int userId)
         {
             #region SQL
-
-            var sql = "select * from UserProfile ";
-            sql += "where UserId = @UserId";
-
+            var sql = @"
+                        select * 
+                        from UserProfile 
+                        where UserId = @UserId
+                      ";
             #endregion
 
             #region Execution
@@ -49,12 +50,15 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public bool IsExistingUsername(string username)
         {
             #region SQL
-            var sql = "select case when exists ";
-            sql += "( ";
-            sql += "select username from UserProfile ";
-            sql += "where username = @Username ";
-            sql += ") then 1 else 0 ";
-            sql += "end";
+            var sql = @"
+                        select case when exists 
+                        ( 
+                            select username 
+                            from UserProfile 
+                            where username = @Username 
+                        ) then 1 else 0 
+                        end
+                     ";
             #endregion
 
             #region Execution
@@ -69,17 +73,18 @@ namespace AskAMech.Infrastructure.Data.Repositories
             return isExistingName;
         }
 
-        public string Create(UserProfile userProfile)
+        public void Create(UserProfile userProfile)
         {
             #region SQL
-            var sql = "insert into UserProfile (UserId,Username,DateLastModified)";
-            sql += "output inserted.Username ";
-            sql += "values(@UserId, @Username, @DateLastModified)";
+            var sql = @"
+                        insert into UserProfile (UserId, Username, DateLastModified)                        
+                        values(@UserId, @Username, @DateLastModified)
+                      ";
             #endregion
 
             #region Execution
             using var connection = new SqlConnection(_sqlHelper.ConnectionString);
-            var usename = connection.ExecuteScalar<string>(sql,
+            connection.Execute(sql,
                 param: new
                 {
                     UserId = userProfile.UserId,
@@ -87,8 +92,6 @@ namespace AskAMech.Infrastructure.Data.Repositories
                     DateLastModified = userProfile.DateLastModified
                 });
             #endregion
-
-            return usename;
         }
     }
 }
