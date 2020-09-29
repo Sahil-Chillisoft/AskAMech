@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AskAMech.Core;
+using AskAMech.Core.Domain;
 using AskAMech.Core.UseCases;
 using AskAMech.Core.UseCases.Interfaces;
 using AskAMech.Core.UseCases.Requests;
@@ -93,7 +94,8 @@ namespace AskAMech.Web.Controllers
         [HttpPost]
         public IActionResult SignOut()
         {
-            throw new NotImplementedException();
+            UserSecurityManager.SignOut();
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

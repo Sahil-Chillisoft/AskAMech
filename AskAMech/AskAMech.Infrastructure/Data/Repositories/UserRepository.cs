@@ -48,14 +48,26 @@ namespace AskAMech.Infrastructure.Data.Repositories
             return getUser == null ? new User() : _mapper.Map<User>(getUser);
         }
 
-        public int GetUserBy(int id)
+        public User GetUserById(int id)
         {
-            throw new NotImplementedException();
-        }
+            #region SQL
+            var sql = @"
+                        select * 
+                        from Users 
+                        where Id = @Id 
+                      ";
+            #endregion
 
-        public int GetUserBy(string email)
-        {
-            throw new NotImplementedException();
+            #region Execustion
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            var user = connection.ExecuteScalar<UserEntity>(sql,
+                new
+                {
+                    Id = id
+                });
+            #endregion
+
+            return user == null ? new User() : _mapper.Map<User>(user);
         }
 
         public bool IsExistingUserEmail(string email)

@@ -33,7 +33,8 @@ namespace AskAMech.Core.UseCases
 
                     var userId = CreateUserAndReturnId(request);
                     CreateUserProfile(userId, request.Username);
-                    UserSecurityManager userSecurityManager = new UserSecurityManager(userId, request.Username, true);
+                    var user = _userRepository.GetUserById(userId);
+                    UserSecurityManager userSecurityManager = new UserSecurityManager(user.Id, request.Username, user.UserRoleId, true);
                     _userRepository.UpdateLastLoggedInDate(userId);
                     presenter.Success(response);
                 }

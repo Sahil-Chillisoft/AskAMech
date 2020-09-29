@@ -8,8 +8,7 @@ namespace AskAMech.Core.Gateways.Repositories
     public interface IUserRepository
     {
         User GetUser(User user);
-        int GetUserBy(int id);
-        int GetUserBy(string email);
+        User GetUserById(int id);
         bool IsExistingUserEmail(string email);
         int Create(User user);
         void UpdateLastLoggedInDate(int userId);

@@ -42,9 +42,17 @@
                     if (isValid) {
                         loginModal.find('.modal').modal('hide');
                         $('.modal-backdrop').remove();
-                        window.location.href = '/Dashboard/UserDashboard';
+                        var userRoleId = modalContent.find('[name="UserRoleId"]').val();
+                        loadDashboard(userRoleId);
                     }
                 });
             }
         });
 });
+
+function loadDashboard(userRoleId) {
+    if (userRoleId === '1')
+        window.location.href = '/Dashboard/AdminDashboard';
+    else
+        window.location.href = '/Dashboard/UserDashboard';
+}

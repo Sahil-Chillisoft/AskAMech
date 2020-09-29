@@ -1,4 +1,5 @@
-﻿@model AskAMech.Core.UseCases.Responses.LoginResponse
+﻿@using AskAMech.Core.Domain
+@model AskAMech.Core.UseCases.Responses.LoginResponse
 
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -14,6 +15,7 @@
                     <div asp-validation-summary="ModelOnly">
                     </div>
                     <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+                    <input name="UserRoleId" type="hidden" value="@UserSecurityManager.UserRoleId"/>
                     <div class="row md-Padding-Top-10">
                         <div class="col-md-1">
                         </div>
