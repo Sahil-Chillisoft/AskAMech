@@ -1,4 +1,4 @@
-﻿$('#ConfirmPassword').keyup(function (event) {
+﻿$('body').on('keyup', '#ConfirmPassword', function (event) {
     event.preventDefault();
 
     var confirmPassword = $('#ConfirmPassword').val();
