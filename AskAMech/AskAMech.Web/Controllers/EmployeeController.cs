@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AskAMech.Web.Controllers
 {
-    public class AdminCreate_EmployeeController : Controller
+    public class EmployeeController : Controller
     {
         // GET: AdminCreate_Employee
         public ActionResult Index()

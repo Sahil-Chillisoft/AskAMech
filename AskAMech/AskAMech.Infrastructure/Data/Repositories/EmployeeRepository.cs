@@ -23,6 +23,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
         {
             #region SQL
             #endregion
+            throw new NotImplementedException();
         }
     }
 }

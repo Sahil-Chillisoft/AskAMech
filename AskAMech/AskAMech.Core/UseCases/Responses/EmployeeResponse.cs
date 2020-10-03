@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AskAMech.Core.UseCases.Responses
 {
-    public class EmployeeResponses
+    public class EmployeeResponse
     {
         [Required(ErrorMessage ="firstname is required")]
         public string FirstName { get; set; }
