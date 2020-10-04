@@ -43,10 +43,12 @@ namespace AskAMech.Web
             services.AddTransient<IModelPresenter, ModelPresenter>();
             services.AddTransient<ILoginUseCase, LoginUseCase>();
             services.AddTransient<IRegisterUseCase, RegisterUseCase>();
+            services.AddTransient<IUserDashboardUseCase, UserDashboardUseCase>();
 
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
+            services.AddTransient<IUserDashboardRepository, UserDashboardRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

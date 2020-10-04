@@ -1,36 +1,63 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AskAMech.Core.Domain;
+using AskAMech.Core.UseCases.Interfaces;
+using AskAMech.Core.UseCases.Requests;
 using AskAMech.Web.Models;
+using AskAMech.Web.Presenters;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace AskAMech.Web.Controllers
 {
     public class DashboardController : Controller
     {
-        /*
-         * TODO:
-         * Create a custom error page and not use the ErrorViewModel
-         * Perform the UserRole check in a UseCase where a Model needs to be returned for KPI's
-         * Load custom error page if the presenter has errors or load the dashboard if there are no errors.
-         */
+        private readonly IModelPresenter _modelPresenter;
+        private readonly IUserDashboardUseCase _userDashboardUseCase;
+
+        public DashboardController(IModelPresenter modelPresenter, IUserDashboardUseCase userDashboardUseCase)
+        {
+            _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
+            _userDashboardUseCase = userDashboardUseCase ?? throw new ArgumentNullException(nameof(userDashboardUseCase));
+        }
 
         [HttpGet]
         public IActionResult UserDashboard()
         {
-            if (UserSecurityManager.UserRoleId == (int)UserRole.Mechanic ||
-                UserSecurityManager.UserRoleId == (int)UserRole.PublicUser)
-                return View();
-            else
-                return View(new ErrorViewModel());
+            var request = new UserDashboardRequest
+            {
+                UserId = UserSecurityManager.UserId
+            };
+            _userDashboardUseCase.Execute(request, _modelPresenter);
+
+            if (_modelPresenter.HasValidationErrors)
+                return RedirectToAction("Index", "Error",
+                    new
+                    {
+                        message = "Access Denied",
+                        code = HttpStatusCode.Unauthorized,
+                    });
+
+            return View(_modelPresenter.Model);
         }
 
         [HttpGet]
         public IActionResult AdminDashboard()
         {
-            return UserSecurityManager.UserRoleId == (int)UserRole.Admin ? View() : View(new ErrorViewModel());
+            if (UserSecurityManager.UserRoleId != (int)UserRole.Admin)
+            {
+                return RedirectToAction("Index", "Error",
+                    new
+                    {
+                        message = "Access Denied",
+                        code = HttpStatusCode.Unauthorized,
+                    });
+            }
+
+            return View();
         }
     }
 }

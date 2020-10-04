@@ -1,0 +1,48 @@
+﻿@model AskAMech.Core.UseCases.Responses.ErrorResponse
+@{
+    ViewData["Title"] = "Error Page";
+}
+
+    <div class="container">
+        <div class="bg-light">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="display-4 text-center text-danger">
+                        <i class="material-icons md-45">error_outline</i>
+                        <b>An Error Has Occured</b>
+                    </h1>
+                </div>
+            </div>
+
+            <div class="row md-Padding-Top-50">
+                <div class="col-md-2">
+                    <h4>Reason:</h4>
+                </div>
+                <div class="col-md-10">
+                    <h4>@Model.Message</h4>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>Code:</h4>
+                </div>
+                <div class="col-md-10">
+                    <h4>@((int) Model.Code)</h4>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <h6>Please copy and send error reason and code to AskAMech support for further assistance.</h6>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <a asp-controller="Home" asp-action="Index"><h6>Back To Home Screen</h6></a>
+                </div>
+            </div>
+
+        </div>
+    </div>

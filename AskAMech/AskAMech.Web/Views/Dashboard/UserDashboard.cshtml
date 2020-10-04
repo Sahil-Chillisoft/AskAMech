@@ -1,4 +1,4 @@
-﻿
+﻿@model AskAMech.Core.UseCases.Responses.UserDashboardResponse
 @{
     ViewData["Title"] = "UserDashboard";
 }
@@ -24,7 +24,7 @@
                     </div>
                     <div class="content">
                         <div class="material-icons-font">My Questions</div>
-                        <div class="material-icons-font"><b>5</b></div>@*Temp KPI Indicator For Illustration*@
+                        <div class="material-icons-font"><b>@Model.QuestionCount</b></div>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                     </div>
                     <div class="content">
                         <div class="material-icons-font">MyAnswers</div>
-                        <div class="material-icons-font"><b>10</b></div>@*Temp KPI Indicator For Illustration*@
+                        <div class="material-icons-font"><b>@Model.AnswerCount</b></div>
                     </div>
                 </div>
             </div>

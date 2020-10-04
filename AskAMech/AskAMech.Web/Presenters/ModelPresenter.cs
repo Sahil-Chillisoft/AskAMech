@@ -8,7 +8,7 @@ namespace AskAMech.Web.Presenters
     public class ModelPresenter : IModelPresenter
     {
         public object Model { get; private set; }
-        public bool HasValidationErrors { get; set; }
+        public bool HasValidationErrors { get; private set; }
 
         public void Success<TResponse>(TResponse response)
         {
@@ -18,6 +18,11 @@ namespace AskAMech.Web.Presenters
         public void Error<TResponse>(TResponse response, bool hasValidationErrors)
         {
             Model = response;
+            HasValidationErrors = hasValidationErrors;
+        }
+
+        public void Error(bool hasValidationErrors)
+        {
             HasValidationErrors = hasValidationErrors;
         }
     }
