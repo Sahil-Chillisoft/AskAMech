@@ -23,13 +23,31 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+                        
+                        @if (UserSecurityManager.IsAuthenticated)
+                        {
+                            @if (UserSecurityManager.UserRoleId == (int)UserRole.Admin)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="AdminDashboard">Admin Dashboard</a>
+                                </li>
+                            }
+                            else if (UserSecurityManager.UserRoleId == (int)UserRole.PublicUser || UserSecurityManager.UserRoleId == (int)UserRole.Mechanic)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="UserDashboard">My Dashboard</a>
+                                </li>
+                            }
+                        }
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Questions">Questions</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Question" asp-action="Index">Questions</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
+
                     <ul class="navbar-nav">
                         @if (!UserSecurityManager.IsAuthenticated)
                         {

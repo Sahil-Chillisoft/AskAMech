@@ -47,17 +47,15 @@ namespace AskAMech.Web.Controllers
         [HttpGet]
         public IActionResult AdminDashboard()
         {
-            if (UserSecurityManager.UserRoleId != (int)UserRole.Admin)
-            {
-                return RedirectToAction("Index", "Error",
-                    new
-                    {
-                        message = "Access Denied",
-                        code = HttpStatusCode.Unauthorized,
-                    });
-            }
+            if (UserSecurityManager.IsAuthenticated && UserSecurityManager.UserRoleId == (int)UserRole.Admin)
+                return View();
 
-            return View();
+            return RedirectToAction("Index", "Error",
+            new
+            {
+                message = "Access Denied",
+                code = HttpStatusCode.Unauthorized,
+            });
         }
     }
 }

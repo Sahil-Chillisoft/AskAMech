@@ -5,12 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AskAMech.Core;
 using AskAMech.Core.Domain;
-using AskAMech.Core.UseCases;
 using AskAMech.Core.UseCases.Interfaces;
 using AskAMech.Core.UseCases.Requests;
-using AskAMech.Core.UseCases.Responses;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using AskAMech.Web.Models;
 using AskAMech.Web.Presenters;
 
@@ -18,14 +15,12 @@ namespace AskAMech.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IModelPresenter _modelPresenter;
         private readonly ILoginUseCase _loginUseCase;
         private readonly IRegisterUseCase _registerUseCase;
 
-        public HomeController(ILogger<HomeController> logger, IModelPresenter modelPresenter, ILoginUseCase loginUseCase, IRegisterUseCase registerUseCase)
+        public HomeController(IModelPresenter modelPresenter, ILoginUseCase loginUseCase, IRegisterUseCase registerUseCase)
         {
-            _logger = logger;
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _loginUseCase = loginUseCase ?? throw new ArgumentNullException(nameof(loginUseCase));
             _registerUseCase = registerUseCase ?? throw new ArgumentNullException(nameof(registerUseCase));
@@ -82,12 +77,6 @@ namespace AskAMech.Web.Controllers
             }
 
             return PartialView("_Register");
-        }
-
-        [HttpGet]
-        public IActionResult Questions()
-        {
-            throw new NotImplementedException();
         }
 
         [HttpPost]
