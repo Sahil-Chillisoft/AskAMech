@@ -23,7 +23,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public void Create(Employee employee)
+        public void CreateNewEmployee(Employee employee)
         {
             #region SQL
             var sql = @"insert into Employees(FirstName,LastName, IdNumber, Email, IsRegisterdUser, CreatedByUserId, DateCreated, LastModifiedByUserId, DateLastModified)
@@ -43,7 +43,8 @@ namespace AskAMech.Infrastructure.Data.Repositories
                 LastModifiedByUserId=employee.LastModifiedByUserId,
                 DateLastModified=employee.DateLastModified
             });
-           
+            #endregion
+
         }
     }
 }

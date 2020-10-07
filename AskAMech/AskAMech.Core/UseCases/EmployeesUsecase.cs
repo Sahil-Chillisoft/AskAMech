@@ -24,5 +24,22 @@ namespace AskAMech.Core.UseCases
         {
 
         }
+        private int CreateNewEmployee(EmployeeRequest request)
+        {
+            var employee = new Employee
+            {
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                IdNumber = request.IdNumber,
+                Email = request.Email,
+                IsRegisterdUser = request.IsRegisterdUser,
+                CreatedByUserId = (int)UserRole.Admin,
+                DateCreated = DateTime.Now, 
+                LastModifiedByUserId = (int)UserRole.Admin,
+                DateLastModified = DateTime.Now
+            };
+
+            return _employeeRepository.CreateNewEmployee(employee);
+        }
     }
 }
