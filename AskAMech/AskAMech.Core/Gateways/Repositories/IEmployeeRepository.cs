@@ -7,7 +7,7 @@ namespace AskAMech.Core.Gateways.Repositories
 {
    public interface IEmployeeRepository
     {
-        Employee Create(Employee employee);
+        void Create(Employee employee);
 
     }
 }

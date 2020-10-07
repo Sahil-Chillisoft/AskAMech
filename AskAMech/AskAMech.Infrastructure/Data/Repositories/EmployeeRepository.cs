@@ -5,6 +5,10 @@ using AskAMech.Infrastructure.Data.Helpers;
 using AutoMapper;
 using AskAMech.Core.Domain;
 using AskAMech.Core.Gateways.Repositories;
+using Dapper;
+using AskAMech.Infrastructure.Data.Entities;
+using System.Linq;
+using System.Data.SqlClient;
 
 namespace AskAMech.Infrastructure.Data.Repositories
 {
@@ -19,12 +23,27 @@ namespace AskAMech.Infrastructure.Data.Repositories
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public Employee Create(Employee employee)
+        public void Create(Employee employee)
         {
             #region SQL
-            throw new NotImplementedException();
+            var sql = @"insert into Employees(FirstName,LastName, IdNumber, Email, IsRegisterdUser, CreatedByUserId, DateCreated, LastModifiedByUserId, DateLastModified)
+                        values (@FirstName, @LastName, @IdNumber, @Email, @IsRegisterdUser, @CreatedByUserId, @DateCreated, @LastModifiedByUserId,@DateLastModified)";
             #endregion
-            throw new NotImplementedException();
+            #region Execution 
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            var adduser = connection.Execute(sql, param: new
+            {
+                FirstName = employee.FirstName,
+                LastName= employee.LastName,
+                IdNumber=employee.IdNumber,
+                Email=employee.Email,
+                IsRegisterdUser=employee.IsRegisterdUser,
+                CreatedByUserId=employee.CreatedByUserId,
+                DateCreated=employee.DateCreated,
+                LastModifiedByUserId=employee.LastModifiedByUserId,
+                DateLastModified=employee.DateLastModified
+            });
+           
         }
     }
 }
