@@ -22,7 +22,7 @@ namespace AskAMech.Web.Controllers
         }
 
         // GET: AdminCreate_Employee/Create
-        public ActionResult Create()
+        public ActionResult AddEmployee()
         {
             return View();
         }
@@ -30,7 +30,7 @@ namespace AskAMech.Web.Controllers
         // POST: AdminCreate_Employee/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult AddEmployee(IFormCollection collection)
         {
             try
             {

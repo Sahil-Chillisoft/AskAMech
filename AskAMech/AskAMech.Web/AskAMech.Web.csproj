@@ -16,8 +16,4 @@
     <ProjectReference Include="..\AskAMech.Infrastructure\AskAMech.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\AdminSubViews\" />
-  </ItemGroup>
-
 </Project>

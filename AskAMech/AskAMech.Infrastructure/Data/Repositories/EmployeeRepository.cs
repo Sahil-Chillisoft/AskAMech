@@ -22,6 +22,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public Employee Create(Employee employee)
         {
             #region SQL
+            throw new NotImplementedException();
             #endregion
             throw new NotImplementedException();
         }
