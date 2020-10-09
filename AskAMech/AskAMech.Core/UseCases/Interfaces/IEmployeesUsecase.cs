@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
+using AskAMech.Core.UseCases.Requests;
+
 namespace AskAMech.Core.UseCases.Interfaces
 {
-    public interface IEmployeesUsecase
+    public interface IEmployeesUsecase : IUseCase<EmployeeRequest>
     {
     }
 }

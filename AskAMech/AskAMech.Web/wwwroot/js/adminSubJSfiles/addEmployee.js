@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿function Navigate(id) {
     switch (id) {
         case 'divEmployees':
@@ -5,3 +6,6 @@
             break;
     }
 }
+=======
+﻿
+>>>>>>> 1aef22f
