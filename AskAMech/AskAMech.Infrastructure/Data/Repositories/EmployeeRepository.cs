@@ -38,7 +38,6 @@ namespace AskAMech.Infrastructure.Data.Repositories
                 LastName = employee.LastName,
                 IdNumber = employee.IdNumber,
                 Email = employee.Email,
-                IsRegisterdUser = employee.IsRegisterdUser,
                 CreatedByUserId = employee.CreatedByUserId,
                 DateCreated = employee.DateCreated,
                 LastModifiedByUserId = employee.LastModifiedByUserId,
