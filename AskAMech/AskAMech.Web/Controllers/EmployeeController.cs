@@ -4,12 +4,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using AskAMech.Web.Presenters;
+using AskAMech.Web.Models;
+using AskAMech.Core.Domain;
+using AskAMech.Core.UseCases.Interfaces;
+using AskAMech.Core.UseCases.Requests;
 
 namespace AskAMech.Web.Controllers
 {
     public class EmployeeController : Controller
     {
-        // GET: AdminCreate_Employee
+        private readonly ILogger<EmployeeController> _logger;
+        private readonly IModelPresenter _modelPresenter;
+        private readonly IEmployeesUsecase _employeesUsecase;
+
+        public EmployeeController(ILogger<EmployeeController> logger, IModelPresenter modelPresenter, IEmployeesUsecase employeesUsecase)
+        {
+            _logger = logger;
+            _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
+            _employeesUsecase = employeesUsecase ?? throw new ArgumentNullException(nameof(employeesUsecase));
+
+        }
         public ActionResult Index()
         {
             return View();
@@ -22,6 +38,7 @@ namespace AskAMech.Web.Controllers
         }
 
         // GET: AdminCreate_Employee/Create
+        [HttpGet]
         public ActionResult AddEmployee()
         {
             return View();
@@ -29,19 +46,17 @@ namespace AskAMech.Web.Controllers
 
         // POST: AdminCreate_Employee/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult AddEmployee(IFormCollection collection)
+        public ActionResult AddEmployee(EmployeeRequest request)
         {
-            try
+            _employeesUsecase.Execute(request, _modelPresenter);
+            if (_modelPresenter.HasValidationErrors)
             {
-                // TODO: Add insert logic here
+                ModelState.AddModelError("Employee", "Registration Details Invalid");
+                return View("AddEmployee", _modelPresenter.Model);
+            }
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return View();
+
         }
 
         // GET: AdminCreate_Employee/Edit/5

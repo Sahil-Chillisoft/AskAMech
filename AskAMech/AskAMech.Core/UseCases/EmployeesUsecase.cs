@@ -20,11 +20,28 @@ namespace AskAMech.Core.UseCases
 
         }
 
-        public void Execute(EmployeeRequest requests, IPresenter presenter)
+        public void Execute(EmployeeRequest request, IPresenter presenter)
         {
+            var response = new EmployeeResponse();
+            var isExistingEmail = _employeeRepository.IsExistingEmloyeeEmail(request.Email);
+            if(!isExistingEmail)
+            {
+                 CreateNewEmployee(request);
+                presenter.Success(response);
+            }
+            else
+            {
+                response.Email = request.Email;
+                response.FirstName = request.FirstName;
+                response.LastName = request.LastName;
+                response.IdNumber = request.IdNumber;
+                response.LastName = request.LastName;
+                response.RegisterErrorMessage = "Error: The email you entered already exists";
+                presenter.Error(response, true);
 
+            }
         }
-        private int CreateNewEmployee(EmployeeRequest request)
+        private void CreateNewEmployee(EmployeeRequest request)
         {
             var employee = new Employee
             {
@@ -32,14 +49,12 @@ namespace AskAMech.Core.UseCases
                 LastName = request.LastName,
                 IdNumber = request.IdNumber,
                 Email = request.Email,
-                IsRegisterdUser = request.IsRegisterdUser,
                 CreatedByUserId = (int)UserRole.Admin,
                 DateCreated = DateTime.Now, 
                 LastModifiedByUserId = (int)UserRole.Admin,
                 DateLastModified = DateTime.Now
             };
-
-            return _employeeRepository.CreateNewEmployee(employee);
+            
         }
     }
 }
