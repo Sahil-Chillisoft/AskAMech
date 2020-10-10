@@ -1,10 +1,10 @@
 ﻿function Navigate(id) {
     switch (id) {
         case 'divEmployees':
-            window.location.href = '';
+            window.location.href = '/Employee/Index';
             break;
         case 'divNewEmployees':
-            window.location.href = '';
+            window.location.href = '/Employee/Create';
             break;
         case 'divCreateUserFromEmployee':
             window.location.href = '';

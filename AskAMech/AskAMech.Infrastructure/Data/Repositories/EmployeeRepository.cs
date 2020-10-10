@@ -15,22 +15,21 @@ namespace AskAMech.Infrastructure.Data.Repositories
     public class EmployeeRepository : IEmployeeRepository
     {
         private readonly SqlHelper _sqlHelper;
-        private readonly IMapper _mapper;
 
-        public EmployeeRepository(SqlHelper sqlHelper, IMapper mapper)
+        public EmployeeRepository(SqlHelper sqlHelper)
         {
             _sqlHelper = sqlHelper ?? throw new ArgumentNullException(nameof(sqlHelper));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-     
-        public void CreateNewEmployee(Employee employee)
+        public void Create(Employee employee)
         {
             #region SQL
-             var sql = @"insert into Employees(FirstName,LastName, IdNumber, Email, CreatedByUserId, DateCreated, LastModifiedByUserId, DateLastModified)
-                        values (@FirstName, @LastName, @IdNumber, @Email, @CreatedByUserId, @DateCreated, @LastModifiedByUserId,@DateLastModified)";
-
+            var sql = @"
+                            insert into Employees(FirstName,LastName, IdNumber, Email, CreatedByUserId, DateCreated, LastModifiedByUserId, DateLastModified)
+                            values (@FirstName, @LastName, @IdNumber, @Email, @CreatedByUserId, @DateCreated, @LastModifiedByUserId, @DateLastModified)
+                        ";
             #endregion
+
             #region Execution 
             using var connection = new SqlConnection(_sqlHelper.ConnectionString);
             var addEmployee = connection.Execute(sql, param: new
@@ -40,21 +39,24 @@ namespace AskAMech.Infrastructure.Data.Repositories
                 IdNumber = employee.IdNumber,
                 Email = employee.Email,
                 CreatedByUserId = employee.CreatedByUserId,
-                DateCreated = employee.DateCreated,
+                DateCreated = DateTime.Now,
                 LastModifiedByUserId = employee.LastModifiedByUserId,
-                DateLastModified = employee.DateLastModified
+                DateLastModified = DateTime.Now
             });
             #endregion
         }
-        public bool IsExistingEmloyeeEmail(string email)
+
+        public bool IsExistingEmployee(Employee employee)
         {
             #region SQL
             var sql = @"
                         select case when exists 
                         (
-                            select email 
+                            select Email 
                             from Employee 
-                            where email = @Email 
+                            where IdNumber = @IdNumber
+                            or (FirstName = @FirstName 
+                            and LastName = @LastName) 
                         ) then 1 else 0
                         end
                       ";
@@ -65,7 +67,9 @@ namespace AskAMech.Infrastructure.Data.Repositories
             var isExistingEmail = connection.ExecuteScalar<bool>(sql,
                 param: new
                 {
-                    Email = email
+                    IdNumber = employee.IdNumber,
+                    FirstName = employee.FirstName,
+                    LastName = employee.LastName
                 });
             #endregion
 

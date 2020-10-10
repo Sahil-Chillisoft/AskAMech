@@ -15,94 +15,36 @@ namespace AskAMech.Web.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly ILogger<EmployeeController> _logger;
         private readonly IModelPresenter _modelPresenter;
-        private readonly IEmployeesUsecase _employeesUsecase;
+        private readonly IEmployeeUseCase _employeeUseCase;
 
-        public EmployeeController(ILogger<EmployeeController> logger, IModelPresenter modelPresenter, IEmployeesUsecase employeesUsecase)
+        public EmployeeController(IModelPresenter modelPresenter, IEmployeeUseCase employeeUseCase)
         {
-            _logger = logger;
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
-            _employeesUsecase = employeesUsecase ?? throw new ArgumentNullException(nameof(employeesUsecase));
-
+            _employeeUseCase = employeeUseCase ?? throw new ArgumentNullException(nameof(employeeUseCase));
         }
+
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: AdminCreate_Employee/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: AdminCreate_Employee/Create
         [HttpGet]
-        public ActionResult AddEmployee()
+        public ActionResult Create()
         {
             return View();
         }
 
-        // POST: AdminCreate_Employee/Create
         [HttpPost]
-        public ActionResult AddEmployee(EmployeeRequest request)
+        public ActionResult Create(EmployeeRequest request)
         {
-            _employeesUsecase.Execute(request, _modelPresenter);
+            _employeeUseCase.Execute(request, _modelPresenter);
+            
             if (_modelPresenter.HasValidationErrors)
-            {
-                ModelState.AddModelError("Employee", "Registration Details Invalid");
-                return View("AddEmployee", _modelPresenter.Model);
-            }
+                return View("Create", _modelPresenter.Model);
 
             return View();
-
-        }
-
-        // GET: AdminCreate_Employee/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: AdminCreate_Employee/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: AdminCreate_Employee/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: AdminCreate_Employee/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }

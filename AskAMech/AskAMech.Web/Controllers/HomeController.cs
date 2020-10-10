@@ -79,6 +79,12 @@ namespace AskAMech.Web.Controllers
             return PartialView("_Register");
         }
 
+        [HttpGet]
+        public IActionResult Questions()
+        {
+            return RedirectToAction("Index", "Question");
+        }
+
         [HttpPost]
         public IActionResult SignOut()
         {
