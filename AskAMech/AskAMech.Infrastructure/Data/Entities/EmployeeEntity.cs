@@ -15,5 +15,6 @@ namespace AskAMech.Infrastructure.Data.Entities
         public DateTime DateCreated { get; set; }
         public int LastModifiedByUserId { get; set; }
         public DateTime DateLastModified { get; set; }
+        public bool IsActive { get; set; }
     }
 }

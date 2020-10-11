@@ -63,7 +63,7 @@ namespace AskAMech.Core.UseCases
             {
                 Email = request.Email,
                 Password = request.Password,
-                UserRoleId = (int)UserRole.PublicUser,
+                UserRoleId = (int)UserRole.GeneralUser,
                 DateLastLoggedIn = DateTime.Now,
                 DateCreated = DateTime.Now,
                 DateLastModified = DateTime.Now

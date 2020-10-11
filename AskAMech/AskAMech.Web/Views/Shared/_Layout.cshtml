@@ -32,7 +32,7 @@
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="AdminDashboard">Admin Dashboard</a>
                                 </li>
                             }
-                            else if (UserSecurityManager.UserRoleId == (int)UserRole.PublicUser || UserSecurityManager.UserRoleId == (int)UserRole.Mechanic)
+                            else if (UserSecurityManager.UserRoleId == (int)UserRole.GeneralUser || UserSecurityManager.UserRoleId == (int)UserRole.Mechanic)
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="UserDashboard">My Dashboard</a>

@@ -23,7 +23,7 @@ namespace AskAMech.Core.UseCases
         {
             if (UserSecurityManager.IsAuthenticated &&
                 (UserSecurityManager.UserRoleId == (int)UserRole.Mechanic ||
-                 UserSecurityManager.UserRoleId == (int)UserRole.PublicUser))
+                 UserSecurityManager.UserRoleId == (int)UserRole.GeneralUser))
             {
                 var userDashboard = _userDashboardRepository.GetKeyPerformanceIndicators(request.UserId);
                 var response = new UserDashboardResponse

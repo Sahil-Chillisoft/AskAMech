@@ -25,7 +25,8 @@ create table Employee
 	CreatedByUserId int not null, 
 	DateCreated DateTime not null default getdate(),
 	LastModifiedByUserId int not null, 
-	DateLastModified DateTime not null
+	DateLastModified DateTime not null, 
+	IsActive bit not null default 1 
 )
 
 create table Users
@@ -37,7 +38,8 @@ create table Users
 	EmployeeId int null,
 	DateLastLoggedIn datetime null,
 	DateCreated datetime not null default getdate(),
-	DateLastModified datetime not null
+	DateLastModified datetime not null, 
+	DateDeleted datetime null
 )
 
 create table UserProfile
@@ -62,7 +64,8 @@ create table Questions
 	CategoryId int not null,
 	CreatedByUserId int not null,
 	DateCreated DateTime not null default getdate(),
-	DateLastModified DateTime not null
+	DateLastModified DateTime not null, 
+	DateDeleted datetime null
 )
 
 create table Answers

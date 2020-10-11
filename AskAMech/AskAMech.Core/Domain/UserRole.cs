@@ -4,6 +4,6 @@
     {
         Admin = 1,
         Mechanic,
-        PublicUser
+        GeneralUser
     }
 }
