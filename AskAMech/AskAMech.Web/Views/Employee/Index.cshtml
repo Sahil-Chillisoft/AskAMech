@@ -1,5 +1,32 @@
 ﻿@{
     ViewData["Title"] = "Employee List";
 }
+<div class="container">
+    <form>
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="display-4 text-center">
+                    <i class="material-icons md-45">list</i>
+                    Create New Employee
+                </h1>
+            </div>
+        </div>
+        <hr />
+       
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input type="text"placeholder="search by username or id number" class="form-control" />
+                </div>
+            </div>
 
-Employee List Page Goes Here
+        <div class="row md-Padding-Top-20">
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" id="btnSubmit">Search</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="~/js/Employee/create.js"></script>
+}

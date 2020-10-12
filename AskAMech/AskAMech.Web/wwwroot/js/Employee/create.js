@@ -3,6 +3,8 @@ $(document).ready(function () {
     $('#btnSubmit').click(function (event) {
         event.preventDefault();
         var myform = $('#myform')[0];
+        console.log(myform);
+        
 
         //myform.validate({
 
@@ -24,18 +26,20 @@ $(document).ready(function () {
         //    },
         //});
 
+        //$.validator.unobtrusive.parse(myform);
 
-        var formData = new FormData(myform)   
-        $.ajax({
-            url: 'Employee/Create',
-            type: 'POST',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: formData,
-            success: function (response) {
+       // if (myform.valid()) {
+            var formData = new FormData(myform)
+            $.ajax({
+                url: 'Employee/Create',
+                type: 'POST',
+                cache: false,
+                data: formData,
+            }).done(function (data) {
                 alert(response);
-            }
-        });
+
+            });
+        //}
+
     });
 });
