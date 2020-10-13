@@ -149,6 +149,12 @@ insert into UserProfile(UserId, Username, About, DateLastModified) values(51, 'E
 
 
 --Category Data 
+insert into Category(Description) values('Engine')
+insert into Category(Description) values('Transmission')
+insert into Category(Description) values('Suspension')
+insert into Category(Description) values('Tyres and Brakes')
+insert into Category(Description) values('Auto Electrical')
+insert into Category(Description) values('General Maintenance')
 
 
 --Questions Data
