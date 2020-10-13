@@ -14,15 +14,28 @@ $(document).ready(function () {
                 cache: false,
                 enctype: 'multipart/form-data',
                 processData: false,
-                data: formData, 
-                success: function(data) {
+                data: formData,
+                success: function (data) {
                     if (data.success) {
-                        alert(data.message);
+                        displaySuccessModal();
                     } else {
-                        alert(data.message);
+                        $('#ErrorMessage').text(data.message);
                     }
                 }
             });
         }
     });
+
+    function displaySuccessModal() {
+        var successModal = $('#createSuccessDiv');
+        $.ajax({
+            url: '/Employee/CreateSuccess',
+            type: 'GET',
+            cache: false,
+            success: function (data) {
+                successModal.html(data);
+                successModal.find('.modal').modal('show');
+            }
+        });
+    }
 });

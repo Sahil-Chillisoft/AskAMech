@@ -10,7 +10,6 @@ using AskAMech.Core.Domain;
 using AskAMech.Core.UseCases.Interfaces;
 using AskAMech.Core.UseCases.Requests;
 using AskAMech.Core.UseCases.Responses;
-using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 
 namespace AskAMech.Web.Controllers
 {
@@ -26,19 +25,19 @@ namespace AskAMech.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public IActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(EmployeeRequest request)
+        public IActionResult Create(EmployeeRequest request)
         {
             _employeeUseCase.Execute(request, _modelPresenter);
 
@@ -47,6 +46,12 @@ namespace AskAMech.Web.Controllers
 
             var model = _modelPresenter.Model as EmployeeResponse;
             return Json(new { Sucess = false, Message = model?.ErrorMessage });
+        }
+
+        [HttpGet]
+        public IActionResult CreateSuccess()
+        {
+            return PartialView("_CreateSuccess");
         }
     }
 }

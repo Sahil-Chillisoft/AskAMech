@@ -21,7 +21,7 @@ namespace AskAMech.Core.UseCases.Responses
         public string IdNumber { get; set; }
 
         [DisplayName("Email Address")]
-        [Required(ErrorMessage ="* Email Address required")]
+        [Required(ErrorMessage ="* Employee email Address required")]
         [EmailAddress(ErrorMessage ="Please enter a valid email address")]
         public string Email { get; set; }
         

@@ -13,7 +13,7 @@
                 </h1>
             </div>
         </div>
-        <hr/>
+        <hr />
         <div class="row md-Padding-Top-10">
             <div class="col-md-12">
                 <label asp-for="FirstName"></label>
@@ -71,20 +71,22 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
         </div>
-        
-        <div class="row">
+
+        <div class="row md-Padding-Top-10">
             <div class="col-md-12">
-                <label id="ErrorMessage" class="text-danger">@Model?.ErrorMessage</label>
+                <label id="ErrorMessage" class="text-danger"></label>
             </div>
         </div>
 
-        <div class="row md-Padding-Top-20">
+        <div class="row md-Padding-Top-10">
             <div class="col-md-2">
-                <button id="create" type="submit" class="btn btn-primary">Create</button>
+                <button id="create" type="submit" class="btn btn-primary full-width">Create</button>
             </div>
         </div>
     </form>
 </div>
+
+<div id="createSuccessDiv"></div>
 
 @section Scripts {
     <script src="~/js/Employee/create.js"></script>
