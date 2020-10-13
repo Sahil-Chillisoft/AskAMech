@@ -4,7 +4,7 @@
 }
 
 <div class="container">
-    <form name="myform">
+    <form id="employeeCreateForm">
         <div class="row">
             <div class="col-md-12">
                 <h1 class="display-4 text-center">
@@ -71,10 +71,16 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
         </div>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <label id="ErrorMessage" class="text-danger">@Model?.ErrorMessage</label>
+            </div>
+        </div>
 
         <div class="row md-Padding-Top-20">
             <div class="col-md-2">
-                <button type="button" class="btn btn-primary" id="btnSubmit">Create</button>
+                <button id="create" type="submit" class="btn btn-primary">Create</button>
             </div>
         </div>
     </form>

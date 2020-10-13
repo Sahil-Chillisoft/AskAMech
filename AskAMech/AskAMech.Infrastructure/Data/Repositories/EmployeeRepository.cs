@@ -25,24 +25,26 @@ namespace AskAMech.Infrastructure.Data.Repositories
         {
             #region SQL
             var sql = @"
-                            insert into Employees(FirstName,LastName, IdNumber, Email, CreatedByUserId, DateCreated, LastModifiedByUserId, DateLastModified)
-                            values (@FirstName, @LastName, @IdNumber, @Email, @CreatedByUserId, @DateCreated, @LastModifiedByUserId, @DateLastModified)
-                        ";
+                            insert into Employee(FirstName, LastName, IdNumber, Email, CreatedByUserId, DateCreated, LastModifiedByUserId, DateLastModified, IsActive)
+                            values (@FirstName, @LastName, @IdNumber, @Email, @CreatedByUserId, @DateCreated, @LastModifiedByUserId, @DateLastModified, @IsActive)
+                       ";
             #endregion
 
             #region Execution 
             using var connection = new SqlConnection(_sqlHelper.ConnectionString);
-            var addEmployee = connection.Execute(sql, param: new
-            {
-                FirstName = employee.FirstName,
-                LastName = employee.LastName,
-                IdNumber = employee.IdNumber,
-                Email = employee.Email,
-                CreatedByUserId = employee.CreatedByUserId,
-                DateCreated = DateTime.Now,
-                LastModifiedByUserId = employee.LastModifiedByUserId,
-                DateLastModified = DateTime.Now
-            });
+            connection.Execute(sql,
+                param: new
+                {
+                    FirstName = employee.FirstName,
+                    LastName = employee.LastName,
+                    IdNumber = employee.IdNumber,
+                    Email = employee.Email,
+                    CreatedByUserId = employee.CreatedByUserId,
+                    DateCreated = DateTime.Now,
+                    LastModifiedByUserId = employee.LastModifiedByUserId,
+                    DateLastModified = DateTime.Now,
+                    IsActive = employee.IsActive
+                });
             #endregion
         }
 

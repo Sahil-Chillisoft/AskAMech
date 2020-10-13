@@ -16,8 +16,8 @@ namespace AskAMech.Core.UseCases
         public EmployeeUseCase(IEmployeeRepository employeeRepository)
         {
             _employeeRepository = employeeRepository ?? throw new ArgumentNullException(nameof(employeeRepository));
-
         }
+
         public void Execute(EmployeeRequest request, IPresenter presenter)
         {
             var employee = new Employee
@@ -26,6 +26,7 @@ namespace AskAMech.Core.UseCases
                 LastName = request.LastName,
                 IdNumber = request.IdNumber,
                 Email = request.Email,
+                IsActive = true, 
                 CreatedByUserId = UserSecurityManager.UserId,
                 LastModifiedByUserId = UserSecurityManager.UserId,
             };
@@ -41,10 +42,10 @@ namespace AskAMech.Core.UseCases
             {
                 var response = new EmployeeResponse
                 {
-                    Email = employee.Email,
-                    FirstName = employee.FirstName,
-                    LastName = employee.LastName,
-                    IdNumber = employee.IdNumber,
+                    Email = request.Email,
+                    FirstName = request.FirstName,
+                    LastName = request.LastName,
+                    IdNumber = request.IdNumber,
                     ErrorMessage = "Error: An employee with the same details already exits on the system"
                 };
                 presenter.Error(response, true);

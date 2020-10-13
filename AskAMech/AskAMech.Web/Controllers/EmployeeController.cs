@@ -1,15 +1,16 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using AskAMech.Web.Presenters;
 using AskAMech.Web.Models;
 using AskAMech.Core.Domain;
 using AskAMech.Core.UseCases.Interfaces;
 using AskAMech.Core.UseCases.Requests;
+using AskAMech.Core.UseCases.Responses;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 
 namespace AskAMech.Web.Controllers
 {
@@ -40,11 +41,12 @@ namespace AskAMech.Web.Controllers
         public ActionResult Create(EmployeeRequest request)
         {
             _employeeUseCase.Execute(request, _modelPresenter);
-            
-            if (_modelPresenter.HasValidationErrors)
-                return View("Create", _modelPresenter.Model);
 
-            return View();
+            if (!_modelPresenter.HasValidationErrors)
+                return Json(new { Success = true, Message = "Employee Successfully Added" });
+
+            var model = _modelPresenter.Model as EmployeeResponse;
+            return Json(new { Sucess = false, Message = model?.ErrorMessage });
         }
     }
 }

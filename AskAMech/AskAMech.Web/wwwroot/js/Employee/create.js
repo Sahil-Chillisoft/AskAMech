@@ -1,45 +1,28 @@
 $(document).ready(function () {
 
-    $('#btnSubmit').click(function (event) {
+    $('#create').click(function (event) {
         event.preventDefault();
-        var myform = $('#myform')[0];
-        console.log(myform);
-        
 
-        //myform.validate({
+        var $form = $('#employeeCreateForm');
+        $.validator.unobtrusive.parse($form);
 
-        //    rules: {
-        //        FirstName: 'required',
-        //        LastName: 'required',
-        //        IdNumber: 'required',
-        //        Email: {
-        //            required: true,
-        //            Email: true
-        //        }
-        //    },
-
-        //    messages: {
-        //        FirstName: 'Please enter your firstname',
-        //        LastName: 'Please enter your lastname',
-        //        IdNumber: 'Please enter your ID number',
-        //        Email: 'Please enter a valid email address'
-        //    },
-        //});
-
-        //$.validator.unobtrusive.parse(myform);
-
-       // if (myform.valid()) {
-            var formData = new FormData(myform)
+        if ($form.valid()) {
+            var formData = $form.serialize();
             $.ajax({
-                url: 'Employee/Create',
+                url: '/Employee/Create',
                 type: 'POST',
                 cache: false,
-                data: formData,
-            }).done(function (data) {
-                alert(response);
-
+                enctype: 'multipart/form-data',
+                processData: false,
+                data: formData, 
+                success: function(data) {
+                    if (data.success) {
+                        alert(data.message);
+                    } else {
+                        alert(data.message);
+                    }
+                }
             });
-        //}
-
+        }
     });
 });
