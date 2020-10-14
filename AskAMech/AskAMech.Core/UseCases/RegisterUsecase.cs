@@ -30,11 +30,10 @@ namespace AskAMech.Core.UseCases
                 var isExistingUsername = _userProfileRepository.IsExistingUsername(request.Username);
                 if (!isExistingUsername)
                 {
-
                     var userId = CreateUserAndReturnId(request);
                     CreateUserProfile(userId, request.Username);
                     var user = _userRepository.GetUserById(userId);
-                    UserSecurityManager userSecurityManager = new UserSecurityManager(user.Id, request.Username, user.UserRoleId, true);
+                    UserSecurityManager.InitializeUser(user.Id, request.Username, user.UserRoleId, true);
                     _userRepository.UpdateLastLoggedInDate(userId);
                     presenter.Success(response);
                 }

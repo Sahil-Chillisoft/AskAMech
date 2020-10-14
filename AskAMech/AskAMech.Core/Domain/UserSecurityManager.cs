@@ -23,5 +23,11 @@ namespace AskAMech.Core.Domain
         {
             UserSecurityManager userSecurity = new UserSecurityManager(0, string.Empty,0, false);
         }
+
+        public static void InitializeUser(int userId, string username, int userRoleId, bool isAuthenticated)
+        {
+            UserSecurityManager userSecurityManager = new UserSecurityManager(userId, username, userRoleId, isAuthenticated);
+        }
+
     }
 }

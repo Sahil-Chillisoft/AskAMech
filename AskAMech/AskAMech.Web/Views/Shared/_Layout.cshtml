@@ -23,7 +23,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        
+
                         @if (UserSecurityManager.IsAuthenticated)
                         {
                             @if (UserSecurityManager.UserRoleId == (int)UserRole.Admin)
@@ -61,6 +61,9 @@
                         else
                         {
                             <li class="nav-item">
+                                <a class="nav-link text-dark"><b>Welcome @UserSecurityManager.Username</b></a>
+                            </li>
+                            <li class="nav-item">
                                 <form asp-controller="Home" asp-action="SignOut" method="post">
                                     <button class="btn btn-info" type="submit">Sign Out</button>
                                 </form>
@@ -86,7 +89,7 @@
     <div id="modalLoginDiv"></div>
     <div id="modalRegisterDiv"></div>
 
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

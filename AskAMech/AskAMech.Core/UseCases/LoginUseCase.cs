@@ -50,7 +50,7 @@ namespace AskAMech.Core.UseCases
                 }
                 else
                 {
-                    UserSecurityManager userSecurityManager = new UserSecurityManager(getUser.Id, userProfile.Username, getUser.UserRoleId, true);
+                    UserSecurityManager.InitializeUser(getUser.Id, userProfile.Username, getUser.UserRoleId, true);
                     _userRepository.UpdateLastLoggedInDate(getUser.Id);
                     presenter.Success(response);
                 }
