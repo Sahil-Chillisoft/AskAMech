@@ -21,22 +21,13 @@ namespace AskAMech.Core.UseCases
 
         public void Execute(UserDashboardRequest request, IPresenter presenter)
         {
-            if (UserSecurityManager.IsAuthenticated &&
-                (UserSecurityManager.UserRoleId == (int)UserRole.Mechanic ||
-                 UserSecurityManager.UserRoleId == (int)UserRole.GeneralUser))
+            var userDashboard = _userDashboardRepository.GetKeyPerformanceIndicators(request.UserId);
+            var response = new UserDashboardResponse
             {
-                var userDashboard = _userDashboardRepository.GetKeyPerformanceIndicators(request.UserId);
-                var response = new UserDashboardResponse
-                {
-                    QuestionCount = userDashboard.QuestionCount,
-                    AnswerCount = userDashboard.AnswerCount
-                };
-                presenter.Success(response);
-            }
-            else
-            {
-                presenter.Error(true);
-            }
+                QuestionCount = userDashboard.QuestionCount,
+                AnswerCount = userDashboard.AnswerCount
+            };
+            presenter.Success(response);
         }
     }
 }

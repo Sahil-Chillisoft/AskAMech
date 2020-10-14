@@ -41,6 +41,7 @@ namespace AskAMech.Web
             services.AddSingleton(connectionString);
 
             services.AddTransient<IModelPresenter, ModelPresenter>();
+            services.AddTransient<ISecurityManagerUseCase, SecurityManagerUseCase>();
             services.AddTransient<ILoginUseCase, LoginUseCase>();
             services.AddTransient<IRegisterUseCase, RegisterUseCase>();
             services.AddTransient<IUserDashboardUseCase, UserDashboardUseCase>();

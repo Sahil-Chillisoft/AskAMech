@@ -16,11 +16,13 @@ namespace AskAMech.Web.Controllers
     public class EmployeeController : Controller
     {
         private readonly IModelPresenter _modelPresenter;
+        private readonly ISecurityManagerUseCase _securityManagerUseCase;
         private readonly IEmployeeUseCase _employeeUseCase;
 
-        public EmployeeController(IModelPresenter modelPresenter, IEmployeeUseCase employeeUseCase)
+        public EmployeeController(IModelPresenter modelPresenter, ISecurityManagerUseCase securityManagerUseCase, IEmployeeUseCase employeeUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
+            _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _employeeUseCase = employeeUseCase ?? throw new ArgumentNullException(nameof(employeeUseCase));
         }
 
@@ -33,7 +35,18 @@ namespace AskAMech.Web.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            _securityManagerUseCase.VerifyUserIsAdmin(_modelPresenter);
+
+            if (!_modelPresenter.HasValidationErrors)
+                return View();
+
+            var model = _modelPresenter.Model as ErrorResponse;
+            return RedirectToAction("Index", "Error",
+                new
+                {
+                    message = model?.Message,
+                    code = model?.Code
+                });
         }
 
         [HttpPost]
