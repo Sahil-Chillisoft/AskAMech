@@ -45,7 +45,7 @@ namespace AskAMech.Web
             services.AddTransient<ILoginUseCase, LoginUseCase>();
             services.AddTransient<IRegisterUseCase, RegisterUseCase>();
             services.AddTransient<IUserDashboardUseCase, UserDashboardUseCase>();
-            services.AddTransient<IEmployeeUseCase, EmployeeUseCase>();
+            services.AddTransient<ICreateEmployeeUseCase, CreateEmployeeUseCase>();
 
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();

@@ -9,16 +9,16 @@ using AskAMech.Core.Gateways.Repositories;
 
 namespace AskAMech.Core.UseCases
 {
-    public class EmployeeUseCase : IEmployeeUseCase
+    public class CreateEmployeeUseCase : ICreateEmployeeUseCase
     {
         private readonly IEmployeeRepository _employeeRepository;
 
-        public EmployeeUseCase(IEmployeeRepository employeeRepository)
+        public CreateEmployeeUseCase(IEmployeeRepository employeeRepository)
         {
             _employeeRepository = employeeRepository ?? throw new ArgumentNullException(nameof(employeeRepository));
         }
 
-        public void Execute(EmployeeRequest request, IPresenter presenter)
+        public void Execute(CreateEmployeeRequest request, IPresenter presenter)
         {
             var employee = new Employee
             {
@@ -36,11 +36,11 @@ namespace AskAMech.Core.UseCases
             if (!isExistingEmployee)
             {
                 _employeeRepository.Create(employee);
-                presenter.Success(new EmployeeResponse());
+                presenter.Success(new CreateEmployeeResponse());
             }
             else
             {
-                var response = new EmployeeResponse
+                var response = new CreateEmployeeResponse
                 {
                     Email = request.Email,
                     FirstName = request.FirstName,

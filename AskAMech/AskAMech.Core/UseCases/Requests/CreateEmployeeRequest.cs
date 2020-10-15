@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AskAMech.Core.UseCases.Requests
 {
-    public class EmployeeRequest
+    public class CreateEmployeeRequest
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

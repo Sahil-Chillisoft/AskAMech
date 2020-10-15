@@ -5,8 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AskAMech.Web.Presenters;
-using AskAMech.Web.Models;
-using AskAMech.Core.Domain;
 using AskAMech.Core.UseCases.Interfaces;
 using AskAMech.Core.UseCases.Requests;
 using AskAMech.Core.UseCases.Responses;
@@ -17,13 +15,13 @@ namespace AskAMech.Web.Controllers
     {
         private readonly IModelPresenter _modelPresenter;
         private readonly ISecurityManagerUseCase _securityManagerUseCase;
-        private readonly IEmployeeUseCase _employeeUseCase;
+        private readonly ICreateEmployeeUseCase _createEmployeeUseCase;
 
-        public EmployeeController(IModelPresenter modelPresenter, ISecurityManagerUseCase securityManagerUseCase, IEmployeeUseCase employeeUseCase)
+        public EmployeeController(IModelPresenter modelPresenter, ISecurityManagerUseCase securityManagerUseCase, ICreateEmployeeUseCase employeeUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
-            _employeeUseCase = employeeUseCase ?? throw new ArgumentNullException(nameof(employeeUseCase));
+            _createEmployeeUseCase = employeeUseCase ?? throw new ArgumentNullException(nameof(employeeUseCase));
         }
 
         [HttpGet]
@@ -50,14 +48,14 @@ namespace AskAMech.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(EmployeeRequest request)
+        public IActionResult Create(CreateEmployeeRequest request)
         {
-            _employeeUseCase.Execute(request, _modelPresenter);
+            _createEmployeeUseCase.Execute(request, _modelPresenter);
 
             if (!_modelPresenter.HasValidationErrors)
                 return Json(new { Success = true, Message = "Employee Successfully Added" });
 
-            var model = _modelPresenter.Model as EmployeeResponse;
+            var model = _modelPresenter.Model as CreateEmployeeResponse;
             return Json(new { Sucess = false, Message = model?.ErrorMessage });
         }
 
