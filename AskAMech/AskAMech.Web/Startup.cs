@@ -33,10 +33,10 @@ namespace AskAMech.Web
         {
             services.AddControllersWithViews();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            
+
             services.AddAutoMapper(typeof(Startup));
             services.AddAutoMapper(c => c.AddProfile<MappingProfiles>(), typeof(Startup));
-            
+
             var connectionString = new SqlHelper(Configuration.GetConnectionString("AskAMechDbConnectionString"));
             services.AddSingleton(connectionString);
 
@@ -46,11 +46,13 @@ namespace AskAMech.Web
             services.AddTransient<IRegisterUseCase, RegisterUseCase>();
             services.AddTransient<IUserDashboardUseCase, UserDashboardUseCase>();
             services.AddTransient<ICreateEmployeeUseCase, CreateEmployeeUseCase>();
+            services.AddTransient<IGetQuestionsUseCase, GetQuestionsUseCase>();
 
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             services.AddTransient<IUserDashboardRepository, UserDashboardRepository>();
+            services.AddTransient<IQuestionRepository, QuestionRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

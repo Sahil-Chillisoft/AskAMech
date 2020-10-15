@@ -1,4 +1,56 @@
-﻿@{
+﻿@model AskAMech.Core.UseCases.Responses.GetQuestionsResponse
+@{
     ViewData["Title"] = "Question List";
 }
-<h1>WIP: Question List Page</h1>
+
+<form>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="display-4 text-center">
+                    <i class="material-icons md-45">time_to_leave</i>
+                    Questions
+                </h1>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col-md-12">
+                @if (Model.Questions.Any())
+                {
+                    <table id="questionsTable" class="table full-width">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th></th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Created By</th>
+                            <th>Date Created</th>
+                        </tr>
+                        </thead>
+                        <tbody class="table-striped">
+                            @foreach (var item in Model.Questions)
+                            {
+                                <tr>
+                                    <td>
+                                        <a asp-route-id="@item.Id" title="View Question">
+                                            <i class="material-icons md-30">read_more</i>
+                                        </a>
+                                    </td>
+                                    <td>@item.Description</td>
+                                    <td>@item.Category</td>
+                                    <td>@item.CreatedBy</td>
+                                    <td>@item.DateCreated</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <h3>No Records Found</h3>
+                }
+            </div>
+        </div>
+    </div>
+</form>
