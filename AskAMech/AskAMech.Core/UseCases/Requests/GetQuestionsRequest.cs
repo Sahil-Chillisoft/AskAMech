@@ -6,6 +6,7 @@ namespace AskAMech.Core.UseCases.Requests
 {
     public class GetQuestionsRequest
     {
-        public int Id { get; set; }
+        public string Search { get; set; }
+        public int CategoryId { get; set; }
     }
 }

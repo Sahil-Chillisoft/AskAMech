@@ -3,7 +3,7 @@
     ViewData["Title"] = "Question List";
 }
 
-<form>
+<form id="QuestionList" asp-controller="Question" asp-action="Index" method="GET">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -13,20 +13,47 @@
                 </h1>
             </div>
         </div>
-        <hr/>
+        <hr />
+
         <div class="row">
+            <div class="col-md-12 text-right">
+                <a title="Search" href="#"><i class="material-icons md-45">search</i></a>
+            </div>
+        </div>
+
+        <div id="divSearch" class="bg-light">
+            <div class="row md-Padding-Top-10">
+                <div class="col-md-4 md-Padding-Left-40">
+                    @Html.LabelFor(x => x.Search, "Question Description", new { @class = "text-bold" })
+                    @Html.TextBoxFor(x => x.Search, new { @class = "form-control" })
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(x => x.CategoryId, "Category", new { @class = "text-bold" })
+                    @Html.DropDownListFor(x => x.CategoryId,
+                        new SelectList(Model.Categories, "Id", "Description"), "--All--",
+                        new { @class = "form-control full-width", data_val = false })
+                </div>
+                <div class="col-md-2">
+                    <label>&nbsp;</label>
+                    <button type="submit" class="btn btn-primary full-width">Search</button>
+                </div>
+            </div>
+            <br />
+        </div>
+
+        <div class="row md-Padding-Top-20">
             <div class="col-md-12">
                 @if (Model.Questions.Any())
                 {
                     <table id="questionsTable" class="table full-width">
                         <thead class="thead-dark">
-                        <tr>
-                            <th></th>
-                            <th>Description</th>
-                            <th>Category</th>
-                            <th>Created By</th>
-                            <th>Date Created</th>
-                        </tr>
+                            <tr>
+                                <th></th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Created By</th>
+                                <th>Date Created</th>
+                            </tr>
                         </thead>
                         <tbody class="table-striped">
                             @foreach (var item in Model.Questions)
@@ -34,7 +61,7 @@
                                 <tr>
                                     <td>
                                         <a asp-route-id="@item.Id" title="View Question">
-                                            <i class="material-icons md-30">read_more</i>
+                                            <i class="material-icons md-30">info</i>
                                         </a>
                                     </td>
                                     <td>@item.Description</td>

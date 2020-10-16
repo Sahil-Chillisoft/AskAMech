@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public List<ViewQuestions> GetQuestions()
+        public List<ViewQuestions> GetQuestions(string? search, int? categoryId)
         {
             #region SQL
             var sql = @"
@@ -31,12 +32,25 @@ namespace AskAMech.Infrastructure.Data.Repositories
                         from Questions q
                         inner join Category c on q.CategoryId = c.Id
                         inner join UserProfile up on q.CreatedByUserId = up.UserId
+                        where 1 = 1
                       ";
+
+            if (!string.IsNullOrEmpty(search))
+                sql += "and q.Description like @Search ";
+
+            if (categoryId != 0)
+                sql += "and q.CategoryId = @CategoryId ";
+
             #endregion
 
             #region Execution 
             using var connection = new SqlConnection(_sqlHelper.ConnectionString);
-            var questions = connection.Query<ViewQuestionsEntity>(sql).ToList();
+            var questions = connection.Query<ViewQuestionsEntity>(sql,
+                new
+                {
+                    Search = $"%{search}%",
+                    CategoryId = categoryId
+                }).ToList();
             #endregion
 
             return _mapper.Map<List<ViewQuestions>>(questions);

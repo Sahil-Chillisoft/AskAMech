@@ -53,6 +53,7 @@ namespace AskAMech.Web
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             services.AddTransient<IUserDashboardRepository, UserDashboardRepository>();
             services.AddTransient<IQuestionRepository, QuestionRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

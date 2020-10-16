@@ -20,6 +20,10 @@ a.navbar-brand {
     height: 45px;
 }
 
+.text-bold {
+    font-weight: bold;
+}
+
 .hide {
     display: none
 }
@@ -113,6 +117,18 @@ body {
 
 .md-Padding-Right-5 {
     padding-right: 5px
+}
+
+.md-Padding-Left-10 {
+    padding-left: 10px
+}
+
+.md-Padding-Left-25 {
+    padding-left: 25px
+}
+
+.md-Padding-Left-40 {
+    padding-left: 40px
 }
 
 

@@ -23,9 +23,9 @@ namespace AskAMech.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(GetQuestionsRequest request)
         {
-            _getQuestionsUseCase.Execute(new GetQuestionsRequest(), _modelPresenter);
+            _getQuestionsUseCase.Execute(request, _modelPresenter);
             return View(_modelPresenter.Model);
         }
     }
