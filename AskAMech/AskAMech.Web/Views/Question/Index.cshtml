@@ -17,13 +17,14 @@
 
         <div class="row">
             <div class="col-md-12 text-right">
-                <a title="Search" href="#"><i class="material-icons md-45">search</i></a>
+                <a id="SearchButton" title="Search" href="#"><i class="material-icons md-45">search</i></a>
             </div>
         </div>
 
-        <div id="divSearch" class="bg-light">
+        <div id="searchDiv" class="bg-light hide">
             <div class="row md-Padding-Top-10">
-                <div class="col-md-4 md-Padding-Left-40">
+                <div class="col-md-1"></div>
+                <div class="col-md-4">
                     @Html.LabelFor(x => x.Search, "Question Description", new { @class = "text-bold" })
                     @Html.TextBoxFor(x => x.Search, new { @class = "form-control" })
                 </div>
@@ -81,3 +82,8 @@
         </div>
     </div>
 </form>
+
+@section Scripts
+{
+    <script src="~/js/Question/index.js"></script>
+}
