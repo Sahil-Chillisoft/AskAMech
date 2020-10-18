@@ -17,6 +17,7 @@ namespace AskAMech.Core.UseCases
         {
             _employeeRepository = employeeRepository ?? throw new ArgumentNullException(nameof(employeeRepository));
         }
+        
 
         public void Execute(CreateEmployeeRequest request, IPresenter presenter)
         {
@@ -26,7 +27,7 @@ namespace AskAMech.Core.UseCases
                 LastName = request.LastName,
                 IdNumber = request.IdNumber,
                 Email = request.Email,
-                IsActive = true, 
+                IsActive = true,
                 CreatedByUserId = UserSecurityManager.UserId,
                 LastModifiedByUserId = UserSecurityManager.UserId,
             };
@@ -52,4 +53,5 @@ namespace AskAMech.Core.UseCases
             }
         }
     }
+
 }

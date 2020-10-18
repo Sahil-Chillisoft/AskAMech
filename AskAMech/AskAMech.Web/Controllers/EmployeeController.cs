@@ -8,6 +8,7 @@ using AskAMech.Web.Presenters;
 using AskAMech.Core.UseCases.Interfaces;
 using AskAMech.Core.UseCases.Requests;
 using AskAMech.Core.UseCases.Responses;
+using AskAMech.Core.Gateways.Repositories;
 
 namespace AskAMech.Web.Controllers
 {
@@ -16,18 +17,21 @@ namespace AskAMech.Web.Controllers
         private readonly IModelPresenter _modelPresenter;
         private readonly ISecurityManagerUseCase _securityManagerUseCase;
         private readonly ICreateEmployeeUseCase _createEmployeeUseCase;
+        private readonly IEmployeeListUsecase _employeeListUsecase;
 
-        public EmployeeController(IModelPresenter modelPresenter, ISecurityManagerUseCase securityManagerUseCase, ICreateEmployeeUseCase employeeUseCase)
+        public EmployeeController(IModelPresenter modelPresenter, ISecurityManagerUseCase securityManagerUseCase,ICreateEmployeeUseCase createEmployeeUseCase, IEmployeeListUsecase employeeListUsecase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
-            _createEmployeeUseCase = employeeUseCase ?? throw new ArgumentNullException(nameof(employeeUseCase));
+            _createEmployeeUseCase = createEmployeeUseCase ?? throw new ArgumentNullException(nameof(createEmployeeUseCase));
+            _employeeListUsecase = employeeListUsecase ?? throw new ArgumentNullException(nameof(employeeListUsecase));
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(GetAllEmployeesRequest request)
         {
-            return View();
+           _employeeListUsecase.Execute(request, _modelPresenter);
+            return View(_modelPresenter.Model);
         }
 
         [HttpGet]

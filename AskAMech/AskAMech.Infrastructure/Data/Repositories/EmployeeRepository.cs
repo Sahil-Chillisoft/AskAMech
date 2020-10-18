@@ -15,13 +15,26 @@ namespace AskAMech.Infrastructure.Data.Repositories
     public class EmployeeRepository : IEmployeeRepository
     {
         private readonly SqlHelper _sqlHelper;
+        private readonly IMapper _mapper;
 
-        public EmployeeRepository(SqlHelper sqlHelper)
+        public EmployeeRepository(SqlHelper sqlHelper, IMapper mapper)
         {
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _sqlHelper = sqlHelper ?? throw new ArgumentNullException(nameof(sqlHelper));
         }
 
-        public void Create(Employee employee)
+        public List<Employee> getAllEmployees()
+        {
+            #region SQL
+            var sql = @"select * from Employee ";
+            #endregion
+            #region Execution 
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            var employeesList = connection.Query<EmployeeEntity>(sql).ToList();
+            #endregion
+            return _mapper.Map<List<Employee>>(employeesList);
+        }
+        public void Create(Employee employee) 
         {
             #region SQL
             var sql = @"
