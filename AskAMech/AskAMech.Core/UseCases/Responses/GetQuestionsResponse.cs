@@ -12,5 +12,6 @@ namespace AskAMech.Core.UseCases.Responses
         public IEnumerable<Category> Categories { get; set; }
         public string Search { get; set; }
         public int CategoryId { get; set; }
+        public Pagination Pagination { get; set; }
     }
 }

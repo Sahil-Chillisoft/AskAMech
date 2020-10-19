@@ -8,6 +8,6 @@ namespace AskAMech.Core.Gateways.Repositories
 {
     public interface IQuestionRepository
     {
-        List<ViewQuestions> GetQuestions(string? search, int? categoryId);
+        List<ViewQuestions> GetQuestions(string? search, int? categoryId, Pagination pagination);
     }
 }

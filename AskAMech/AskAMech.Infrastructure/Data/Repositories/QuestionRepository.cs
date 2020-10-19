@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using AskAMech.Core;
 using AskAMech.Core.Domain;
 using AskAMech.Core.Gateways.Repositories;
 using AskAMech.Infrastructure.Data.Entities;
@@ -23,7 +24,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public List<ViewQuestions> GetQuestions(string? search, int? categoryId)
+        public List<ViewQuestions> GetQuestions(string? search, int? categoryId, Pagination pagination)
         {
             #region SQL
             var sql = @"
@@ -33,6 +34,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
                         inner join Category c on q.CategoryId = c.Id
                         inner join UserProfile up on q.CreatedByUserId = up.UserId
                         where 1 = 1
+                        order by q.Id
                       ";
 
             if (!string.IsNullOrEmpty(search))
@@ -40,7 +42,6 @@ namespace AskAMech.Infrastructure.Data.Repositories
 
             if (categoryId != 0)
                 sql += "and q.CategoryId = @CategoryId ";
-
             #endregion
 
             #region Execution 

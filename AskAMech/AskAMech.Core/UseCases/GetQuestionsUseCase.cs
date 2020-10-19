@@ -23,15 +23,23 @@ namespace AskAMech.Core.UseCases
 
         public void Execute(GetQuestionsRequest request, IPresenter presenter)
         {
-            var questions = _questionRepository.GetQuestions(request.Search, request.CategoryId);
+            var pagination = new Pagination
+            {
+                Page = request.Pagination?.Page ?? 1,
+                Next = 10,
+                Offset = 10
+            };
+
+            var questions = _questionRepository.GetQuestions(request.Search, request.CategoryId, pagination);
             var categories = _categoryRepository.GetCategories();
-            
+
             var response = new GetQuestionsResponse
             {
-                Questions = questions, 
+                Questions = questions,
                 Categories = categories,
-                Search = request.Search, 
-                CategoryId = request.CategoryId
+                Search = request.Search,
+                CategoryId = request.CategoryId,
+                Pagination = new Pagination { Page = pagination.Page }
             };
             presenter.Success(response);
         }

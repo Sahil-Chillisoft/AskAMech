@@ -5,7 +5,7 @@ using AskAMech.Core.UseCases.Requests;
 
 namespace AskAMech.Core.UseCases.Interfaces
 {
-   public interface IEmployeeListUsecase :IUseCase<GetAllEmployeesRequest>
+   public interface IGetEmployeesUseCase :IUseCase<GetEmployeesRequest>
     {
     }
 }

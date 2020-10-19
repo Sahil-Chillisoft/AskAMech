@@ -5,7 +5,7 @@ using AskAMech.Core.Domain;
 
 namespace AskAMech.Core.UseCases.Responses
 {
-   public class GetAllEmployeesResponse
+   public class GetEmployeesResponse
     {
         public List<Employee> AllEmployees { get; set; }
      
