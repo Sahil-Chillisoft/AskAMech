@@ -48,6 +48,7 @@ namespace AskAMech.Web
             services.AddTransient<ICreateEmployeeUseCase, CreateEmployeeUseCase>();
             services.AddTransient<IGetQuestionsUseCase, GetQuestionsUseCase>();
             services.AddTransient<IEmployeeListUsecase, EmployeeListUsecase>();
+            services.AddTransient<ICreateUserRoleUsecase, CreateUserRoleUsecase>();
 
 
             services.AddTransient<IUserRepository, UserRepository>();
@@ -56,6 +57,7 @@ namespace AskAMech.Web
             services.AddTransient<IUserDashboardRepository, UserDashboardRepository>();
             services.AddTransient<IQuestionRepository, QuestionRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<IRolesRepository, RolesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
