@@ -38,5 +38,12 @@ namespace AskAMech.Web.Controllers
         {
             return PartialView("_CreateSuccess");
         }
+
+        [HttpGet]
+        public IActionResult RolesList(CreateUserRoleRequest request)
+        {
+            _createUserRoleUsecase.Execute(request, _modelPresenter);
+            return View(_modelPresenter.Model);
+        }
     }
 }

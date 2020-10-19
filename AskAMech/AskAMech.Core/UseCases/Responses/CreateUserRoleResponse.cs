@@ -12,6 +12,7 @@ namespace AskAMech.Core.UseCases.Responses
         [DisplayName(" Role Description")]
         [Required(ErrorMessage = "* Role Description required")]
         public string Description { get; set; }
+        public List<Roles> AllRoles{ get; set; }
         public string? ErrorMessage { get; set; }
     }
 }
