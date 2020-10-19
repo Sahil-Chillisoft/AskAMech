@@ -8,7 +8,6 @@ using AskAMech.Web.Presenters;
 using AskAMech.Core.UseCases.Interfaces;
 using AskAMech.Core.UseCases.Requests;
 using AskAMech.Core.UseCases.Responses;
-using AskAMech.Core.Gateways.Repositories;
 
 namespace AskAMech.Web.Controllers
 {
@@ -17,20 +16,21 @@ namespace AskAMech.Web.Controllers
         private readonly IModelPresenter _modelPresenter;
         private readonly ISecurityManagerUseCase _securityManagerUseCase;
         private readonly ICreateEmployeeUseCase _createEmployeeUseCase;
-        private readonly IEmployeeListUsecase _employeeListUsecase;
+        private readonly IGetEmployeesUseCase _getEmployeesUseCase;
 
-        public EmployeeController(IModelPresenter modelPresenter, ISecurityManagerUseCase securityManagerUseCase,ICreateEmployeeUseCase createEmployeeUseCase, IEmployeeListUsecase employeeListUsecase)
+        public EmployeeController(IModelPresenter modelPresenter, ISecurityManagerUseCase securityManagerUseCase,
+                                  ICreateEmployeeUseCase createEmployeeUseCase, IGetEmployeesUseCase getEmployeeUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _createEmployeeUseCase = createEmployeeUseCase ?? throw new ArgumentNullException(nameof(createEmployeeUseCase));
-            _employeeListUsecase = employeeListUsecase ?? throw new ArgumentNullException(nameof(employeeListUsecase));
+            _getEmployeesUseCase = getEmployeeUseCase ?? throw new ArgumentNullException(nameof(getEmployeeUseCase));
         }
 
         [HttpGet]
-        public IActionResult Index(GetAllEmployeesRequest request)
+        public IActionResult Index(GetEmployeesRequest request)
         {
-           _employeeListUsecase.Execute(request, _modelPresenter);
+            _getEmployeesUseCase.Execute(request, _modelPresenter);
             return View(_modelPresenter.Model);
         }
 

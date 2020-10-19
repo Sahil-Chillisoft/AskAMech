@@ -7,7 +7,7 @@ namespace AskAMech.Core.Gateways.Repositories
 {
    public interface IEmployeeRepository
     {
-        List<Employee> getAllEmployees();
+        List<Employee> GetEmployees();
         void Create(Employee employee);
         bool IsExistingEmployee(Employee employee);
     }

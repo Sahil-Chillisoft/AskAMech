@@ -9,21 +9,21 @@ using AskAMech.Core.Gateways.Repositories;
 
 namespace AskAMech.Core.UseCases
 {
-    public class EmployeeListUsecase : IEmployeeListUsecase
+    public class GetEmployeesUseCase : IGetEmployeesUseCase
     {
         private readonly IEmployeeRepository _employeeRepository;
 
-        public EmployeeListUsecase(IEmployeeRepository employeeRepository)
+        public GetEmployeesUseCase(IEmployeeRepository employeeRepository)
         {
             _employeeRepository = employeeRepository ?? throw new ArgumentNullException(nameof(employeeRepository));
         }
 
 
-        public void Execute(GetAllEmployeesRequest request, IPresenter presenter)
+        public void Execute(GetEmployeesRequest request, IPresenter presenter)
         {
-            var allemployees = _employeeRepository.getAllEmployees();
+            var allemployees = _employeeRepository.GetEmployees();
 
-            var response = new GetAllEmployeesResponse
+            var response = new GetEmployeesResponse
             {
                 AllEmployees = allemployees
                

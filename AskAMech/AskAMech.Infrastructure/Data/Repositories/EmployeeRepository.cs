@@ -23,18 +23,21 @@ namespace AskAMech.Infrastructure.Data.Repositories
             _sqlHelper = sqlHelper ?? throw new ArgumentNullException(nameof(sqlHelper));
         }
 
-        public List<Employee> getAllEmployees()
+        public List<Employee> GetEmployees()
         {
             #region SQL
             var sql = @"select * from Employee ";
             #endregion
+
             #region Execution 
             using var connection = new SqlConnection(_sqlHelper.ConnectionString);
             var employeesList = connection.Query<EmployeeEntity>(sql).ToList();
             #endregion
+
             return _mapper.Map<List<Employee>>(employeesList);
         }
-        public void Create(Employee employee) 
+
+        public void Create(Employee employee)
         {
             #region SQL
             var sql = @"
@@ -79,7 +82,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
 
             #region Execution
             using var connection = new SqlConnection(_sqlHelper.ConnectionString);
-            var isExistingEmail = connection.ExecuteScalar<bool>(sql,
+            var isExistingEmployee = connection.ExecuteScalar<bool>(sql,
                 param: new
                 {
                     IdNumber = employee.IdNumber,
@@ -88,7 +91,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
                 });
             #endregion
 
-            return isExistingEmail;
+            return isExistingEmployee;
         }
     }
 }

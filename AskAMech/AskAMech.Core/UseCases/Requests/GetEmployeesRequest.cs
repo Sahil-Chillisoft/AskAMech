@@ -5,7 +5,7 @@ using AskAMech.Core.Domain;
 
 namespace AskAMech.Core.UseCases.Requests
 {
-    public class GetAllEmployeesRequest
+    public class GetEmployeesRequest
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
