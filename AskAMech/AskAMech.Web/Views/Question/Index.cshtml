@@ -81,15 +81,18 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-md-4"></div>
             <div class="col-md-2">
-                <a id="PreviousPage" class="btn btn-dark">Previous</a>
+                <a id="PreviousPage" class="btn btn-primary">Previous</a>
             </div>
             <div class="col-md-2">
-                <label id="CurrentPage">Page @Model.Pagination.Page</label>
+                <label id="CurrentPage">Page @Model.Pagination.Page of @Model.Pagination.TotalPages</label>
                 @Html.HiddenFor(x => x.Pagination.Page, new { id = "Page" })
+                @Html.HiddenFor(x => x.Pagination.TotalPages, new { id = "TotalPages" })
+                @Html.HiddenFor(x => x.Pagination.RecordCount, new { id = "RecordCount" })
             </div>
             <div class="col-md-2">
-                <a id="NextPage" class="btn btn-dark">Next</a>
+                <a id="NextPage" class="btn btn-primary">Next</a>
             </div>
         </div>
     </div>

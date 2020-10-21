@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using AskAMech.Core.Domain;
 using AskAMech.Core.Gateways.Repositories;
@@ -23,11 +24,15 @@ namespace AskAMech.Core.UseCases
 
         public void Execute(GetQuestionsRequest request, IPresenter presenter)
         {
+            var recordCount = request.IsPagingRequest ? request.Pagination.RecordCount : _questionRepository.GetCount(request.Search, request.CategoryId);
+            var page = request.Pagination?.Page ?? 1;
+            const int pageSize = 10;
+            var totalPages = (int)Math.Ceiling(recordCount / (double)pageSize);
+
             var pagination = new Pagination
             {
-                Page = request.Pagination?.Page ?? 1,
-                Next = 10,
-                Offset = 10
+                Offset = (page - 1) * pageSize,
+                PageSize = pageSize
             };
 
             var questions = _questionRepository.GetQuestions(request.Search, request.CategoryId, pagination);
@@ -39,7 +44,12 @@ namespace AskAMech.Core.UseCases
                 Categories = categories,
                 Search = request.Search,
                 CategoryId = request.CategoryId,
-                Pagination = new Pagination { Page = pagination.Page }
+                Pagination = new Pagination
+                {
+                    Page = page,
+                    TotalPages = totalPages,
+                    RecordCount = recordCount
+                }
             };
             presenter.Success(response);
         }

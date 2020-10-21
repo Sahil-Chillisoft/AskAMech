@@ -34,13 +34,18 @@ function renderSearchDivOnPageLoad() {
 function getPagedResults(page) {
     var search = $('#Search').val();
     var categoryId = $('#CategoryId').val();
+    var totalPages = $('#TotalPages').val();
+    var recordCount = $('#RecordCount').val();
     var url = 'Question/Index';
 
     $.get(url,
         {
             'Search': search,
             'CategoryId': categoryId,
-            'Pagination.Page': page
+            'Pagination.Page': page,
+            'TotalPages': totalPages,
+            'Pagination.RecordCount': recordCount,
+            'IsPagingRequest': true
         }).done(function (data) {
             $('body').html(data);
         });
