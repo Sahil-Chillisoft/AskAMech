@@ -42,14 +42,6 @@ namespace AskAMech.Core.UseCases
                 };
                 presenter.Error(response, true);
             }
-
-            //var allRoles =_rolesRepository.getAllRoles();
-            //var responsee = new CreateUserRoleResponse
-            //{
-            //    AllRoles = allRoles
-
-            //};
-            //presenter.Success(responsee);
         }
     }
 }

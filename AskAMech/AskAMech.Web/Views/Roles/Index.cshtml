@@ -9,7 +9,7 @@
             <div class="col-md-12">
                 <h1 class="display-4 text-center">
                     <i class="material-icons md-45">add</i>
-                    Add Description
+                    Add Roles
                 </h1>
             </div>
         </div>
@@ -35,11 +35,7 @@
     </form>
 </div>
 <br />
-<div id="createSuccessDiv"></div>
 
-@section Scripts {
-    <script src="~/js/Roles/CreateRoles.js"></script>
-}
 
 <form id="RolesList" asp-controller="Roles" asp-action="RolesList" method="GET">
     <div class="container">
@@ -47,7 +43,7 @@
             <div class="col-md-12">
                 <h1 class="display-4 text-center">
                     <i class="material-icons md-45">list</i>
-                    Description
+                    Roles
                 </h1>
             </div>
         </div>
@@ -87,3 +83,8 @@
     </div>
 </form>
 
+<div id="createSuccessDiv"></div>
+
+@section Scripts {
+    <script src="~/js/Roles/CreateRoles.js"></script>
+}

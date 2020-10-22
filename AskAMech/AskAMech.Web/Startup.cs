@@ -49,6 +49,7 @@ namespace AskAMech.Web
             services.AddTransient<IGetQuestionsUseCase, GetQuestionsUseCase>(); 
             services.AddTransient<ICreateUserRoleUsecase, CreateUserRoleUsecase>();
             services.AddTransient<IGetEmployeesUseCase, GetEmployeesUseCase>();
+            services.AddTransient<IGetRoleUseCase, GetRolesUseCase>();
 
 
 

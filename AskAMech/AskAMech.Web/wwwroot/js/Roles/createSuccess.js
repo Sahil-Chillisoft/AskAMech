@@ -1,8 +1,9 @@
 ﻿$(document).ready(function () {
 
-    $('#AddNewRole').click(function (event) {
+    $('#ok').click(function (event) {
         event.preventDefault();
-        window.location.href = '/Roles/Index';
+        $('#successModal').modal('hide');
+        
     });
 
     $('#Dashboard').click(function (event) {

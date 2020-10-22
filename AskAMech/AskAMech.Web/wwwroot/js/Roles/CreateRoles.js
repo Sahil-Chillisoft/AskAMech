@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-
+    showRolesList();
     $('#create').click(function (event) {
         event.preventDefault();
 
@@ -26,6 +26,18 @@
         }
     });
 
+    function showRolesList() {
+        var description = $('#Description').val();
+        var url = '/Roles/RolesList';
+
+        $.get(url,
+            {
+                'Description': description
+            }).done(function (data) {
+                $('body').html(data);
+            });
+
+    }
     function displaySuccessModal() {
         var successModal = $('#createSuccessDiv');
         $.ajax({
