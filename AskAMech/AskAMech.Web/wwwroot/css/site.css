@@ -134,6 +134,10 @@ body {
 
 /*Google material icons
 /*-----------------------------------------*/
+.material-icons.md-15 {
+    font-size: 15px;
+}
+
 .material-icons.md-30 {
     font-size: 30px;
 }

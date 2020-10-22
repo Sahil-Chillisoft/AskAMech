@@ -19,6 +19,8 @@
         event.preventDefault();
         getPagedResults(currentPage + 1);
     });
+
+    pagingControls(currentPage);
 });
 
 function renderSearchDivOnPageLoad() {
@@ -49,4 +51,24 @@ function getPagedResults(page) {
         }).done(function (data) {
             $('body').html(data);
         });
+}
+
+function pagingControls(currentPage) {
+    var totalPages = parseInt($('#TotalPages').val());
+    var previousPageControl = $('#PreviousPage');
+    var nextPageControl = $('#NextPage');
+
+    if (currentPage === 1) {
+        previousPageControl.attr('disabled', true);
+        previousPageControl.removeClass('btn-success');
+    } else {
+        previousPageControl.prop('disabled', false);
+    }
+
+    if (currentPage === totalPages) {
+        nextPageControl.attr('disabled', true);
+        nextPageControl.removeClass('btn-success');
+    } else {
+        nextPageControl.prop('disabled', false);
+    }
 }
