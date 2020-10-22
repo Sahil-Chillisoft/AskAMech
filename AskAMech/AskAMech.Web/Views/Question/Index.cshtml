@@ -3,7 +3,7 @@
     ViewData["Title"] = "Question List";
 }
 
-<form id="QuestionList" asp-controller="Question" asp-action="Index" method="GET">
+<form id="QuestionList">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-md-2">
                     <label>&nbsp;</label>
-                    <button type="submit" class="btn btn-primary full-width">Search</button>
+                    <button id="SearchQuestions" type="button" class="btn btn-primary full-width">Search</button>
                 </div>
             </div>
             <br />
@@ -92,6 +92,7 @@
                 @Html.HiddenFor(x => x.Pagination.Page, new { id = "Page" })
                 @Html.HiddenFor(x => x.Pagination.TotalPages, new { id = "TotalPages" })
                 @Html.HiddenFor(x => x.Pagination.RecordCount, new { id = "RecordCount" })
+                @Html.HiddenFor(x => x.IsPagingRequest, new { id = "IsPagingRequest" })
             </div>
             <div class="col-md-1">
                 <button id="NextPage" title="Next Page" class="btn-group btn-success">

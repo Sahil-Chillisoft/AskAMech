@@ -10,14 +10,20 @@
 
     var currentPage = parseInt($('#Page').val());
 
+    $('#SearchQuestions').click(function (event) {
+        event.preventDefault();
+        console.log('Search button clicked');
+        getResults(1, false);
+    });
+
     $('#PreviousPage').click(function (event) {
         event.preventDefault();
-        getPagedResults(currentPage - 1);
+        getResults(currentPage - 1, true);
     });
 
     $('#NextPage').click(function (event) {
         event.preventDefault();
-        getPagedResults(currentPage + 1);
+        getResults(currentPage + 1, true);
     });
 
     pagingControls(currentPage);
@@ -33,23 +39,24 @@ function renderSearchDivOnPageLoad() {
     }
 }
 
-function getPagedResults(page) {
+function getResults(page, isPagingRequest) {
     var search = $('#Search').val();
     var categoryId = $('#CategoryId').val();
     var totalPages = $('#TotalPages').val();
     var recordCount = $('#RecordCount').val();
     var url = 'Question/Index';
 
-    $.get(url,
+    $.post(url,
         {
             'Search': search,
             'CategoryId': categoryId,
             'Pagination.Page': page,
             'TotalPages': totalPages,
             'Pagination.RecordCount': recordCount,
-            'IsPagingRequest': true
+            'IsPagingRequest': isPagingRequest
         }).done(function (data) {
             $('body').html(data);
+            $('#IsPagingRequest').val(false);
         });
 }
 
