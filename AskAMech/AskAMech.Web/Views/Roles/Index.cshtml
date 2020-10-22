@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h1 class="display-4 text-center">
-                    <i class="material-icons md-45">person_add</i>
+                    <i class="material-icons md-45">add</i>
                     Add Description
                 </h1>
             </div>
@@ -35,6 +35,11 @@
     </form>
 </div>
 <br />
+<div id="createSuccessDiv"></div>
+
+@section Scripts {
+    <script src="~/js/Roles/CreateRoles.js"></script>
+}
 
 <form id="RolesList" asp-controller="Roles" asp-action="RolesList" method="GET">
     <div class="container">
@@ -54,7 +59,7 @@
                     <table id="RolesTable" class="table full-width">
                         <thead class="thead-dark">
                             <tr>
-                                <th></th>
+
                                 <th>Description</th>
                             </tr>
                         </thead>
@@ -81,10 +86,4 @@
         </div>
     </div>
 </form>
-
-<div id="createSuccessDiv"></div>
-
-@section Scripts {
-    <script src="~/js/Roles/CreateRoles.js"></script>
-}
 

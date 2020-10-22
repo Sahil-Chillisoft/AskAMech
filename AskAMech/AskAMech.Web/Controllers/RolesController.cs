@@ -25,12 +25,31 @@ namespace AskAMech.Web.Controllers
             _createUserRoleUsecase = createUserRoleUsecase ?? throw new ArgumentNullException(nameof(createUserRoleUsecase));
             
         }
+        [HttpGet]
+        public IActionResult Index()
+        {
+            if (!_modelPresenter.HasValidationErrors)
+                return View();
+
+            var model = _modelPresenter.Model as ErrorResponse;
+            return RedirectToAction("Index", "Error",
+                new
+                {
+                    message = model?.Message,
+                    code = model?.Code
+                });
+        }
 
         [HttpPost]
         public IActionResult Index(CreateUserRoleRequest request)
         {
             _createUserRoleUsecase.Execute(request, _modelPresenter);
-            return View(_modelPresenter.Model);
+            
+            if (!_modelPresenter.HasValidationErrors)
+                return Json(new { Success = true, Message = "Role Successfully Added" });
+
+            var model = _modelPresenter.Model as CreateUserRoleResponse;
+            return Json(new { Sucess = false, Message = model?.ErrorMessage });
         }
 
         [HttpGet]
