@@ -4,8 +4,8 @@ using System.Text;
 
 namespace AskAMech.Core
 {
-    public interface IUseCase<in TRequest>
+    public interface IReadOnlyUseCase
     {
-        void Execute(TRequest request, IPresenter presenter);
+        void Execute(IPresenter presenter);
     }
 }
