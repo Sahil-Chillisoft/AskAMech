@@ -27,14 +27,19 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public List<ViewQuestions> GetQuestions(string? search, int? categoryId, Pagination pagination)
         {
             #region SQL
-            var sql = @"
-                        select q.Id, q.Description, q.CategoryId, c.Description as Category, 
-                        q.CreatedByUserId, up.Username as CreatedBy, q.DateCreated 
+            var sql = @"select q.Id, q.Title, q.Description, q.CategoryId, c.Description as Category, 
+                        q.CreatedByUserId, up.Username as CreatedBy, q.DateCreated,
+                        case when a.AnswerCount is null then 0 else a.AnswerCount end as AnswerCount  
                         from Questions q
                         inner join Category c on q.CategoryId = c.Id
                         inner join UserProfile up on q.CreatedByUserId = up.UserId
-                        where 1 = 1                        
-                      ";
+                        left join
+                        (
+	                        select QuestionId, count(Id) as AnswerCount
+	                        from Answers 
+	                        group by QuestionId
+                        ) as a on q.Id = a.QuestionId
+                        where 1 = 1 ";
 
             if (!string.IsNullOrEmpty(search))
                 sql += "and q.Description like @Search ";
@@ -42,11 +47,9 @@ namespace AskAMech.Infrastructure.Data.Repositories
             if (categoryId != 0)
                 sql += "and q.CategoryId = @CategoryId ";
 
-            sql += @"
-                     order by q.Id
+            sql += @"order by q.DateCreated
                      offset @Offset rows
-                     fetch next @PageSize rows only 
-                   ";
+                     fetch next @PageSize rows only ";
             #endregion
 
             #region Execution 
@@ -67,12 +70,10 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public int GetCount(string? search, int? categoryId)
         {
             #region SQL
-            var sql = @"
-                        select count(q.Id) as CountQuestions
+            var sql = @"select count(q.Id) as CountQuestions
                         from Questions q
                         inner join Category c on q.CategoryId = c.Id                        
-                        where 1 = 1                        
-                      ";
+                        where 1 = 1 ";
 
             if (!string.IsNullOrEmpty(search))
                 sql += "and q.Description like @Search ";

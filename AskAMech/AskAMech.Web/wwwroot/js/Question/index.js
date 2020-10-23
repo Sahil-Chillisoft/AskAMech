@@ -12,7 +12,6 @@
 
     $('#SearchQuestions').click(function (event) {
         event.preventDefault();
-        console.log('Search button clicked');
         getResults(1, false);
     });
 

@@ -42,44 +42,40 @@
             <br />
         </div>
 
-        <div class="row md-Padding-Top-20">
-            <div class="col-md-12">
-                @if (Model.Questions.Any())
+        <div class="md-Padding-Top-20">
+            @if (Model.Questions.Any())
+            {
+                @foreach (var item in Model.Questions)
                 {
-                    <table id="questionsTable" class="table full-width">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th></th>
-                                <th>Description</th>
-                                <th>Category</th>
-                                <th>Created By</th>
-                                <th>Date Created</th>
-                            </tr>
-                        </thead>
-                        <tbody class="table-striped">
-                            @foreach (var item in Model.Questions)
-                            {
-                                <tr>
-                                    <td>
-                                        <a asp-route-id="@item.Id" title="View Question">
-                                            <i class="material-icons md-30">info</i>
-                                        </a>
-                                    </td>
-                                    <td>@item.Description</td>
-                                    <td>@item.Category</td>
-                                    <td>@item.CreatedBy</td>
-                                    <td>@item.DateCreated</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                    <div class="card card-green-border">
+                        <div class="row no-gutters">
+                            <div class="col-md-11 col-sm-10">
+                                <div class="card-body ">
+                                    <h5 class="card-title"><a href="#">@item.Title</a></h5>
+                                    <p class="card-text">Category: @item.Category</p>
+                                    <p class="card-text">
+                                        <small>
+                                            Asked by <a href="#">@item.CreatedBy</a> on @item.DateCreated.ToString("dd/MM/yyyy HH:mm")
+                                        </small>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-1 col-sm-2">
+                                <label>@item.AnswerCount Answers</label>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
                 }
-                else
-                {
+            }
+            else
+            {
+                <div class="col-md-12">
                     <h3>No Records Found</h3>
-                }
-            </div>
+                </div>
+            }
         </div>
+        <hr/>
         <div class="row">
             <div class="col-md-5"></div>
             <div class="col-md-1">
