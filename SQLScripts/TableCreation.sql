@@ -60,6 +60,7 @@ create table Category
 create table Questions
 (
 	Id int not null primary key identity(1,1),
+	Title varchar(100) not null,
 	Description varchar(500) not null,
 	CategoryId int not null,
 	CreatedByUserId int not null,
