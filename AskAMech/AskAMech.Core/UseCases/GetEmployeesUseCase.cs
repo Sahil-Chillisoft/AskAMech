@@ -21,12 +21,11 @@ namespace AskAMech.Core.UseCases
 
         public void Execute(GetEmployeesRequest request, IPresenter presenter)
         {
-            var allemployees = _employeeRepository.GetEmployees();
+            var employees = _employeeRepository.GetEmployees();
 
             var response = new GetEmployeesResponse
             {
-                AllEmployees = allemployees
-               
+                Employees = employees
             };
             presenter.Success(response);
         }

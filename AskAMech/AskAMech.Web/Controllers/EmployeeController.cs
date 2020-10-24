@@ -17,14 +17,19 @@ namespace AskAMech.Web.Controllers
         private readonly ISecurityManagerUseCase _securityManagerUseCase;
         private readonly ICreateEmployeeUseCase _createEmployeeUseCase;
         private readonly IGetEmployeesUseCase _getEmployeesUseCase;
+        private readonly IGetEmployeesAutocompleteUseCase _getEmployeesAutocompleteUseCase;
 
-        public EmployeeController(IModelPresenter modelPresenter, ISecurityManagerUseCase securityManagerUseCase,
-                                  ICreateEmployeeUseCase createEmployeeUseCase, IGetEmployeesUseCase getEmployeeUseCase)
+        public EmployeeController(IModelPresenter modelPresenter,
+                                  ISecurityManagerUseCase securityManagerUseCase,
+                                  ICreateEmployeeUseCase createEmployeeUseCase,
+                                  IGetEmployeesUseCase getEmployeeUseCase,
+                                  IGetEmployeesAutocompleteUseCase getEmployeesAutocompleteUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _createEmployeeUseCase = createEmployeeUseCase ?? throw new ArgumentNullException(nameof(createEmployeeUseCase));
             _getEmployeesUseCase = getEmployeeUseCase ?? throw new ArgumentNullException(nameof(getEmployeeUseCase));
+            _getEmployeesAutocompleteUseCase = getEmployeesAutocompleteUseCase ?? throw new ArgumentNullException(nameof(getEmployeesAutocompleteUseCase));
         }
 
         [HttpGet]
@@ -67,6 +72,13 @@ namespace AskAMech.Web.Controllers
         public IActionResult CreateSuccess()
         {
             return PartialView("_CreateSuccess");
+        }
+
+        [HttpPost]
+        public JsonResult GetEmployeesAutocomplete(GetEmployeesAutocompleteRequest request)
+        {
+            _getEmployeesAutocompleteUseCase.Execute(request, _modelPresenter);
+            return Json(_modelPresenter.Model);
         }
     }
 }

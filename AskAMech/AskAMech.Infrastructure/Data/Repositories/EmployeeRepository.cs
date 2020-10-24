@@ -93,5 +93,26 @@ namespace AskAMech.Infrastructure.Data.Repositories
 
             return isExistingEmployee;
         }
+
+        public List<string> GetEmployeesForAutocomplete(string search)
+        {
+            #region SQL
+            var sql = @"select top 7 (FirstName + ' ' + LastName) as FullName 
+                        from Employee 
+                        where (FirstName + ' ' + LastName) like @Search  
+                        or IdNumber like @Search ";
+            #endregion
+
+            #region Execution
+            var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            var employees = connection.Query<string>(sql,
+                new
+                {
+                    Search = $"%{search}%"
+                }).ToList();
+            #endregion
+
+            return employees;
+        }
     }
 }

@@ -10,5 +10,6 @@ namespace AskAMech.Core.Gateways.Repositories
         List<Employee> GetEmployees();
         void Create(Employee employee);
         bool IsExistingEmployee(Employee employee);
+        List<string> GetEmployeesForAutocomplete(string search);
     }
 }

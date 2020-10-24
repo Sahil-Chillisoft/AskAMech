@@ -7,7 +7,7 @@ namespace AskAMech.Core.UseCases.Responses
 {
    public class GetEmployeesResponse
     {
-        public List<Employee> AllEmployees { get; set; }
-     
+        public List<Employee> Employees { get; set; }
+        public string Search { get; set; }
     }
 }

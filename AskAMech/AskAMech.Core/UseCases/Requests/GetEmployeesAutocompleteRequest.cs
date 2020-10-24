@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using AskAMech.Core.Domain;
 
 namespace AskAMech.Core.UseCases.Requests
 {
-    public class GetEmployeesRequest
+    public class GetEmployeesAutocompleteRequest
     {
         public string Search { get; set; }
     }
