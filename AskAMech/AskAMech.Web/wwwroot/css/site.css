@@ -20,6 +20,11 @@ a.navbar-brand {
     height: 45px;
 }
 
+.loadingAutocomplete {
+    background-image: url('../images/spinner.gif');
+    background-repeat: no-repeat;
+    background-position: right;
+}
 
 .hide {
     display: none

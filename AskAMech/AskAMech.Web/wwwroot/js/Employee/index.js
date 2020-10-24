@@ -22,10 +22,17 @@
                 }
             });
         },
+        search: function (event, ui) {
+            $(this).addClass('loadingAutocomplete');
+        },
+        response: function (event, ui) {
+            $(this).removeClass('loadingAutocomplete');
+        },
         error: function () {
             console.log('Error retrieving data for auto-complete.');
         }
     });
+
 });
 
 function renderSearchDivOnPageLoad() {
