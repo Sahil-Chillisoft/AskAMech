@@ -2,11 +2,13 @@
 
     renderSearchDivOnPageLoad();
 
+
     $('#SearchButton').click(function (event) {
         event.preventDefault();
         var searchDiv = $('#searchDiv');
         searchDiv.toggle();
     });
+
 
     $("#Search").autocomplete({
         source: function (request, response) {
@@ -22,10 +24,10 @@
                 }
             });
         },
-        search: function (event, ui) {
+        search: function () {
             $(this).addClass('loadingAutocomplete');
         },
-        response: function (event, ui) {
+        response: function () {
             $(this).removeClass('loadingAutocomplete');
         },
         error: function () {
@@ -33,6 +35,11 @@
         }
     });
 
+
+    $('#SearchEmployees').click(function (event) {
+        event.preventDefault();
+        getResults();
+    });
 });
 
 function renderSearchDivOnPageLoad() {
@@ -42,4 +49,16 @@ function renderSearchDivOnPageLoad() {
         var searchDiv = $('#searchDiv');
         searchDiv.show();
     }
+}
+
+function getResults() {
+    var search = $('#Search').val();
+    var url = '/Employee/Index';
+
+    $.post(url,
+        {
+            'Search': search
+        }).done(function (data) {
+            $('body').html(data);
+        });
 }

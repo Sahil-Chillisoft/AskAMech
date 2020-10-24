@@ -23,15 +23,23 @@ namespace AskAMech.Infrastructure.Data.Repositories
             _sqlHelper = sqlHelper ?? throw new ArgumentNullException(nameof(sqlHelper));
         }
 
-        public List<Employee> GetEmployees()
+        public List<Employee> GetEmployees(string search)
         {
             #region SQL
             var sql = @"select * from Employee ";
+
+            if (!string.IsNullOrEmpty(search))
+                sql += @"where (FirstName + ' ' + LastName) like @Search  
+                        or IdNumber like @Search ";
             #endregion
 
             #region Execution 
             using var connection = new SqlConnection(_sqlHelper.ConnectionString);
-            var employeesList = connection.Query<EmployeeEntity>(sql).ToList();
+            var employeesList = connection.Query<EmployeeEntity>(sql, 
+                new
+                {
+                    Search = $"%{search}%"
+                }).ToList();
             #endregion
 
             return _mapper.Map<List<Employee>>(employeesList);

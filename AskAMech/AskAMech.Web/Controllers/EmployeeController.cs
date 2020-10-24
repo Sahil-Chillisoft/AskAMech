@@ -33,6 +33,13 @@ namespace AskAMech.Web.Controllers
         }
 
         [HttpGet]
+        public IActionResult Index()
+        {
+            _getEmployeesUseCase.Execute(new GetEmployeesRequest(), _modelPresenter);
+            return View(_modelPresenter.Model);
+        }
+
+        [HttpPost]
         public IActionResult Index(GetEmployeesRequest request)
         {
             _getEmployeesUseCase.Execute(request, _modelPresenter);

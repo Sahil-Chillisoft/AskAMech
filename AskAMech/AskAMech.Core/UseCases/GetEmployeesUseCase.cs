@@ -18,14 +18,14 @@ namespace AskAMech.Core.UseCases
             _employeeRepository = employeeRepository ?? throw new ArgumentNullException(nameof(employeeRepository));
         }
 
-
         public void Execute(GetEmployeesRequest request, IPresenter presenter)
         {
-            var employees = _employeeRepository.GetEmployees();
+            var employees = _employeeRepository.GetEmployees(request.Search);
 
             var response = new GetEmployeesResponse
             {
-                Employees = employees
+                Employees = employees,
+                Search = request.Search
             };
             presenter.Success(response);
         }
