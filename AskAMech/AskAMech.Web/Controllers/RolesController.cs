@@ -17,17 +17,21 @@ namespace AskAMech.Web.Controllers
         private readonly IModelPresenter _modelPresenter;
         private readonly ISecurityManagerUseCase _securityManagerUseCase;
         private readonly ICreateUserRoleUsecase _createUserRoleUsecase;
+        private readonly IGetRoleUseCase _getRoleUseCase;
 
-        public RolesController(IModelPresenter modelPresenter, ISecurityManagerUseCase securityManagerUseCase, ICreateUserRoleUsecase createUserRoleUsecase)
+        public RolesController(IModelPresenter modelPresenter, ISecurityManagerUseCase securityManagerUseCase, ICreateUserRoleUsecase createUserRoleUsecase, IGetRoleUseCase getRoleUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _createUserRoleUsecase = createUserRoleUsecase ?? throw new ArgumentNullException(nameof(createUserRoleUsecase));
+            _getRoleUseCase = getRoleUseCase ?? throw new ArgumentNullException(nameof(getRoleUseCase));
             
         }
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Create()
         {
+            _securityManagerUseCase.VerifyUserIsAdmin(_modelPresenter);
+
             if (!_modelPresenter.HasValidationErrors)
                 return View();
 
@@ -41,7 +45,7 @@ namespace AskAMech.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(CreateUserRoleRequest request)
+        public IActionResult Create(CreateUserRoleRequest request)
         {
             _createUserRoleUsecase.Execute(request, _modelPresenter);
             
@@ -59,11 +63,11 @@ namespace AskAMech.Web.Controllers
         }
 
         [HttpGet]
-        
         public IActionResult RolesList(CreateUserRoleRequest request)
         {
-            _createUserRoleUsecase.Execute(request, _modelPresenter);
-            return View(_modelPresenter.Model);
+            
+            _getRoleUseCase.Execute(request, _modelPresenter);
+            return PartialView("_RolesList",_modelPresenter.Model);
         }
     }
 }

@@ -4,7 +4,7 @@
             window.location.href = '/Employee/Index';
             break;
         case 'divNewEmployees':
-            window.location.href = '/Employee/Create';
+            window.location.href = '/Employee/Create'; 
             break;
         case 'divCreateUserFromEmployee':
             window.location.href = '';
@@ -13,7 +13,7 @@
             window.location.href = '';
             break;
         case 'divUserRole':
-            window.location.href = '';
+            window.location.href = '/Roles/Create';
             break;
     }
 }

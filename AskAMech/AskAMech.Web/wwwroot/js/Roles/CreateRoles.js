@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
-    showRolesList();
+    
+
     $('#create').click(function (event) {
         event.preventDefault();
 
@@ -9,7 +10,7 @@
         if ($form.valid()) {
             var formData = $form.serialize();
             $.ajax({
-                url: '/Roles/Index',
+                url: '/Roles/Create',
                 type: 'POST',
                 cache: false,
                 enctype: 'multipart/form-data',
@@ -24,17 +25,20 @@
                 }
             });
         }
+        showRolesList();
     });
 
     function showRolesList() {
-        var description = $('#Description').val();
-        var url = '/Roles/RolesList';
-
-        $.get(url,
-            {
-                'Description': description
-            }).done(function (data) {
-                $('body').html(data);
+        
+        var description = $('#rolesListDiv');
+        $.ajax({
+            url: '/Roles/RolesList',
+            type: 'GET',
+            cache: false,
+            success: function (data) {
+                console.log(data);
+                description.html(data)
+            }
             });
 
     }

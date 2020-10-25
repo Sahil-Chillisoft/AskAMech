@@ -18,15 +18,12 @@ namespace AskAMech.Core.UseCases
             _rolesRepository = rolesRepository ?? throw new ArgumentNullException(nameof(rolesRepository));
 
         }
-
-
         public void Execute(CreateUserRoleRequest request, IPresenter presenter)
         {
             var allRoles = _rolesRepository.getAllRoles();
-            var responsee = new CreateUserRoleResponse
+            var responsee = new GetRolesResponse
             {
                 AllRoles = allRoles
-
             };
             presenter.Success(responsee);
 
