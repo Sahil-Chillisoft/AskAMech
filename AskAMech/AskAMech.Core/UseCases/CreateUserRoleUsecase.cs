@@ -38,7 +38,7 @@ namespace AskAMech.Core.UseCases
                 var response = new CreateUserRoleResponse
                 {
                     Description = request.Description,
-                    ErrorMessage = "Error: An employee with the same details already exits on the system"
+                    ErrorMessage = "Error: A role with the same details already exits on the system"
                 };
                 presenter.Error(response, true);
             }

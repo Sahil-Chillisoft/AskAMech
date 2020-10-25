@@ -23,9 +23,53 @@ namespace AskAMech.Infrastructure.Data.Repositories
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public void Create()
+        public int Create(Category category)
         {
-            throw new NotImplementedException();
+            #region SQL
+            var sql = @"
+                        insert into Category (Description)
+                        output inserted.Id 
+                        values(@Description)
+                      ";
+            #endregion
+
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            var categoryId = connection.ExecuteScalar<int>(sql,
+                param: new
+                {
+                    Description = category.Description
+
+                });
+            #endregion
+
+            return categoryId;
+        }
+
+        public bool IsExistingCategory(string description)
+        {
+            #region SQL
+            var sql = @"
+                        select case when exists 
+                        (
+                            select description 
+                            from Category 
+                            where description = @Description 
+                        ) then 1 else 0
+                        end
+                      ";
+            #endregion
+
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            var isExistingCategory = connection.ExecuteScalar<bool>(sql,
+                param: new
+                {
+                    Description = description
+                });
+            #endregion
+
+            return isExistingCategory;
         }
 
         public List<Category> GetCategories()

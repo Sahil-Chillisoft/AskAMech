@@ -1,0 +1,53 @@
+﻿@model AskAMech.Core.UseCases.Responses.GetCatergoryResponse
+@{
+    ViewData["Title"] = "_QuestionCatergoryList";
+}
+
+<form id="RolesList" asp-controller="QuestionCatergory" asp-action="QuestionCatergoryList" method="GET">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="display-4 text-left">
+                    <i class="material-icons md-45">list</i>
+                    Categories
+                </h2>
+            </div>
+        </div>
+        <br />
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-4">
+                @if (Model.AllCatergories.Any())
+                {
+                    <table id="CategoriesTable" class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-bordered">
+                            @foreach (var item in Model.AllCatergories)
+                            {
+                                <tr>
+                                    <td>
+                                        <a asp-route-id="@item.Id" title="View Description">
+
+                                        </a>
+                                    </td>
+                                    <td>@item.Description</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <h3>No Records Found</h3>
+                }
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+
