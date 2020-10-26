@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    showRolesList();
+    getRolesList();
 
     $('#create').click(function (event) {
         event.preventDefault();
@@ -26,18 +26,15 @@
                 }
             });
         }
-
-        showRolesList();
     });
 
-    function showRolesList() {
+    function getRolesList() {
         var description = $('#rolesListDiv');
         $.ajax({
             url: '/Roles/RolesList',
             type: 'GET',
             cache: false,
             success: function (data) {
-                console.log(data);
                 description.html(data);
             }
         });
@@ -61,6 +58,6 @@
         $('#successModal').modal('hide');
         $('#Description').val('');
         $('#ErrorMessage').text('');
-        showRolesList();
+        getRolesList();
     });
 });

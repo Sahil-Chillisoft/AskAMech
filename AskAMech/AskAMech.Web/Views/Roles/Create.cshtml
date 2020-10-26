@@ -17,11 +17,8 @@
         <hr />
 
         <div class="row md-Padding-Top-10">
-            <div class="col-md-12">
-                <label asp-for="Description"></label>
-            </div>
             <div class="col-md-6">
-                <input id="Description" asp-for="Description" class="form-control" />
+                <input id="Description" asp-for="Description" class="form-control" placeholder="Enter New Role Description" />
             </div>
             <div class="col-md-2">
                 <button id="create" type="submit" class="btn btn-primary full-width">Create</button>
@@ -39,8 +36,6 @@
 
     </form>
 </div>
-
-<br />
 
 <div id="rolesListDiv"></div>
 <div id="createSuccessDiv"></div>
