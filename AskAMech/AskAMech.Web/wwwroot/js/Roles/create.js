@@ -2,7 +2,7 @@
 
     getRolesList();
 
-    $('#create').click(function (event) {
+    $('#Create').click(function (event) {
         event.preventDefault();
 
         var $form = $('#RoleCreateForm');
