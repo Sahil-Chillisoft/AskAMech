@@ -9,5 +9,6 @@ namespace AskAMech.Core.UseCases.Responses
     {
         public List<Employee> Employees { get; set; }
         public string Search { get; set; }
+        public Pagination Pagination { get; set; }
     }
 }

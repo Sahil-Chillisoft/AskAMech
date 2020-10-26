@@ -42,6 +42,7 @@ namespace AskAMech.Web.Controllers
         [HttpPost]
         public IActionResult Index(GetEmployeesRequest request)
         {
+            ModelState.Clear();
             _getEmployeesUseCase.Execute(request, _modelPresenter);
             return View(_modelPresenter.Model);
         }

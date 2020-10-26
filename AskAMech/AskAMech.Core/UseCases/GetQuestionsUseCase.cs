@@ -24,8 +24,8 @@ namespace AskAMech.Core.UseCases
 
         public void Execute(GetQuestionsRequest request, IPresenter presenter)
         {
-            var recordCount = 0;
-            if (request.Pagination != null && request.Pagination.IsPagingRequest && request.Pagination.Page != 1)
+            int recordCount;
+            if (request.Pagination != null && request.Pagination.IsPagingRequest)
                 recordCount = request.Pagination.RecordCount;
             else
                 recordCount = _questionRepository.GetCount(request.Search, request.CategoryId);

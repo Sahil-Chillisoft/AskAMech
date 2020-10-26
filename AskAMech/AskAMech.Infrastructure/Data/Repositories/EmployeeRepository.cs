@@ -9,6 +9,7 @@ using Dapper;
 using AskAMech.Infrastructure.Data.Entities;
 using System.Linq;
 using System.Data.SqlClient;
+using AskAMech.Core;
 
 namespace AskAMech.Infrastructure.Data.Repositories
 {
@@ -23,7 +24,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             _sqlHelper = sqlHelper ?? throw new ArgumentNullException(nameof(sqlHelper));
         }
 
-        public List<Employee> GetEmployees(string search)
+        public List<Employee> GetEmployees(string search, Pagination pagination)
         {
             #region SQL
             var sql = @"select * from Employee ";
@@ -31,6 +32,10 @@ namespace AskAMech.Infrastructure.Data.Repositories
             if (!string.IsNullOrEmpty(search))
                 sql += @"where (FirstName + ' ' + LastName) like @Search  
                         or IdNumber like @Search ";
+
+            sql += @"order by Id
+                     offset @Offset rows
+                     fetch next @PageSize rows only ";
             #endregion
 
             #region Execution 
@@ -38,7 +43,9 @@ namespace AskAMech.Infrastructure.Data.Repositories
             var employeesList = connection.Query<EmployeeEntity>(sql, 
                 new
                 {
-                    Search = $"%{search}%"
+                    Search = $"%{search}%",
+                    Offset = pagination.Offset,
+                    PageSize = pagination.PageSize
                 }).ToList();
             #endregion
 
@@ -121,6 +128,27 @@ namespace AskAMech.Infrastructure.Data.Repositories
             #endregion
 
             return employees;
+        }
+
+        public int GteCount(string? search)
+        {
+            #region SQL
+            var sql = @"select count(Id) as EmployeeCount 
+                        from Employee
+                        where (FirstName + ' ' + LastName) like @Search  
+                        or IdNumber like @Search ";
+            #endregion
+
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            var employeeCount = connection.ExecuteScalar<int>(sql,
+                new
+                {
+                    Search = $"%{search}%"
+                });
+            #endregion
+
+            return employeeCount;
         }
     }
 }

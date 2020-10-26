@@ -15,7 +15,9 @@ namespace AskAMech.Web.Controllers
         private readonly ISecurityManagerUseCase _securityManagerUseCase;
         private readonly IGetQuestionsUseCase _getQuestionsUseCase;
 
-        public QuestionController(IModelPresenter modelPresenter, ISecurityManagerUseCase securityManagerUseCase, IGetQuestionsUseCase getQuestionsUseCase)
+        public QuestionController(IModelPresenter modelPresenter, 
+                                  ISecurityManagerUseCase securityManagerUseCase, 
+                                  IGetQuestionsUseCase getQuestionsUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
