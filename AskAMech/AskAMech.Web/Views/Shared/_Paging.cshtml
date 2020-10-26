@@ -1,0 +1,22 @@
+﻿@model AskAMech.Core.Pagination
+
+<div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-1">
+        <button id="PreviousPage" title="Previous Page" class="btn-group btn-success">
+            <i class="material-icons md-15">navigate_before</i>
+        </button>
+    </div>
+    <div class="col-md-2">
+        <label id="CurrentPage">Page @Model.Page of @Model.TotalPages</label>
+        @Html.HiddenFor(x => x.Page, new { id = "Page" })
+        @Html.HiddenFor(x => x.TotalPages, new { id = "TotalPages" })
+        @Html.HiddenFor(x => x.RecordCount, new { id = "RecordCount" })
+        @Html.HiddenFor(x => x.IsPagingRequest, new { id = "IsPagingRequest" })
+    </div>
+    <div class="col-md-1">
+        <button id="NextPage" title="Next Page" class="btn-group btn-success">
+            <i class="material-icons md-15">navigate_next</i>
+        </button>
+    </div>
+</div>

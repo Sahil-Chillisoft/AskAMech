@@ -76,26 +76,7 @@
             }
         </div>
         <hr />
-        <div class="row">
-            <div class="col-md-5"></div>
-            <div class="col-md-1">
-                <button id="PreviousPage" title="Previous Page" class="btn-group btn-success">
-                    <i class="material-icons md-15">navigate_before</i>
-                </button>
-            </div>
-            <div class="col-md-2">
-                <label id="CurrentPage">Page @Model.Pagination.Page of @Model.Pagination.TotalPages</label>
-                @Html.HiddenFor(x => x.Pagination.Page, new { id = "Page" })
-                @Html.HiddenFor(x => x.Pagination.TotalPages, new { id = "TotalPages" })
-                @Html.HiddenFor(x => x.Pagination.RecordCount, new { id = "RecordCount" })
-                @Html.HiddenFor(x => x.Pagination.IsPagingRequest, new { id = "IsPagingRequest" })
-            </div>
-            <div class="col-md-1">
-                <button id="NextPage" title="Next Page" class="btn-group btn-success">
-                    <i class="material-icons md-15">navigate_next</i>
-                </button>
-            </div>
-        </div>
+        <partial name="_Paging" model="Model.Pagination"/>
     </div>
 </form>
 
