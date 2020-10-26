@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using AskAMech.Core.Domain;
 using AskAMech.Core.UseCases.Interfaces;
 using AskAMech.Core.UseCases.Requests;
 using AskAMech.Core.UseCases.Responses;
@@ -44,7 +39,7 @@ namespace AskAMech.Web.Controllers
                 {
                     message = model?.Message,
                     code = model?.Code
-                }); ;
+                });
         }
 
         [HttpPost]
@@ -53,7 +48,7 @@ namespace AskAMech.Web.Controllers
             _createCategoryUseCase.Execute(request, _modelPresenter);
 
             if (!_modelPresenter.HasValidationErrors)
-                return Json(new { Success = true, Message = "Category Successfully Added" });
+                return Json(new { Success = true });
 
             var model = _modelPresenter.Model as CreateCategoryResponse;
             return Json(new { Sucess = false, Message = model?.ErrorMessage });

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using AskAMech.Core;
 using AskAMech.Core.Domain;
 using AskAMech.Core.UseCases.Interfaces;
 using AskAMech.Core.UseCases.Requests;
@@ -19,7 +15,9 @@ namespace AskAMech.Web.Controllers
         private readonly ILoginUseCase _loginUseCase;
         private readonly IRegisterUseCase _registerUseCase;
 
-        public HomeController(IModelPresenter modelPresenter, ILoginUseCase loginUseCase, IRegisterUseCase registerUseCase)
+        public HomeController(IModelPresenter modelPresenter,
+                              ILoginUseCase loginUseCase,
+                              IRegisterUseCase registerUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _loginUseCase = loginUseCase ?? throw new ArgumentNullException(nameof(loginUseCase));

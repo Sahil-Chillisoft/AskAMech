@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AskAMech.Core.UseCases.Interfaces;
 using AskAMech.Core.UseCases.Requests;
 using AskAMech.Web.Presenters;

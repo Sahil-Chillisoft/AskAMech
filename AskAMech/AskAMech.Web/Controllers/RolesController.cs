@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using AskAMech.Core.Domain;
 using AskAMech.Core.UseCases.Interfaces;
 using AskAMech.Core.UseCases.Requests;
 using AskAMech.Core.UseCases.Responses;
@@ -28,7 +23,6 @@ namespace AskAMech.Web.Controllers
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _createUserRoleUseCase = createUserRoleUseCase ?? throw new ArgumentNullException(nameof(createUserRoleUseCase));
             _getRoleUseCase = getRoleUseCase ?? throw new ArgumentNullException(nameof(getRoleUseCase));
-
         }
 
         [HttpGet]

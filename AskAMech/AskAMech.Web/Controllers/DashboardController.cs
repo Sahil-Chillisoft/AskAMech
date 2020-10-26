@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 using AskAMech.Core.Domain;
 using AskAMech.Core.UseCases.Interfaces;
 using AskAMech.Core.UseCases.Requests;
@@ -18,7 +14,9 @@ namespace AskAMech.Web.Controllers
         private readonly ISecurityManagerUseCase _securityManagerUseCase;
         private readonly IUserDashboardUseCase _userDashboardUseCase;
 
-        public DashboardController(IModelPresenter modelPresenter, ISecurityManagerUseCase securityManagerUseCase, IUserDashboardUseCase userDashboardUseCase)
+        public DashboardController(IModelPresenter modelPresenter,
+                                   ISecurityManagerUseCase securityManagerUseCase,
+                                   IUserDashboardUseCase userDashboardUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
@@ -51,9 +49,9 @@ namespace AskAMech.Web.Controllers
         {
             _securityManagerUseCase.VerifyUserIsAdmin(_modelPresenter);
 
-            if (!_modelPresenter.HasValidationErrors) 
+            if (!_modelPresenter.HasValidationErrors)
                 return View();
-            
+
             var model = _modelPresenter.Model as ErrorResponse;
             return RedirectToAction("Index", "Error",
                 new

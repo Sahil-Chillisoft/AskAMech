@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Net;
 using AskAMech.Core.UseCases.Responses;
 using Microsoft.AspNetCore.Mvc;
 

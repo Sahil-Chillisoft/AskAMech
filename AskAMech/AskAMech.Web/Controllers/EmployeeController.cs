@@ -1,8 +1,5 @@
 ﻿#nullable enable
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AskAMech.Web.Presenters;
 using AskAMech.Core.UseCases.Interfaces;
@@ -35,6 +32,19 @@ namespace AskAMech.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            _securityManagerUseCase.VerifyUserIsAdmin(_modelPresenter);
+
+            if (_modelPresenter.HasValidationErrors)
+            {
+                var model = _modelPresenter.Model as ErrorResponse;
+                return RedirectToAction("Index", "Error",
+                    new
+                    {
+                        message = model?.Message,
+                        code = model?.Code
+                    });
+            }
+
             _getEmployeesUseCase.Execute(new GetEmployeesRequest(), _modelPresenter);
             return View(_modelPresenter.Model);
         }
