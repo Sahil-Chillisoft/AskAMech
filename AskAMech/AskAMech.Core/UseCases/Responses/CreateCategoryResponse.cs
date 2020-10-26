@@ -6,7 +6,7 @@ using System.Text;
 
 namespace AskAMech.Core.UseCases.Responses
 {
-    public class CreateCatergoryResponse
+    public class CreateCategoryResponse
     {
         [DisplayName(" Catergory Description")]
         [Required(ErrorMessage = "* Catergory Description required")]

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AskAMech.Core.UseCases.Requests
 {
-   public class CreateCatergoryRequest
+   public class CreateCategoryRequest
     {
         public string Description { get; set; }
     }

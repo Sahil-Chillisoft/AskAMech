@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    showCatergoryList();
+    showCategoryList();
 
     $('#Create').click(function (event) {
         event.preventDefault();
@@ -11,7 +11,7 @@
         if ($form.valid()) {
             var formData = $form.serialize();
             $.ajax({
-                url: '/Catergory/Create',
+                url: '/Category/Create',
                 type: 'POST',
                 cache: false,
                 enctype: 'multipart/form-data',
@@ -26,26 +26,24 @@
                 }
             });
         }
-
     });
 
-    function showCatergoryList() {
-
+    function showCategoryList() {
         var description = $('#categoryListDiv');
         $.ajax({
-            url: '/Catergory/QuestionCatergoryList',
+            url: '/Category/QuestionCategoryList',
             type: 'GET',
             cache: false,
             success: function (data) {
                 description.html(data)
             }
         });
-
     }
+
     function displaySuccessModal() {
         var successModal = $('#createSuccessDiv');
         $.ajax({
-            url: '/Catergory/CreateSuccess',
+            url: '/Category/CreateSuccess',
             type: 'GET',
             cache: false,
             success: function (data) {
@@ -54,11 +52,12 @@
             }
         });
     }
+
     $('#Confirm').click(function (event) {
         event.preventDefault();
         $('#successModal').modal('hide');
         $('#Description').val('');
         $('#ErrorMessage').text('');
-        showCatergoryList();
+        showCategoryList();
     });
 });

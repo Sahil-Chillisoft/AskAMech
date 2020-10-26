@@ -47,12 +47,12 @@ namespace AskAMech.Web
             services.AddTransient<IUserDashboardUseCase, UserDashboardUseCase>();
             services.AddTransient<ICreateEmployeeUseCase, CreateEmployeeUseCase>();
             services.AddTransient<IGetQuestionsUseCase, GetQuestionsUseCase>();
-            services.AddTransient<ICreateUserRoleUsecase, CreateUserRoleUseCase>();
+            services.AddTransient<ICreateUserRoleUsecase, CreateRoleUseCase>();
             services.AddTransient<IGetEmployeesUseCase, GetEmployeesUseCase>();
             services.AddTransient<IGetRoleUseCase, GetRolesUseCase>();
             services.AddTransient<IGetEmployeesAutocompleteUseCase, GetEmployeesAutocompleteUseCase>();
-            services.AddTransient<ICreateCatergoryUseCase, CreateCatergoryUseCase>();
-            services.AddTransient<IGetCatergoryUsecase, GetCatergoryUseCase>();
+            services.AddTransient<ICreateCatergoryUseCase, CreateCategoryUseCase>();
+            services.AddTransient<IGetCategoryUseCase, GetCatergoryUseCase>();
 
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();

@@ -1,6 +1,6 @@
-﻿@model AskAMech.Core.UseCases.Responses.CreateCatergoryResponse
+﻿@model AskAMech.Core.UseCases.Responses.CreateCategoryResponse
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Category";
 }
 
 <div class="container">
@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h1 class="display-4 text-center">
-                    <i class="material-icons md-45">add</i>
+                    <i class="material-icons md-45">post_add</i>
                     Add Category
                 </h1>
             </div>
@@ -17,7 +17,6 @@
         <div class="row md-Padding-Top-10">
             <div class="col-md-6">
                 <input id="Description" asp-for="Description" class="form-control" placeholder="Enter New Category Description" />
-
             </div>
             <div class="col-md-2">
                 <button id="Create" type="submit" class="btn btn-primary full-width">Create</button>
@@ -33,11 +32,12 @@
         </div>
     </form>
 </div>
+
 <br />
+
 <div id="categoryListDiv"></div>
 <div id="createSuccessDiv"></div>
 
-
 @section Scripts {
-    <script src="~/js/Category/CreateCategory.js"></script>
+    <script src="~/js/Category/create.js"></script>
 }

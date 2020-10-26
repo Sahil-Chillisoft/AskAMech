@@ -34,25 +34,23 @@ namespace AskAMech.Infrastructure.Data.Repositories
             #endregion
             return _mapper.Map<List<Roles>>(rolesList);
         }
-        public int Create(Roles roles)
+
+        public void Create(Roles roles)
         {
             #region SQL
-            var sql = @"insert into Roles (Description)
-                        output inserted.Id 
+            var sql = @"insert into Roles (Description)                        
                         values(@Description)";
             #endregion
 
             #region Execution
             using var connection = new SqlConnection(_sqlHelper.ConnectionString);
-            var roleId = connection.ExecuteScalar<int>(sql,
+            connection.Execute(sql,
                 param: new
                 {
                     Description = roles.Description
-                
+
                 });
             #endregion
-
-            return roleId;
         }
 
         public bool IsExistingRole(string description)

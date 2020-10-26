@@ -9,7 +9,7 @@ using AskAMech.Core.Gateways.Repositories;
 
 namespace AskAMech.Core.UseCases
 {
-    public class GetCatergoryUseCase : IGetCatergoryUsecase
+    public class GetCatergoryUseCase : IGetCategoryUseCase
     {
         private readonly ICategoryRepository _categoryRepository;
         public GetCatergoryUseCase(ICategoryRepository categoryRepository)
@@ -17,12 +17,12 @@ namespace AskAMech.Core.UseCases
             _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
         }
 
-        public void Execute(CreateCatergoryRequest request, IPresenter presenter)
+        public void Execute(CreateCategoryRequest request, IPresenter presenter)
         {
             var allCategories = _categoryRepository.GetCategories();
-            var responsee = new GetCatergoryResponse
+            var responsee = new GetCategoryResponse
             {
-                AllCatergories = allCategories
+                AllCategories = allCategories
             };
             presenter.Success(responsee);
 

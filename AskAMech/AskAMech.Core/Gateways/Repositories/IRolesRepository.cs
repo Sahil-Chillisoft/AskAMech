@@ -8,7 +8,7 @@ namespace AskAMech.Core.Gateways.Repositories
     public interface IRolesRepository
     {
          List<Roles> GetRoles();
-         int Create(Roles roles);
+         void Create(Roles roles);
          bool IsExistingRole(string description);
     }
 }

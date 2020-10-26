@@ -7,7 +7,7 @@ namespace AskAMech.Core.Gateways.Repositories
 {
     public interface ICategoryRepository
     {
-        int Create(Category category);
+        void Create(Category category);
         bool IsExistingCategory(string description);
         List<Category> GetCategories();
     }

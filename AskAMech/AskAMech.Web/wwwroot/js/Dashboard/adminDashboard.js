@@ -10,7 +10,7 @@
             window.location.href = '';
             break;
         case 'divNewQuestionCategory':
-            window.location.href = '/Catergory/Create';
+            window.location.href = '/Category/Create';
             break;
         case 'divUserRole':
             window.location.href = '/Roles/Create';

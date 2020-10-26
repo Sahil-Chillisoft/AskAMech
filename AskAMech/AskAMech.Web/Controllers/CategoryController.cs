@@ -12,18 +12,22 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AskAMech.Web.Controllers
 {
-    public class CatergoryController : Controller
+    public class CategoryController : Controller
     {
         private readonly IModelPresenter _modelPresenter;
         private readonly ISecurityManagerUseCase _securityManagerUseCase;
-        private readonly ICreateCatergoryUseCase _createCatergoryUseCase;
-        private readonly IGetCatergoryUsecase _getCatergoryUsecase;
-        public CatergoryController(IModelPresenter modelPresenter, ISecurityManagerUseCase securityManagerUseCase,ICreateCatergoryUseCase createCatergoryUseCase, IGetCatergoryUsecase getCatergoryUsecase)
+        private readonly ICreateCatergoryUseCase _createCategoryUseCase;
+        private readonly IGetCategoryUseCase _getCategoryUseCase;
+
+        public CategoryController(IModelPresenter modelPresenter,
+                                  ISecurityManagerUseCase securityManagerUseCase,
+                                  ICreateCatergoryUseCase createCategoryUseCase,
+                                  IGetCategoryUseCase getCategoryUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
-            _createCatergoryUseCase = createCatergoryUseCase ?? throw new ArgumentNullException(nameof(createCatergoryUseCase));
-            _getCatergoryUsecase = getCatergoryUsecase ?? throw new ArgumentNullException(nameof(getCatergoryUsecase));
+            _createCategoryUseCase = createCategoryUseCase ?? throw new ArgumentNullException(nameof(createCategoryUseCase));
+            _getCategoryUseCase = getCategoryUseCase ?? throw new ArgumentNullException(nameof(getCategoryUseCase));
         }
 
         [HttpGet]
@@ -44,14 +48,14 @@ namespace AskAMech.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CreateCatergoryRequest request)
+        public IActionResult Create(CreateCategoryRequest request)
         {
-            _createCatergoryUseCase.Execute(request, _modelPresenter);
+            _createCategoryUseCase.Execute(request, _modelPresenter);
 
             if (!_modelPresenter.HasValidationErrors)
                 return Json(new { Success = true, Message = "Category Successfully Added" });
 
-            var model = _modelPresenter.Model as CreateCatergoryResponse;
+            var model = _modelPresenter.Model as CreateCategoryResponse;
             return Json(new { Sucess = false, Message = model?.ErrorMessage });
         }
 
@@ -62,10 +66,10 @@ namespace AskAMech.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult QuestionCatergoryList(CreateCatergoryRequest request)
+        public IActionResult QuestionCategoryList(CreateCategoryRequest request)
         {
-            _getCatergoryUsecase.Execute(request, _modelPresenter);
-          return PartialView("_QuestionCatergoryList", _modelPresenter.Model);
+            _getCategoryUseCase.Execute(request, _modelPresenter);
+            return PartialView("_QuestionCatergoryList", _modelPresenter.Model);
         }
     }
 }

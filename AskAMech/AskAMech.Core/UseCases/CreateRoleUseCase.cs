@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using AskAMech.Core.UseCases.Requests;
 using AskAMech.Core.UseCases.Responses;
 using AskAMech.Core.Domain;
@@ -9,14 +7,13 @@ using AskAMech.Core.Gateways.Repositories;
 
 namespace AskAMech.Core.UseCases
 {
-    public class CreateUserRoleUseCase : ICreateUserRoleUsecase
+    public class CreateRoleUseCase : ICreateUserRoleUsecase
     {
         private readonly IRolesRepository _rolesRepository;
 
-        public CreateUserRoleUseCase(IRolesRepository rolesRepository)
+        public CreateRoleUseCase(IRolesRepository rolesRepository)
         {
             _rolesRepository = rolesRepository ?? throw new ArgumentNullException(nameof(rolesRepository));
-
         }
 
         public void Execute(CreateUserRoleRequest request, IPresenter presenter)

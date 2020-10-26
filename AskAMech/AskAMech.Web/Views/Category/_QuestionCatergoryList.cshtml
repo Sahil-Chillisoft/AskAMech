@@ -1,27 +1,26 @@
-﻿@model AskAMech.Core.UseCases.Responses.GetRolesResponse
+﻿@model AskAMech.Core.UseCases.Responses.GetCategoryResponse
 
 <div class="container">
     <hr />
     <div class="row">
         <div class="col-md-12">
             <h3 class="text-left">
-                Current Roles
+                Current Categories
             </h3>
         </div>
     </div>
-
     <div class="row w-50">
         <div class="col-md-12">
-            @if (Model.UserRoles.Any())
+            @if (Model.AllCategories.Any())
             {
-                <table id="RolesTable" class="table">
+                <table id="CategoriesTable" class="table">
                     <thead class="thead-dark">
                         <tr>
-                            <th>Role Name</th>
+                            <th>Category Name</th>
                         </tr>
                     </thead>
                     <tbody class="table-bordered">
-                        @foreach (var item in Model.UserRoles)
+                        @foreach (var item in Model.AllCategories)
                         {
                             <tr>
                                 <td>@item.Description</td>

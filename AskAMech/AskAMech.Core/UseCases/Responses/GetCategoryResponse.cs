@@ -5,8 +5,8 @@ using AskAMech.Core.Domain;
 
 namespace AskAMech.Core.UseCases.Responses
 {
-    public class GetCatergoryResponse
+    public class GetCategoryResponse
     {
-        public List<Category> AllCatergories { get; set; }
+        public List<Category> AllCategories { get; set; }
     }
 }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
 using AskAMech.Core.Domain;
 using AskAMech.Core.Gateways.Repositories;
 using AskAMech.Infrastructure.Data.Entities;
@@ -23,41 +22,33 @@ namespace AskAMech.Infrastructure.Data.Repositories
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public int Create(Category category)
+        public void Create(Category category)
         {
             #region SQL
-            var sql = @"
-                        insert into Category (Description)
-                        output inserted.Id 
-                        values(@Description)
-                      ";
+            var sql = @"insert into Category (Description)                        
+                        values(@Description) ";
             #endregion
 
             #region Execution
             using var connection = new SqlConnection(_sqlHelper.ConnectionString);
-            var categoryId = connection.ExecuteScalar<int>(sql,
+            connection.Execute(sql,
                 param: new
                 {
                     Description = category.Description
-
                 });
             #endregion
-
-            return categoryId;
         }
 
         public bool IsExistingCategory(string description)
         {
             #region SQL
-            var sql = @"
-                        select case when exists 
+            var sql = @"select case when exists 
                         (
                             select description 
                             from Category 
                             where description = @Description 
                         ) then 1 else 0
-                        end
-                      ";
+                        end ";
             #endregion
 
             #region Execution

@@ -5,7 +5,7 @@ using AskAMech.Core.UseCases.Requests;
 
 namespace AskAMech.Core.UseCases.Interfaces
 {
-   public interface ICreateCatergoryUseCase : IUseCase<CreateCatergoryRequest> 
+   public interface ICreateCatergoryUseCase : IUseCase<CreateCategoryRequest> 
     {
     }
 }
