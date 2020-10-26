@@ -6,13 +6,12 @@ using AskAMech.Core.Domain;
 
 namespace AskAMech.Core.UseCases.Responses
 {
-    public class GetQuestionsResponse
+    public class GetQuestionsResponse : Pagination
     {
         public List<ViewQuestions> Questions { get; set; }
         public IEnumerable<Category> Categories { get; set; }
         public string Search { get; set; }
         public int CategoryId { get; set; }
-        public bool IsPagingRequest { get; set; }
         public Pagination Pagination { get; set; }
     }
 }

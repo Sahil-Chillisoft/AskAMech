@@ -24,15 +24,20 @@ namespace AskAMech.Core.UseCases
 
         public void Execute(GetQuestionsRequest request, IPresenter presenter)
         {
-            var recordCount = request.IsPagingRequest ? request.Pagination.RecordCount : _questionRepository.GetCount(request.Search, request.CategoryId);
+            var recordCount = 0;
+            if (request.Pagination != null && request.Pagination.IsPagingRequest && request.Pagination.Page != 1)
+                recordCount = request.Pagination.RecordCount;
+            else
+                recordCount = _questionRepository.GetCount(request.Search, request.CategoryId);
+
             var page = request.Pagination?.Page ?? 1;
-            const int pageSize = 10;
-            var totalPages = (int)Math.Ceiling(recordCount / (double)pageSize);
+
+            var totalPages = (int)Math.Ceiling(recordCount / (double)PageSize.Medium);
 
             var pagination = new Pagination
             {
-                Offset = (page - 1) * pageSize,
-                PageSize = pageSize
+                Offset = (page - 1) * (int)PageSize.Medium,
+                PageSize = (int)PageSize.Medium
             };
 
             var questions = _questionRepository.GetQuestions(request.Search, request.CategoryId, pagination);

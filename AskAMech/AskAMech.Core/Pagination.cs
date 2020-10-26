@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AskAMech.Core
+﻿namespace AskAMech.Core
 {
     public class Pagination
     {
@@ -11,5 +7,14 @@ namespace AskAMech.Core
         public int Offset { get; set; }
         public int TotalPages { get; set; }
         public int RecordCount { get; set; }
+        public bool IsPagingRequest { get; set; }
+    }
+
+    public enum PageSize
+    {
+        Small = 5,
+        Medium = 10,
+        Large = 20,
+        ExtraLarge = 50
     }
 }

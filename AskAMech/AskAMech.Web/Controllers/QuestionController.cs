@@ -32,6 +32,7 @@ namespace AskAMech.Web.Controllers
         [HttpPost]
         public IActionResult Index(GetQuestionsRequest request)
         {
+            ModelState.Clear();
             _getQuestionsUseCase.Execute(request, _modelPresenter);
             return View(_modelPresenter.Model);
         }

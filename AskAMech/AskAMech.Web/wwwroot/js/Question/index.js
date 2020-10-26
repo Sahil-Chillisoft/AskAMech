@@ -40,9 +40,9 @@ function renderSearchDivOnPageLoad() {
 
 function getResults(page, isPagingRequest) {
     var search = $('#Search').val();
-    var categoryId = $('#CategoryId').val();
-    var totalPages = $('#TotalPages').val();
-    var recordCount = $('#RecordCount').val();
+    var categoryId = parseInt($('#CategoryId').val());
+    var totalPages = parseInt($('#TotalPages').val());
+    var recordCount = parseInt($('#RecordCount').val());
     var url = 'Question/Index';
 
     $.post(url,
@@ -50,12 +50,11 @@ function getResults(page, isPagingRequest) {
             'Search': search,
             'CategoryId': categoryId,
             'Pagination.Page': page,
-            'TotalPages': totalPages,
+            'Pagination.TotalPages': totalPages,
             'Pagination.RecordCount': recordCount,
-            'IsPagingRequest': isPagingRequest
+            'Pagination.IsPagingRequest': isPagingRequest
         }).done(function (data) {
             $('body').html(data);
-            $('#IsPagingRequest').val(false);
         });
 }
 

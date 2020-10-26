@@ -75,7 +75,7 @@
                 </div>
             }
         </div>
-        <hr/>
+        <hr />
         <div class="row">
             <div class="col-md-5"></div>
             <div class="col-md-1">
@@ -88,7 +88,7 @@
                 @Html.HiddenFor(x => x.Pagination.Page, new { id = "Page" })
                 @Html.HiddenFor(x => x.Pagination.TotalPages, new { id = "TotalPages" })
                 @Html.HiddenFor(x => x.Pagination.RecordCount, new { id = "RecordCount" })
-                @Html.HiddenFor(x => x.IsPagingRequest, new { id = "IsPagingRequest" })
+                @Html.HiddenFor(x => x.Pagination.IsPagingRequest, new { id = "IsPagingRequest" })
             </div>
             <div class="col-md-1">
                 <button id="NextPage" title="Next Page" class="btn-group btn-success">
