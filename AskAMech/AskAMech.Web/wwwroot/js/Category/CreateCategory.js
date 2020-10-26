@@ -1,7 +1,8 @@
 ﻿$(document).ready(function () {
 
     showCatergoryList();
-    $('#create').click(function (event) {
+
+    $('#Create').click(function (event) {
         event.preventDefault();
 
         var $form = $('#CategoryCreateForm');
@@ -10,7 +11,7 @@
         if ($form.valid()) {
             var formData = $form.serialize();
             $.ajax({
-                url: '/QuestionCatergory/Create',
+                url: '/Catergory/Create',
                 type: 'POST',
                 cache: false,
                 enctype: 'multipart/form-data',
@@ -25,18 +26,17 @@
                 }
             });
         }
-        
+
     });
 
     function showCatergoryList() {
 
         var description = $('#categoryListDiv');
         $.ajax({
-            url: '/QuestionCatergory/QuestionCatergoryList',
+            url: '/Catergory/QuestionCatergoryList',
             type: 'GET',
             cache: false,
             success: function (data) {
-                console.log(data);
                 description.html(data)
             }
         });
@@ -45,7 +45,7 @@
     function displaySuccessModal() {
         var successModal = $('#createSuccessDiv');
         $.ajax({
-            url: '/QuestionCatergory/CreateSuccess',
+            url: '/Catergory/CreateSuccess',
             type: 'GET',
             cache: false,
             success: function (data) {
@@ -54,4 +54,11 @@
             }
         });
     }
+    $('#Confirm').click(function (event) {
+        event.preventDefault();
+        $('#successModal').modal('hide');
+        $('#Description').val('');
+        $('#ErrorMessage').text('');
+        showCatergoryList();
+    });
 });

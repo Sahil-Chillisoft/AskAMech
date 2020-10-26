@@ -15,21 +15,20 @@
         </div>
         <hr />
         <div class="row md-Padding-Top-10">
-            <div class="col-md-12">
-                <label asp-for="Description"></label>
-            </div>
             <div class="col-md-6">
-                <div class="input-group">
-                    <input asp-for="Description" class="form-control" />
-                </div>
+                <input id="Description" asp-for="Description" class="form-control" placeholder="Enter New Category Description" />
+
             </div>
-            <div class="col-md-6">
-                <span asp-validation-for="Description" class="text-danger"></span>
+            <div class="col-md-2">
+                <button id="Create" type="submit" class="btn btn-primary full-width">Create</button>
             </div>
         </div>
-        <div class="row md-Padding-Top-10">
-            <div class="col-md-2">
-                <button id="create" type="submit" class="btn btn-primary full-width">Create</button>
+        <div class="row">
+            <div class="col-md-12">
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="col-md-12">
+                <label id="ErrorMessage" class="text-danger"></label>
             </div>
         </div>
     </form>
@@ -37,6 +36,7 @@
 <br />
 <div id="categoryListDiv"></div>
 <div id="createSuccessDiv"></div>
+
 
 @section Scripts {
     <script src="~/js/Category/CreateCategory.js"></script>

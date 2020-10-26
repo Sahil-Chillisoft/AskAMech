@@ -12,13 +12,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AskAMech.Web.Controllers
 {
-    public class QuestionCatergoryController : Controller
+    public class CatergoryController : Controller
     {
         private readonly IModelPresenter _modelPresenter;
         private readonly ISecurityManagerUseCase _securityManagerUseCase;
         private readonly ICreateCatergoryUseCase _createCatergoryUseCase;
         private readonly IGetCatergoryUsecase _getCatergoryUsecase;
-        public QuestionCatergoryController(IModelPresenter modelPresenter, ISecurityManagerUseCase securityManagerUseCase,ICreateCatergoryUseCase createCatergoryUseCase, IGetCatergoryUsecase getCatergoryUsecase)
+        public CatergoryController(IModelPresenter modelPresenter, ISecurityManagerUseCase securityManagerUseCase,ICreateCatergoryUseCase createCatergoryUseCase, IGetCatergoryUsecase getCatergoryUsecase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
