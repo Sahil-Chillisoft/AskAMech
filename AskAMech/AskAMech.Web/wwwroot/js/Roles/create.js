@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
-    
+
+    showRolesList();
 
     $('#create').click(function (event) {
         event.preventDefault();
@@ -25,11 +26,11 @@
                 }
             });
         }
+
         showRolesList();
     });
 
     function showRolesList() {
-        
         var description = $('#rolesListDiv');
         $.ajax({
             url: '/Roles/RolesList',
@@ -37,11 +38,11 @@
             cache: false,
             success: function (data) {
                 console.log(data);
-                description.html(data)
+                description.html(data);
             }
-            });
-
+        });
     }
+
     function displaySuccessModal() {
         var successModal = $('#createSuccessDiv');
         $.ajax({
@@ -54,4 +55,12 @@
             }
         });
     }
+
+    $('#Confirm').click(function (event) {
+        event.preventDefault();
+        $('#successModal').modal('hide');
+        $('#Description').val('');
+        $('#ErrorMessage').text('');
+        showRolesList();
+    });
 });

@@ -9,7 +9,7 @@ namespace AskAMech.Core.UseCases.Responses
 {
     public class CreateUserRoleResponse
     {
-        [DisplayName(" Role Description")]
+        [DisplayName("Description")]
         [Required(ErrorMessage = "* Role Description required")]
         public string Description { get; set; }
         public string? ErrorMessage { get; set; }

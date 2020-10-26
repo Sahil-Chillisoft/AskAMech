@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
 using AskAMech.Core.Domain;
 using AskAMech.Core.Gateways.Repositories;
 using AskAMech.Infrastructure.Data.Entities;
@@ -23,11 +22,12 @@ namespace AskAMech.Infrastructure.Data.Repositories
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public List<Roles> getAllRoles()
+        public List<Roles> GetRoles()
         {
             #region SQL
             var sql = @"select * from Roles ";
             #endregion
+
             #region Execution 
             using var connection = new SqlConnection(_sqlHelper.ConnectionString);
             var rolesList = connection.Query<RolesEntity>(sql).ToList();
@@ -37,11 +37,9 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public int Create(Roles roles)
         {
             #region SQL
-            var sql = @"
-                        insert into Roles (Description)
+            var sql = @"insert into Roles (Description)
                         output inserted.Id 
-                        values(@Description)
-                      ";
+                        values(@Description)";
             #endregion
 
             #region Execution
@@ -60,15 +58,13 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public bool IsExistingRole(string description)
         {
             #region SQL
-            var sql = @"
-                        select case when exists 
+            var sql = @"select case when exists 
                         (
                             select description 
                             from Roles 
                             where description = @Description 
                         ) then 1 else 0
-                        end
-                      ";
+                        end ";
             #endregion
 
             #region Execution

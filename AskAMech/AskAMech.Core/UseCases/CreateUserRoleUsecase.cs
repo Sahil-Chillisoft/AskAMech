@@ -9,11 +9,11 @@ using AskAMech.Core.Gateways.Repositories;
 
 namespace AskAMech.Core.UseCases
 {
-    public class CreateUserRoleUsecase : ICreateUserRoleUsecase
+    public class CreateUserRoleUseCase : ICreateUserRoleUsecase
     {
         private readonly IRolesRepository _rolesRepository;
 
-        public CreateUserRoleUsecase(IRolesRepository rolesRepository)
+        public CreateUserRoleUseCase(IRolesRepository rolesRepository)
         {
             _rolesRepository = rolesRepository ?? throw new ArgumentNullException(nameof(rolesRepository));
 

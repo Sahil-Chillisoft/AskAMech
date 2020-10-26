@@ -16,17 +16,21 @@ namespace AskAMech.Web.Controllers
     {
         private readonly IModelPresenter _modelPresenter;
         private readonly ISecurityManagerUseCase _securityManagerUseCase;
-        private readonly ICreateUserRoleUsecase _createUserRoleUsecase;
+        private readonly ICreateUserRoleUsecase _createUserRoleUseCase;
         private readonly IGetRoleUseCase _getRoleUseCase;
 
-        public RolesController(IModelPresenter modelPresenter, ISecurityManagerUseCase securityManagerUseCase, ICreateUserRoleUsecase createUserRoleUsecase, IGetRoleUseCase getRoleUseCase)
+        public RolesController(IModelPresenter modelPresenter,
+                               ISecurityManagerUseCase securityManagerUseCase,
+                               ICreateUserRoleUsecase createUserRoleUseCase,
+                               IGetRoleUseCase getRoleUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
-            _createUserRoleUsecase = createUserRoleUsecase ?? throw new ArgumentNullException(nameof(createUserRoleUsecase));
+            _createUserRoleUseCase = createUserRoleUseCase ?? throw new ArgumentNullException(nameof(createUserRoleUseCase));
             _getRoleUseCase = getRoleUseCase ?? throw new ArgumentNullException(nameof(getRoleUseCase));
-            
+
         }
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -47,10 +51,10 @@ namespace AskAMech.Web.Controllers
         [HttpPost]
         public IActionResult Create(CreateUserRoleRequest request)
         {
-            _createUserRoleUsecase.Execute(request, _modelPresenter);
-            
+            _createUserRoleUseCase.Execute(request, _modelPresenter);
+
             if (!_modelPresenter.HasValidationErrors)
-                return Json(new { Success = true, Message = "Role Successfully Added" });
+                return Json(new { Success = true });
 
             var model = _modelPresenter.Model as CreateUserRoleResponse;
             return Json(new { Sucess = false, Message = model?.ErrorMessage });
@@ -65,9 +69,8 @@ namespace AskAMech.Web.Controllers
         [HttpGet]
         public IActionResult RolesList(CreateUserRoleRequest request)
         {
-            
             _getRoleUseCase.Execute(request, _modelPresenter);
-            return PartialView("_RolesList",_modelPresenter.Model);
+            return PartialView("_RolesList", _modelPresenter.Model);
         }
     }
 }

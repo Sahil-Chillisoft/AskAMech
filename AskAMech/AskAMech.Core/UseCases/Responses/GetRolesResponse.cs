@@ -5,8 +5,8 @@ using AskAMech.Core.Domain;
 
 namespace AskAMech.Core.UseCases.Responses
 {
-   public class GetRolesResponse
+    public class GetRolesResponse
     {
-        public List<Roles> AllRoles { get; set; }
+        public List<Roles> UserRoles { get; set; }
     }
 }

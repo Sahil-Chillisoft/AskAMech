@@ -20,12 +20,12 @@ namespace AskAMech.Core.UseCases
         }
         public void Execute(CreateUserRoleRequest request, IPresenter presenter)
         {
-            var allRoles = _rolesRepository.getAllRoles();
-            var responsee = new GetRolesResponse
+            var userRoles = _rolesRepository.GetRoles();
+            var response = new GetRolesResponse
             {
-                AllRoles = allRoles
+                UserRoles = userRoles
             };
-            presenter.Success(responsee);
+            presenter.Success(response);
 
         }
     }
