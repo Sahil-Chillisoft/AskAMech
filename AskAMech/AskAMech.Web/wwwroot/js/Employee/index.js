@@ -19,7 +19,12 @@
                     search: request.term
                 },
                 success: function (data) {
-                    response(data.employeeDetails);
+                    data = $.parseJSON(JSON.stringify(data));
+                    response($.map(data.employeeDetails, function (item) {
+                        return {
+                            label: item["fullName"], value: item["fullName"]
+                        };
+                    }));
                 }
             });
         },

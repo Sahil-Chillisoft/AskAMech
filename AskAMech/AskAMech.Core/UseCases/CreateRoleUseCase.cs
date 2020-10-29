@@ -7,7 +7,7 @@ using AskAMech.Core.Gateways.Repositories;
 
 namespace AskAMech.Core.UseCases
 {
-    public class CreateRoleUseCase : ICreateUserRoleUsecase
+    public class CreateRoleUseCase : ICreateUserRoleUseCase
     {
         private readonly IRolesRepository _rolesRepository;
 

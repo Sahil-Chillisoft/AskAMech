@@ -11,12 +11,12 @@ namespace AskAMech.Web.Controllers
     {
         private readonly IModelPresenter _modelPresenter;
         private readonly ISecurityManagerUseCase _securityManagerUseCase;
-        private readonly ICreateUserRoleUsecase _createUserRoleUseCase;
+        private readonly ICreateUserRoleUseCase _createUserRoleUseCase;
         private readonly IGetRoleUseCase _getRoleUseCase;
 
         public RolesController(IModelPresenter modelPresenter,
                                ISecurityManagerUseCase securityManagerUseCase,
-                               ICreateUserRoleUsecase createUserRoleUseCase,
+                               ICreateUserRoleUseCase createUserRoleUseCase,
                                IGetRoleUseCase getRoleUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));

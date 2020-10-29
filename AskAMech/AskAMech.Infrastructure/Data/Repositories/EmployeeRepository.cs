@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using AskAMech.Infrastructure.Data.Helpers;
 using AutoMapper;
 using AskAMech.Core.Domain;
@@ -109,10 +108,10 @@ namespace AskAMech.Infrastructure.Data.Repositories
             return isExistingEmployee;
         }
 
-        public List<string> GetEmployeesForAutocomplete(string search)
+        public List<ViewEmployee> GetEmployeesForAutocomplete(string search)
         {
             #region SQL
-            var sql = @"select top 7 (FirstName + ' ' + LastName) as FullName 
+            var sql = @"select top 7 Id, (FirstName + ' ' + LastName) as FullName 
                         from Employee 
                         where (FirstName + ' ' + LastName) like @Search  
                         or IdNumber like @Search ";
@@ -120,17 +119,17 @@ namespace AskAMech.Infrastructure.Data.Repositories
 
             #region Execution
             var connection = new SqlConnection(_sqlHelper.ConnectionString);
-            var employees = connection.Query<string>(sql,
+            var employees = connection.Query<ViewEmployeeEntity>(sql,
                 new
                 {
                     Search = $"%{search}%"
                 }).ToList();
             #endregion
 
-            return employees;
+            return _mapper.Map<List<ViewEmployee>>(employees);
         }
 
-        public int GteCount(string? search)
+        public int GetCount(string? search)
         {
             #region SQL
             var sql = @"select count(Id) as EmployeeCount 

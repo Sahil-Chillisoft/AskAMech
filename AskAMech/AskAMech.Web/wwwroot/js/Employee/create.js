@@ -3,7 +3,7 @@ $(document).ready(function () {
     $('#create').click(function (event) {
         event.preventDefault();
 
-        var $form = $('#employeeCreateForm');
+        var $form = $('#EmployeeCreateForm');
         $.validator.unobtrusive.parse($form);
 
         if ($form.valid()) {

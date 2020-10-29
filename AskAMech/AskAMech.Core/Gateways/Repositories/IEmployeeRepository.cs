@@ -11,8 +11,8 @@ namespace AskAMech.Core.Gateways.Repositories
         List<Employee> GetEmployees(string search, Pagination pagination);
         void Create(Employee employee);
         bool IsExistingEmployee(Employee employee);
-        List<string> GetEmployeesForAutocomplete(string search);
-        int GteCount(string? search);
+        List<ViewEmployee> GetEmployeesForAutocomplete(string search);
+        int GetCount(string? search);
         void Update(Employee employee);
     }
 }

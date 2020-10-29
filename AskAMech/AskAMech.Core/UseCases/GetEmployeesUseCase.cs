@@ -24,7 +24,7 @@ namespace AskAMech.Core.UseCases
             if (request.Pagination != null && request.Pagination.IsPagingRequest)
                 recordCount = request.Pagination.RecordCount;
             else
-                recordCount = _employeeRepository.GteCount(request.Search);
+                recordCount = _employeeRepository.GetCount(request.Search);
 
             var page = request.Pagination?.Page ?? 1;
 

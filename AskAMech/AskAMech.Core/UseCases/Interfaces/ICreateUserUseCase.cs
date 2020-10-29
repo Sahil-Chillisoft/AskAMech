@@ -5,7 +5,7 @@ using AskAMech.Core.UseCases.Requests;
 
 namespace AskAMech.Core.UseCases.Interfaces
 {
-    public interface ICreateUserRoleUseCase : IUseCase<CreateUserRoleRequest>
+    public interface ICreateUserUseCase: IUseCase<CreateUserRequest>
     {
     }
 }

@@ -1,0 +1,51 @@
+﻿@model AskAMech.Core.UseCases.Responses.CreateUserResponse
+@{
+    ViewData["Title"] = "Add User";
+}
+
+<div class="container">
+    <form id="UserCreateForm">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="display-4 text-center">
+                    <i class="material-icons md-45">group_add</i>
+                    Create New User From Employee
+                </h1>
+            </div>
+        </div>
+
+        <hr />
+
+        <div id="searchDiv" class="bg-ghost-white">
+            <div class="row md-Padding-Top-10">
+                <div class="col-md-5 md-Padding-Left-25">
+                    @Html.TextBoxFor(x => x.Search,
+                        new
+                        {
+                            id = "Search",
+                            name = "Search",
+                            @class = "form-control",
+                            placeholder = "Start typing to search by Name or Id Number"
+                        })
+                    <input type="hidden" id="EmployeeId" />
+                </div>
+                <div class="col-md-2">
+                    <button id="LoadEmployee" type="button" class="btn btn-primary full-width">Load Employee</button>
+                </div>
+                <div class="col-md-2">
+                    <button id="ClearEmployee" type="button" class="btn btn-primary full-width">Clear Employee</button>
+                </div>
+            </div>
+            <div class="row md-Padding-Top-10">
+                <div class="col-md-10 md-Padding-Left-25">
+                    <label id="Info"></label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/User/create.js"></script>
+}

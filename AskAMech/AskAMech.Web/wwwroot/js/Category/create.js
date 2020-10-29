@@ -35,7 +35,7 @@
             type: 'GET',
             cache: false,
             success: function (data) {
-                description.html(data)
+                description.html(data);
             }
         });
     }

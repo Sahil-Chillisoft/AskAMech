@@ -7,7 +7,7 @@
             window.location.href = '/Employee/Create'; 
             break;
         case 'divCreateUserFromEmployee':
-            window.location.href = '';
+            window.location.href = '/User/Create';
             break;
         case 'divNewQuestionCategory':
             window.location.href = '/Category/Create';
