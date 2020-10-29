@@ -53,6 +53,7 @@ namespace AskAMech.Web
             services.AddTransient<IGetEmployeesAutocompleteUseCase, GetEmployeesAutocompleteUseCase>();
             services.AddTransient<ICreateCatergoryUseCase, CreateCategoryUseCase>();
             services.AddTransient<IGetCategoryUseCase, GetCatergoryUseCase>();
+            services.AddTransient<IUpdateEmployeeUseCase, UpdateEmployeeUseCase>();
 
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();

@@ -121,7 +121,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             #endregion
 
             return userId;
-        }
+        } 
 
         public void UpdateLastLoggedInDate(int userId)
         {

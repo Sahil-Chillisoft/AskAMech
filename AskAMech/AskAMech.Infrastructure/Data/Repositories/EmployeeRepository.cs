@@ -150,5 +150,33 @@ namespace AskAMech.Infrastructure.Data.Repositories
 
             return employeeCount;
         }
+        public void Update(Employee employee)
+        {
+            #region SQL
+            var sql = @"
+                            update Employee
+                            set FirstName=@FirstName, LastName=@LastName, IdNumber=@IdNumber, Email=@Email, CreatedByUserId=@CreatedByUserId, DateCreated=@DateCreated, LastModifiedByUserId=@LastModifiedByUserId, DateLastModified=@DateLastModified, IsActive=@IsActive)
+                            where Id=@EmployeeId
+                       ";
+            #endregion
+
+            #region Execution 
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            connection.Execute(sql,
+                param: new
+                {
+                    FirstName = employee.FirstName,
+                    LastName = employee.LastName,
+                    IdNumber = employee.IdNumber,
+                    Email = employee.Email,
+                    CreatedByUserId = employee.CreatedByUserId,
+                    DateCreated = DateTime.Now,
+                    LastModifiedByUserId = employee.LastModifiedByUserId,
+                    DateLastModified = DateTime.Now,
+                    IsActive = employee.IsActive
+                });
+            #endregion
+           
+        }
     }
 }

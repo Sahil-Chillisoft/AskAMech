@@ -93,5 +93,26 @@ namespace AskAMech.Infrastructure.Data.Repositories
                 });
             #endregion
         }
+        public void UpdateUserProfile(UserProfile userProfile)
+        {
+            #region SQL
+            var sql = @"
+                        update UserProfile 
+                        set UserId=@UserId, Username=@Username, DateLastModified=@DateLastModified                        
+                        where Id=@UserId
+                      ";
+            #endregion
+
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            connection.Execute(sql,
+                param: new
+                {
+                    UserId = userProfile.UserId,
+                    Username = userProfile.Username,
+                    DateLastModified = userProfile.DateLastModified
+                });
+            #endregion
+        }
     }
 }

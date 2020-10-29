@@ -1,0 +1,94 @@
+﻿@model AskAMech.Core.UseCases.Responses.UpdateEmployeeResponse
+@{
+    ViewData["Title"] = "UpdateUser";
+}
+
+<div class="container">
+    <form id="employeeUpdateForm">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="display-4 text-center">
+                    <i class="material-icons md-45">person_add</i>
+                    Update New Employee
+                </h1>
+            </div>
+        </div>
+        <hr />
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-12">
+                <label asp-for="FirstName"></label>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input asp-for="FirstName" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+        </div>
+
+
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-12">
+                <label asp-for="LastName"></label>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input asp-for="LastName" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+
+
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-12">
+                <label asp-for="IdNumber"></label>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input asp-for="IdNumber" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span asp-validation-for="IdNumber" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-12">
+                <label asp-for="Email"></label>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input asp-for="Email" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-12">
+                <label id="ErrorMessage" class="text-danger"></label>
+            </div>
+        </div>
+
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-2">
+                <button id="update" type="submit" class="btn btn-primary full-width">Update</button>
+                <button type="reset" value="Cancel" class="btn btn-primary full-width">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="createSuccessDiv"></div>
+
+@section Scripts {
+    <script src="~/js/Employee/update.js"></script>
+}

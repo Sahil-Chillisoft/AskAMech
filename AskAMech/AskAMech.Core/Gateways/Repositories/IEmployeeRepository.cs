@@ -13,5 +13,6 @@ namespace AskAMech.Core.Gateways.Repositories
         bool IsExistingEmployee(Employee employee);
         List<string> GetEmployeesForAutocomplete(string search);
         int GteCount(string? search);
+        void Update(Employee employee);
     }
 }

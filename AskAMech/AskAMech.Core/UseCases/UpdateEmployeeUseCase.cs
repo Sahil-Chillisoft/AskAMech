@@ -1,25 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using AskAMech.Core.Gateways.Repositories;
 using AskAMech.Core.UseCases.Requests;
 using AskAMech.Core.UseCases.Responses;
 using AskAMech.Core.Domain;
 using AskAMech.Core.UseCases.Interfaces;
-using AskAMech.Core.Gateways.Repositories;
 
 namespace AskAMech.Core.UseCases
 {
-    public class CreateEmployeeUseCase : ICreateEmployeeUseCase
+    public class UpdateEmployeeUseCase : IUpdateEmployeeUseCase
     {
         private readonly IEmployeeRepository _employeeRepository;
+       
 
-        public CreateEmployeeUseCase(IEmployeeRepository employeeRepository)
+        public UpdateEmployeeUseCase(IEmployeeRepository employeeRepository)
         {
             _employeeRepository = employeeRepository ?? throw new ArgumentNullException(nameof(employeeRepository));
         }
-        
-
-        public void Execute(CreateEmployeeRequest request, IPresenter presenter)
+        public void Execute(UpdateEmployeeRequest request, IPresenter presenter)
         {
             var employee = new Employee
             {
@@ -32,16 +31,16 @@ namespace AskAMech.Core.UseCases
                 LastModifiedByUserId = UserSecurityManager.UserId,
             };
 
-                var isExistingEmployee = _employeeRepository.IsExistingEmployee(employee);
+            var isExistingEmployee = _employeeRepository.IsExistingEmployee(employee);
 
             if (!isExistingEmployee)
             {
-                _employeeRepository.Create(employee);
-                presenter.Success(new CreateEmployeeResponse());
+                _employeeRepository.Update(employee);
+                presenter.Success(new UpdateEmployeeResponse());
             }
             else
             {
-                var response = new CreateEmployeeResponse
+                var response = new UpdateEmployeeResponse
                 {
                     Email = request.Email,
                     FirstName = request.FirstName,
@@ -51,7 +50,7 @@ namespace AskAMech.Core.UseCases
                 };
                 presenter.Error(response, true);
             }
+
         }
     }
-
 }

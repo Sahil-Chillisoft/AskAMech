@@ -15,18 +15,22 @@ namespace AskAMech.Web.Controllers
         private readonly ICreateEmployeeUseCase _createEmployeeUseCase;
         private readonly IGetEmployeesUseCase _getEmployeesUseCase;
         private readonly IGetEmployeesAutocompleteUseCase _getEmployeesAutocompleteUseCase;
+        private readonly IUpdateEmployeeUseCase _updateEmployeeUseCase;
 
         public EmployeeController(IModelPresenter modelPresenter,
                                   ISecurityManagerUseCase securityManagerUseCase,
                                   ICreateEmployeeUseCase createEmployeeUseCase,
                                   IGetEmployeesUseCase getEmployeeUseCase,
-                                  IGetEmployeesAutocompleteUseCase getEmployeesAutocompleteUseCase)
+                                  IGetEmployeesAutocompleteUseCase getEmployeesAutocompleteUseCase,
+                                   IUpdateEmployeeUseCase updateEmployeeUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _createEmployeeUseCase = createEmployeeUseCase ?? throw new ArgumentNullException(nameof(createEmployeeUseCase));
             _getEmployeesUseCase = getEmployeeUseCase ?? throw new ArgumentNullException(nameof(getEmployeeUseCase));
             _getEmployeesAutocompleteUseCase = getEmployeesAutocompleteUseCase ?? throw new ArgumentNullException(nameof(getEmployeesAutocompleteUseCase));
+            _updateEmployeeUseCase = updateEmployeeUseCase ?? throw new ArgumentNullException(nameof(updateEmployeeUseCase));
+
         }
 
         [HttpGet]
@@ -83,6 +87,36 @@ namespace AskAMech.Web.Controllers
                 return Json(new { Success = true, Message = "Employee Successfully Added" });
 
             var model = _modelPresenter.Model as CreateEmployeeResponse;
+            return Json(new { Sucess = false, Message = model?.ErrorMessage });
+        }
+
+
+        [HttpGet]
+        public IActionResult UpdateUser()
+        {
+            _securityManagerUseCase.VerifyUserIsAdmin(_modelPresenter);
+
+            if (!_modelPresenter.HasValidationErrors)
+                return View();
+
+            var model = _modelPresenter.Model as ErrorResponse;
+            return RedirectToAction("Index", "Error",
+                new
+                {
+                    message = model?.Message,
+                    code = model?.Code
+                });
+        }
+
+        [HttpPost]
+        public IActionResult UpdateUser(UpdateEmployeeRequest request)
+        {
+            _updateEmployeeUseCase.Execute(request, _modelPresenter);
+
+            if (!_modelPresenter.HasValidationErrors)
+                return Json(new { Success = true, Message = "User is Successfully Updated" });
+
+            var model = _modelPresenter.Model as UpdateEmployeeResponse;
             return Json(new { Sucess = false, Message = model?.ErrorMessage });
         }
 
