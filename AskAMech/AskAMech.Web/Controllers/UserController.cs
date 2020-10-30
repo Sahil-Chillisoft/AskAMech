@@ -12,14 +12,17 @@ namespace AskAMech.Web.Controllers
         private readonly IModelPresenter _modelPresenter;
         private readonly ISecurityManagerUseCase _securityManagerUseCase;
         private readonly ICreateUserUseCase _createUserUseCase;
+        private readonly IGetEmployeeUseCase _getEmployeeUseCase;
 
         public UserController(IModelPresenter modelPresenter,
                               ISecurityManagerUseCase securityManagerUseCase,
-                              ICreateUserUseCase createUserUseCase)
+                              ICreateUserUseCase createUserUseCase,
+                              IGetEmployeeUseCase getEmployeeUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _createUserUseCase = createUserUseCase ?? throw new ArgumentNullException(nameof(createUserUseCase));
+            _getEmployeeUseCase = getEmployeeUseCase ?? throw new ArgumentNullException(nameof(getEmployeeUseCase));
         }
 
         [HttpGet]
@@ -43,6 +46,13 @@ namespace AskAMech.Web.Controllers
         public IActionResult Create(CreateUserRequest request)
         {
             throw new NotImplementedException();
+        }
+
+        [HttpPost]
+        public IActionResult GetEmployee(GetEmployeeRequest request)
+        {
+            _getEmployeeUseCase.Execute(request, _modelPresenter);
+            return PartialView("_CreateUser", _modelPresenter.Model);
         }
     }
 }

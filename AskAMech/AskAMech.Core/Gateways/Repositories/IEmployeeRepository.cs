@@ -6,8 +6,9 @@ using AskAMech.Core.Domain;
 
 namespace AskAMech.Core.Gateways.Repositories
 {
-   public interface IEmployeeRepository
+    public interface IEmployeeRepository
     {
+        public Employee GetEmployeeById(int id);
         List<Employee> GetEmployees(string search, Pagination pagination);
         void Create(Employee employee);
         bool IsExistingEmployee(Employee employee);

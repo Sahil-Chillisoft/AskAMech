@@ -23,6 +23,24 @@ namespace AskAMech.Infrastructure.Data.Repositories
             _sqlHelper = sqlHelper ?? throw new ArgumentNullException(nameof(sqlHelper));
         }
 
+        public Employee GetEmployeeById(int id)
+        {
+            #region 
+            var sql = "select * from Employee where Id = @Id ";
+            #endregion
+
+            #region Execution
+            var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            var employee = connection.QueryFirst<EmployeeEntity>(sql,
+                new
+                {
+                    Id = id
+                });
+            #endregion
+
+            return _mapper.Map<Employee>(employee);
+        }
+
         public List<Employee> GetEmployees(string search, Pagination pagination)
         {
             #region SQL
@@ -39,7 +57,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
 
             #region Execution 
             using var connection = new SqlConnection(_sqlHelper.ConnectionString);
-            var employeesList = connection.Query<EmployeeEntity>(sql, 
+            var employeesList = connection.Query<EmployeeEntity>(sql,
                 new
                 {
                     Search = $"%{search}%",
@@ -149,6 +167,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
 
             return employeeCount;
         }
+
         public void Update(Employee employee)
         {
             #region SQL
@@ -175,7 +194,6 @@ namespace AskAMech.Infrastructure.Data.Repositories
                     IsActive = employee.IsActive
                 });
             #endregion
-           
         }
     }
 }

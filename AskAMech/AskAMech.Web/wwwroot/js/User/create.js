@@ -44,6 +44,8 @@
         event.preventDefault();
         if (isEmployeeDataValid()) {
             $('#Info').text('').removeClass('text-danger');
+            var employeeId = $('#EmployeeId').val();
+            getEmployeeDetails(employeeId);
         } else {
             $('#Info').text('Please select an employee from the autocomplete to load').addClass('text-danger');
         }
@@ -80,5 +82,18 @@ function isSearchEmpty() {
 function loadInfo(employeeId) {
     $('#ClearEmployee').show();
     $('#Info').text('Employee ' + employeeId + ' is loaded').removeClass('text-danger');
+}
+
+function getEmployeeDetails(employeeId) {
+    $.ajax({
+        url: '/User/GetEmployee',
+        type: 'POST',
+        cache: false,
+        data: {
+            'employeeId': employeeId
+        }
+    }).done(function (data) {
+        console.log(data);
+    });
 }
 
