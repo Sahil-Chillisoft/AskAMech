@@ -1,9 +1,80 @@
 ﻿@model AskAMech.Core.UseCases.Responses.CreateUserResponse
 
 <div class="container">
+    <hr />
     <form id="CreateUserForm">
         <div class="row">
-
+            <div class="col-md-12">
+                <h3 class="text-center">
+                    User Details
+                </h3>
+            </div>
         </div>
+
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="row md-Padding-Top-10">
+                <div class="col-md-12">
+                    <label id="ErrorMessage" class="text-danger text-bold">@Model.ErrorMessage</label>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row md-Padding-Top-10">
+                <div class="col-md-12">
+                    <label asp-for="UserProfile.Username"></label>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input id="Username" asp-for="UserProfile.Username" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label id="UsernameValidation" class="text-danger hide">* Username required</label>
+                </div>
+            </div>
+
+            <div class="row md-Padding-Top-10">
+                <div class="col-md-12">
+                    <label asp-for="Employee.Email"></label>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input id="Email" asp-for="Employee.Email" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row md-Padding-Top-10">
+                <div class="col-md-12">
+                    <label asp-for="User.Password">Temporary Password</label>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input id="Password" asp-for="User.Password" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row md-Padding-Top-10">
+                <div class="col-md-12">
+                    <label asp-for="Roles">User Role</label>
+                </div>
+                <div class="col-md-6">
+                    @Html.DropDownListFor(x => x.Roles,
+                        new SelectList(Model.Roles, "Id", "Description"),
+                        new { @class = "form-control full-width", Id = "RoleId", data_val = false })
+                </div>
+            </div>
+
+            <div class="row md-Padding-Top-20">
+                <div class="col-md-2">
+                    <button id="CreateUser" class="btn btn-primary" type="button">Create User</button>
+                </div>
+            </div>
+        }
     </form>
 </div>
+
+<script src="~/js/User/create.js"></script>

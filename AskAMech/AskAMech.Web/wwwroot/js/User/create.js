@@ -32,7 +32,6 @@
             var item = ui.item;
             $('#Search').val(item.label);
             $('#EmployeeId').val(item.value);
-            loadInfo(item.value);
         },
         error: function () {
             console.log('Error retrieving data for auto-complete.');
@@ -57,7 +56,17 @@
         $('#EmployeeId').val('');
         $('#Search').val('');
         $('#Info').text('');
+        $('#createUserDiv').html('');
         $('#ClearEmployee').hide();
+    });
+
+    $('#CreateUser').click(function (event) {
+        event.preventDefault();
+        if (isValidUserData()) {
+            createUser();
+        } else {
+            $('#UsernameValidation').show();
+        }
     });
 
 });
@@ -93,7 +102,46 @@ function getEmployeeDetails(employeeId) {
             'employeeId': employeeId
         }
     }).done(function (data) {
+        $('#createUserDiv').html(data);
+        loadInfo(employeeId);
+    });
+}
+
+function isValidUserData() {
+    var username = $('#Username').val();
+    return username !== '';
+}
+
+function createUser() {
+    var user = getUserData();
+    var userProfile = getUserProfileData();
+
+    $.ajax({
+        url: '/User/Create',
+        type: 'POST',
+        cache: false,
+        data: {
+            'user': user,
+            'userProfile': userProfile
+        }
+    }).done(function (data) {
         console.log(data);
     });
 }
 
+function getUserData() {
+    var user = {
+        email: $('#Email').val(),
+        password: $('#Password').val(),
+        userRoleId: $('#RoleId').val(),
+        employeeId: $('#EmployeeId').val()
+    }
+    return user;
+}
+
+function getUserProfileData() {
+    var userProfile = {
+        username: $('#Username').val()
+    }
+    return userProfile;
+}

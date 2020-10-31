@@ -10,6 +10,7 @@ namespace AskAMech.Core.Gateways.Repositories
         User GetUser(User user);
         User GetUserById(int id);
         bool IsExistingUserEmail(string email);
+        bool IsExitingEmployeeUser(int employeeId);
         int Create(User user);
         void UpdateLastLoggedInDate(int userId);
     }

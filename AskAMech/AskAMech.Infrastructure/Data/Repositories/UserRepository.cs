@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using AskAMech.Core.Domain;
 using AskAMech.Core.Gateways.Repositories;
 using System.Data.SqlClient;
@@ -94,6 +92,32 @@ namespace AskAMech.Infrastructure.Data.Repositories
             #endregion
 
             return isExistingEmail;
+        }
+
+        public bool IsExitingEmployeeUser(int employeeId)
+        {
+            #region SQL
+            var sql = @"
+                        select case when exists 
+                        (
+                            select EmployeeId 
+                            from Users 
+                            where EmployeeId = @EmployeeId 
+                        ) then 1 else 0
+                        end
+                      ";
+            #endregion
+
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            var isExistingEmployeeUser = connection.ExecuteScalar<bool>(sql,
+                param: new
+                {
+                    EmployeeId = employeeId
+                });
+            #endregion
+
+            return isExistingEmployeeUser;
         }
 
         public int Create(User user)
