@@ -1,7 +1,5 @@
 ﻿$(document).ready(function () {
 
-    $('#ClearEmployee').hide();
-
     $("#Search").autocomplete({
         source: function (request, response) {
             $.ajax({
@@ -69,6 +67,16 @@
         }
     });
 
+    $('#AddNewUser').click(function (event) {
+        event.preventDefault();
+        window.location.href = '/User/Create';
+    });
+
+    $('#Dashboard').click(function (event) {
+        event.preventDefault();
+        window.location.href = '/Dashboard/AdminDashboard';
+    });
+
 });
 
 function isEmployeeDataValid() {
@@ -125,7 +133,9 @@ function createUser() {
             'userProfile': userProfile
         }
     }).done(function (data) {
-        console.log(data);
+        var successModal = $('#createSuccessDiv');
+        successModal.html(data);
+        successModal.find('.modal').modal('show');
     });
 }
 

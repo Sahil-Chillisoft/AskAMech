@@ -97,15 +97,13 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public bool IsExitingEmployeeUser(int employeeId)
         {
             #region SQL
-            var sql = @"
-                        select case when exists 
+            var sql = @"select case when exists 
                         (
                             select EmployeeId 
                             from Users 
                             where EmployeeId = @EmployeeId 
                         ) then 1 else 0
-                        end
-                      ";
+                        end ";
             #endregion
 
             #region Execution
@@ -123,11 +121,9 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public int Create(User user)
         {
             #region SQL
-            var sql = @"
-                        insert into Users (Email, Password, UserRoleId, DateLastLoggedIn, DateCreated, DateLastModified)
+            var sql = @"insert into Users (Email, Password, UserRoleId, EmployeeId, DateLastLoggedIn, DateCreated, DateLastModified)
                         output inserted.Id 
-                        values(@Email, @Password, @UserRoleId, @DateLastLoggedIn, @DateCreated, @DateLastModified)
-                      ";
+                        values(@Email, @Password, @UserRoleId, @EmployeeId, @DateLastLoggedIn, @DateCreated, @DateLastModified) ";
             #endregion
 
             #region Execution
@@ -138,6 +134,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
                     Email = user.Email,
                     Password = user.Password,
                     UserRoleId = user.UserRoleId,
+                    EmployeeId = user.EmployeeId,
                     DateLastLoggedIn = user.DateLastLoggedIn,
                     DateCreated = user.DateCreated,
                     DateLastModified = user.DateLastModified
@@ -150,11 +147,9 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public void UpdateLastLoggedInDate(int userId)
         {
             #region SQL
-            var sql = @"
-                        update Users 
+            var sql = @"update Users 
                         set DateLastLoggedIn = @DateLastLoggedIn 
-                        where Id = @UserId 
-                      ";
+                        where Id = @UserId ";
             #endregion
 
             #region Execution

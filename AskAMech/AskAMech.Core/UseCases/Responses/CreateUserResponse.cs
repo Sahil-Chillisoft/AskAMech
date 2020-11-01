@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using AskAMech.Core.Domain;
 
 namespace AskAMech.Core.UseCases.Responses
@@ -14,7 +13,6 @@ namespace AskAMech.Core.UseCases.Responses
 
         public IEnumerable<Roles> Roles { get; set; }
 
-        [Required(ErrorMessage = "Please enter an employee to be loaded")]
         public string Search { get; set; }
 
         public string ErrorMessage { get; set; }

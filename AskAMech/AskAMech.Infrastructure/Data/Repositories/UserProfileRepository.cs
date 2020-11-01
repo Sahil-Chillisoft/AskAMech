@@ -26,11 +26,9 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public UserProfile GetUserProfile(int userId)
         {
             #region SQL
-            var sql = @"
-                        select * 
+            var sql = @"select * 
                         from UserProfile 
-                        where UserId = @UserId
-                      ";
+                        where UserId = @UserId ";
             #endregion
 
             #region Execution
@@ -50,15 +48,13 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public bool IsExistingUsername(string username)
         {
             #region SQL
-            var sql = @"
-                        select case when exists 
+            var sql = @"select case when exists 
                         ( 
                             select username 
                             from UserProfile 
                             where username = @Username 
                         ) then 1 else 0 
-                        end
-                     ";
+                        end ";
             #endregion
 
             #region Execution
@@ -76,10 +72,8 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public void Create(UserProfile userProfile)
         {
             #region SQL
-            var sql = @"
-                        insert into UserProfile (UserId, Username, DateLastModified)                        
-                        values(@UserId, @Username, @DateLastModified)
-                      ";
+            var sql = @"insert into UserProfile (UserId, Username, About, DateLastModified)                        
+                        values(@UserId, @Username, @About, @DateLastModified) ";
             #endregion
 
             #region Execution
@@ -89,6 +83,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
                 {
                     UserId = userProfile.UserId,
                     Username = userProfile.Username,
+                    About = userProfile.About,
                     DateLastModified = userProfile.DateLastModified
                 });
             #endregion

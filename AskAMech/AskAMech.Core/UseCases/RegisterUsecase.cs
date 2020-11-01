@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using AskAMech.Core.Gateways.Repositories;
 using AskAMech.Core.UseCases.Requests;
 using AskAMech.Core.UseCases.Responses;
@@ -63,6 +61,7 @@ namespace AskAMech.Core.UseCases
                 Email = request.Email,
                 Password = request.Password,
                 UserRoleId = (int)UserRole.GeneralUser,
+                EmployeeId = null,
                 DateLastLoggedIn = DateTime.Now,
                 DateCreated = DateTime.Now,
                 DateLastModified = DateTime.Now
@@ -77,6 +76,7 @@ namespace AskAMech.Core.UseCases
             {
                 UserId = userId,
                 Username = username,
+                About = "This user has not said anything about themselves yet and seems to prefer the life of secrecy",
                 DateLastModified = DateTime.Now
             };
 

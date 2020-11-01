@@ -45,7 +45,8 @@ namespace AskAMech.Web.Controllers
         [HttpPost]
         public IActionResult Create(CreateUserRequest request)
         {
-            throw new NotImplementedException();
+            _createUserUseCase.Execute(request, _modelPresenter);
+            return PartialView("_CreateSuccess");
         }
 
         [HttpPost]
