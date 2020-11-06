@@ -28,6 +28,7 @@ namespace AskAMech.Core.UseCases.Responses
         public string Email { get; set; }
 
         public List<Employee> Employees { get; set; }
+        public Employee emp { get; set; }
 
         public string? ErrorMessage { get; set; }
     }

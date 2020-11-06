@@ -16,6 +16,7 @@ namespace AskAMech.Web.Controllers
         private readonly IGetEmployeesUseCase _getEmployeesUseCase;
         private readonly IGetEmployeesAutocompleteUseCase _getEmployeesAutocompleteUseCase;
         private readonly IGetEmployeeUseCase _getEmployeeUseCase;
+        private readonly IGetAllEmployeesUseCase _getAllEmployeesUseCase;
         private readonly IUpdateEmployeeUseCase _updateEmployeeUseCase;
 
         public EmployeeController(IModelPresenter modelPresenter,
@@ -24,6 +25,7 @@ namespace AskAMech.Web.Controllers
                                   IGetEmployeesUseCase getEmployeeUseCase,
                                   IGetEmployeesAutocompleteUseCase getEmployeesAutocompleteUseCase,
                                   IGetEmployeeUseCase getEmployeesUseCase,
+                                  IGetAllEmployeesUseCase getAllEmployeesUseCase,
                                    IUpdateEmployeeUseCase updateEmployeeUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
@@ -31,6 +33,7 @@ namespace AskAMech.Web.Controllers
             _createEmployeeUseCase = createEmployeeUseCase ?? throw new ArgumentNullException(nameof(createEmployeeUseCase));
             _getEmployeesUseCase = getEmployeeUseCase ?? throw new ArgumentNullException(nameof(getEmployeeUseCase));
             _getEmployeeUseCase = getEmployeesUseCase ?? throw new ArgumentNullException(nameof(getEmployeesUseCase));
+            _getAllEmployeesUseCase = getAllEmployeesUseCase ?? throw new ArgumentNullException(nameof(getAllEmployeesUseCase));
             _getEmployeesAutocompleteUseCase = getEmployeesAutocompleteUseCase ?? throw new ArgumentNullException(nameof(getEmployeesAutocompleteUseCase));
             _updateEmployeeUseCase = updateEmployeeUseCase ?? throw new ArgumentNullException(nameof(updateEmployeeUseCase));
 
@@ -96,10 +99,10 @@ namespace AskAMech.Web.Controllers
 
        // [HttpPatch]
        // [Route("/UpdateUser/{Id}")]
-        public IActionResult UpdateUser(int id)
+        public IActionResult UpdateUser()
         {
-            _getEmployeeUseCase.Execute(new GetEmployeeRequest(), _modelPresenter);
-            return View(_modelPresenter.Model);
+            _getAllEmployeesUseCase.Execute(new GetEmployeeRequest(), _modelPresenter);
+            return View(_modelPresenter);
             
         }
 

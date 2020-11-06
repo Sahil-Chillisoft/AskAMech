@@ -7,6 +7,7 @@ namespace AskAMech.Core.UseCases.Requests
 {
     public class UpdateEmployeeRequest
     {
+        public int EmployeeId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string IdNumber { get; set; }
