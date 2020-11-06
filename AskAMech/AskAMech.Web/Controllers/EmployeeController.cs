@@ -129,6 +129,11 @@ namespace AskAMech.Web.Controllers
         {
             return PartialView("_CreateSuccess");
         }
+        [HttpGet]
+        public IActionResult EditSuccess()
+        {
+            return PartialView("_EditSuccess");
+        }
 
         [HttpPost]
         public JsonResult GetEmployeesAutocomplete(GetEmployeesAutocompleteRequest request)

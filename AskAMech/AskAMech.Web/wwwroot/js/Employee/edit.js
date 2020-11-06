@@ -9,7 +9,7 @@
         if ($form.valid()) {
             var formData = $form.serialize();
             $.ajax({
-                url: '/Employee/Update',
+                url: '/Employee/Edit',
                 type: 'POST',
                 cache: false,
                 enctype: 'multipart/form-data',
@@ -27,9 +27,9 @@
     });
 
     function displaySuccessModal() {
-        var successModal = $('#createSuccessDiv');
+        var successModal = $('#UpdateSuccessDiv');
         $.ajax({
-            url: '/Employee/CreateSuccess',
+            url: '/Employee/EditSuccess',
             type: 'GET',
             cache: false,
             success: function (data) {
@@ -38,4 +38,24 @@
             }
         });
     }
+
+    function displaySuccessModal() {
+        var successModal = $('#UpdateSuccessDiv');
+        $.ajax({
+            url: '/Employee/EditSuccess',
+            type: 'GET',
+            cache: false,
+            success: function (data) {
+                successModal.html(data);
+                successModal.find('.modal').modal('show');
+            }
+        });
+    }
+
+    $('#Confirm').click(function (event) {
+        event.preventDefault();
+        $('#successModal').modal('hide');
+        $('#Description').val('');
+        $('#ErrorMessage').text('');
+    });
 });
