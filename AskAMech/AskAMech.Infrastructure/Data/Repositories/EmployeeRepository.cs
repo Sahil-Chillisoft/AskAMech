@@ -31,7 +31,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
 
             #region Execution
             var connection = new SqlConnection(_sqlHelper.ConnectionString);
-            var employee = connection.QueryFirst<EmployeeEntity>(sql,
+            var employee = connection.QueryFirstOrDefault<EmployeeEntity>(sql,
                 new
                 {
                     Id = id
@@ -173,7 +173,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             #region SQL
             var sql = @"
                             update Employee
-                            set FirstName=@FirstName, LastName=@LastName, IdNumber=@IdNumber, Email=@Email, CreatedByUserId=@CreatedByUserId, DateCreated=@DateCreated, LastModifiedByUserId=@LastModifiedByUserId, DateLastModified=@DateLastModified, IsActive=@IsActive)
+                            set FirstName=@FirstName, LastName=@LastName, IdNumber=@IdNumber, Email=@Email, CreatedByUserId=@CreatedByUserId, DateCreated=@DateCreated, LastModifiedByUserId=@LastModifiedByUserId, DateLastModified=@DateLastModified, IsActive=@IsActive
                             where Id=@EmployeeId
                        ";
             #endregion

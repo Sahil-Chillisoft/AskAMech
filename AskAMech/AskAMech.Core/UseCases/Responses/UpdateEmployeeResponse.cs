@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using AskAMech.Core.Domain;
 
 
 namespace AskAMech.Core.UseCases.Responses
@@ -25,6 +26,8 @@ namespace AskAMech.Core.UseCases.Responses
         [Required(ErrorMessage = "* Employee email Address required")]
         [EmailAddress(ErrorMessage = "Please enter a valid email address")]
         public string Email { get; set; }
+
+        public List<Employee> Employees { get; set; }
 
         public string? ErrorMessage { get; set; }
     }

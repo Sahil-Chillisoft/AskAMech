@@ -15,6 +15,7 @@ namespace AskAMech.Web.Controllers
         private readonly ICreateEmployeeUseCase _createEmployeeUseCase;
         private readonly IGetEmployeesUseCase _getEmployeesUseCase;
         private readonly IGetEmployeesAutocompleteUseCase _getEmployeesAutocompleteUseCase;
+        private readonly IGetEmployeeUseCase _getEmployeeUseCase;
         private readonly IUpdateEmployeeUseCase _updateEmployeeUseCase;
 
         public EmployeeController(IModelPresenter modelPresenter,
@@ -22,12 +23,14 @@ namespace AskAMech.Web.Controllers
                                   ICreateEmployeeUseCase createEmployeeUseCase,
                                   IGetEmployeesUseCase getEmployeeUseCase,
                                   IGetEmployeesAutocompleteUseCase getEmployeesAutocompleteUseCase,
+                                  IGetEmployeeUseCase getEmployeesUseCase,
                                    IUpdateEmployeeUseCase updateEmployeeUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _createEmployeeUseCase = createEmployeeUseCase ?? throw new ArgumentNullException(nameof(createEmployeeUseCase));
             _getEmployeesUseCase = getEmployeeUseCase ?? throw new ArgumentNullException(nameof(getEmployeeUseCase));
+            _getEmployeeUseCase = getEmployeesUseCase ?? throw new ArgumentNullException(nameof(getEmployeesUseCase));
             _getEmployeesAutocompleteUseCase = getEmployeesAutocompleteUseCase ?? throw new ArgumentNullException(nameof(getEmployeesAutocompleteUseCase));
             _updateEmployeeUseCase = updateEmployeeUseCase ?? throw new ArgumentNullException(nameof(updateEmployeeUseCase));
 
@@ -91,21 +94,13 @@ namespace AskAMech.Web.Controllers
         }
 
 
-        [HttpGet]
-        public IActionResult UpdateUser()
+       // [HttpPatch]
+       // [Route("/UpdateUser/{Id}")]
+        public IActionResult UpdateUser(int id)
         {
-            _securityManagerUseCase.VerifyUserIsAdmin(_modelPresenter);
-
-            if (!_modelPresenter.HasValidationErrors)
-                return View();
-
-            var model = _modelPresenter.Model as ErrorResponse;
-            return RedirectToAction("Index", "Error",
-                new
-                {
-                    message = model?.Message,
-                    code = model?.Code
-                });
+            _getEmployeeUseCase.Execute(new GetEmployeeRequest(), _modelPresenter);
+            return View(_modelPresenter.Model);
+            
         }
 
         [HttpPost]
