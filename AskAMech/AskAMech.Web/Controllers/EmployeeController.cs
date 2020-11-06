@@ -1,5 +1,6 @@
 ﻿#nullable enable
 using System;
+using AskAMech.Core.Domain;
 using Microsoft.AspNetCore.Mvc;
 using AskAMech.Web.Presenters;
 using AskAMech.Core.UseCases.Interfaces;
@@ -16,8 +17,8 @@ namespace AskAMech.Web.Controllers
         private readonly IGetEmployeesUseCase _getEmployeesUseCase;
         private readonly IGetEmployeesAutocompleteUseCase _getEmployeesAutocompleteUseCase;
         private readonly IGetEmployeeUseCase _getEmployeeUseCase;
-        private readonly IGetAllEmployeesUseCase _getAllEmployeesUseCase;
-        private readonly IUpdateEmployeeUseCase _updateEmployeeUseCase;
+        private readonly IGetEmployeeForEditUseCase _getEmployeeForEditUseCase;
+        private readonly IEditEmployeeUseCase _editEmployeeUseCase;
 
         public EmployeeController(IModelPresenter modelPresenter,
                                   ISecurityManagerUseCase securityManagerUseCase,
@@ -25,17 +26,17 @@ namespace AskAMech.Web.Controllers
                                   IGetEmployeesUseCase getEmployeeUseCase,
                                   IGetEmployeesAutocompleteUseCase getEmployeesAutocompleteUseCase,
                                   IGetEmployeeUseCase getEmployeesUseCase,
-                                  IGetAllEmployeesUseCase getAllEmployeesUseCase,
-                                   IUpdateEmployeeUseCase updateEmployeeUseCase)
+                                  IGetEmployeeForEditUseCase getEmployeeForEditUseCase,
+                                   IEditEmployeeUseCase editEmployeeUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _createEmployeeUseCase = createEmployeeUseCase ?? throw new ArgumentNullException(nameof(createEmployeeUseCase));
             _getEmployeesUseCase = getEmployeeUseCase ?? throw new ArgumentNullException(nameof(getEmployeeUseCase));
             _getEmployeeUseCase = getEmployeesUseCase ?? throw new ArgumentNullException(nameof(getEmployeesUseCase));
-            _getAllEmployeesUseCase = getAllEmployeesUseCase ?? throw new ArgumentNullException(nameof(getAllEmployeesUseCase));
+            _getEmployeeForEditUseCase = getEmployeeForEditUseCase ?? throw new ArgumentNullException(nameof(getEmployeeForEditUseCase));
             _getEmployeesAutocompleteUseCase = getEmployeesAutocompleteUseCase ?? throw new ArgumentNullException(nameof(getEmployeesAutocompleteUseCase));
-            _updateEmployeeUseCase = updateEmployeeUseCase ?? throw new ArgumentNullException(nameof(updateEmployeeUseCase));
+            _editEmployeeUseCase = editEmployeeUseCase ?? throw new ArgumentNullException(nameof(editEmployeeUseCase));
 
         }
 
@@ -96,25 +97,30 @@ namespace AskAMech.Web.Controllers
             return Json(new { Sucess = false, Message = model?.ErrorMessage });
         }
 
-
-       // [HttpPatch]
-       // [Route("/UpdateUser/{Id}")]
-        public IActionResult UpdateUser()
+        [HttpGet]
+        public IActionResult Edit(int id)
         {
-            _getAllEmployeesUseCase.Execute(new GetEmployeeRequest(), _modelPresenter);
-            return View(_modelPresenter);
-            
+            var request = new EditEmployeeRequest()
+            {
+                Employee = new Employee()
+                {
+                    Id = id
+                }
+            };
+
+            _getEmployeeForEditUseCase.Execute(request, _modelPresenter);
+            return View(_modelPresenter.Model);
         }
 
         [HttpPost]
-        public IActionResult UpdateUser(UpdateEmployeeRequest request)
+        public IActionResult Edit(EditEmployeeRequest request)
         {
-            _updateEmployeeUseCase.Execute(request, _modelPresenter);
+            _editEmployeeUseCase.Execute(request, _modelPresenter);
 
             if (!_modelPresenter.HasValidationErrors)
-                return Json(new { Success = true, Message = "User is Successfully Updated" });
+                return Json(new { Success = true, Message = "Employee has been successfully updated" });
 
-            var model = _modelPresenter.Model as UpdateEmployeeResponse;
+            var model = _modelPresenter.Model as EditEmployeeResponse;
             return Json(new { Sucess = false, Message = model?.ErrorMessage });
         }
 

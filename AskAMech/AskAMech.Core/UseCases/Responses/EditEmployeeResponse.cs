@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
-using AskAMech.Core.Domain;
-
 
 namespace AskAMech.Core.UseCases.Responses
 {
-    public class UpdateEmployeeResponse
+    public class EditEmployeeResponse
     {
+        public int Id { get; set; }
+
         [DisplayName("First Name")]
         [Required(ErrorMessage = "* Employee first name required")]
         public string FirstName { get; set; }
@@ -27,8 +24,7 @@ namespace AskAMech.Core.UseCases.Responses
         [EmailAddress(ErrorMessage = "Please enter a valid email address")]
         public string Email { get; set; }
 
-        public List<Employee> Employees { get; set; }
-        public Employee emp { get; set; }
+        public bool IsActive { get; set; }
 
         public string? ErrorMessage { get; set; }
     }

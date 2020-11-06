@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    $('#update').click(function (event) {
+    $('#Update').click(function (event) {
         event.preventDefault();
 
         var $form = $('#employeeUpdateForm');

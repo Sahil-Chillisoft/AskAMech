@@ -126,6 +126,56 @@ namespace AskAMech.Infrastructure.Data.Repositories
             return isExistingEmployee;
         }
 
+        public bool IsExistingEmployeeEmail(string email)
+        {
+            #region SQL
+            var sql = @"select case when exists 
+                        (
+                            select Email 
+                            from Employee 
+                            where Email = @Email 
+                            and Email <> @Email
+                        ) then 1 else 0
+                        end ";
+            #endregion
+
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            var isExistingEmployeeEmail = connection.ExecuteScalar<bool>(sql,
+                param: new
+                {
+                    Email = email
+                });
+            #endregion
+
+            return isExistingEmployeeEmail;
+        }
+
+        public bool IsExistingEmployeeIdNumber(string idNumber)
+        {
+            #region SQL
+            var sql = @"select case when exists 
+                        (
+                            select IdNumber 
+                            from Employee 
+                            where IdNumber = @IdNumber 
+                            and IdNumber <> @IdNumber
+                        ) then 1 else 0
+                        end ";
+            #endregion
+
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            var isExistingEmployeeIdNumber = connection.ExecuteScalar<bool>(sql,
+                param: new
+                {
+                    IdNumber = idNumber
+                });
+            #endregion
+
+            return isExistingEmployeeIdNumber;
+        }
+
         public List<ViewEmployee> GetEmployeesForAutocomplete(string search)
         {
             #region SQL
@@ -171,11 +221,11 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public void Update(Employee employee)
         {
             #region SQL
-            var sql = @"
-                            update Employee
-                            set FirstName=@FirstName, LastName=@LastName, IdNumber=@IdNumber, Email=@Email, CreatedByUserId=@CreatedByUserId, DateCreated=@DateCreated, LastModifiedByUserId=@LastModifiedByUserId, DateLastModified=@DateLastModified, IsActive=@IsActive
-                            where Id=@EmployeeId
-                       ";
+            var sql = @"update Employee
+                        set FirstName = @FirstName, LastName = @LastName, IdNumber = @IdNumber,
+                        Email = @Email, LastModifiedByUserId = @LastModifiedByUserId, DateLastModified=@DateLastModified, 
+                        IsActive = @IsActive
+                        where Id = @EmployeeId ";
             #endregion
 
             #region Execution 
@@ -187,11 +237,10 @@ namespace AskAMech.Infrastructure.Data.Repositories
                     LastName = employee.LastName,
                     IdNumber = employee.IdNumber,
                     Email = employee.Email,
-                    CreatedByUserId = employee.CreatedByUserId,
-                    DateCreated = DateTime.Now,
                     LastModifiedByUserId = employee.LastModifiedByUserId,
-                    DateLastModified = DateTime.Now,
-                    IsActive = employee.IsActive
+                    DateLastModified = employee.DateLastModified,
+                    IsActive = employee.IsActive,
+                    EmployeeId = employee.Id
                 });
             #endregion
         }
