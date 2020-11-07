@@ -5,7 +5,7 @@ namespace AskAMech.Core.UseCases.Responses
 {
     public class EditEmployeeResponse
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [DisplayName("First Name")]
         [Required(ErrorMessage = "* Employee first name required")]

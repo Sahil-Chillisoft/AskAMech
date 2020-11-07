@@ -113,8 +113,15 @@ namespace AskAMech.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(EditEmployeeRequest request)
+        public IActionResult Edit(int? id)
         {
+            EditEmployeeRequest request = new EditEmployeeRequest()
+            {
+                Employee = new Employee()
+                {
+                    Id = id
+                }
+            };
             _editEmployeeUseCase.Execute(request, _modelPresenter);
 
             if (!_modelPresenter.HasValidationErrors)

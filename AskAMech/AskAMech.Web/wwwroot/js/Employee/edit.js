@@ -39,19 +39,6 @@
         });
     }
 
-    function displaySuccessModal() {
-        var successModal = $('#UpdateSuccessDiv');
-        $.ajax({
-            url: '/Employee/EditSuccess',
-            type: 'GET',
-            cache: false,
-            success: function (data) {
-                successModal.html(data);
-                successModal.find('.modal').modal('show');
-            }
-        });
-    }
-
     $('#Confirm').click(function (event) {
         event.preventDefault();
         $('#successModal').modal('hide');

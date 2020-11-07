@@ -25,7 +25,7 @@ namespace AskAMech.Core.UseCases
         public void Execute(GetEmployeeRequest request, IPresenter presenter)
         {
             var employee = _employeeRepository.GetEmployeeById(request.EmployeeId);
-            var isExistingEmployeeUser = _userRepository.IsExitingEmployeeUser(employee.Id);
+            var isExistingEmployeeUser = _userRepository.IsExitingEmployeeUser(request.EmployeeId);
 
             var response = new CreateUserResponse();
             if (isExistingEmployeeUser)
