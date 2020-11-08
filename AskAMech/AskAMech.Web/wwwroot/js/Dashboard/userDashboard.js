@@ -13,7 +13,7 @@
             window.location.href = '';
             break;
         case 'divMyProfile':
-            window.location.href = '';
+            window.location.href = '/User/Edit';
             break;
     }
 }

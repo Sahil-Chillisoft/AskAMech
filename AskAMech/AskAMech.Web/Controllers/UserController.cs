@@ -14,22 +14,20 @@ namespace AskAMech.Web.Controllers
         private readonly ISecurityManagerUseCase _securityManagerUseCase;
         private readonly ICreateUserUseCase _createUserUseCase;
         private readonly IGetEmployeeUseCase _getEmployeeUseCase;
-        private readonly IGetUserProfileUseCase _getUserProfileUseCase;
         private readonly IEditUserProfileUseCase _editUserProfileUseCase;
 
         public UserController(IModelPresenter modelPresenter,
                               ISecurityManagerUseCase securityManagerUseCase,
                               ICreateUserUseCase createUserUseCase,
                               IGetEmployeeUseCase getEmployeeUseCase,
-                              IGetUserProfileUseCase getUserProfileUseCase,
+                              
                               IEditUserProfileUseCase editUserProfileUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _createUserUseCase = createUserUseCase ?? throw new ArgumentNullException(nameof(createUserUseCase));
             _getEmployeeUseCase = getEmployeeUseCase ?? throw new ArgumentNullException(nameof(getEmployeeUseCase));
-            _getUserProfileUseCase = getUserProfileUseCase ?? throw new ArgumentNullException(nameof(getUserProfileUseCase));
-            _editUserProfileUseCase = editUserProfileUseCase ?? throw new ArgumentNullException(nameof(editUserProfileUseCase));
+             _editUserProfileUseCase = editUserProfileUseCase ?? throw new ArgumentNullException(nameof(editUserProfileUseCase));
         }
 
         [HttpGet]
@@ -64,37 +62,9 @@ namespace AskAMech.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Edit()
         {
-            _securityManagerUseCase.VerifyUserIsAdmin(_modelPresenter);
-
-            if (_modelPresenter.HasValidationErrors)
-            {
-                var model = _modelPresenter.Model as ErrorResponse;
-                return RedirectToAction("Index", "Error",
-                    new
-                    {
-                        message = model?.Message,
-                        code = model?.Code
-                    });
-            }
-
-            _getUserProfileUseCase.Execute(new GetUserProfileRequest(), _modelPresenter);
-            return View(_modelPresenter.Model);
-        }
-
-        [HttpPost]
-        public IActionResult Index(GetUserProfileRequest request)
-        {
-            ModelState.Clear();
-            _getUserProfileUseCase.Execute(request, _modelPresenter);
-            return View(_modelPresenter.Model);
-        }
-
-
-        [HttpGet]
-        public IActionResult Edit(int id)
-        {
+            var id = UserSecurityManager.UserId;
             var request = new EditUserProfileRequest()
             {
                 userProfile = new UserProfile()
@@ -102,7 +72,6 @@ namespace AskAMech.Web.Controllers
                     UserId = id
                 }
             };
-
             _editUserProfileUseCase.Execute(request, _modelPresenter);
             return View(_modelPresenter.Model);
         }
@@ -125,7 +94,7 @@ namespace AskAMech.Web.Controllers
             if (!_modelPresenter.HasValidationErrors)
                 return Json(new { Success = true, Message = "user profile has been successfully updated" });
 
-            var model = _modelPresenter.Model as EditEmployeeResponse;
+            var model = _modelPresenter.Model as EditUserProfileResponse;
             return Json(new { Sucess = false, Message = model?.ErrorMessage });
         }
         public IActionResult EditSuccess()

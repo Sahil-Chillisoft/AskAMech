@@ -105,7 +105,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
                 {
                     UserId = userProfile.UserId,
                     Username = userProfile.Username,
-                    DateLastModified = userProfile.DateLastModified
+                    DateLastModified = DateTime.Now
                 });
             #endregion
         }

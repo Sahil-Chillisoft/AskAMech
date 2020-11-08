@@ -5,7 +5,7 @@ namespace AskAMech.Core.UseCases.Responses
 {
     public class EditUserProfileResponse
     {
-        public int? Id { get; set; }
+        public int? userId { get; set; }
 
         [DisplayName("Username")]
         [Required(ErrorMessage = "* Username required")]
