@@ -44,7 +44,7 @@ namespace AskAMech.Core.UseCases
                 };
 
                 _userProfileRepository.UpdateUserProfile(userProfile);
-                presenter.Success(new EditEmployeeResponse());
+                presenter.Success(new EditUserProfileResponse());
             }
         }
     }
