@@ -1,0 +1,99 @@
+﻿@model AskAMech.Core.UseCases.Responses.GetUserProfileResponse
+@{
+    ViewData["Title"] = "Index";
+}
+@model AskAMech.Core.UseCases.Responses.GetEmployeesResponse
+
+@{
+    ViewData["Title"] = "Employee List";
+}
+<form id="EmployeeList">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="display-4 text-center">
+                    <i class="material-icons md-45">list</i>
+                    My Profile
+                </h1>
+            </div>
+        </div>
+        <hr />
+
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <a id="SearchButton" title="Search" href="#"><i class="material-icons md-45">search</i></a>
+            </div>
+        </div>
+
+        <div id="searchDiv" class="bg-ghost-white hide">
+            <div class="row md-Padding-Top-10">
+                <div class="col-md-5 md-Padding-Left-25">
+                    @Html.TextBoxFor(x => x.Search,
+                        new
+                        {
+                            id = "Search",
+                            name = "Search",
+                            @class = "form-control",
+                            placeholder = "Start typing to search by Name or Id Number"
+                        })
+                </div>
+                <div class="col-md-2">
+                    <button id="SearchEmployees" type="button" class="btn btn-primary full-width">Search</button>
+                </div>
+            </div>
+            <br />
+        </div>
+
+        <div class="row md-Padding-Top-20">
+            <div class="col-md-12">
+                @if (Model.Employees.Any())
+                {
+                    <table id="employeesTable" class="table full-width">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th></th>
+                                <th>FirstName</th>
+                                <th>LastName</th>
+                                <th>ID Number</th>
+                                <th>Email</th>
+                            </tr>
+                        </thead>
+
+
+                        <tbody class="table-striped">
+                            @foreach (var item in Model.Employees)
+                            {
+                                <tr>
+                                    <td>
+                                        <a asp:Repeater id="Repeater1" asp-route-id="@item.Id" asp-controller="Employee" asp-action="Edit" title="View Employees">
+                                            <i class="material-icons md-30">info</i>
+                                        </a>
+                                    </td>
+                                    <td>@item.FirstName</td>
+                                    <td>@item.LastName</td>
+                                    <td>@item.IdNumber</td>
+                                    <td>@item.Email</td>
+                                </tr>
+                            }
+                        </tbody>
+                        &lt;
+
+
+                    </table>
+                }
+                else
+                {
+                    <h3>No Records Found</h3>
+                }
+            </div>
+        </div>
+        <hr />
+        <partial name="_Paging" model="Model.Pagination" />
+    </div>
+</form>
+
+@section Scripts
+{
+    <script src="~/js/Employee/index.js"></script>
+}
+

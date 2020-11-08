@@ -1,0 +1,69 @@
+﻿@model AskAMech.Core.UseCases.Responses.EditUserProfileResponse
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container">
+    <form id="userProfileUpdateForm" method="Post">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="display-4 text-center">
+                    <i class="material-icons md-45">person_add</i>
+                    Update New Employee
+                </h1>
+            </div>
+        </div>
+        <hr />
+        @Html.HiddenFor(x => x.Id, new { id = "Id" })
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-12">
+                <label asp-for="Username"></label>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input asp-for="Username" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-12">
+                <label asp-for="About"></label>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <textarea asp-for="About" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span asp-validation-for="About" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-12">
+                <label id="ErrorMessage" class="text-danger"></label>
+            </div>
+        </div>
+
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-2">
+                <button id="Update" type="button" class="btn btn-primary full-width">Update</button>
+            </div>
+           
+            <div class="col-md-2">
+                <a asp-action="UserDashboard" asp-controller="Dashboard">Back to list</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="UpdateSuccessDiv"></div>
+
+@section Scripts {
+    <script src="~/js/User/Edit.js"></script>
+}
