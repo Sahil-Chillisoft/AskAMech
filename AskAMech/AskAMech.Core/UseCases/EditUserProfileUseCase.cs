@@ -31,7 +31,7 @@ namespace AskAMech.Core.UseCases
            
             if (IsExistingUsername)
             {
-                response.ErrorMessage = "Error: Another employee with the same username already exits on the system";
+                response.ErrorMessage = "Error: Another user with the same username already exits on the system";
                 presenter.Error(response, true);
             }
             else
