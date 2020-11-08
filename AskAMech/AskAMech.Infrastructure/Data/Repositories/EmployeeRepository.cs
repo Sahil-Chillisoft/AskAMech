@@ -222,7 +222,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
         {
             #region SQL
             var sql = @"update Employee
-                        set FirstName = @FirstName, LastName = @LastName, IdNumber = @IdNumber,
+                        set FirstName=@FirstName, LastName = @LastName, IdNumber = @IdNumber,
                         Email = @Email, LastModifiedByUserId = @LastModifiedByUserId, DateLastModified=@DateLastModified, 
                         IsActive = @IsActive
                         where Id = @EmployeeId ";

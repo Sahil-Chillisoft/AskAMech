@@ -46,6 +46,7 @@ namespace AskAMech.Core.UseCases
             {
                 var employee = new Employee
                 {
+                    Id = request.Employee.Id,
                     FirstName = request.Employee.FirstName,
                     LastName = request.Employee.LastName,
                     IdNumber = request.Employee.IdNumber,
