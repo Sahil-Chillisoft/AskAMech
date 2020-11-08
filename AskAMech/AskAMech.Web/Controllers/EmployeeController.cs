@@ -16,7 +16,6 @@ namespace AskAMech.Web.Controllers
         private readonly ICreateEmployeeUseCase _createEmployeeUseCase;
         private readonly IGetEmployeesUseCase _getEmployeesUseCase;
         private readonly IGetEmployeesAutocompleteUseCase _getEmployeesAutocompleteUseCase;
-        private readonly IGetEmployeeUseCase _getEmployeeUseCase;
         private readonly IGetEmployeeForEditUseCase _getEmployeeForEditUseCase;
         private readonly IEditEmployeeUseCase _editEmployeeUseCase;
 
@@ -25,15 +24,13 @@ namespace AskAMech.Web.Controllers
                                   ICreateEmployeeUseCase createEmployeeUseCase,
                                   IGetEmployeesUseCase getEmployeeUseCase,
                                   IGetEmployeesAutocompleteUseCase getEmployeesAutocompleteUseCase,
-                                  IGetEmployeeUseCase getEmployeesUseCase,
                                   IGetEmployeeForEditUseCase getEmployeeForEditUseCase,
-                                   IEditEmployeeUseCase editEmployeeUseCase)
+                                  IEditEmployeeUseCase editEmployeeUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _createEmployeeUseCase = createEmployeeUseCase ?? throw new ArgumentNullException(nameof(createEmployeeUseCase));
             _getEmployeesUseCase = getEmployeeUseCase ?? throw new ArgumentNullException(nameof(getEmployeeUseCase));
-            _getEmployeeUseCase = getEmployeesUseCase ?? throw new ArgumentNullException(nameof(getEmployeesUseCase));
             _getEmployeeForEditUseCase = getEmployeeForEditUseCase ?? throw new ArgumentNullException(nameof(getEmployeeForEditUseCase));
             _getEmployeesAutocompleteUseCase = getEmployeesAutocompleteUseCase ?? throw new ArgumentNullException(nameof(getEmployeesAutocompleteUseCase));
             _editEmployeeUseCase = editEmployeeUseCase ?? throw new ArgumentNullException(nameof(editEmployeeUseCase));
@@ -120,12 +117,12 @@ namespace AskAMech.Web.Controllers
                 Employee = new Employee()
                 {
                     Id = employee.Id,
-                    FirstName=employee.FirstName,
-                    LastName=employee.LastName,
-                    IdNumber=employee.IdNumber,
-                    Email=employee.Email,
-                    LastModifiedByUserId=employee.LastModifiedByUserId,
-                    DateLastModified=employee.DateLastModified
+                    FirstName = employee.FirstName,
+                    LastName = employee.LastName,
+                    IdNumber = employee.IdNumber,
+                    Email = employee.Email,
+                    LastModifiedByUserId = employee.LastModifiedByUserId,
+                    DateLastModified = employee.DateLastModified
                 }
             };
             _editEmployeeUseCase.Execute(request, _modelPresenter);

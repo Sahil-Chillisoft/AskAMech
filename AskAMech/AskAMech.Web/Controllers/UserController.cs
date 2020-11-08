@@ -64,14 +64,14 @@ namespace AskAMech.Web.Controllers
         [HttpGet]
         public IActionResult Edit()
         {
-            var id = UserSecurityManager.UserId;
             var request = new EditUserProfileRequest()
             {
                 userProfile = new UserProfile()
                 {
-                    UserId = id
+                    UserId = UserSecurityManager.UserId
                 }
             };
+
             _editUserProfileUseCase.Execute(request, _modelPresenter);
             return View(_modelPresenter.Model);
         }
@@ -79,7 +79,7 @@ namespace AskAMech.Web.Controllers
         [HttpPost]
         public IActionResult Edit(UserProfile? user)
         {
-            EditUserProfileRequest request = new EditUserProfileRequest()
+            var request = new EditUserProfileRequest()
             {
                 userProfile = new UserProfile()
                 {
@@ -89,6 +89,7 @@ namespace AskAMech.Web.Controllers
                     DateLastModified = user.DateLastModified
                 }
             };
+
             _editUserProfileUseCase.Execute(request, _modelPresenter);
 
             if (!_modelPresenter.HasValidationErrors)
@@ -97,10 +98,10 @@ namespace AskAMech.Web.Controllers
             var model = _modelPresenter.Model as EditUserProfileResponse;
             return Json(new { Sucess = false, Message = model?.ErrorMessage });
         }
+
         public IActionResult EditSuccess()
         {
             return PartialView("_EditSuccess");
         }
-
     }
 }
