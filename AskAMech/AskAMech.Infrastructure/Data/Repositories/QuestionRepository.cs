@@ -92,5 +92,30 @@ namespace AskAMech.Infrastructure.Data.Repositories
 
             return questionCount;
         }
+
+        public void CreateQuestion(ViewQuestions questions)
+        {
+            #region SQL
+            var sql = @"insert into Questions (Title, Description, CategoryId, Category, CreatedByUserId, CreatedBy, DateCreated, AnswerCount)                        
+                        values(@Title, @Description, @CategoryId, @Category, @CreatedByUserId, @CreatedBy, @DateCreated, @AnswerCount) ";
+            #endregion
+
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            connection.Execute(sql,
+                param: new
+                {
+                    Title =questions.Title,
+                    Description=questions.Description,
+                    CategoryId=questions.CategoryId,
+                    Category=questions.Category,
+                    CreatedByUserId=questions.CreatedByUserId,
+                    CreatedBy=questions.CreatedBy,
+                    DateCreated=DateTime.Now,
+                    AnswerCount=questions.AnswerCount
+                });
+            #endregion
+
+        }
     }
 }
