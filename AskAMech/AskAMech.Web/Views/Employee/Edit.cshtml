@@ -73,7 +73,7 @@
 
         <div class="row md-Padding-Top-20">
             <div class="col-md-12">
-                <label>Is Active Employee: @Convert.ToBoolean(Model.IsActive)</label>
+                <label>Is Active Employee: <b>@Convert.ToBoolean(Model.IsActive)</b></label>
             </div>
         </div>
 
@@ -87,8 +87,20 @@
             <div class="col-md-2">
                 <button id="Update" type="button" class="btn btn-primary full-width">Update</button>
             </div>
-            <div class="col-md-3">
-                <button id="Deactivate" type="button" class="btn btn-primary full-width">Deactivate Employee</button>
+            @if (Model.IsActive)
+            {
+                <div class="col-md-3">
+                    <button id="Deactivate" type="button" class="btn btn-primary full-width">Deactivate Employee</button>
+                </div>
+            }
+            else
+            {
+                <div class="col-md-3">
+                    <button id="Reactivate" type="button" class="btn btn-primary full-width">Reactivate Employee</button>
+                </div>
+            }
+            <div class="col-md-2">
+                <button id="ResetPassword" type="button" class="btn btn-primary full-width">Reset Password</button>
             </div>
             <div class="col-md-2">
                 <a asp-action="Index" asp-controller="Employee">Back to list</a>
@@ -98,6 +110,7 @@
 </div>
 
 <div id="UpdateSuccessDiv"></div>
+<div id="ConfirmEmployeeActiveStatusDiv"></div>
 
 @section Scripts {
     <script src="~/js/Employee/edit.js"></script>

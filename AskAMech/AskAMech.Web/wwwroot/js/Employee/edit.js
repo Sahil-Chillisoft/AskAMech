@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
 
+    var employeeId = $('#Id').val();
+
     $('#Update').click(function (event) {
         event.preventDefault();
 
@@ -26,23 +28,74 @@
         }
     });
 
-    function displaySuccessModal() {
-        var successModal = $('#UpdateSuccessDiv');
-        $.ajax({
-            url: '/Employee/EditSuccess',
-            type: 'GET',
-            cache: false,
-            success: function (data) {
-                successModal.html(data);
-                successModal.find('.modal').modal('show');
-            }
-        });
-    }
-
     $('#Confirm').click(function (event) {
         event.preventDefault();
         $('#successModal').modal('hide');
         $('#Description').val('');
         $('#ErrorMessage').text('');
     });
+
+
+    $('#Deactivate').click(function (event) {
+        event.preventDefault();
+        displayConfirmEmployeeDeactivationModal();
+    });
+
+
+    $('#Reactivate').click(function (event) {
+        event.preventDefault();
+    });
+
+
+    $('#UpdateEmployeeActiveStatus').click(function (event) {
+        event.preventDefault();
+        setEmployeeActivationStatus(false, employeeId);
+    });
+
+
+    $('#CancelUpdateEmployeeActiveStatus').click(function (event) {
+        event.preventDefault();
+        window.location.reload();
+    });
+
 });
+
+function setEmployeeActivationStatus(isActive, employeeId) {
+    var request = {
+        'employee.id': employeeId,
+        'employee.isActive': isActive
+    }
+    $.ajax({
+        url: '/Employee/UpdateActiveStatus',
+        type: 'POST',
+        cache: false,
+        data: request
+    }).done(function () {
+        window.location.reload();
+    });
+}
+
+function displayConfirmEmployeeDeactivationModal() {
+    var confirmationModal = $('#ConfirmEmployeeActiveStatusDiv');
+    $.ajax({
+        url: '/Employee/GetConfirmationModalForEmployeeDeactivation',
+        type: 'GET',
+        cache: false
+    }).done(function (data) {
+        confirmationModal.html(data);
+        confirmationModal.find('.modal').modal('show');
+    });
+}
+
+function displaySuccessModal() {
+    var successModal = $('#UpdateSuccessDiv');
+    $.ajax({
+        url: '/Employee/EditSuccess',
+        type: 'GET',
+        cache: false,
+        success: function (data) {
+            successModal.html(data);
+            successModal.find('.modal').modal('show');
+        }
+    });
+}

@@ -112,7 +112,7 @@ namespace AskAMech.Web.Controllers
         [HttpPost]
         public IActionResult Edit(Employee? employee)
         {
-            EditEmployeeRequest request = new EditEmployeeRequest()
+            var request = new EditEmployeeRequest()
             {
                 Employee = new Employee()
                 {
@@ -139,10 +139,35 @@ namespace AskAMech.Web.Controllers
         {
             return PartialView("_CreateSuccess");
         }
+
         [HttpGet]
         public IActionResult EditSuccess()
         {
             return PartialView("_EditSuccess");
+        }
+
+        [HttpPost]
+        public IActionResult UpdateActiveStatus(EditEmployeeRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpPost]       
+        public IActionResult EmployeeUserAccountPasswordReset(EditEmployeeRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet]
+        public IActionResult GetConfirmationModalForEmployeeDeactivation()
+        {
+            return PartialView("_Deactivation");
+        }
+        
+        [HttpGet]
+        public IActionResult GetConfirmationModalForEmployeeReactivation()
+        {
+            throw new NotImplementedException();
         }
 
         [HttpPost]
