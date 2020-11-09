@@ -12,15 +12,22 @@ namespace AskAMech.Core.UseCases
     public class CreateQuestionUseCase : ICreateQuestionUseCase
     {
         private readonly IQuestionRepository _questionRepository;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public CreateQuestionUseCase(IQuestionRepository questionRepository)
+        public CreateQuestionUseCase(IQuestionRepository questionRepository, ICategoryRepository categoryRepository)
         {
             _questionRepository = questionRepository ?? throw new ArgumentNullException(nameof(questionRepository));
+            _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
         }
 
 
         public void Execute(CreateQuestionRequest request, IPresenter presenter)
         {
+            var categories = _categoryRepository.GetCategories();
+            var response = new CreateQuestionResponse
+            {
+                category=categories
+            };
             var viewquestion = new ViewQuestions
             {
                 Title = request.Title,

@@ -1,0 +1,48 @@
+﻿@model AskAMech.Core.UseCases.Responses.CreateQuestionResponse
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container">
+    <hr />
+    <form id="CreateQuestionForm">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="text-center">
+                    create question
+                </h3>
+            </div>
+        </div>
+
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-12">
+                <label asp-for="category">Question Category</label>
+            </div>
+            <div class="col-md-6">
+                @Html.DropDownListFor(x => x.category,
+                    new SelectList(Model.category, "Id", "Description"),
+                    new { @class = "form-control full-width", Id = "Id", data_val = false })
+            </div>
+        </div>
+
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-12">
+                <label asp-for="viewQuestions.Description">Post Question</label>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input id="Description" asp-for="viewQuestions.Description" class="form-control" disabled="disabled" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row md-Padding-Top-20">
+            <div class="col-md-2">
+                <button id="CreateQuestion" class="btn btn-primary" type="button">Create Question</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+<div id="QuestionSuccessDiv"></div>
+<script src="~/js/Question/create.js"></script>

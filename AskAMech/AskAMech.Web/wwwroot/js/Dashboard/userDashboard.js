@@ -10,7 +10,7 @@
             window.location.href = '';
             break;
         case 'divNewQuestions':
-            window.location.href = '';
+            window.location.href = '/Question/Create';
             break;
         case 'divMyProfile':
             window.location.href = '/User/Edit';
