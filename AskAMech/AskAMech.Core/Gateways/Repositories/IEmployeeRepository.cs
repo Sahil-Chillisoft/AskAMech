@@ -16,5 +16,6 @@ namespace AskAMech.Core.Gateways.Repositories
         List<ViewEmployee> GetEmployeesForAutocomplete(string search);
         int GetCount(string? search);
         void Update(Employee employee);
+        void UpdateActiveStatus(Employee employee);
     }
 }

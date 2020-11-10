@@ -244,5 +244,28 @@ namespace AskAMech.Infrastructure.Data.Repositories
                 });
             #endregion
         }
+
+        public void UpdateActiveStatus(Employee employee)
+        {
+            #region SQL
+            var sql = @"update Employee
+                        set IsActive = @IsActive, 
+                        LastModifiedByUserId = @LastModifiedByUserId, 
+                        DateLastModified = @DateLastModified
+                        where Id = @EmployeeId ";
+            #endregion
+
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            connection.Execute(sql,
+                new
+                {
+                    IsActive = employee.IsActive,
+                    LastModifiedByUserId = employee.LastModifiedByUserId,
+                    DateLastModified = employee.DateLastModified,
+                    EmployeeId = employee.Id
+                });
+            #endregion
+        }
     }
 }

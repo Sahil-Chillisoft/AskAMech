@@ -44,6 +44,7 @@
 
     $('#Reactivate').click(function (event) {
         event.preventDefault();
+        displayConfirmEmployeeReactivationModal();
     });
 
 
@@ -54,6 +55,18 @@
 
 
     $('#CancelUpdateEmployeeActiveStatus').click(function (event) {
+        event.preventDefault();
+        window.location.reload();
+    });
+
+
+    $('#ReactivateEmployee').click(function (event) {
+        event.preventDefault();
+        setEmployeeActivationStatus(true, employeeId);
+    });
+
+
+    $('#CancelReactivateEmployee').click(function (event) {
         event.preventDefault();
         window.location.reload();
     });
@@ -69,9 +82,11 @@ function setEmployeeActivationStatus(isActive, employeeId) {
         url: '/Employee/UpdateActiveStatus',
         type: 'POST',
         cache: false,
-        data: request
-    }).done(function () {
-        window.location.reload();
+        data: request, 
+        success: function(data) {
+            if (data.success)
+                window.location.reload();
+        }
     });
 }
 
@@ -79,6 +94,18 @@ function displayConfirmEmployeeDeactivationModal() {
     var confirmationModal = $('#ConfirmEmployeeActiveStatusDiv');
     $.ajax({
         url: '/Employee/GetConfirmationModalForEmployeeDeactivation',
+        type: 'GET',
+        cache: false
+    }).done(function (data) {
+        confirmationModal.html(data);
+        confirmationModal.find('.modal').modal('show');
+    });
+}
+
+function displayConfirmEmployeeReactivationModal() {
+    var confirmationModal = $('#ConfirmEmployeeActiveStatusDiv');
+    $.ajax({
+        url: '/Employee/GetConfirmationModalForEmployeeReactivation',
         type: 'GET',
         cache: false
     }).done(function (data) {

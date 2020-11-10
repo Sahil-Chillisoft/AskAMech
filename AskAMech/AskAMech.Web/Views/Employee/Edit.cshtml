@@ -8,8 +8,8 @@
         <div class="row">
             <div class="col-md-12">
                 <h1 class="display-4 text-center">
-                    <i class="material-icons md-45">person_add</i>
-                    Update New Employee
+                    <i class="material-icons md-45">account_box</i>
+                    Update Employee
                 </h1>
             </div>
         </div>
@@ -90,17 +90,17 @@
             @if (Model.IsActive)
             {
                 <div class="col-md-3">
-                    <button id="Deactivate" type="button" class="btn btn-primary full-width">Deactivate Employee</button>
+                    <button id="Deactivate" type="button" class="btn btn-danger full-width">Deactivate Employee</button>
                 </div>
             }
             else
             {
                 <div class="col-md-3">
-                    <button id="Reactivate" type="button" class="btn btn-primary full-width">Reactivate Employee</button>
+                    <button id="Reactivate" type="button" class="btn btn-success full-width">Reactivate Employee</button>
                 </div>
             }
             <div class="col-md-2">
-                <button id="ResetPassword" type="button" class="btn btn-primary full-width">Reset Password</button>
+                <button id="ResetPassword" type="button" class="btn btn-warning full-width">Reset Password</button>
             </div>
             <div class="col-md-2">
                 <a asp-action="Index" asp-controller="Employee">Back to list</a>
