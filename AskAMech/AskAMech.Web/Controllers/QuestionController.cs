@@ -50,16 +50,7 @@ namespace AskAMech.Web.Controllers
             _securityManagerUseCase.VerifyUserIsMechanicOrGeneralUser(_modelPresenter);
             _getQuestionCategoryUseCase.Execute(request, _modelPresenter);
 
-           // if (!_modelPresenter.HasValidationErrors)
             return View();
-
-            //var model = _modelPresenter.Model as ErrorResponse;
-            //return RedirectToAction("Index", "Error",
-            //    new
-            //    {
-            //        message = model?.Message,
-            //        code = model?.Code
-            //    });
         }
 
         [HttpPost]
@@ -67,11 +58,7 @@ namespace AskAMech.Web.Controllers
         {
             _createQuestionUseCase.Execute(request, _modelPresenter);
 
-           // if (!_modelPresenter.HasValidationErrors)
                 return Json(new { Success = true, Message = "A question is Successfully submitted" });
-
-            //var model = _modelPresenter.Model as CreateQuestionResponse;
-            //return Json(new { Sucess = false, Message = model?.ErrorMessage });
         }
         [HttpGet]
         public IActionResult CreateSuccess()

@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-
+    getCategories();
     $('#CreateQuestion').click(function (event) {
         event.preventDefault();
 
@@ -25,6 +25,18 @@
             });
         }
     });
+
+    function getCategories() {
+        
+        $.ajax({
+            url: '/Question/Create',
+            type: 'GET',
+            cache: false,
+            success: function (data) {
+                description.html(data);
+            }
+        });
+    }
 
     function displaySuccessModal() {
         var successModal = $('#QuestionSuccessDiv');
