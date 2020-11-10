@@ -13,19 +13,19 @@ namespace AskAMech.Web.Controllers
         private readonly ISecurityManagerUseCase _securityManagerUseCase;
         private readonly IGetQuestionsUseCase _getQuestionsUseCase;
         private readonly ICreateQuestionUseCase _createQuestionUseCase;
-        private readonly IGetQuestionCategoryUseCase _getQuestionCategoryUseCase;
+        private readonly IGetCreateQuestionUseCase _getCreateQuestionUseCase;
 
-        public QuestionController(IModelPresenter modelPresenter, 
-                                  ISecurityManagerUseCase securityManagerUseCase, 
+        public QuestionController(IModelPresenter modelPresenter,
+                                  ISecurityManagerUseCase securityManagerUseCase,
                                   IGetQuestionsUseCase getQuestionsUseCase,
                                   ICreateQuestionUseCase createQuestionUseCase,
-                                  IGetQuestionCategoryUseCase getQuestionCategoryUseCase)
+                                  IGetCreateQuestionUseCase getCreateQuestionUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _getQuestionsUseCase = getQuestionsUseCase ?? throw new ArgumentNullException(nameof(getQuestionsUseCase));
             _createQuestionUseCase = createQuestionUseCase ?? throw new ArgumentNullException(nameof(createQuestionUseCase));
-            _getQuestionCategoryUseCase = getQuestionCategoryUseCase ?? throw new ArgumentNullException(nameof(getQuestionCategoryUseCase));
+            _getCreateQuestionUseCase = getCreateQuestionUseCase ?? throw new ArgumentNullException(nameof(getCreateQuestionUseCase));
 
         }
 
@@ -45,21 +45,31 @@ namespace AskAMech.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create(GetQuestionsRequest request)
+        public IActionResult Create()
         {
             _securityManagerUseCase.VerifyUserIsMechanicOrGeneralUser(_modelPresenter);
-            _getQuestionCategoryUseCase.Execute(request, _modelPresenter);
+            if (_modelPresenter.HasValidationErrors)
+            {
+                var model = _modelPresenter.Model as ErrorResponse;
+                return RedirectToAction("Index", "Error",
+                    new
+                    {
+                        message = model?.Message,
+                        code = model?.Code
+                    });
+            }
 
-            return View();
+            _getCreateQuestionUseCase.Execute(new CreateQuestionRequest(), _modelPresenter);
+            return View(_modelPresenter.Model);
         }
 
         [HttpPost]
         public IActionResult Create(CreateQuestionRequest request)
         {
             _createQuestionUseCase.Execute(request, _modelPresenter);
-
-                return Json(new { Success = true, Message = "A question is Successfully submitted" });
+            return Json(new { Success = true });
         }
+
         [HttpGet]
         public IActionResult CreateSuccess()
         {

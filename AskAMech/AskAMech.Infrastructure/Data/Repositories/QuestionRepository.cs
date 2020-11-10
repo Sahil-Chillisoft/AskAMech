@@ -82,6 +82,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
                 sql += "and q.CategoryId = @CategoryId ";
             #endregion
 
+            #region Execustion
             using var connection = new SqlConnection(_sqlHelper.ConnectionString);
             var questionCount = connection.ExecuteScalar<int>(sql,
                 new
@@ -89,15 +90,16 @@ namespace AskAMech.Infrastructure.Data.Repositories
                     Search = $"%{search}%",
                     CategoryId = categoryId
                 });
+            #endregion
 
             return questionCount;
         }
 
-        public void CreateQuestion(ViewQuestions questions)
+        public void CreateQuestion(Question question)
         {
             #region SQL
-            var sql = @"insert into Questions (Title, Description, CategoryId, Category, CreatedByUserId, CreatedBy, DateCreated, AnswerCount)                        
-                        values(@Title, @Description, @CategoryId, @Category, @CreatedByUserId, @CreatedBy, @DateCreated, @AnswerCount) ";
+            var sql = @"insert into Questions (Title, Description, CategoryId, CreatedByUserId, DateCreated, DateLastModified)                        
+                        values(@Title, @Description, @CategoryId, @CreatedByUserId, @DateCreated, @DateLastModified) ";
             #endregion
 
             #region Execution
@@ -105,17 +107,14 @@ namespace AskAMech.Infrastructure.Data.Repositories
             connection.Execute(sql,
                 param: new
                 {
-                    Title =questions.Title,
-                    Description=questions.Description,
-                    CategoryId=questions.CategoryId,
-                    Category=questions.Category,
-                    CreatedByUserId=questions.CreatedByUserId,
-                    CreatedBy=questions.CreatedBy,
-                    DateCreated=DateTime.Now,
-                    AnswerCount=questions.AnswerCount
+                    Title = question.Title,
+                    Description = question.Description,
+                    CategoryId = question.CategoryId,
+                    CreatedByUserId = question.CreatedByUserId,
+                    DateCreated = question.DateCreated,
+                    DateLastModified = question.DateLastModified
                 });
             #endregion
-
         }
     }
 }

@@ -7,9 +7,9 @@
             window.location.href = '';
             break;
         case 'divLatestQuestions':
-            window.location.href = '';
+            window.location.href = '/Question/Index';
             break;
-        case 'divNewQuestions':
+        case 'divNewQuestion':
             window.location.href = '/Question/Create';
             break;
         case 'divMyProfile':
