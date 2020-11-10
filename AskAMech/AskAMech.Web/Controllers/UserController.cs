@@ -15,19 +15,22 @@ namespace AskAMech.Web.Controllers
         private readonly ICreateUserUseCase _createUserUseCase;
         private readonly IGetEmployeeUseCase _getEmployeeUseCase;
         private readonly IEditUserProfileUseCase _editUserProfileUseCase;
+        private readonly IGetUserProfileUseCase _getUserProfileUseCase;
 
         public UserController(IModelPresenter modelPresenter,
                               ISecurityManagerUseCase securityManagerUseCase,
                               ICreateUserUseCase createUserUseCase,
                               IGetEmployeeUseCase getEmployeeUseCase,
-                              
-                              IEditUserProfileUseCase editUserProfileUseCase)
+                              IEditUserProfileUseCase editUserProfileUseCase,
+                              IGetUserProfileUseCase getUserProfileUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _createUserUseCase = createUserUseCase ?? throw new ArgumentNullException(nameof(createUserUseCase));
             _getEmployeeUseCase = getEmployeeUseCase ?? throw new ArgumentNullException(nameof(getEmployeeUseCase));
              _editUserProfileUseCase = editUserProfileUseCase ?? throw new ArgumentNullException(nameof(editUserProfileUseCase));
+            _getUserProfileUseCase = getUserProfileUseCase ?? throw new ArgumentNullException(nameof(getUserProfileUseCase));
+
         }
 
         [HttpGet]
@@ -68,11 +71,12 @@ namespace AskAMech.Web.Controllers
             {
                 userProfile = new UserProfile()
                 {
-                    UserId = UserSecurityManager.UserId
+                    UserId=UserSecurityManager.UserId,
+                         
                 }
             };
 
-            _editUserProfileUseCase.Execute(request, _modelPresenter);
+            _getUserProfileUseCase.Execute(request, _modelPresenter);
             return View(_modelPresenter.Model);
         }
 
@@ -83,7 +87,7 @@ namespace AskAMech.Web.Controllers
             {
                 userProfile = new UserProfile()
                 {
-                    UserId = user.Id,
+                    UserId = user.UserId,
                     Username=user.Username,
                     About=user.About,
                     DateLastModified = user.DateLastModified

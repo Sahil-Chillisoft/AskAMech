@@ -23,7 +23,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public UserProfile GetUserProfile(int userId)
+        public UserProfile GetUserProfile(int? userId)
         {
             #region SQL
             var sql = @"select * 
@@ -93,8 +93,8 @@ namespace AskAMech.Infrastructure.Data.Repositories
             #region SQL
             var sql = @"
                         update UserProfile 
-                        set UserId=@UserId, Username=@Username, DateLastModified=@DateLastModified                        
-                        where Id=@UserId
+                        set UserId=@UserId, Username=@Username, About=@About, DateLastModified=@DateLastModified                        
+                        where UserId=@UserId
                       ";
             #endregion
 
@@ -105,6 +105,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
                 {
                     UserId = userProfile.UserId,
                     Username = userProfile.Username,
+                    About=userProfile.About,
                     DateLastModified = DateTime.Now
                 });
             #endregion

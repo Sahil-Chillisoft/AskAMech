@@ -21,10 +21,12 @@ namespace AskAMech.Core.UseCases
 
         public void Execute(EditUserProfileRequest request, IPresenter presenter)
         {
-            var response = new EditEmployeeResponse
+            var response = new EditUserProfileResponse
             {
-                Id = request.userProfile.Id,
-                
+                userId = request.userProfile.UserId,
+                Username = request.userProfile.Username,
+                About = request.userProfile.About
+
             };
 
             var IsExistingUsername = _userProfileRepository.IsExistingUsername(request.userProfile.Username);
@@ -40,6 +42,7 @@ namespace AskAMech.Core.UseCases
                 {
                     UserId = request.userProfile.UserId,
                     Username = request.userProfile.Username,
+                    About=request.userProfile.About,
                     DateLastModified = request.userProfile.DateLastModified
                 };
 
