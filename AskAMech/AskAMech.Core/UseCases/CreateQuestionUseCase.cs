@@ -23,11 +23,6 @@ namespace AskAMech.Core.UseCases
 
         public void Execute(CreateQuestionRequest request, IPresenter presenter)
         {
-            var categories = _categoryRepository.GetCategories();
-            var response = new CreateQuestionResponse
-            {
-                category=categories
-            };
             var viewquestion = new ViewQuestions
             {
                 Title = request.Title,

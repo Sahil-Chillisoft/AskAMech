@@ -13,16 +13,20 @@ namespace AskAMech.Web.Controllers
         private readonly ISecurityManagerUseCase _securityManagerUseCase;
         private readonly IGetQuestionsUseCase _getQuestionsUseCase;
         private readonly ICreateQuestionUseCase _createQuestionUseCase;
+        private readonly IGetQuestionCategoryUseCase _getQuestionCategoryUseCase;
 
         public QuestionController(IModelPresenter modelPresenter, 
                                   ISecurityManagerUseCase securityManagerUseCase, 
                                   IGetQuestionsUseCase getQuestionsUseCase,
-                                  ICreateQuestionUseCase createQuestionUseCase)
+                                  ICreateQuestionUseCase createQuestionUseCase,
+                                  IGetQuestionCategoryUseCase getQuestionCategoryUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _getQuestionsUseCase = getQuestionsUseCase ?? throw new ArgumentNullException(nameof(getQuestionsUseCase));
             _createQuestionUseCase = createQuestionUseCase ?? throw new ArgumentNullException(nameof(createQuestionUseCase));
+            _getQuestionCategoryUseCase = getQuestionCategoryUseCase ?? throw new ArgumentNullException(nameof(getQuestionCategoryUseCase));
+
         }
 
         [HttpGet]
@@ -41,12 +45,13 @@ namespace AskAMech.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(GetQuestionsRequest request)
         {
             _securityManagerUseCase.VerifyUserIsMechanicOrGeneralUser(_modelPresenter);
+            _getQuestionCategoryUseCase.Execute(request, _modelPresenter);
 
            // if (!_modelPresenter.HasValidationErrors)
-                return View();
+            return View();
 
             //var model = _modelPresenter.Model as ErrorResponse;
             //return RedirectToAction("Index", "Error",
