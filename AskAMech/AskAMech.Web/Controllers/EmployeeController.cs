@@ -168,9 +168,21 @@ namespace AskAMech.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult EmployeeUserAccountPasswordReset(EditEmployeeRequest request)
+        public IActionResult ResetEmployeeUserAccountPassword(EditEmployeeRequest request)
         {
             throw new NotImplementedException();
+        }
+
+        [HttpGet]
+        public IActionResult GetEmployeePasswordResetConfirmationModal()
+        {
+            return PartialView("_PasswordReset");
+        }
+        
+        [HttpGet]
+        public IActionResult GetEmployeePasswordResetErrorModal()
+        {
+            return PartialView("_PasswordResetError");
         }
 
         [HttpPost]

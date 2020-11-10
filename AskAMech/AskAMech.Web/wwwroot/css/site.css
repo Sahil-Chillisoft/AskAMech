@@ -317,3 +317,8 @@ body {
     background-color: #32cd32;
     color: #ffffff
 }
+
+.modal-danger {
+    background-color: #ff0000;
+    color: #ffffff
+}

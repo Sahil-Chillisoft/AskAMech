@@ -71,6 +71,29 @@
         window.location.reload();
     });
 
+
+    $('#ResetPassword').click(function (event) {
+        event.preventDefault();
+        displayConfirmPasswordResetModal();
+    });
+
+
+    $('#ResetEmployeePassword').click(function (event) {
+        event.preventDefault();
+        resetEmployeeUserAccountPassword(employeeId);
+    });
+
+
+    $('#CancelResetEmployeePassword').click(function (event) {
+        event.preventDefault();
+        window.location.reload();
+    });
+
+
+    $('#ConfirmPasswordResetError').click(function (event) {
+        event.preventDefault();
+        window.location.reload();
+    });
 });
 
 function setEmployeeActivationStatus(isActive, employeeId) {
@@ -82,10 +105,28 @@ function setEmployeeActivationStatus(isActive, employeeId) {
         url: '/Employee/UpdateActiveStatus',
         type: 'POST',
         cache: false,
+        data: request,
+        success: function (data) {
+            if (data.success)
+                window.location.reload();
+        }
+    });
+}
+
+function resetEmployeeUserAccountPassword(employeeId) {
+    var request = {
+        'employee.id': employeeId,
+    }
+    $.ajax({
+        url: '/Employee/ResetEmployeeUserAccountPassword',
+        type: 'POST', 
+        cache: false, 
         data: request, 
         success: function(data) {
             if (data.success)
                 window.location.reload();
+            else
+                displayPasswordErrorModal();
         }
     });
 }
@@ -111,6 +152,30 @@ function displayConfirmEmployeeReactivationModal() {
     }).done(function (data) {
         confirmationModal.html(data);
         confirmationModal.find('.modal').modal('show');
+    });
+}
+
+function displayConfirmPasswordResetModal() {
+    var confirmationModal = $('#ResetPasswordDiv');
+    $.ajax({
+        url: '/Employee/GetEmployeePasswordResetConfirmationModal',
+        type: 'GET',
+        cache: false
+    }).done(function(data) {
+        confirmationModal.html(data);
+        confirmationModal.find('.modal').modal('show');
+    });
+}
+
+function displayPasswordErrorModal() {
+    var passwordErrorModal = $('#ResetPasswordErrorDiv');
+    $.ajax({
+        url: '/Employee/GetEmployeePasswordResetErrorModal',
+        type: 'GET',
+        cache: false
+    }).done(function (data) {
+        passwordErrorModal.html(data);
+        passwordErrorModal.find('.modal').modal('show');
     });
 }
 
