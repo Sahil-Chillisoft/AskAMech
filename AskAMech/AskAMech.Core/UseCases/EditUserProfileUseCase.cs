@@ -23,14 +23,14 @@ namespace AskAMech.Core.UseCases
         {
             var response = new EditUserProfileResponse
             {
-                userId = request.userProfile.UserId,
-                Username = request.userProfile.Username,
-                About = request.userProfile.About
+                userId = request.viewUser.userProfile.UserId,
+                Username = request.viewUser.userProfile.Username,
+                About = request.viewUser.userProfile.About
 
             };
 
-            var IsExistingUsername = _userProfileRepository.IsExistingUsername(request.userProfile.Username);
-           
+            var IsExistingUsername = _userProfileRepository.IsExistingUsername(request.viewUser.userProfile.Username);
+
             if (IsExistingUsername)
             {
                 response.ErrorMessage = "Error: Another user with the same username already exits on the system";
@@ -38,15 +38,20 @@ namespace AskAMech.Core.UseCases
             }
             else
             {
-                var userProfile = new UserProfile
+                var viewUserInfo = new ViewUserInfo
                 {
-                    UserId = request.userProfile.UserId,
-                    Username = request.userProfile.Username,
-                    About=request.userProfile.About,
-                    DateLastModified = request.userProfile.DateLastModified
+                    userProfile=new UserProfile
+                    {
+                    UserId = request.viewUser.userProfile.UserId,
+                    Username = request.viewUser.userProfile.Username,
+                    About=request.viewUser.userProfile.About,
+                    DateLastModified = request.viewUser.userProfile.DateLastModified
+
+                    }
+
                 };
 
-                _userProfileRepository.UpdateUserProfile(userProfile);
+                _userProfileRepository.UpdateUserProfile(viewUserInfo.userProfile);
                 presenter.Success(new EditUserProfileResponse());
             }
         }

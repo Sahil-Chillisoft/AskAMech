@@ -28,7 +28,7 @@ namespace AskAMech.Web.Controllers
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _createUserUseCase = createUserUseCase ?? throw new ArgumentNullException(nameof(createUserUseCase));
             _getEmployeeUseCase = getEmployeeUseCase ?? throw new ArgumentNullException(nameof(getEmployeeUseCase));
-             _editUserProfileUseCase = editUserProfileUseCase ?? throw new ArgumentNullException(nameof(editUserProfileUseCase));
+            _editUserProfileUseCase = editUserProfileUseCase ?? throw new ArgumentNullException(nameof(editUserProfileUseCase));
             _getUserProfileUseCase = getUserProfileUseCase ?? throw new ArgumentNullException(nameof(getUserProfileUseCase));
 
         }
@@ -69,10 +69,12 @@ namespace AskAMech.Web.Controllers
         {
             var request = new EditUserProfileRequest()
             {
-                userProfile = new UserProfile()
+                viewUser = new ViewUserInfo()
                 {
-                    UserId=UserSecurityManager.UserId,
-                         
+                    userProfile = new UserProfile()
+                    {
+                        UserId = UserSecurityManager.UserId
+                    },
                 }
             };
 
@@ -81,20 +83,37 @@ namespace AskAMech.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(UserProfile? user)
+        public IActionResult Edit(ViewUserInfo? users)
         {
             var request = new EditUserProfileRequest()
             {
-                userProfile = new UserProfile()
+                viewUser = new ViewUserInfo()
                 {
-                    UserId = user.UserId,
-                    Username=user.Username,
-                    About=user.About,
-                    DateLastModified = user.DateLastModified
-                }
-            };
+                    userProfile =new UserProfile()// users.userProfile,
+                    {
+                        UserId = users.userProfile.UserId,
+                        Username = users.userProfile.Username,
+                        About = users.userProfile.About,
+                        DateLastModified = users.userProfile.DateLastModified
+                    }
 
-            _editUserProfileUseCase.Execute(request, _modelPresenter);
+                    //user = users.user
+                      //new User() //{//    Password=user.
+                    //}
+                }
+
+            };
+            //this is a check statement
+            //if (users.user.Password.Equals(null))
+            //{
+            //    _editUserProfileUseCase.Execute(request, _modelPresenter);
+            //}
+            //else 
+            //{
+                _editUserProfileUseCase.Execute(request, _modelPresenter);
+                //here will put another method for updating password
+
+           // }
 
             if (!_modelPresenter.HasValidationErrors)
                 return Json(new { Success = true, Message = "user profile has been successfully updated" });
