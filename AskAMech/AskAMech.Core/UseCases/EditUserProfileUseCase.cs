@@ -23,13 +23,13 @@ namespace AskAMech.Core.UseCases
         {
             var response = new EditUserProfileResponse
             {
-                userId = request.viewUser.userProfile.UserId,
-                Username = request.viewUser.userProfile.Username,
-                About = request.viewUser.userProfile.About
+                userId = request.userProfile.UserId,
+                Username = request.userProfile.Username,
+                About = request.userProfile.About
 
             };
 
-            var IsExistingUsername = _userProfileRepository.IsExistingUsername(request.viewUser.userProfile.Username);
+            var IsExistingUsername = _userProfileRepository.IsExistingUsername(request.userProfile.Username);
 
             if (IsExistingUsername)
             {
@@ -42,10 +42,10 @@ namespace AskAMech.Core.UseCases
                 {
                     userProfile=new UserProfile
                     {
-                    UserId = request.viewUser.userProfile.UserId,
-                    Username = request.viewUser.userProfile.Username,
-                    About=request.viewUser.userProfile.About,
-                    DateLastModified = request.viewUser.userProfile.DateLastModified
+                    UserId = request.userProfile.UserId,
+                    Username = request.userProfile.Username,
+                    About=request.userProfile.About,
+                    DateLastModified = request.userProfile.DateLastModified
 
                     }
 

@@ -43,7 +43,35 @@
                 <span asp-validation-for="About" class="text-danger"></span>
             </div>
         </div>
-        
+
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-12">
+                <label asp-for="Password"></label>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input asp-for="Password" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-12">
+                <label asp-for="confirmPassword"></label>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input asp-for="confirmPassword" class="form-control" disabled="disabled"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span asp-validation-for="confirmPassword" class="text-danger"></span>
+            </div>
+        </div>
+
         <div class="row md-Padding-Top-10">
             <div class="col-md-12">
                 <label id="ErrorMessage" class="text-danger"></label>
@@ -54,7 +82,7 @@
             <div class="col-md-2">
                 <button id="Update" type="button" class="btn btn-primary full-width">Update</button>
             </div>
-           
+
             <div class="col-md-2">
                 <a asp-action="UserDashboard" asp-controller="Dashboard">Back to Dashboard</a>
             </div>

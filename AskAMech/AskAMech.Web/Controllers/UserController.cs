@@ -16,13 +16,15 @@ namespace AskAMech.Web.Controllers
         private readonly IGetEmployeeUseCase _getEmployeeUseCase;
         private readonly IEditUserProfileUseCase _editUserProfileUseCase;
         private readonly IGetUserProfileUseCase _getUserProfileUseCase;
+        private readonly IGetUserPasswordUseCase _getUserPasswordUseCase;
 
         public UserController(IModelPresenter modelPresenter,
                               ISecurityManagerUseCase securityManagerUseCase,
                               ICreateUserUseCase createUserUseCase,
                               IGetEmployeeUseCase getEmployeeUseCase,
                               IEditUserProfileUseCase editUserProfileUseCase,
-                              IGetUserProfileUseCase getUserProfileUseCase)
+                              IGetUserProfileUseCase getUserProfileUseCase,
+                              IGetUserPasswordUseCase getUserPasswordUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
@@ -30,6 +32,7 @@ namespace AskAMech.Web.Controllers
             _getEmployeeUseCase = getEmployeeUseCase ?? throw new ArgumentNullException(nameof(getEmployeeUseCase));
             _editUserProfileUseCase = editUserProfileUseCase ?? throw new ArgumentNullException(nameof(editUserProfileUseCase));
             _getUserProfileUseCase = getUserProfileUseCase ?? throw new ArgumentNullException(nameof(getUserProfileUseCase));
+            _getUserPasswordUseCase = getUserPasswordUseCase ?? throw new ArgumentNullException(nameof(getUserPasswordUseCase));
 
         }
 
@@ -69,38 +72,39 @@ namespace AskAMech.Web.Controllers
         {
             var request = new EditUserProfileRequest()
             {
-                viewUser = new ViewUserInfo()
-                {
+                //viewUser = new ViewUserInfo()
+                //{
                     userProfile = new UserProfile()
                     {
                         UserId = UserSecurityManager.UserId
                     },
-                }
+                //}
             };
 
             _getUserProfileUseCase.Execute(request, _modelPresenter);
+            _getUserPasswordUseCase.Execute(request, _modelPresenter);
             return View(_modelPresenter.Model);
         }
 
         [HttpPost]
-        public IActionResult Edit(ViewUserInfo? users)
+        public IActionResult Edit(UserProfile? users)
         {
             var request = new EditUserProfileRequest()
             {
-                viewUser = new ViewUserInfo()
-                {
-                    userProfile =new UserProfile()// users.userProfile,
+                //viewUser = new ViewUserInfo()
+                //{
+                    userProfile = new UserProfile()
                     {
-                        UserId = users.userProfile.UserId,
-                        Username = users.userProfile.Username,
-                        About = users.userProfile.About,
-                        DateLastModified = users.userProfile.DateLastModified
+                        UserId = users.UserId,
+                        Username = users.Username,
+                        About = users.About,
+                        DateLastModified = users.DateLastModified
                     }
 
                     //user = users.user
-                      //new User() //{//    Password=user.
+                    //new User() //{//    Password=user.
                     //}
-                }
+                //}
 
             };
             //this is a check statement

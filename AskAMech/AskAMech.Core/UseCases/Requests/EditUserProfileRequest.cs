@@ -7,7 +7,8 @@ namespace AskAMech.Core.UseCases.Requests
 {
     public class EditUserProfileRequest
     {
-       // public UserProfile userProfile { get; set; }
-       public ViewUserInfo viewUser { get; set; }
+        public UserProfile userProfile { get; set; }
+        public User user { get; set; }
+        // public ViewUserInfo viewUser { get; set; }
     }
 }
