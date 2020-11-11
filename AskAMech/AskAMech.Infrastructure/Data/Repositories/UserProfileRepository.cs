@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
 using AskAMech.Core.Domain;
 using AskAMech.Core.Gateways.Repositories;
 using AskAMech.Infrastructure.Data.Entities;
@@ -23,7 +21,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public UserProfile GetUserProfile(int? userId)
+        public UserProfile GetUserProfile(int userId)
         {
             #region SQL
             var sql = @"select * 
@@ -88,14 +86,13 @@ namespace AskAMech.Infrastructure.Data.Repositories
                 });
             #endregion
         }
-        public void UpdateUserProfile(UserProfile userProfile)
+
+        public void Update(UserProfile userProfile)
         {
             #region SQL
-            var sql = @"
-                        update UserProfile 
-                        set UserId=@UserId, Username=@Username, About=@About, DateLastModified=@DateLastModified                        
-                        where UserId=@UserId
-                      ";
+            var sql = @"update UserProfile 
+                        set Username = @Username, About = @About, DateLastModified = @DateLastModified                        
+                        where UserId = @UserId ";
             #endregion
 
             #region Execution
@@ -103,7 +100,6 @@ namespace AskAMech.Infrastructure.Data.Repositories
             connection.Execute(sql,
                 param: new
                 {
-                    UserId = userProfile.UserId,
                     Username = userProfile.Username,
                     About=userProfile.About,
                     DateLastModified = DateTime.Now

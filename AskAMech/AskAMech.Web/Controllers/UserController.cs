@@ -16,15 +16,13 @@ namespace AskAMech.Web.Controllers
         private readonly IGetEmployeeUseCase _getEmployeeUseCase;
         private readonly IEditUserProfileUseCase _editUserProfileUseCase;
         private readonly IGetUserProfileUseCase _getUserProfileUseCase;
-        private readonly IGetUserPasswordUseCase _getUserPasswordUseCase;
 
         public UserController(IModelPresenter modelPresenter,
                               ISecurityManagerUseCase securityManagerUseCase,
                               ICreateUserUseCase createUserUseCase,
                               IGetEmployeeUseCase getEmployeeUseCase,
                               IEditUserProfileUseCase editUserProfileUseCase,
-                              IGetUserProfileUseCase getUserProfileUseCase,
-                              IGetUserPasswordUseCase getUserPasswordUseCase)
+                              IGetUserProfileUseCase getUserProfileUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
@@ -32,8 +30,6 @@ namespace AskAMech.Web.Controllers
             _getEmployeeUseCase = getEmployeeUseCase ?? throw new ArgumentNullException(nameof(getEmployeeUseCase));
             _editUserProfileUseCase = editUserProfileUseCase ?? throw new ArgumentNullException(nameof(editUserProfileUseCase));
             _getUserProfileUseCase = getUserProfileUseCase ?? throw new ArgumentNullException(nameof(getUserProfileUseCase));
-            _getUserPasswordUseCase = getUserPasswordUseCase ?? throw new ArgumentNullException(nameof(getUserPasswordUseCase));
-
         }
 
         [HttpGet]
@@ -70,60 +66,41 @@ namespace AskAMech.Web.Controllers
         [HttpGet]
         public IActionResult Edit()
         {
-            var request = new EditUserProfileRequest()
+            var request = new EditUserProfileRequest
             {
-                //viewUser = new ViewUserInfo()
-                //{
-                    userProfile = new UserProfile()
-                    {
-                        UserId = UserSecurityManager.UserId
-                    },
-                //}
+                User = new User
+                {
+                    Id = UserSecurityManager.UserId
+                }
             };
 
             _getUserProfileUseCase.Execute(request, _modelPresenter);
-            _getUserPasswordUseCase.Execute(request, _modelPresenter);
             return View(_modelPresenter.Model);
         }
 
         [HttpPost]
-        public IActionResult Edit(UserProfile? users)
+        public IActionResult Edit(EditUserProfileRequest request)
         {
-            var request = new EditUserProfileRequest()
-            {
-                //viewUser = new ViewUserInfo()
-                //{
-                    userProfile = new UserProfile()
-                    {
-                        UserId = users.UserId,
-                        Username = users.Username,
-                        About = users.About,
-                        DateLastModified = users.DateLastModified
-                    }
+            _editUserProfileUseCase.Execute(request, _modelPresenter);
+            return Json(!_modelPresenter.HasValidationErrors ? 
+                new { Success = true} : 
+                new { Success = false});
+        }
 
-                    //user = users.user
-                    //new User() //{//    Password=user.
-                    //}
-                //}
-
-            };
-            //this is a check statement
-            //if (users.user.Password.Equals(null))
-            //{
-            //    _editUserProfileUseCase.Execute(request, _modelPresenter);
-            //}
-            //else 
-            //{
-                _editUserProfileUseCase.Execute(request, _modelPresenter);
-                //here will put another method for updating password
-
-           // }
-
-            if (!_modelPresenter.HasValidationErrors)
-                return Json(new { Success = true, Message = "user profile has been successfully updated" });
-
-            var model = _modelPresenter.Model as EditUserProfileResponse;
-            return Json(new { Sucess = false, Message = model?.ErrorMessage });
+        [HttpPost]
+        public IActionResult UpdatePassword()
+        {
+            /*
+             * TODO:
+             * Create a new response and request (UpdateUserPasswordRequest and UpdateUserPasswordResponse)
+             * Both request and response must have the UserId, Password as properties
+             * Create a new UseCase, call it UpdateUserPasswordUseCase
+             * Create a new repository method in the UsersRepository called UpdatePassword and pass in the User object as a parameter eg? UpdatePassword(User user)
+             * In your use case set the properties for the User object that is being passed back to the repository, this will be the Userid, Password, DateLastModified
+             * Write SQL to update the password where the userid is equal to the userid parameter and also update the DateLastModified
+             * Display a success Modal to the user that their password has been successfully update adn they will be required to to use their new password the next time they login to the system. 
+             */
+            throw new NotImplementedException();
         }
 
         public IActionResult EditSuccess()

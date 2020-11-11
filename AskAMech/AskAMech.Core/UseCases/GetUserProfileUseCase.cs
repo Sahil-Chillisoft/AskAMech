@@ -8,22 +8,26 @@ namespace AskAMech.Core.UseCases
 {
     public class GetUserProfileUseCase : IGetUserProfileUseCase
     {
+        private readonly IUserRepository _userRepository;
         private readonly IUserProfileRepository _userProfileRepository;
 
-        public GetUserProfileUseCase(IUserProfileRepository userProfileRepository)
+        public GetUserProfileUseCase(IUserRepository userRepository, IUserProfileRepository userProfileRepository)
         {
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             _userProfileRepository = userProfileRepository ?? throw new ArgumentNullException(nameof(userProfileRepository));
         }
 
         public void Execute(EditUserProfileRequest request, IPresenter presenter)
         {
-            var users = _userProfileRepository.GetUserProfile(request.userProfile.UserId);
+            var user = _userRepository.GetUserById(request.User.Id);
+            var userProfile = _userProfileRepository.GetUserProfile(request.User.Id);
+
             var response = new EditUserProfileResponse()
             {
-                userId = users.UserId,
-                Username = users.Username,
-                About = users.About
+                User = user, 
+                UserProfile = userProfile
             };
+
             presenter.Success(response);
         }
     }

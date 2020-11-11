@@ -24,15 +24,12 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public User GetUser(User user)
         {
             #region SQL
-            var sql = @"
-                        select * 
+            var sql = @"select * 
                         from Users 
-                        where email = @Email and password = @Password
-                      ";
+                        where email = @Email and password = @Password ";
             #endregion
 
             #region Execution
-
             using var connection = new SqlConnection(_sqlHelper.ConnectionString);
             var getUser = connection.Query<UserEntity>(sql,
                 new
@@ -40,7 +37,6 @@ namespace AskAMech.Infrastructure.Data.Repositories
                     Email = user.Email,
                     Password = user.Password
                 }).FirstOrDefault();
-
             #endregion
 
             return getUser == null ? new User() : _mapper.Map<User>(getUser);
@@ -49,20 +45,18 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public User GetUserById(int id)
         {
             #region SQL
-            var sql = @"
-                        select * 
+            var sql = @"select * 
                         from Users 
-                        where Id = @Id 
-                      ";
+                        where Id = @Id ";
             #endregion
 
             #region Execustion
             using var connection = new SqlConnection(_sqlHelper.ConnectionString);
-            var user = connection.ExecuteScalar<UserEntity>(sql,
+            var user = connection.Query<UserEntity>(sql,
                 new
                 {
                     Id = id
-                });
+                }).FirstOrDefault();
             #endregion
 
             return user == null ? new User() : _mapper.Map<User>(user);
@@ -71,15 +65,13 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public bool IsExistingUserEmail(string email)
         {
             #region SQL
-            var sql = @"
-                        select case when exists 
+            var sql = @"select case when exists 
                         (
                             select email 
                             from Users 
                             where email = @Email 
                         ) then 1 else 0
-                        end
-                      ";
+                        end ";
             #endregion
 
             #region Execution

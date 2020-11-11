@@ -1,12 +1,8 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 using AskAMech.Core.Gateways.Repositories;
 using AskAMech.Core.UseCases.Requests;
-using AskAMech.Core.UseCases.Responses;
-using AskAMech.Core.Domain;
 using AskAMech.Core.UseCases.Interfaces;
+using AskAMech.Core.UseCases.Responses;
 
 namespace AskAMech.Core.UseCases
 {
@@ -21,40 +17,15 @@ namespace AskAMech.Core.UseCases
 
         public void Execute(EditUserProfileRequest request, IPresenter presenter)
         {
-            var response = new EditUserProfileResponse
-            {
-                userId = request.userProfile.UserId,
-                Username = request.userProfile.Username,
-                About = request.userProfile.About
-
-            };
-
-            var IsExistingUsername = _userProfileRepository.IsExistingUsername(request.userProfile.Username);
-
-            if (IsExistingUsername)
-            {
-                response.ErrorMessage = "Error: Another user with the same username already exits on the system";
-                presenter.Error(response, true);
-            }
-            else
-            {
-                var viewUserInfo = new ViewUserInfo
-                {
-                    userProfile=new UserProfile
-                    {
-                    UserId = request.userProfile.UserId,
-                    Username = request.userProfile.Username,
-                    About=request.userProfile.About,
-                    DateLastModified = request.userProfile.DateLastModified
-
-                    }
-
-                };
-
-                _userProfileRepository.UpdateUserProfile(viewUserInfo.userProfile);
-                presenter.Success(new EditUserProfileResponse());
-            }
+            /*Check if username is not the same as original username and
+             does not exist for another username has changed then check if the username
+            does not exist for another user on the system*/
+            
+            var userProfile = request.UserProfile;
+            _userProfileRepository.Update(userProfile);
+            presenter.Success(new EditUserProfileResponse());
         }
     }
 }
+
 

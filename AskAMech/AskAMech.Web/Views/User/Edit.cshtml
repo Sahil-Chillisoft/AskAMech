@@ -1,76 +1,121 @@
-﻿@model AskAMech.Core.UseCases.Responses.EditUserProfileResponse
+﻿@using AskAMech.Core.Domain
+@model AskAMech.Core.UseCases.Responses.EditUserProfileResponse
 
 @{
     ViewData["Title"] = "Edit Profile";
 }
-    
+
 <div class="container">
     <form id="userProfileUpdateForm" method="Post">
         <div class="row">
             <div class="col-md-12">
                 <h1 class="display-4 text-center">
-                    <i class="material-icons md-45">person_add</i>
-                    Update user profile
+                    <i class="material-icons md-45">account_circle</i>
+                    Update User Profile
                 </h1>
             </div>
         </div>
         <hr />
-        @Html.HiddenFor(x => x.userId, new { id = "userId" })
+        @Html.HiddenFor(x => x.User.Id, new { id = "UserId" })
+
         <div class="row md-Padding-Top-10">
             <div class="col-md-12">
-                <label asp-for="Username"></label>
+                <label asp-for="UserProfile.Username"></label>
             </div>
             <div class="col-md-6">
                 <div class="input-group">
-                    <input asp-for="Username" class="form-control" />
+                    <input asp-for="UserProfile.Username" class="form-control" />
                 </div>
             </div>
             <div class="col-md-6">
-                <span asp-validation-for="Username" class="text-danger"></span>
+                <span asp-validation-for="UserProfile.Username" class="text-danger"></span>
             </div>
         </div>
 
         <div class="row md-Padding-Top-10">
             <div class="col-md-12">
-                <label asp-for="About"></label>
+                <label asp-for="UserProfile.About"></label>
             </div>
             <div class="col-md-6">
                 <div class="input-group">
-                    <textarea asp-for="About" class="form-control"></textarea>
+                    <textarea asp-for="UserProfile.About" class="form-control"></textarea>
                 </div>
             </div>
             <div class="col-md-6">
-                <span asp-validation-for="About" class="text-danger"></span>
+                <span asp-validation-for="UserProfile.About" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row md-Padding-Top-20">
+            <div class="col-md-6">
+                <label>Email Address: @Model.User.Email</label>
             </div>
         </div>
 
         <div class="row md-Padding-Top-10">
-            <div class="col-md-12">
-                <label asp-for="Password"></label>
-            </div>
             <div class="col-md-6">
-                <div class="input-group">
-                    <input asp-for="Password" class="form-control" />
-                </div>
-            </div>
-            <div class="col-md-6">
-                <span asp-validation-for="Password" class="text-danger"></span>
+                @switch (Model.User.UserRoleId)
+                {
+                    case 1:
+                        <label>Role: @UserRole.Admin</label>
+                        break;
+                    case 2:
+                        <label>Role: @UserRole.Mechanic</label>
+                        break;
+                    case 3:
+                        <label>Role: @UserRole.GeneralUser</label>
+                        break;
+                }
             </div>
         </div>
 
-        <div class="row md-Padding-Top-10">
-            <div class="col-md-12">
-                <label asp-for="confirmPassword"></label>
-            </div>
-            <div class="col-md-6">
-                <div class="input-group">
-                    <input asp-for="confirmPassword" class="form-control" disabled="disabled"/>
+        @if (Model.User.EmployeeId != 0)
+        {
+            <div class="row md-Padding-Top-10">
+                <div class="col-md-12">
+                    @*TODO: When user clicks on anchor tag display a modal will all employee details (just list the details, no editing)*@
+                    <label>
+                        Employee Id:
+                        <a href="">@Model.User.EmployeeId</a>
+                    </label>
                 </div>
             </div>
+        }
+
+        <div class="row md-Padding-Top-10">
             <div class="col-md-6">
-                <span asp-validation-for="confirmPassword" class="text-danger"></span>
+                <label>Date Last Modified: @Model.UserProfile.DateLastModified</label>
             </div>
         </div>
+
+
+        @*TODO: This needs to be done inside the modal*@
+        @*<div class="row md-Padding-Top-10">
+                <div class="col-md-12">
+                    <label asp-for="User.Password"></label>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input asp-for="User.Password" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <span asp-validation-for="User.Password" class="text-danger"></span>
+                </div>
+            </div>*@
+        @*<div class="row md-Padding-Top-10">
+                <div class="col-md-12">
+                    <label asp-for="confirmPassword"></label>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input asp-for="confirmPassword" class="form-control" disabled="disabled"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <span asp-validation-for="confirmPassword" class="text-danger"></span>
+                </div>
+            </div>*@
 
         <div class="row md-Padding-Top-10">
             <div class="col-md-12">
@@ -80,11 +125,10 @@
 
         <div class="row md-Padding-Top-10">
             <div class="col-md-2">
-                <button id="Update" type="button" class="btn btn-primary full-width">Update</button>
+                <button id="Update" type="button" class="btn btn-primary full-width">Update Profile</button>
             </div>
-
             <div class="col-md-2">
-                <a asp-action="UserDashboard" asp-controller="Dashboard">Back to Dashboard</a>
+                <button id="UpdatePassword" type="button" class="btn btn-warning full-width">Update Password</button>
             </div>
         </div>
     </form>
