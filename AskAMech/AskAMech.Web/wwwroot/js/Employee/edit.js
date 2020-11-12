@@ -90,7 +90,7 @@
     });
 
 
-    $('#ConfirmPasswordResetError').click(function (event) {
+    $('#ConfirmPasswordResetResponse').click(function (event) {
         event.preventDefault();
         window.location.reload();
     });
@@ -115,18 +115,15 @@ function setEmployeeActivationStatus(isActive, employeeId) {
 
 function resetEmployeeUserAccountPassword(employeeId) {
     var request = {
-        'employee.id': employeeId,
+        'employeeId': employeeId
     }
     $.ajax({
         url: '/Employee/ResetEmployeeUserAccountPassword',
-        type: 'POST', 
-        cache: false, 
-        data: request, 
-        success: function(data) {
-            if (data.success)
-                window.location.reload();
-            else
-                displayPasswordErrorModal();
+        type: 'POST',
+        cache: false,
+        data: request,
+        success: function (data) {
+            displayPasswordResetResponseModal(data);
         }
     });
 }
@@ -161,22 +158,20 @@ function displayConfirmPasswordResetModal() {
         url: '/Employee/GetEmployeePasswordResetConfirmationModal',
         type: 'GET',
         cache: false
-    }).done(function(data) {
+    }).done(function (data) {
         confirmationModal.html(data);
         confirmationModal.find('.modal').modal('show');
     });
 }
 
-function displayPasswordErrorModal() {
-    var passwordErrorModal = $('#ResetPasswordErrorDiv');
-    $.ajax({
-        url: '/Employee/GetEmployeePasswordResetErrorModal',
-        type: 'GET',
-        cache: false
-    }).done(function (data) {
-        passwordErrorModal.html(data);
-        passwordErrorModal.find('.modal').modal('show');
-    });
+function displayPasswordResetResponseModal(data) {
+    var confirmationModal = $('#ResetPasswordDiv');
+    confirmationModal.innerHTML = "";
+    confirmationModal.find('.modal').modal('hide');
+
+    var passwordResetResponseModal = $('#ResetPasswordResponseDiv');
+    passwordResetResponseModal.html(data);
+    passwordResetResponseModal.find('.modal').modal('show');
 }
 
 function displaySuccessModal() {

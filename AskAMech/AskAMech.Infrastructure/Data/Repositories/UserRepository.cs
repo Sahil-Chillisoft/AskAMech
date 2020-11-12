@@ -62,6 +62,26 @@ namespace AskAMech.Infrastructure.Data.Repositories
             return user == null ? new User() : _mapper.Map<User>(user);
         }
 
+        public User GetUserByEmployeeId(int employeeId)
+        {
+            #region SQL
+            var sql = @"select * 
+                        from Users 
+                        where EmployeeId = @EmployeeId ";
+            #endregion
+
+            #region Execustion
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            var user = connection.Query<UserEntity>(sql,
+                new
+                {
+                    EmployeeId = employeeId
+                }).FirstOrDefault();
+            #endregion
+
+            return user == null ? new User() : _mapper.Map<User>(user);
+        }
+
         public bool IsExistingUserEmail(string email)
         {
             #region SQL
@@ -134,7 +154,28 @@ namespace AskAMech.Infrastructure.Data.Repositories
             #endregion
 
             return userId;
-        } 
+        }
+
+        public void UpdatePassword(User user)
+        {
+            #region SQL
+            var sql = @"update Users 
+                        set Password = @Password,
+                        DateLastModified = @DateLastModified 
+                        where Id = @UserId ";
+            #endregion
+
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            connection.Execute(sql,
+                new
+                {
+                    Password = user.Password,
+                    DateLastModified = user.DateLastModified,
+                    UserId = user.Id
+                });
+            #endregion
+        }
 
         public void UpdateLastLoggedInDate(int userId)
         {

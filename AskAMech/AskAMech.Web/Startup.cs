@@ -40,6 +40,7 @@ namespace AskAMech.Web
             var connectionString = new SqlHelper(Configuration.GetConnectionString("AskAMechDbConnectionString"));
             services.AddSingleton(connectionString);
 
+
             services.AddTransient<IModelPresenter, ModelPresenter>();
             services.AddTransient<ISecurityManagerUseCase, SecurityManagerUseCase>();
             services.AddTransient<ILoginUseCase, LoginUseCase>();
@@ -62,6 +63,8 @@ namespace AskAMech.Web
             services.AddTransient<IUpdateEmployeeActiveStatusUseCase, UpdateEmployeeActiveStatusUseCase>();
             services.AddTransient<IGetCreateQuestionUseCase, GetCreateCreateQuestionUseCase>();
             services.AddTransient<IGetUserProfileUseCase, GetUserProfileUseCase>();
+            services.AddTransient<IEditEmployeeUserPassword, EditEmployeeUserPasswordUseCase>();
+
 
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();

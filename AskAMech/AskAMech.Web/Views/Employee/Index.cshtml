@@ -44,38 +44,33 @@
             <div class="col-md-12">
                 @if (Model.Employees.Any())
                 {
-                <table id="employeesTable" class="table full-width">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th></th>
-                            <th>FirstName</th>
-                            <th>LastName</th>
-                            <th>ID Number</th>
-                            <th>Email</th>
-                        </tr>
-                    </thead>
-                   
-                            
-                            <tbody class="table-striped">
-                                @foreach (var item in Model.Employees)
-                                {
-                                    <tr>
-                                        <td>
-                                            <a asp:Repeater id="Repeater1" asp-route-id="@item.Id" asp-controller="Employee" asp-action="Edit" title="Edit Employee Details">
-                                                <i class="material-icons md-30">edit</i>
-                                            </a>
-                                        </td>
-                                        <td>@item.FirstName</td>
-                                        <td>@item.LastName</td>
-                                        <td>@item.IdNumber</td>
-                                        <td>@item.Email</td>
-                                    </tr>
-                                }
-                            </tbody>
-                           &lt;
-                            
-                      
-                </table>
+                    <table id="employeesTable" class="table full-width">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th></th>
+                                <th>FirstName</th>
+                                <th>LastName</th>
+                                <th>ID Number</th>
+                                <th>Email</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-striped">
+                            @foreach (var item in Model.Employees)
+                            {
+                                <tr>
+                                    <td>
+                                        <a asp:Repeater id="Repeater1" asp-route-id="@item.Id" asp-controller="Employee" asp-action="Edit" title="Edit Employee Details">
+                                            <i class="material-icons md-30">edit</i>
+                                        </a>
+                                    </td>
+                                    <td>@item.FirstName</td>
+                                    <td>@item.LastName</td>
+                                    <td>@item.IdNumber</td>
+                                    <td>@item.Email</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 }
                 else
                 {

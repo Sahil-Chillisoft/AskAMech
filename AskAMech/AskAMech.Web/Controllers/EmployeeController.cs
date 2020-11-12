@@ -19,6 +19,7 @@ namespace AskAMech.Web.Controllers
         private readonly IGetEmployeeForEditUseCase _getEmployeeForEditUseCase;
         private readonly IEditEmployeeUseCase _editEmployeeUseCase;
         private readonly IUpdateEmployeeActiveStatusUseCase _updateEmployeeActiveStatusUseCase;
+        private readonly IEditEmployeeUserPassword _editEmployeeUserPassword;
 
         public EmployeeController(IModelPresenter modelPresenter,
                                   ISecurityManagerUseCase securityManagerUseCase,
@@ -26,8 +27,9 @@ namespace AskAMech.Web.Controllers
                                   IGetEmployeesUseCase getEmployeeUseCase,
                                   IGetEmployeesAutocompleteUseCase getEmployeesAutocompleteUseCase,
                                   IGetEmployeeForEditUseCase getEmployeeForEditUseCase,
-                                  IEditEmployeeUseCase editEmployeeUseCase, 
-                                  IUpdateEmployeeActiveStatusUseCase updateEmployeeActiveStatusUseCase)
+                                  IEditEmployeeUseCase editEmployeeUseCase,
+                                  IUpdateEmployeeActiveStatusUseCase updateEmployeeActiveStatusUseCase,
+                                  IEditEmployeeUserPassword editEmployeeUserPassword)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
@@ -37,6 +39,7 @@ namespace AskAMech.Web.Controllers
             _getEmployeesAutocompleteUseCase = getEmployeesAutocompleteUseCase ?? throw new ArgumentNullException(nameof(getEmployeesAutocompleteUseCase));
             _editEmployeeUseCase = editEmployeeUseCase ?? throw new ArgumentNullException(nameof(editEmployeeUseCase));
             _updateEmployeeActiveStatusUseCase = updateEmployeeActiveStatusUseCase ?? throw new ArgumentNullException(nameof(updateEmployeeActiveStatusUseCase));
+            _editEmployeeUserPassword = editEmployeeUserPassword ?? throw new ArgumentNullException(nameof(editEmployeeUserPassword));
         }
 
         [HttpGet]
@@ -152,7 +155,7 @@ namespace AskAMech.Web.Controllers
         public IActionResult UpdateActiveStatus(EditEmployeeRequest request)
         {
             _updateEmployeeActiveStatusUseCase.Execute(request, _modelPresenter);
-            return Json(new {Success = true});
+            return Json(new { Success = true });
         }
 
         [HttpGet]
@@ -160,7 +163,7 @@ namespace AskAMech.Web.Controllers
         {
             return PartialView("_Deactivation");
         }
-        
+
         [HttpGet]
         public IActionResult GetConfirmationModalForEmployeeReactivation()
         {
@@ -168,21 +171,18 @@ namespace AskAMech.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult ResetEmployeeUserAccountPassword(EditEmployeeRequest request)
+        public IActionResult ResetEmployeeUserAccountPassword(EditEmployeeUserPasswordRequest request)
         {
-            throw new NotImplementedException();
+            _editEmployeeUserPassword.Execute(request, _modelPresenter);
+
+            return PartialView(_modelPresenter.HasValidationErrors ?
+                "_PasswordResetError" : "_PasswordResetSuccess", _modelPresenter.Model);
         }
 
         [HttpGet]
         public IActionResult GetEmployeePasswordResetConfirmationModal()
         {
             return PartialView("_PasswordReset");
-        }
-        
-        [HttpGet]
-        public IActionResult GetEmployeePasswordResetErrorModal()
-        {
-            return PartialView("_PasswordResetError");
         }
 
         [HttpPost]

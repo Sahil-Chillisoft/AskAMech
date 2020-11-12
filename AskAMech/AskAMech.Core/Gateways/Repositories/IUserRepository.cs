@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AskAMech.Core.Domain;
+﻿using AskAMech.Core.Domain;
 
 namespace AskAMech.Core.Gateways.Repositories
 {
@@ -9,9 +6,11 @@ namespace AskAMech.Core.Gateways.Repositories
     {
         User GetUser(User user);
         User GetUserById(int id);
+        User GetUserByEmployeeId(int employeeId);
         bool IsExistingUserEmail(string email);
         bool IsExitingEmployeeUser(int employeeId);
         int Create(User user);
+        void UpdatePassword(User user);
         void UpdateLastLoggedInDate(int userId);
     }
 }

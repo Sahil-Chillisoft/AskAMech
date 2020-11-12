@@ -50,7 +50,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
                 sql += @"where (FirstName + ' ' + LastName) like @Search  
                         or IdNumber like @Search ";
 
-            sql += @"order by Id
+            sql += @"order by FirstName
                      offset @Offset rows
                      fetch next @PageSize rows only ";
             #endregion
