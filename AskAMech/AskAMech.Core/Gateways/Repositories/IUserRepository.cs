@@ -5,12 +5,13 @@ namespace AskAMech.Core.Gateways.Repositories
     public interface IUserRepository
     {
         User GetUser(User user);
-        User GetUserById(int id);
-        User GetUserByEmployeeId(int employeeId);
+        User GetUserByEmployeeId(int? employeeId);
+        bool IsExitingEmployeeUser(int? employeeId);
+        User GetUserById(int? id);
         bool IsExistingUserEmail(string email);
-        bool IsExitingEmployeeUser(int employeeId);
         int Create(User user);
+        void UpdateLastLoggedInDate(int? userId);
         void UpdatePassword(User user);
-        void UpdateLastLoggedInDate(int userId);
+
     }
 }

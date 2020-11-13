@@ -20,12 +20,13 @@ namespace AskAMech.Core.UseCases
         public void Execute(EditUserProfileRequest request, IPresenter presenter)
         {
             var user = _userRepository.GetUserById(request.User.Id);
-            var userProfile = _userProfileRepository.GetUserProfile(request.User.Id);
+            var userProfile = _userProfileRepository.GetUserProfile(request.userProfile.UserId);
 
             var response = new EditUserProfileResponse()
             {
                 User = user, 
                 UserProfile = userProfile
+                
             };
 
             presenter.Success(response);

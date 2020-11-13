@@ -7,6 +7,6 @@ namespace AskAMech.Core.Gateways.Repositories
 {
     public interface IUserDashboardRepository
     {
-        UserDashboard GetKeyPerformanceIndicators(int userId);
+        UserDashboard GetKeyPerformanceIndicators(int? userId);
     }
 }

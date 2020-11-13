@@ -89,33 +89,6 @@
         </div>
 
 
-        @*TODO: This needs to be done inside the modal*@
-        @*<div class="row md-Padding-Top-10">
-                <div class="col-md-12">
-                    <label asp-for="User.Password"></label>
-                </div>
-                <div class="col-md-6">
-                    <div class="input-group">
-                        <input asp-for="User.Password" class="form-control" />
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <span asp-validation-for="User.Password" class="text-danger"></span>
-                </div>
-            </div>*@
-        @*<div class="row md-Padding-Top-10">
-                <div class="col-md-12">
-                    <label asp-for="confirmPassword"></label>
-                </div>
-                <div class="col-md-6">
-                    <div class="input-group">
-                        <input asp-for="confirmPassword" class="form-control" disabled="disabled"/>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <span asp-validation-for="confirmPassword" class="text-danger"></span>
-                </div>
-            </div>*@
 
         <div class="row md-Padding-Top-10">
             <div class="col-md-12">
@@ -135,6 +108,7 @@
 </div>
 
 <div id="UpdateSuccessDiv"></div>
+<div id="modalUpdateDiv"></div>
 
 @section Scripts {
     <script src="~/js/User/Edit.js"></script>

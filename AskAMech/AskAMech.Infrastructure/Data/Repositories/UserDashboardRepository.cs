@@ -23,7 +23,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public UserDashboard GetKeyPerformanceIndicators(int userId)
+        public UserDashboard GetKeyPerformanceIndicators(int? userId)
         {
             #region SQL
             var sql = @"

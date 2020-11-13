@@ -68,9 +68,13 @@ namespace AskAMech.Web.Controllers
         {
             var request = new EditUserProfileRequest
             {
-                User = new User
+                userProfile = new UserProfile
                 {
-                    Id = UserSecurityManager.UserId
+                    UserId = UserSecurityManager.UserId
+                },
+                User=new User
+                {
+                    Id= UserSecurityManager.UserId
                 }
             };
 
@@ -87,20 +91,10 @@ namespace AskAMech.Web.Controllers
                 new { Success = false});
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult UpdatePassword()
         {
-            /*
-             * TODO:
-             * Create a new response and request (UpdateUserPasswordRequest and UpdateUserPasswordResponse)
-             * Both request and response must have the UserId, Password as properties
-             * Create a new UseCase, call it UpdateUserPasswordUseCase
-             * Create a new repository method in the UsersRepository called UpdatePassword and pass in the User object as a parameter eg? UpdatePassword(User user)
-             * In your use case set the properties for the User object that is being passed back to the repository, this will be the Userid, Password, DateLastModified
-             * Write SQL to update the password where the userid is equal to the userid parameter and also update the DateLastModified
-             * Display a success Modal to the user that their password has been successfully update adn they will be required to to use their new password the next time they login to the system. 
-             */
-            throw new NotImplementedException();
+            return PartialView("_UpdatePassword");
         }
 
         public IActionResult EditSuccess()

@@ -6,5 +6,6 @@ namespace AskAMech.Core.UseCases.Responses
     {
         public virtual User User { get; set; }
         public virtual UserProfile UserProfile { get; set; }
+        public string? ErrorMessage { get; set; }
     }
 }

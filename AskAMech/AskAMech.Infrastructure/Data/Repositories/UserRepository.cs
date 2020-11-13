@@ -42,7 +42,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             return getUser == null ? new User() : _mapper.Map<User>(getUser);
         }
 
-        public User GetUserById(int id)
+        public User GetUserById(int? id)
         {
             #region SQL
             var sql = @"select * 
@@ -62,7 +62,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             return user == null ? new User() : _mapper.Map<User>(user);
         }
 
-        public User GetUserByEmployeeId(int employeeId)
+        public User GetUserByEmployeeId(int? employeeId)
         {
             #region SQL
             var sql = @"select * 
@@ -106,7 +106,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             return isExistingEmail;
         }
 
-        public bool IsExitingEmployeeUser(int employeeId)
+        public bool IsExitingEmployeeUser(int? employeeId)
         {
             #region SQL
             var sql = @"select case when exists 
@@ -156,28 +156,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             return userId;
         }
 
-        public void UpdatePassword(User user)
-        {
-            #region SQL
-            var sql = @"update Users 
-                        set Password = @Password,
-                        DateLastModified = @DateLastModified 
-                        where Id = @UserId ";
-            #endregion
-
-            #region Execution
-            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
-            connection.Execute(sql,
-                new
-                {
-                    Password = user.Password,
-                    DateLastModified = user.DateLastModified,
-                    UserId = user.Id
-                });
-            #endregion
-        }
-
-        public void UpdateLastLoggedInDate(int userId)
+        public void UpdateLastLoggedInDate(int? userId)
         {
             #region SQL
             var sql = @"update Users 
@@ -197,5 +176,23 @@ namespace AskAMech.Infrastructure.Data.Repositories
 
             #endregion
         }
+        public void UpdatePassword(User user)
+        {
+            #region SQL
+            var sql = @"update Users 
+                        set Password = @Password, DateLastModified=@DateLastModified
+                        where Id = @UserId ";
+            #endregion
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            connection.Execute(sql,
+                new
+                {
+                    UserId = user.Id,
+                    DateLastModified = DateTime.Now
+                });
+            #endregion
+        }
+
     }
 }

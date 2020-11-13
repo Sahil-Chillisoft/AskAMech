@@ -4,8 +4,9 @@ using System.Text;
 
 namespace AskAMech.Core.UseCases.Requests
 {
-    public class UserDashboardRequest
+    public class UpdateUserPasswordRequest
     {
-        public int? UserId { get; set; }
+        public int UserId { get; set; }
+        public string Password { get; set; }
     }
 }

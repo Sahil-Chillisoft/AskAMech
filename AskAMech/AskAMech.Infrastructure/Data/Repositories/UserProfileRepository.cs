@@ -21,7 +21,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public UserProfile GetUserProfile(int userId)
+        public UserProfile GetUserProfile(int? userId)
         {
             #region SQL
             var sql = @"select * 
@@ -66,6 +66,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
 
             return isExistingName;
         }
+      
 
         public void Create(UserProfile userProfile)
         {
@@ -102,7 +103,8 @@ namespace AskAMech.Infrastructure.Data.Repositories
                 {
                     Username = userProfile.Username,
                     About=userProfile.About,
-                    DateLastModified = DateTime.Now
+                    DateLastModified = DateTime.Now,
+                    UserId=userProfile.UserId
                 });
             #endregion
         }
