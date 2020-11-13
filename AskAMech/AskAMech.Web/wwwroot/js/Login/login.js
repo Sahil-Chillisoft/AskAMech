@@ -48,6 +48,19 @@
                 });
             }
         });
+
+
+    loginModal.on('change',
+        '[Checkbox_CheckedChanged="modal"]',
+        function (event) {
+            event.preventDefault();
+            var password = loginModal.find('[id="Password"]');
+            if (password.attr('type') === 'password') {
+                password.attr('type', 'text');
+            } else {
+                password.attr('type', 'password');
+            }
+        });
 });
 
 function loadDashboard(userRoleId) {

@@ -12,10 +12,10 @@
             </div>
             <div class="modal-body">
                 <form>
-                    <div asp-validation-summary="ModelOnly">
-                    </div>
+                    <div asp-validation-summary="ModelOnly"></div>
                     <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
-                    <input name="UserRoleId" type="hidden" value="@UserSecurityManager.UserRoleId"/>
+                    <input name="UserRoleId" type="hidden" value="@UserSecurityManager.UserRoleId" />
+
                     <div class="row md-Padding-Top-10">
                         <div class="col-md-1">
                         </div>
@@ -37,6 +37,7 @@
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                     </div>
+
                     <div class="row md-Padding-Top-10">
                         <div class="col-md-1">
                         </div>
@@ -58,6 +59,16 @@
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-11">
+                            <input id="ShowPassword" Checkbox_CheckedChanged="modal" type="checkbox" class="md-Padding-Right-5">
+                            <label>Show Password</label>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md-10">
