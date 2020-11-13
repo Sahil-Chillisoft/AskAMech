@@ -72,7 +72,7 @@ namespace AskAMech.Web.Controllers
                 {
                     UserId = UserSecurityManager.UserId
                 },
-                User=new User
+                User = new User
                 {
                     Id= UserSecurityManager.UserId
                 }

@@ -20,12 +20,9 @@ namespace AskAMech.Core.UseCases
 
         public void Execute(EditUserProfileRequest request, IPresenter presenter)
         {
-            /*Check if username is not the same as original username and
-             does not exist for another username has changed then check if the username
-            does not exist for another user on the system*/
             var response = new EditUserProfileResponse
             {
-                UserProfile = request.userProfile   
+                userProfile = request.userProfile   
             };
             var isExistingUsername = _userProfileRepository.IsExistingUsername(request.userProfile.Username);
             if (isExistingUsername)
@@ -44,7 +41,7 @@ namespace AskAMech.Core.UseCases
                     DateLastModified = request.userProfile.DateLastModified
 
                 };
-                //var userProfile = request.UserProfile;
+                ;
                 _userProfileRepository.Update(userPro);
                 presenter.Success(new EditUserProfileResponse());
 

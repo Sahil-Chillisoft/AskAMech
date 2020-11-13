@@ -25,7 +25,7 @@ namespace AskAMech.Core.UseCases
             var response = new EditUserProfileResponse()
             {
                 User = user, 
-                UserProfile = userProfile
+                userProfile = userProfile
                 
             };
 
