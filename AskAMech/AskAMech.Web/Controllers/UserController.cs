@@ -94,7 +94,7 @@ namespace AskAMech.Web.Controllers
         [HttpGet]
         public IActionResult UpdatePassword()
         {
-            return PartialView("_UpdatePassword");
+            return PartialView("_ComparePasswordField");
         }
 
         public IActionResult EditSuccess()

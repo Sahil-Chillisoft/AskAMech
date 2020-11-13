@@ -1,18 +1,16 @@
 ﻿$(document).ready(function () {
-    var updateModal = $('#modalUpdateDiv');
+    var verifyModal = $('#VerifyPasswordDiv');
 
     $('#UpdatePassword').click(function (event) {
         event.preventDefault();
-        var url = $(this).data('url');
         $.ajax({
-            url: url,
+            url: '/User/UpdatePassword',
             type: 'GET',
             cache: false,
-            success: function (data) {
-                updateModal.html(data);
-                updateModal.find('.modal').modal('show');
+                verifyModal.find('.modal').modal('show');
             }
         });
+
 
         updateModal.on('click',
             '[data-save="modal"]',
