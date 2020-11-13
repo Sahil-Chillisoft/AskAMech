@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Collections.Generic;
 using AskAMech.Infrastructure.Data.Helpers;
 using AutoMapper;
@@ -133,8 +134,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
                         (
                             select Email 
                             from Employee 
-                            where Email = @Email 
-                            and Email <> @Email
+                            where Email = @Email                             
                         ) then 1 else 0
                         end ";
             #endregion
@@ -158,8 +158,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
                         (
                             select IdNumber 
                             from Employee 
-                            where IdNumber = @IdNumber 
-                            and IdNumber <> @IdNumber
+                            where IdNumber = @IdNumber                         
                         ) then 1 else 0
                         end ";
             #endregion
@@ -222,9 +221,9 @@ namespace AskAMech.Infrastructure.Data.Repositories
         {
             #region SQL
             var sql = @"update Employee
-                        set FirstName=@FirstName, LastName = @LastName, IdNumber = @IdNumber,
-                        Email = @Email, LastModifiedByUserId = @LastModifiedByUserId, DateLastModified=@DateLastModified, 
-                        IsActive = @IsActive
+                        set FirstName = @FirstName, LastName = @LastName, IdNumber = @IdNumber,
+                        Email = @Email, LastModifiedByUserId = @LastModifiedByUserId, 
+                        DateLastModified = @DateLastModified                         
                         where Id = @EmployeeId ";
             #endregion
 
@@ -239,7 +238,6 @@ namespace AskAMech.Infrastructure.Data.Repositories
                     Email = employee.Email,
                     LastModifiedByUserId = employee.LastModifiedByUserId,
                     DateLastModified = employee.DateLastModified,
-                    IsActive = employee.IsActive,
                     EmployeeId = employee.Id
                 });
             #endregion

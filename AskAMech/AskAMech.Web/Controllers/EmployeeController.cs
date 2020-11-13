@@ -115,7 +115,7 @@ namespace AskAMech.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Employee? employee)
+        public IActionResult Edit(Employee employee)
         {
             var request = new EditEmployeeRequest()
             {
@@ -126,8 +126,6 @@ namespace AskAMech.Web.Controllers
                     LastName = employee.LastName,
                     IdNumber = employee.IdNumber,
                     Email = employee.Email,
-                    LastModifiedByUserId = employee.LastModifiedByUserId,
-                    DateLastModified = employee.DateLastModified
                 }
             };
             _editEmployeeUseCase.Execute(request, _modelPresenter);

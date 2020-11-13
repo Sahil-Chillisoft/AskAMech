@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AskAMech.Infrastructure.Data.Helpers
+﻿namespace AskAMech.Infrastructure.Data.Helpers
 {
     public sealed class SqlHelper
     {
