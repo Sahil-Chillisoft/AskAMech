@@ -9,16 +9,20 @@ namespace AskAMech.Core.UseCases
 {
     public class UpdateUserPasswordUseCase : IUpdateUserPasswordUseCase
     {
-        private readonly IUpdateUserPasswordUseCase _updateUserPasswordUseCase;
+        private readonly IUserRepository _userRepository;
 
-        public UpdateUserPasswordUseCase(IUpdateUserPasswordUseCase updateUserPasswordUseCase)
+        public UpdateUserPasswordUseCase(IUserRepository userRepository)
         {
-            _updateUserPasswordUseCase = updateUserPasswordUseCase ?? throw new ArgumentNullException(nameof(updateUserPasswordUseCase));
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
 
         public void Execute(UpdateUserPasswordRequest request, IPresenter presenter)
         {
-            
+            var response = new UpdateUserPasswordResponse
+            {
+                Password = request.Password
+            };
+            presenter.Error(response, true);
         }
     }
 }

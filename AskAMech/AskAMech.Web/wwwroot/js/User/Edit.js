@@ -82,8 +82,19 @@ function updateNewPassword() {
     }
     else if (newPassword === confirmNewPassword) {
         //TODO: Do ajax call to post data to controller to update the users password.
+        $.ajax({
+            url: 'User/UpdatePassword',
+            type: 'POST',
+            cache: false,
+            data: formData
+        }).done(function (data) {
+            if (data.success) {
+                displaySuccessModal();
+            }
+        });
     }
 }
+
 
 function displayUpdatePasswordModal() {
     var updatePasswordModal = $('#UpdatePasswordDiv');

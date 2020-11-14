@@ -15,13 +15,15 @@ namespace AskAMech.Web.Controllers
         private readonly IGetEmployeeUseCase _getEmployeeUseCase;
         private readonly IEditUserProfileUseCase _editUserProfileUseCase;
         private readonly IGetUserProfileUseCase _getUserProfileUseCase;
+        private readonly IUpdateUserPasswordUseCase _updateUserPasswordUseCase;
 
         public UserController(IModelPresenter modelPresenter,
                               ISecurityManagerUseCase securityManagerUseCase,
                               ICreateUserUseCase createUserUseCase,
                               IGetEmployeeUseCase getEmployeeUseCase,
                               IEditUserProfileUseCase editUserProfileUseCase,
-                              IGetUserProfileUseCase getUserProfileUseCase)
+                              IGetUserProfileUseCase getUserProfileUseCase,
+                              IUpdateUserPasswordUseCase updateUserPasswordUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
@@ -29,6 +31,7 @@ namespace AskAMech.Web.Controllers
             _getEmployeeUseCase = getEmployeeUseCase ?? throw new ArgumentNullException(nameof(getEmployeeUseCase));
             _editUserProfileUseCase = editUserProfileUseCase ?? throw new ArgumentNullException(nameof(editUserProfileUseCase));
             _getUserProfileUseCase = getUserProfileUseCase ?? throw new ArgumentNullException(nameof(getUserProfileUseCase));
+            _updateUserPasswordUseCase = updateUserPasswordUseCase ?? throw new ArgumentNullException(nameof(updateUserPasswordUseCase));
         }
 
         [HttpGet]
@@ -82,6 +85,15 @@ namespace AskAMech.Web.Controllers
         public IActionResult UpdatePassword()
         {
             return PartialView("_UpdatePassword");
+        }
+
+        [HttpPost]
+        public IActionResult UpdatePassword(UpdateUserPasswordRequest request)
+        {
+            _updateUserPasswordUseCase.Execute(request, _modelPresenter);
+            return Json(!_modelPresenter.HasValidationErrors ?
+                new { Success = true } :
+                new { Success = false });
         }
 
         public IActionResult EditSuccess()
