@@ -4,7 +4,6 @@ using AskAMech.Core.UseCases.Requests;
 using AskAMech.Core.UseCases.Responses;
 using AskAMech.Web.Presenters;
 using Microsoft.AspNetCore.Mvc;
-using AskAMech.Core.Domain;
 
 namespace AskAMech.Web.Controllers
 {
@@ -66,10 +65,6 @@ namespace AskAMech.Web.Controllers
         [HttpGet]
         public IActionResult Edit()
         {
-            var user = new UserProfile
-            {
-                UserId = UserSecurityManager.UserId
-            };
             _getUserProfileUseCase.Execute(_modelPresenter);
             return View(_modelPresenter.Model);
         }
@@ -78,9 +73,9 @@ namespace AskAMech.Web.Controllers
         public IActionResult Edit(EditUserProfileRequest request)
         {
             _editUserProfileUseCase.Execute(request, _modelPresenter);
-            return Json(!_modelPresenter.HasValidationErrors ? 
-                new { Success = true} : 
-                new { Success = false});
+            return Json(!_modelPresenter.HasValidationErrors ?
+                new { Success = true } :
+                new { Success = false });
         }
 
         [HttpGet]
