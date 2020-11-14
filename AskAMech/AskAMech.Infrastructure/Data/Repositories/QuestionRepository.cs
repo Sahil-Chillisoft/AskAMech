@@ -132,11 +132,11 @@ namespace AskAMech.Infrastructure.Data.Repositories
 
             #region Execution
             using  var connection = new SqlConnection(_sqlHelper.ConnectionString);
-            var questionDetails = connection.ExecuteScalar<ViewQuestionDetailsEntity>(sql,
+            var questionDetails = connection.Query<ViewQuestionDetailsEntity>(sql,
                 new
                 {
                     Id = id
-                });
+                }).FirstOrDefault();
             #endregion
 
             return _mapper.Map<ViewQuestionDetails>(questionDetails);

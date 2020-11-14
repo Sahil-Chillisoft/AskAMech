@@ -132,6 +132,14 @@ body {
     padding-right: 5px
 }
 
+.md-Padding-Right-10 {
+    padding-right: 10px
+}
+
+.md-Padding-Right-15 {
+    padding-right: 15px
+}
+
 .md-Padding-Left-10 {
     padding-left: 10px
 }
@@ -252,12 +260,12 @@ body {
         overflow: hidden;
     }
 
-    .info-box.hover-zoom-effect .icon i {
-        -moz-transition: all 0.3s ease;
-        -o-transition: all 0.3s ease;
-        -webkit-transition: all 0.3s ease;
-        transition: all 0.3s ease;
-    }
+        .info-box.hover-zoom-effect .icon i {
+            -moz-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+            -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
 
 .bg-limegreen {
     background-color: #32cd32 !important;

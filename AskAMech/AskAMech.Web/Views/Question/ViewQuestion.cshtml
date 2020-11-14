@@ -1,1 +1,42 @@
-﻿
+﻿@model AskAMech.Core.UseCases.Responses.GetViewQuestionResponse
+@{
+    ViewData["Title"] = "Question View";
+}
+
+<form>
+    <div class="container bg-ghost-white">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="display-4 text-center">
+                    @Model.QuestionDetails.Title
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h4>@Model.QuestionDetails.Description</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <label>Category: @Model.QuestionDetails.CategoryDescription</label>
+                <br />
+                <label>Asked by <a href="#">@Model.QuestionDetails.Username</a> on @Model.QuestionDetails.DateCreated.ToString("dd/MM/yyyy HH:mm")</label>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-12 text-right">
+                <a asp-controller="Question" asp-action="Index" class="md-Padding-Right-15">
+                    Back to list
+                </a>
+                <button id="PostAnswer" class="btn btn-primary">
+                    Post A Answer
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<hr />

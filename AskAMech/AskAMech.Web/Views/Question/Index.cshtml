@@ -51,7 +51,11 @@
                         <div class="row no-gutters">
                             <div class="col-md-11 col-sm-10">
                                 <div class="card-body ">
-                                    <h5 class="card-title"><a href="#">@item.Title</a></h5>
+                                    <h5 class="card-title">
+                                        <a asp-controller="Question" asp-action="ViewQuestion" asp-route-id="@item.Id">
+                                            @item.Title
+                                        </a>
+                                    </h5>
                                     <p class="card-text">Category: @item.Category</p>
                                     <p class="card-text">
                                         <small>
@@ -76,7 +80,7 @@
             }
         </div>
         <hr />
-        <partial name="_Paging" model="Model.Pagination"/>
+        <partial name="_Paging" model="Model.Pagination" />
     </div>
 </form>
 
