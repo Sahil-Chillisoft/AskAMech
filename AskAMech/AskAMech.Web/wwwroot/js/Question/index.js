@@ -43,7 +43,7 @@ function getResults(page, isPagingRequest) {
     var categoryId = parseInt($('#CategoryId').val());
     var totalPages = parseInt($('#TotalPages').val());
     var recordCount = parseInt($('#RecordCount').val());
-    var url = 'Question/Index';
+    var url = '/Question/Index';
 
     $.post(url,
         {

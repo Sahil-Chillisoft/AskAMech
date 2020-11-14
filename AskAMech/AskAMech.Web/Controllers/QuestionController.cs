@@ -14,19 +14,21 @@ namespace AskAMech.Web.Controllers
         private readonly IGetQuestionsUseCase _getQuestionsUseCase;
         private readonly ICreateQuestionUseCase _createQuestionUseCase;
         private readonly IGetCreateQuestionUseCase _getCreateQuestionUseCase;
+        private readonly IGetQuestionViewUseCase _getQuestionViewUseCase;
 
         public QuestionController(IModelPresenter modelPresenter,
                                   ISecurityManagerUseCase securityManagerUseCase,
                                   IGetQuestionsUseCase getQuestionsUseCase,
                                   ICreateQuestionUseCase createQuestionUseCase,
-                                  IGetCreateQuestionUseCase getCreateQuestionUseCase)
+                                  IGetCreateQuestionUseCase getCreateQuestionUseCase,
+                                  IGetQuestionViewUseCase getQuestionViewUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _getQuestionsUseCase = getQuestionsUseCase ?? throw new ArgumentNullException(nameof(getQuestionsUseCase));
             _createQuestionUseCase = createQuestionUseCase ?? throw new ArgumentNullException(nameof(createQuestionUseCase));
             _getCreateQuestionUseCase = getCreateQuestionUseCase ?? throw new ArgumentNullException(nameof(getCreateQuestionUseCase));
-
+            _getQuestionViewUseCase = getQuestionViewUseCase ?? throw new ArgumentNullException(nameof(getQuestionViewUseCase));
         }
 
         [HttpGet]
@@ -74,6 +76,14 @@ namespace AskAMech.Web.Controllers
         public IActionResult CreateSuccess()
         {
             return PartialView("_CreateSuccess");
+        }
+
+        [HttpGet]
+        public IActionResult ViewQuestion(int id)
+        {
+            var request = new GetViewQuestionRequest { Id = id };
+            _getQuestionViewUseCase.Execute(request, _modelPresenter);
+            return View(_modelPresenter.Model);
         }
     }
 }

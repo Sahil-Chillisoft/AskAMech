@@ -16,6 +16,7 @@ namespace AskAMech.Infrastructure.Data.Mapping
             CreateMap<CategoryEntity, Category>();
             CreateMap<RolesEntity, Roles>();
             CreateMap<ViewEmployeeEntity, ViewEmployee>();
+            CreateMap<ViewQuestionDetailsEntity, ViewQuestionDetails>();
         }
     }
 }

@@ -116,5 +116,30 @@ namespace AskAMech.Infrastructure.Data.Repositories
                 });
             #endregion
         }
+
+        public ViewQuestionDetails GetQuestionDetails(int id)
+        {
+            #region SQL
+
+            var sql = @"select q.Id, q.Title, q.Description, c.Description as CategoryDescription, 
+                        q.CreatedByUserId, up.Username, q.DateCreated, q.DateLastModified 
+                        from Questions q
+                        inner join Users u on q.CreatedByUserId = u.id
+                        inner join UserProfile up on q.CreatedByUserId = up.UserId
+                        inner join Category c on q.CategoryId = c.Id
+                        where q.Id = @Id ";
+            #endregion
+
+            #region Execution
+            using  var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            var questionDetails = connection.ExecuteScalar<ViewQuestionDetailsEntity>(sql,
+                new
+                {
+                    Id = id
+                });
+            #endregion
+
+            return _mapper.Map<ViewQuestionDetails>(questionDetails);
+        }
     }
 }
