@@ -22,7 +22,7 @@ namespace AskAMech.Core.UseCases
         {
             var response = new EditUserProfileResponse
             {
-                userProfile = request.userProfile   
+                UserProfile = request.userProfile   
             };
             var isExistingUsername = _userProfileRepository.IsExistingUsername(request.userProfile.Username);
             if (isExistingUsername)

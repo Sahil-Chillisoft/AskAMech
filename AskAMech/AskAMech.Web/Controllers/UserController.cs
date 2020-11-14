@@ -66,19 +66,7 @@ namespace AskAMech.Web.Controllers
         [HttpGet]
         public IActionResult Edit()
         {
-            var request = new EditUserProfileRequest
-            {
-                userProfile = new UserProfile
-                {
-                    UserId = UserSecurityManager.UserId
-                },
-                User = new User
-                {
-                    Id= UserSecurityManager.UserId
-                }
-            };
-
-            _getUserProfileUseCase.Execute(request, _modelPresenter);
+            _getUserProfileUseCase.Execute(_modelPresenter);
             return View(_modelPresenter.Model);
         }
 
@@ -94,7 +82,7 @@ namespace AskAMech.Web.Controllers
         [HttpGet]
         public IActionResult UpdatePassword()
         {
-            return PartialView("_ComparePasswordField");
+            return PartialView("_UpdatePassword");
         }
 
         public IActionResult EditSuccess()

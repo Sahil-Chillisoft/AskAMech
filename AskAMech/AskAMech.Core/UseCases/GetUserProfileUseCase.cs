@@ -1,7 +1,7 @@
 ﻿using System;
+using AskAMech.Core.Domain;
 using AskAMech.Core.Gateways.Repositories;
 using AskAMech.Core.UseCases.Interfaces;
-using AskAMech.Core.UseCases.Requests;
 using AskAMech.Core.UseCases.Responses;
 
 namespace AskAMech.Core.UseCases
@@ -17,16 +17,15 @@ namespace AskAMech.Core.UseCases
             _userProfileRepository = userProfileRepository ?? throw new ArgumentNullException(nameof(userProfileRepository));
         }
 
-        public void Execute(EditUserProfileRequest request, IPresenter presenter)
+        public void Execute(IPresenter presenter)
         {
-            var user = _userRepository.GetUserById(request.User.Id);
-            var userProfile = _userProfileRepository.GetUserProfile(request.userProfile.UserId);
+            var user = _userRepository.GetUserById(UserSecurityManager.UserId);
+            var userProfile = _userProfileRepository.GetUserProfile(UserSecurityManager.UserId);
 
             var response = new EditUserProfileResponse()
             {
-                User = user, 
-                userProfile = userProfile
-                
+                User = user,
+                UserProfile = userProfile
             };
 
             presenter.Success(response);

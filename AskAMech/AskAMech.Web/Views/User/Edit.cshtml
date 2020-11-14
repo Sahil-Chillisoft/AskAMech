@@ -6,7 +6,7 @@
 }
 
 <div class="container">
-    <form id="userProfileUpdateForm" method="Post">
+    <form id="UserProfileUpdateForm" method="Post">
         <div class="row">
             <div class="col-md-12">
                 <h1 class="display-4 text-center">
@@ -16,7 +16,8 @@
             </div>
         </div>
         <hr />
-        @Html.HiddenFor(x => x.userProfile.UserId, new { id = "UserId" })
+        @Html.HiddenFor(x => x.User.Id, new { id = "UserId" })
+        @Html.HiddenFor(x => x.User.Password, new{id="Password"})
 
         <div class="row md-Padding-Top-10">
             <div class="col-md-12">
@@ -33,29 +34,29 @@
         </div>
         <div class="row md-Padding-Top-10">
             <div class="col-md-12">
-                <label asp-for="userProfile.Username"></label>
+                <label asp-for="UserProfile.Username"></label>
             </div>
             <div class="col-md-6">
                 <div class="input-group">
-                    <input asp-for="userProfile.Username" class="form-control" />
+                    <input asp-for="UserProfile.Username" class="form-control" />
                 </div>
             </div>
             <div class="col-md-6">
-                <span asp-validation-for="userProfile.Username" class="text-danger"></span>
+                <span asp-validation-for="UserProfile.Username" class="text-danger"></span>
             </div>
         </div>
 
         <div class="row md-Padding-Top-10">
             <div class="col-md-12">
-                <label asp-for="userProfile.About"></label>
+                <label asp-for="UserProfile.About"></label>
             </div>
             <div class="col-md-6">
                 <div class="input-group">
-                    <textarea asp-for="userProfile.About" class="form-control"></textarea>
+                    <textarea asp-for="UserProfile.About" class="form-control"></textarea>
                 </div>
             </div>
             <div class="col-md-6">
-                <span asp-validation-for="userProfile.About" class="text-danger"></span>
+                <span asp-validation-for="UserProfile.About" class="text-danger"></span>
             </div>
         </div>
 
@@ -97,11 +98,9 @@
 
         <div class="row md-Padding-Top-10">
             <div class="col-md-6">
-                <label>Date Last Modified: @Model.userProfile.DateLastModified</label>
+                <label>Date Last Modified: @Model.UserProfile.DateLastModified</label>
             </div>
         </div>
-
-
 
         <div class="row md-Padding-Top-10">
             <div class="col-md-12">
@@ -121,8 +120,7 @@
 </div>
 
 <div id="UpdateSuccessDiv"></div>
-<div id="VerifyPasswordDiv"></div>
-<div id="modalUpdateDiv"></div>
+<div id="UpdatePasswordDiv"></div>
 
 @section Scripts {
     <script src="~/js/User/Edit.js"></script>

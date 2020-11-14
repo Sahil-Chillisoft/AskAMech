@@ -21,7 +21,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public UserProfile GetUserProfile(int? userId)
+        public UserProfile GetUserProfile(int userId)
         {
             #region SQL
             var sql = @"select * 

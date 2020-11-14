@@ -2,7 +2,7 @@
 
 namespace AskAMech.Core.UseCases.Interfaces
 {
-    public interface IGetUserProfileUseCase:IUseCase<EditUserProfileRequest>
+    public interface IGetUserProfileUseCase : IReadOnlyUseCase
     {
     }
 }
