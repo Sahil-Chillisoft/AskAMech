@@ -75,6 +75,7 @@ namespace AskAMech.Web
             services.AddTransient<IQuestionRepository, QuestionRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IRolesRepository, RolesRepository>();
+            services.AddTransient<IAnswersRepository, AnswerRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

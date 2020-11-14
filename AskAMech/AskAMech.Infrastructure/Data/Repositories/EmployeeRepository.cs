@@ -31,7 +31,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             #endregion
 
             #region Execution
-            var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
             var employee = connection.QueryFirstOrDefault<EmployeeEntity>(sql,
                 new
                 {

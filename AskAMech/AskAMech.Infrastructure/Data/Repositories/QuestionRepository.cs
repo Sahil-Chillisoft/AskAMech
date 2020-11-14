@@ -123,8 +123,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
 
             var sql = @"select q.Id, q.Title, q.Description, c.Description as CategoryDescription, 
                         q.CreatedByUserId, up.Username, q.DateCreated, q.DateLastModified 
-                        from Questions q
-                        inner join Users u on q.CreatedByUserId = u.id
+                        from Questions q                        
                         inner join UserProfile up on q.CreatedByUserId = up.UserId
                         inner join Category c on q.CategoryId = c.Id
                         where q.Id = @Id ";
