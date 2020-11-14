@@ -66,6 +66,10 @@ namespace AskAMech.Web.Controllers
         [HttpGet]
         public IActionResult Edit()
         {
+            var user = new UserProfile
+            {
+                UserId = UserSecurityManager.UserId
+            };
             _getUserProfileUseCase.Execute(_modelPresenter);
             return View(_modelPresenter.Model);
         }
