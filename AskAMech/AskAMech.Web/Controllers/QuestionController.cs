@@ -85,5 +85,12 @@ namespace AskAMech.Web.Controllers
             _getQuestionViewUseCase.Execute(request, _modelPresenter);
             return View(_modelPresenter.Model);
         }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

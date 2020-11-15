@@ -200,6 +200,10 @@ body {
     border-color: #32cd32;
 }
 
+.card-black-border {
+    border-color: #000000;
+}
+
 .card-body {
     color: black;
     background-color: #ffffff;

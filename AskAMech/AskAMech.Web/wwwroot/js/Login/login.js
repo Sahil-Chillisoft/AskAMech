@@ -28,7 +28,7 @@
                 loginModal.find('[id="loadingImg"]').removeClass('hide');
 
                 $.ajax({
-                    url: 'Home/Login',
+                    url: '/Home/Login',
                     type: 'POST',
                     cache: false,
                     data: formData

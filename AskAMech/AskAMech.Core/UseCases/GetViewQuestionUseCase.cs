@@ -9,18 +9,22 @@ namespace AskAMech.Core.UseCases
     public class GetViewQuestionUseCase : IGetQuestionViewUseCase
     {
         private readonly IQuestionRepository _questionRepository;
-
-        public GetViewQuestionUseCase(IQuestionRepository questionRepository)
+        private readonly IAnswersRepository _answersRepository;
+        public GetViewQuestionUseCase(IQuestionRepository questionRepository, IAnswersRepository answersRepository)
         {
             _questionRepository = questionRepository ?? throw new ArgumentNullException(nameof(questionRepository));
+            _answersRepository = answersRepository ?? throw new ArgumentNullException(nameof(answersRepository));
         }
 
         public void Execute(GetViewQuestionRequest request, IPresenter presenter)
         {
             var questionDetails = _questionRepository.GetQuestionDetails(request.Id);
+            var answers = _answersRepository.GetAnswers(request.Id);
+
             var response = new GetViewQuestionResponse
             {
-                QuestionDetails = questionDetails
+                QuestionDetails = questionDetails, 
+                Answers = answers
             };
             presenter.Success(response);
         }
