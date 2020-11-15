@@ -98,9 +98,12 @@ function updateNewPassword() {
     }
     else if (newPassword === confirmNewPassword) {
         //TODO: Do ajax call to post data to controller to update the users password.
-
+        
         $.ajax({
             url: '/User/UpdatePassword',
+            data: {
+                password: newPassword,
+            },
             type: 'POST',
             cache: false,
             success: function (data) {

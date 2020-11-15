@@ -16,6 +16,7 @@ namespace AskAMech.Web.Controllers
         private readonly IEditUserProfileUseCase _editUserProfileUseCase;
         private readonly IGetUserProfileUseCase _getUserProfileUseCase;
         private readonly IUpdateUserPasswordUseCase _updateUserPasswordUseCase;
+        private readonly IGetpdateUserPasswordUseCase _getpdateUserPasswordUseCase;
 
         public UserController(IModelPresenter modelPresenter,
                               ISecurityManagerUseCase securityManagerUseCase,
@@ -23,7 +24,8 @@ namespace AskAMech.Web.Controllers
                               IGetEmployeeUseCase getEmployeeUseCase,
                               IEditUserProfileUseCase editUserProfileUseCase,
                               IGetUserProfileUseCase getUserProfileUseCase,
-                              IUpdateUserPasswordUseCase updateUserPasswordUseCase)
+                              IUpdateUserPasswordUseCase updateUserPasswordUseCase,
+                              IGetpdateUserPasswordUseCase getpdateUserPasswordUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
@@ -32,6 +34,7 @@ namespace AskAMech.Web.Controllers
             _editUserProfileUseCase = editUserProfileUseCase ?? throw new ArgumentNullException(nameof(editUserProfileUseCase));
             _getUserProfileUseCase = getUserProfileUseCase ?? throw new ArgumentNullException(nameof(getUserProfileUseCase));
             _updateUserPasswordUseCase = updateUserPasswordUseCase ?? throw new ArgumentNullException(nameof(updateUserPasswordUseCase));
+            _getpdateUserPasswordUseCase= getpdateUserPasswordUseCase ?? throw new ArgumentNullException(nameof(getpdateUserPasswordUseCase));
         }
 
         [HttpGet]
@@ -84,8 +87,7 @@ namespace AskAMech.Web.Controllers
         [HttpGet]
         public IActionResult UpdatePassword()
         {
-            _getUserProfileUseCase.Execute(_modelPresenter);
-
+            _getpdateUserPasswordUseCase.Execute(_modelPresenter);
             return PartialView("_UpdatePassword");
         }
 

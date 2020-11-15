@@ -189,7 +189,8 @@ namespace AskAMech.Infrastructure.Data.Repositories
                 new
                 {
                     UserId = user.Id,
-                    DateLastModified = DateTime.Now
+                    DateLastModified = DateTime.Now,
+                    Password= user.Password
                 });
             #endregion
         }
