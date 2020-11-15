@@ -15,13 +15,15 @@ namespace AskAMech.Web.Controllers
         private readonly ICreateQuestionUseCase _createQuestionUseCase;
         private readonly IGetCreateQuestionUseCase _getCreateQuestionUseCase;
         private readonly IGetQuestionViewUseCase _getQuestionViewUseCase;
+        private readonly IEditQuestionUseCase _editQuestionUseCase;
 
         public QuestionController(IModelPresenter modelPresenter,
                                   ISecurityManagerUseCase securityManagerUseCase,
                                   IGetQuestionsUseCase getQuestionsUseCase,
                                   ICreateQuestionUseCase createQuestionUseCase,
                                   IGetCreateQuestionUseCase getCreateQuestionUseCase,
-                                  IGetQuestionViewUseCase getQuestionViewUseCase)
+                                  IGetQuestionViewUseCase getQuestionViewUseCase, 
+                                  IEditQuestionUseCase editQuestionUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
@@ -29,6 +31,7 @@ namespace AskAMech.Web.Controllers
             _createQuestionUseCase = createQuestionUseCase ?? throw new ArgumentNullException(nameof(createQuestionUseCase));
             _getCreateQuestionUseCase = getCreateQuestionUseCase ?? throw new ArgumentNullException(nameof(getCreateQuestionUseCase));
             _getQuestionViewUseCase = getQuestionViewUseCase ?? throw new ArgumentNullException(nameof(getQuestionViewUseCase));
+            _editQuestionUseCase = editQuestionUseCase ?? throw new ArgumentNullException(nameof(editQuestionUseCase));
         }
 
         [HttpGet]

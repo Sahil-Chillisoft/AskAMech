@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace AskAMech.Core.Domain
+namespace AskAMech.Infrastructure.Data.Entities
 {
-    public class Question
+    public class QuestionEntity
     {
         public int Id { get; set; }
         public string Title { get; set; }

@@ -67,6 +67,26 @@ namespace AskAMech.Infrastructure.Data.Repositories
             return _mapper.Map<List<ViewQuestions>>(questions);
         }
 
+        public Question GetQuestion(int id)
+        {
+            #region SQL
+            var sql = @"select * 
+                        from Question 
+                        where Id = @Id ";
+            #endregion
+            
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            var question = connection.Query<QuestionEntity>(sql, 
+                new
+                {
+                    Id = id
+                }).FirstOrDefault();
+            #endregion
+
+            return _mapper.Map<Question>(question);
+        }
+
         public int GetCount(string? search, int? categoryId)
         {
             #region SQL
@@ -130,7 +150,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             #endregion
 
             #region Execution
-            using  var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
             var questionDetails = connection.Query<ViewQuestionDetailsEntity>(sql,
                 new
                 {
@@ -139,6 +159,31 @@ namespace AskAMech.Infrastructure.Data.Repositories
             #endregion
 
             return _mapper.Map<ViewQuestionDetails>(questionDetails);
+        }
+
+        public void Update(Question question)
+        {
+            #region SQL
+
+            var sql = @"update Question 
+                        set Title = @Title, Description = @Description, 
+                        CategoryId = @CategoryId, DateLastModified = @DateLastModified
+                        where Id = @Id ";
+            #endregion
+
+            #region Execution
+
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            connection.Execute(sql,
+                new
+                {
+                    Title = question.Title,
+                    Description = question.Description,
+                    CategoryId = question.CategoryId,
+                    DateLastModified = question.DateLastModified,
+                    Id = question.Id
+                });
+            #endregion
         }
     }
 }
