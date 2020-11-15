@@ -45,9 +45,16 @@
         verifyCurrentPassword();
     });
 
+
     $('#UpdateNewPassword').click(function (event) {
         event.preventDefault();
         updateNewPassword();
+    });
+
+
+    $('#EmployeeDetails').click(function (event) {
+        event.preventDefault();
+        displayEmployeeDetailsModal();
     });
 
 });
@@ -105,6 +112,21 @@ function updatePassword(password) {
                 updatePasswordModal.find('.modal').modal('hide');
                 displaySuccessModal();
             }
+        }
+    });
+}
+
+function displayEmployeeDetailsModal() {
+    var employeeDetailsModal = $('#EmployeeDetailsDiv');
+    var employeeId = $('#EmployeeId').val();
+    $.ajax({
+        url: '/User/EmployeeDetails',
+        type: 'GET',
+        cache: false,
+        data: { employeeId: employeeId },
+        success: function (data) {
+            employeeDetailsModal.html(data);
+            employeeDetailsModal.find('.modal').modal('show');
         }
     });
 }

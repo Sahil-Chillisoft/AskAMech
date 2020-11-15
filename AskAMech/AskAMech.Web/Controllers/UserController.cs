@@ -12,26 +12,30 @@ namespace AskAMech.Web.Controllers
         private readonly IModelPresenter _modelPresenter;
         private readonly ISecurityManagerUseCase _securityManagerUseCase;
         private readonly ICreateUserUseCase _createUserUseCase;
-        private readonly IGetEmployeeUseCase _getEmployeeUseCase;
+        private readonly IGetEmployeeForUserUseCase _getEmployeeForUserUseCase;
         private readonly IEditUserProfileUseCase _editUserProfileUseCase;
         private readonly IGetUserProfileUseCase _getUserProfileUseCase;
         private readonly IUpdateUserPasswordUseCase _updateUserPasswordUseCase;
+        private readonly IGetEmployeeUseCase _getEmployeeUseCase;
 
         public UserController(IModelPresenter modelPresenter,
                               ISecurityManagerUseCase securityManagerUseCase,
                               ICreateUserUseCase createUserUseCase,
-                              IGetEmployeeUseCase getEmployeeUseCase,
+                              IGetEmployeeForUserUseCase getEmployeeForUserUseCase,
                               IEditUserProfileUseCase editUserProfileUseCase,
                               IGetUserProfileUseCase getUserProfileUseCase,
-                              IUpdateUserPasswordUseCase updateUserPasswordUseCase)
+                              IUpdateUserPasswordUseCase updateUserPasswordUseCase,
+                              IGetEmployeeUseCase getEmployeeUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _createUserUseCase = createUserUseCase ?? throw new ArgumentNullException(nameof(createUserUseCase));
-            _getEmployeeUseCase = getEmployeeUseCase ?? throw new ArgumentNullException(nameof(getEmployeeUseCase));
+            _getEmployeeForUserUseCase = getEmployeeForUserUseCase ?? throw new ArgumentNullException(nameof(getEmployeeForUserUseCase));
             _editUserProfileUseCase = editUserProfileUseCase ?? throw new ArgumentNullException(nameof(editUserProfileUseCase));
             _getUserProfileUseCase = getUserProfileUseCase ?? throw new ArgumentNullException(nameof(getUserProfileUseCase));
             _updateUserPasswordUseCase = updateUserPasswordUseCase ?? throw new ArgumentNullException(nameof(updateUserPasswordUseCase));
+            _getEmployeeUseCase = getEmployeeUseCase ?? throw new ArgumentNullException(nameof(getEmployeeUseCase));
+            ;
         }
 
         [HttpGet]
@@ -59,9 +63,9 @@ namespace AskAMech.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult GetEmployee(GetEmployeeRequest request)
+        public IActionResult GetEmployee(GetEmployeeForUserRequest forUserRequest)
         {
-            _getEmployeeUseCase.Execute(request, _modelPresenter);
+            _getEmployeeForUserUseCase.Execute(forUserRequest, _modelPresenter);
             return PartialView("_CreateUser", _modelPresenter.Model);
         }
 
@@ -97,9 +101,18 @@ namespace AskAMech.Web.Controllers
             return Json(new { Success = true });
         }
 
+        [HttpGet]
         public IActionResult EditSuccess()
         {
             return PartialView("_EditSuccess");
+        }
+
+        [HttpGet]
+        public IActionResult EmployeeDetails(int employeeId)
+        {
+            var request = new GetEmployeeRequest { Id = employeeId };
+            _getEmployeeUseCase.Execute(request, _modelPresenter);
+            return PartialView("_EmployeeDetails", _modelPresenter.Model);
         }
     }
 }

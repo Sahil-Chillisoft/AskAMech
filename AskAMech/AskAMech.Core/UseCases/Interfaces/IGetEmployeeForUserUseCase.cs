@@ -2,7 +2,7 @@
 
 namespace AskAMech.Core.UseCases.Interfaces
 {
-    public interface IGetEmployeeUseCase: IUseCase<GetEmployeeRequest>
+    public interface IGetEmployeeForUserUseCase : IUseCase<GetEmployeeForUserRequest>
     {
     }
 }

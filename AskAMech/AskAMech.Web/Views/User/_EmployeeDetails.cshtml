@@ -1,0 +1,45 @@
+﻿@model AskAMech.Core.UseCases.Responses.GetEmployeeResponse
+
+    <div class="modal fade" id="employeeDetailsModal" tabindex="-1" role="dialog" aria-labelledby="employeeDetailsLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Employee Details</h5>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>First Name: @Model.Employee.FirstName</label>
+                            </div>
+                        </div>
+                        <div class="row md-Padding-Top-10">
+                            <div class="col-md-12">
+                                <label>Last Name: @Model.Employee.LastName</label>
+                            </div>
+                        </div>
+                        <div class="row md-Padding-Top-10">
+                            <div class="col-md-12">
+                                <label>ID Number: @Model.Employee.IdNumber</label>
+                            </div>
+                        </div>
+                        <div class="row md-Padding-Top-10">
+                            <div class="col-md-12">
+                                <label>Email: @Model.Employee.Email</label>
+                            </div>
+                        </div>
+                        <div class="row md-Padding-Top-10">
+                            <div class="col-md-12">
+                                <label>Date Created: @Model.Employee.DateCreated.ToShortDateString()</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="CloseEmployeeDetails" type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/User/create.js"></script>

@@ -11,7 +11,8 @@ namespace AskAMech.Core.UseCases
         private readonly IUserRepository _userRepository;
         private readonly IUserProfileRepository _userProfileRepository;
 
-        public GetUserProfileUseCase(IUserRepository userRepository, IUserProfileRepository userProfileRepository)
+        public GetUserProfileUseCase(IUserRepository userRepository,
+                                     IUserProfileRepository userProfileRepository)
         {
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             _userProfileRepository = userProfileRepository ?? throw new ArgumentNullException(nameof(userProfileRepository));
@@ -22,7 +23,7 @@ namespace AskAMech.Core.UseCases
             var user = _userRepository.GetUserById(UserSecurityManager.UserId);
             var userProfile = _userProfileRepository.GetUserProfile(UserSecurityManager.UserId);
 
-            var response = new EditUserProfileResponse()
+            var response = new EditUserProfileResponse
             {
                 User = user,
                 UserProfile = userProfile

@@ -2,6 +2,6 @@
 {
     public class GetEmployeeRequest
     {
-        public int EmployeeId { get; set; }
+        public int Id { get; set; }
     }
 }

@@ -16,8 +16,8 @@
             </div>
         </div>
         <hr />
-        @Html.HiddenFor(x => x.UserProfile.UserId, new { id = "UserId" })
-        @Html.HiddenFor(x => x.User.Password, new{id="Password"})
+        @Html.HiddenFor(x => x.User.Id, new { id = "UserId" })
+        @Html.HiddenFor(x => x.User.Password, new { id = "Password" })
 
         <div class="row md-Padding-Top-10">
             <div class="col-md-12">
@@ -84,10 +84,10 @@
         {
             <div class="row md-Padding-Top-10">
                 <div class="col-md-12">
-                    @*TODO: When user clicks on anchor tag display a modal will all employee details (just list the details, no editing)*@
+                    @Html.HiddenFor(x => x.User.EmployeeId, new { Id = "EmployeeId" })
                     <label>
                         Employee Id:
-                        <a href="">@Model.User.EmployeeId</a>
+                        <a href="#" id="EmployeeDetails">@Model.User.EmployeeId</a>
                     </label>
                 </div>
             </div>
@@ -116,6 +116,7 @@
     </form>
 </div>
 
+<div id="EmployeeDetailsDiv"></div>
 <div id="UpdateSuccessDiv"></div>
 <div id="UpdatePasswordDiv"></div>
 

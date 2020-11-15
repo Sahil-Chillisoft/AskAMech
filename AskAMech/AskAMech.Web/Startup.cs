@@ -56,7 +56,7 @@ namespace AskAMech.Web
             services.AddTransient<IGetCategoryUseCase, GetCatergoryUseCase>();
             services.AddTransient<IEditEmployeeUseCase, EditEmployeeUseCase>();
             services.AddTransient<ICreateUserUseCase, CreateUserUseCase>();
-            services.AddTransient<IGetEmployeeUseCase, GetEmployeeUseCase>();
+            services.AddTransient<IGetEmployeeForUserUseCase, GetEmployeeForUserUseCase>();
             services.AddTransient<IGetEmployeeForEditUseCase, GetEmployeeForEditUseCase>();
             services.AddTransient<IEditUserProfileUseCase, EditUserProfileUseCase>();
             services.AddTransient<ICreateQuestionUseCase, CreateQuestionUseCase>();
@@ -68,6 +68,7 @@ namespace AskAMech.Web
             services.AddTransient<IUpdateUserPasswordUseCase, UpdateUserPasswordUseCase>();
             services.AddTransient<IEditQuestionUseCase, EditQuestionUseCase>();
             services.AddTransient<IGetEditQuestionUseCase, GetEditQuestionUseCase>();
+            services.AddTransient<IGetEmployeeUseCase, GetEmployeeUseCase>();
 
 
             services.AddTransient<IUserRepository, UserRepository>();
