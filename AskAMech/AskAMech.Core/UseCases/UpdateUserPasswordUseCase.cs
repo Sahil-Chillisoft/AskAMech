@@ -18,17 +18,14 @@ namespace AskAMech.Core.UseCases
 
         public void Execute(UpdateUserPasswordRequest request, IPresenter presenter)
         {
-            var response = new UpdateUserPasswordResponse
-            {
-                Password = request.Password
-            };
-            presenter.Error(response, true);
-
             var user = new User
             {
-                Password = request.Password
+                Id = UserSecurityManager.UserId,
+                Password = request.Password, 
+                DateLastModified = DateTime.Now
             };
             _userRepository.UpdatePassword(user);
+            
             presenter.Success(new UpdateUserPasswordResponse());
         }
     }

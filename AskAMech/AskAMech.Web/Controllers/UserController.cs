@@ -16,7 +16,6 @@ namespace AskAMech.Web.Controllers
         private readonly IEditUserProfileUseCase _editUserProfileUseCase;
         private readonly IGetUserProfileUseCase _getUserProfileUseCase;
         private readonly IUpdateUserPasswordUseCase _updateUserPasswordUseCase;
-        private readonly IGetpdateUserPasswordUseCase _getpdateUserPasswordUseCase;
 
         public UserController(IModelPresenter modelPresenter,
                               ISecurityManagerUseCase securityManagerUseCase,
@@ -24,8 +23,7 @@ namespace AskAMech.Web.Controllers
                               IGetEmployeeUseCase getEmployeeUseCase,
                               IEditUserProfileUseCase editUserProfileUseCase,
                               IGetUserProfileUseCase getUserProfileUseCase,
-                              IUpdateUserPasswordUseCase updateUserPasswordUseCase,
-                              IGetpdateUserPasswordUseCase getpdateUserPasswordUseCase)
+                              IUpdateUserPasswordUseCase updateUserPasswordUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
@@ -34,7 +32,6 @@ namespace AskAMech.Web.Controllers
             _editUserProfileUseCase = editUserProfileUseCase ?? throw new ArgumentNullException(nameof(editUserProfileUseCase));
             _getUserProfileUseCase = getUserProfileUseCase ?? throw new ArgumentNullException(nameof(getUserProfileUseCase));
             _updateUserPasswordUseCase = updateUserPasswordUseCase ?? throw new ArgumentNullException(nameof(updateUserPasswordUseCase));
-            _getpdateUserPasswordUseCase= getpdateUserPasswordUseCase ?? throw new ArgumentNullException(nameof(getpdateUserPasswordUseCase));
         }
 
         [HttpGet]
@@ -79,15 +76,17 @@ namespace AskAMech.Web.Controllers
         public IActionResult Edit(EditUserProfileRequest request)
         {
             _editUserProfileUseCase.Execute(request, _modelPresenter);
-            return Json(!_modelPresenter.HasValidationErrors ?
-                new { Success = true } :
-                new { Success = false });
+
+            if (!_modelPresenter.HasValidationErrors)
+                return Json(new { Success = true });
+
+            var model = _modelPresenter.Model as EditUserProfileResponse;
+            return Json(new { Success = false, Message = model?.ErrorMessage });
         }
 
         [HttpGet]
         public IActionResult UpdatePassword()
         {
-            _getpdateUserPasswordUseCase.Execute(_modelPresenter);
             return PartialView("_UpdatePassword");
         }
 
@@ -95,9 +94,7 @@ namespace AskAMech.Web.Controllers
         public IActionResult UpdatePassword(UpdateUserPasswordRequest request)
         {
             _updateUserPasswordUseCase.Execute(request, _modelPresenter);
-            return Json(!_modelPresenter.HasValidationErrors ?
-                new { Success = true } :
-                new { Success = false });
+            return Json(new { Success = true });
         }
 
         public IActionResult EditSuccess()

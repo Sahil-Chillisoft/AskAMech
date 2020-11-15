@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using AskAMech.Core.Gateways.Repositories;
 using AskAMech.Core.UseCases.Requests;
 using AskAMech.Core.UseCases.Responses;
@@ -20,35 +18,34 @@ namespace AskAMech.Core.UseCases
 
         public void Execute(EditUserProfileRequest request, IPresenter presenter)
         {
-            var response = new EditUserProfileResponse
+            var response = new EditUserProfileResponse();
+            
+            if (request.UserProfile.Username != UserSecurityManager.Username)
             {
-                UserProfile = request.userProfile   
-            };
-            var isExistingUsername = _userProfileRepository.IsExistingUsername(request.userProfile.Username);
-            if (isExistingUsername)
-            {
-                response.ErrorMessage = "Error: Username already exits on the system";
-                presenter.Error(response, true);
-            }
-            else
-            {
-                var userPro = new UserProfile
+                var isExistingUsername = _userProfileRepository.IsExistingUsername(request.UserProfile.Username);
+                if (isExistingUsername)
                 {
-                    Id = request.userProfile.Id,
-                    UserId = request.userProfile.UserId,
-                    Username = request.userProfile.Username,
-                    About = request.userProfile.About,
-                    DateLastModified = request.userProfile.DateLastModified
-
-                };
-                ;
-                _userProfileRepository.Update(userPro);
-                presenter.Success(new EditUserProfileResponse());
-
+                    response.ErrorMessage = "Error: Username already exits on the system";
+                    presenter.Error(response, true);
+                    return;
+                }
             }
 
+            var userProfile = new UserProfile
+            {
+                Id = request.UserProfile.Id,
+                UserId = request.UserProfile.UserId,
+                Username = request.UserProfile.Username,
+                About = request.UserProfile.About,
+                DateLastModified = request.UserProfile.DateLastModified
+
+            };
+            _userProfileRepository.Update(userProfile);
+            presenter.Success(response);
         }
+
     }
 }
+
 
 

@@ -180,17 +180,18 @@ namespace AskAMech.Infrastructure.Data.Repositories
         {
             #region SQL
             var sql = @"update Users 
-                        set Password = @Password, DateLastModified=@DateLastModified
+                        set Password = @Password, DateLastModified = @DateLastModified
                         where Id = @UserId ";
             #endregion
+
             #region Execution
             using var connection = new SqlConnection(_sqlHelper.ConnectionString);
             connection.Execute(sql,
                 new
                 {
                     UserId = user.Id,
-                    DateLastModified = DateTime.Now,
-                    Password= user.Password
+                    Password = user.Password,
+                    DateLastModified = user.DateLastModified
                 });
             #endregion
         }

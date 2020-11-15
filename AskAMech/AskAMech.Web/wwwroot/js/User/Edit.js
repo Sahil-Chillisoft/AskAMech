@@ -5,38 +5,32 @@
 
         if (isValidUsername()) {
             var $form = $('#UserProfileUpdateForm');
-            $.validator.unobtrusive.parse($form);
-
-            if ($form.valid()) {
-                var formData = $form.serialize();
-                $.ajax({
-                    url: '/User/Edit',
-                    type: 'POST',
-                    cache: false,
-                    enctype: 'multipart/form-data',
-                    processData: false,
-                    data: formData,
-                    success: function (data) {
-                        if (data.success) {
-                            displaySuccessModal();
-                        } else {
-                            $('#ErrorMessage').text(data.message);
-                        }
+            var formData = $form.serialize();
+            $.ajax({
+                url: '/User/Edit',
+                type: 'POST',
+                cache: false,
+                enctype: 'multipart/form-data',
+                processData: false,
+                data: formData,
+                success: function (data) {
+                    if (data.success) {
+                        displaySuccessModal();
                     }
-                });
-            }
-            else {
-                return;
-            }
+                    else {
+                        $('#ErrorMessage').text(data.message);
+                    }
+                }
+            });
+        } else {
+            $('#UsernameValidation').text('* Please enter username');
         }
     });
 
 
     $('#Confirm').click(function (event) {
         event.preventDefault();
-        $('#successModal').modal('hide');
-        $('#Description').val('');
-        $('#ErrorMessage').text('');
+        window.location.reload();
     });
 
 
@@ -59,16 +53,13 @@
 });
 
 function isValidUsername() {
-    
     var username = $('#Username').val();
-    if (username === '') {
-        $('#usernameErr').text('* Please enter username');
-        return false
-        console.log();
-    } else {
-        return true
-    }
+    if (username === '')
+        return false;
+    else
+        return true;
 }
+
 function verifyCurrentPassword() {
     var currentPassword = $('#CurrentPassword').val();
     var password = $('#Password').val();
@@ -90,6 +81,7 @@ function verifyCurrentPassword() {
 function updateNewPassword() {
     var newPassword = $('#NewPassword').val();
     var confirmNewPassword = $('#ConfirmNewPassword').val();
+
     if (newPassword === '' || confirmNewPassword === '') {
         $('#UpdatePasswordValidation').text('* Please enter all fields');
     }
@@ -97,23 +89,25 @@ function updateNewPassword() {
         $('#UpdatePasswordValidation').text('* Passwords do not match');
     }
     else if (newPassword === confirmNewPassword) {
-        //TODO: Do ajax call to post data to controller to update the users password.
-        
-        $.ajax({
-            url: '/User/UpdatePassword',
-            data: {
-                password: newPassword,
-            },
-            type: 'POST',
-            cache: false,
-            success: function (data) {
-                if (data.success)
-                    displaySuccessModal();
-            }
-        });
+        updatePassword(newPassword);
     }
 }
 
+function updatePassword(password) {
+    $.ajax({
+        url: '/User/UpdatePassword',
+        data: { password: password },
+        type: 'POST',
+        cache: false,
+        success: function (data) {
+            if (data.success) {
+                var updatePasswordModal = $('#UpdatePasswordDiv');
+                updatePasswordModal.find('.modal').modal('hide');
+                displaySuccessModal();
+            }
+        }
+    });
+}
 
 function displayUpdatePasswordModal() {
     var updatePasswordModal = $('#UpdatePasswordDiv');
@@ -133,7 +127,7 @@ function displayUpdatePasswordModal() {
 function displaySuccessModal() {
     var successModal = $('#UpdateSuccessDiv');
     $.ajax({
-        url: '/Employee/EditSuccess',
+        url: '/User/EditSuccess',
         type: 'GET',
         cache: false,
         success: function (data) {
