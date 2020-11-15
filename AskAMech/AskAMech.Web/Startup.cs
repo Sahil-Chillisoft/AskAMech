@@ -61,7 +61,7 @@ namespace AskAMech.Web
             services.AddTransient<IEditUserProfileUseCase, EditUserProfileUseCase>();
             services.AddTransient<ICreateQuestionUseCase, CreateQuestionUseCase>();
             services.AddTransient<IUpdateEmployeeActiveStatusUseCase, UpdateEmployeeActiveStatusUseCase>();
-            services.AddTransient<IGetCreateQuestionUseCase, GetCreateCreateQuestionUseCase>();
+            services.AddTransient<IGetCreateQuestionUseCase, GetCreateQuestionUseCase>();
             services.AddTransient<IGetUserProfileUseCase, GetUserProfileUseCase>();
             services.AddTransient<IEditEmployeeUserPassword, EditEmployeeUserPasswordUseCase>();
             services.AddTransient<IGetQuestionViewUseCase, GetViewQuestionUseCase>();

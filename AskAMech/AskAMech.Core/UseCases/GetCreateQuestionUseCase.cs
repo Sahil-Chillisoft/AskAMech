@@ -2,16 +2,15 @@
 using AskAMech.Core.Domain;
 using AskAMech.Core.Gateways.Repositories;
 using AskAMech.Core.UseCases.Interfaces;
-using AskAMech.Core.UseCases.Requests;
 using AskAMech.Core.UseCases.Responses;
 
 namespace AskAMech.Core.UseCases
 {
-    public class GetCreateCreateQuestionUseCase : IGetCreateQuestionUseCase
+    public class GetCreateQuestionUseCase : IGetCreateQuestionUseCase
     {
         private readonly ICategoryRepository _categoryRepository;
 
-        public GetCreateCreateQuestionUseCase(ICategoryRepository categoryRepository)
+        public GetCreateQuestionUseCase(ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
         }

@@ -1,6 +1,4 @@
-﻿using AskAMech.Core.UseCases.Requests;
-
-namespace AskAMech.Core.UseCases.Interfaces
+﻿namespace AskAMech.Core.UseCases.Interfaces
 {
     public interface IGetCreateQuestionUseCase :IReadOnlyUseCase
     {
