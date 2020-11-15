@@ -29,13 +29,13 @@
     });
 
     function showCategoryList() {
-        var description = $('#categoryListDiv');
+        var categoryDiv = $('#categoryListDiv');
         $.ajax({
             url: '/Category/QuestionCategoryList',
             type: 'GET',
             cache: false,
             success: function (data) {
-                description.html(data);
+                categoryDiv.html(data);
             }
         });
     }

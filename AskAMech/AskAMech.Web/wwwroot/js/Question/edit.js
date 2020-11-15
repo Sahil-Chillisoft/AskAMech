@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    $('#Save').click(function(event) {
+    $('#Save').click(function (event) {
         event.preventDefault();
 
         var $form = $('#EditQuestionForm');
@@ -10,18 +10,34 @@
             var formData = $form.serialize();
             $.ajax({
                 url: '/Question/Edit',
-                type: 'POST', 
-                cache: false, 
+                type: 'POST',
+                cache: false,
                 enctype: 'multipart/form-data',
                 processData: false,
                 data: formData,
-                success: function(data) {
+                success: function (data) {
                     if (data.success)
-                        console.log('Edit was a success');
-                    //TODO: Display a modal
+                        displayEditSuccessModal();
                 }
             });
         }
     });
 
+    $('#Confirm').click(function (event) {
+        event.preventDefault();
+        window.location.reload();
+    });
 });
+
+function displayEditSuccessModal() {
+    var successModal = $('#QuestionEditSuccessDiv');
+    $.ajax({
+        url: '/Question/EditSuccess',
+        type: 'GET',
+        cache: false,
+        success: function (data) {
+            successModal.html(data);
+            successModal.find('.modal').modal('show');
+        }
+    });
+}

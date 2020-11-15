@@ -107,5 +107,10 @@ namespace AskAMech.Web.Controllers
             return Json(new {Success = true});
         }
 
+        [HttpGet]
+        public IActionResult EditSuccess()
+        {
+            return PartialView("_EditSuccess");
+        }
     }
 }
