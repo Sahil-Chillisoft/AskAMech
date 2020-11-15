@@ -84,6 +84,8 @@ namespace AskAMech.Web.Controllers
         [HttpGet]
         public IActionResult UpdatePassword()
         {
+            _getUserProfileUseCase.Execute(_modelPresenter);
+
             return PartialView("_UpdatePassword");
         }
 

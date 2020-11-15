@@ -23,6 +23,13 @@ namespace AskAMech.Core.UseCases
                 Password = request.Password
             };
             presenter.Error(response, true);
+
+            var user = new User
+            {
+                Password = request.Password
+            };
+            _userRepository.UpdatePassword(user);
+            presenter.Success(new UpdateUserPasswordResponse());
         }
     }
 }

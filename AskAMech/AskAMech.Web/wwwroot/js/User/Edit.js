@@ -3,26 +3,31 @@
     $('#Update').click(function (event) {
         event.preventDefault();
 
-        var $form = $('#UserProfileUpdateForm');
-        $.validator.unobtrusive.parse($form);
+        if (isValidUsername()) {
+            var $form = $('#UserProfileUpdateForm');
+            $.validator.unobtrusive.parse($form);
 
-        if ($form.valid()) {
-            var formData = $form.serialize();
-            $.ajax({
-                url: '/User/Edit',
-                type: 'POST',
-                cache: false,
-                enctype: 'multipart/form-data',
-                processData: false,
-                data: formData,
-                success: function (data) {
-                    if (data.success) {
-                        displaySuccessModal();
-                    } else {
-                        $('#ErrorMessage').text(data.message);
+            if ($form.valid()) {
+                var formData = $form.serialize();
+                $.ajax({
+                    url: '/User/Edit',
+                    type: 'POST',
+                    cache: false,
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    data: formData,
+                    success: function (data) {
+                        if (data.success) {
+                            displaySuccessModal();
+                        } else {
+                            $('#ErrorMessage').text(data.message);
+                        }
                     }
-                }
-            });
+                });
+            }
+            else {
+                return;
+            }
         }
     });
 
@@ -53,6 +58,17 @@
 
 });
 
+function isValidUsername() {
+    
+    var username = $('#Username').val();
+    if (username === '') {
+        $('#usernameErr').text('* Please enter username');
+        return false
+        console.log();
+    } else {
+        return true
+    }
+}
 function verifyCurrentPassword() {
     var currentPassword = $('#CurrentPassword').val();
     var password = $('#Password').val();
@@ -82,14 +98,14 @@ function updateNewPassword() {
     }
     else if (newPassword === confirmNewPassword) {
         //TODO: Do ajax call to post data to controller to update the users password.
+
         $.ajax({
-            url: 'User/UpdatePassword',
+            url: '/User/UpdatePassword',
             type: 'POST',
             cache: false,
-            data: formData
-        }).done(function (data) {
-            if (data.success) {
-                displaySuccessModal();
+            success: function (data) {
+                if (data.success)
+                    displaySuccessModal();
             }
         });
     }
