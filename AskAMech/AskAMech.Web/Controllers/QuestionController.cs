@@ -16,6 +16,7 @@ namespace AskAMech.Web.Controllers
         private readonly IGetCreateQuestionUseCase _getCreateQuestionUseCase;
         private readonly IGetQuestionViewUseCase _getQuestionViewUseCase;
         private readonly IEditQuestionUseCase _editQuestionUseCase;
+        private readonly IGetEditQuestionUseCase _getEditQuestionUseCase;
 
         public QuestionController(IModelPresenter modelPresenter,
                                   ISecurityManagerUseCase securityManagerUseCase,
@@ -23,7 +24,8 @@ namespace AskAMech.Web.Controllers
                                   ICreateQuestionUseCase createQuestionUseCase,
                                   IGetCreateQuestionUseCase getCreateQuestionUseCase,
                                   IGetQuestionViewUseCase getQuestionViewUseCase, 
-                                  IEditQuestionUseCase editQuestionUseCase)
+                                  IEditQuestionUseCase editQuestionUseCase, 
+                                  IGetEditQuestionUseCase getEditQuestionUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
@@ -32,6 +34,7 @@ namespace AskAMech.Web.Controllers
             _getCreateQuestionUseCase = getCreateQuestionUseCase ?? throw new ArgumentNullException(nameof(getCreateQuestionUseCase));
             _getQuestionViewUseCase = getQuestionViewUseCase ?? throw new ArgumentNullException(nameof(getQuestionViewUseCase));
             _editQuestionUseCase = editQuestionUseCase ?? throw new ArgumentNullException(nameof(editQuestionUseCase));
+            _getEditQuestionUseCase = getEditQuestionUseCase ?? throw new ArgumentNullException(nameof(getEditQuestionUseCase));
         }
 
         [HttpGet]
@@ -64,7 +67,7 @@ namespace AskAMech.Web.Controllers
                     });
             }
 
-            _getCreateQuestionUseCase.Execute(new CreateQuestionRequest(), _modelPresenter);
+            _getCreateQuestionUseCase.Execute(_modelPresenter);
             return View(_modelPresenter.Model);
         }
 
@@ -92,7 +95,16 @@ namespace AskAMech.Web.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            throw new NotImplementedException();
+            var request = new GetEditQuestionRequest {Id = id};
+            _getEditQuestionUseCase.Execute(request, _modelPresenter);
+            return View(_modelPresenter.Model);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(EditQuestionRequest request)
+        {
+            _editQuestionUseCase.Execute(request, _modelPresenter);
+            return Json(new {Success = true});
         }
 
     }

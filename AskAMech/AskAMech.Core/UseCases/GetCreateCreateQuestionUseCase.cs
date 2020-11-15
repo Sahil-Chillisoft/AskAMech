@@ -16,7 +16,7 @@ namespace AskAMech.Core.UseCases
             _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
         }
 
-        public void Execute(CreateQuestionRequest request, IPresenter presenter)
+        public void Execute(IPresenter presenter)
         {
             var categories = _categoryRepository.GetCategories();
             var response = new CreateQuestionResponse

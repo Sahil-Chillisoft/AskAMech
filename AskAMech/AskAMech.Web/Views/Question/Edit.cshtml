@@ -1,0 +1,81 @@
+﻿@model AskAMech.Core.UseCases.Responses.EditQuestionResponse
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<form id="EditQuestionForm">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="display-4 text-center">
+                    <i class="material-icons md-45">edit</i>
+                    Edit Question
+                </h1>
+            </div>
+        </div>
+
+        <hr />
+
+        @Html.HiddenFor(x => x.Id)
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-12">
+                <label asp-for="Title">Title</label>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input id="Title" asp-for="Title" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-12">
+                <label asp-for="Description">Description</label>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <textarea id="Description" asp-for="Description" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-6">
+                @Html.LabelFor(x => x.CategoryId, "Category")
+                @Html.DropDownListFor(x => x.CategoryId,
+                    new SelectList(Model.Categories, "Id", "Description"),
+                    new { @class = "form-control full-width", data_val = false })
+            </div>
+        </div>
+
+        <div class="row md-Padding-Top-20">
+            <div class="col-md-12">
+                <label>Date Created: @Model.DateCreated.ToString("dd/MM/yyyy HH:mm")</label>
+            </div>
+        </div>
+
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-12">
+                <label>Date Last Modified: @Model.DateLastModified.ToString("dd/MM/yyyy HH:mm")</label>
+            </div>
+        </div>
+
+        <div class="row md-Padding-Top-20">
+            <div class="col-md-2">
+                <button id="Save" class="btn btn-primary full-width" type="button">Save</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+@section Scripts
+{
+    <script src="~/js/Question/edit.js"></script>
+}

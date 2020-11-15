@@ -2,7 +2,7 @@
 
 namespace AskAMech.Core.UseCases.Interfaces
 {
-    public interface IGetCreateQuestionUseCase :IUseCase<CreateQuestionRequest>
+    public interface IGetCreateQuestionUseCase :IReadOnlyUseCase
     {
     }
 }

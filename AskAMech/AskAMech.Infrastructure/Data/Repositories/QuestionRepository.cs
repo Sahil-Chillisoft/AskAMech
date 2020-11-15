@@ -71,7 +71,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
         {
             #region SQL
             var sql = @"select * 
-                        from Question 
+                        from Questions 
                         where Id = @Id ";
             #endregion
             
@@ -164,15 +164,13 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public void Update(Question question)
         {
             #region SQL
-
-            var sql = @"update Question 
+            var sql = @"update Questions 
                         set Title = @Title, Description = @Description, 
                         CategoryId = @CategoryId, DateLastModified = @DateLastModified
                         where Id = @Id ";
             #endregion
 
             #region Execution
-
             using var connection = new SqlConnection(_sqlHelper.ConnectionString);
             connection.Execute(sql,
                 new
