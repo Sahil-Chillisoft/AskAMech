@@ -59,7 +59,10 @@
                                     <p class="card-text">Category: @item.Category</p>
                                     <p class="card-text">
                                         <small>
-                                            Asked by <a href="#">@item.CreatedBy</a> on @item.DateCreated.ToString("dd/MM/yyyy HH:mm")
+                                            Asked by 
+                                            <a asp-controller="User" asp-action="ViewUserProfile" asp-route-id="@item.CreatedByUserId">
+                                                @item.CreatedBy
+                                            </a> on @item.DateCreated.ToString("dd/MM/yyyy HH:mm")
                                         </small>
                                     </p>
                                 </div>

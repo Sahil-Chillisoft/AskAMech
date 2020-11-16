@@ -25,7 +25,7 @@
                 <br />
                 <label>
                     Asked by
-                    <a href="#">
+                    <a asp-controller="User" asp-action="ViewUserProfile" asp-route-id="@Model.QuestionDetails.CreatedByUserId">
                         @Model.QuestionDetails.Username
                     </a>
                     on @Model.QuestionDetails.DateCreated.ToString("dd/MM/yyyy HH:mm")
@@ -86,9 +86,8 @@
                                     </label>
                                 </div>
                                 <div class="card-footer text-right">
-                                    @*TODO: Link Username to UserView page*@
                                     Answered by:
-                                    <a href="#">
+                                    <a asp-controller="User" asp-action="ViewUserProfile" asp-route-id="@item.AnsweredByUserId">
                                         @item.Username
                                     </a>
                                     on @item.DateCreated.ToString("dd/MM/yyyy HH:mm")

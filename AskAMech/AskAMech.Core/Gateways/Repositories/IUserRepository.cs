@@ -12,6 +12,6 @@ namespace AskAMech.Core.Gateways.Repositories
         int Create(User user);
         void UpdateLastLoggedInDate(int? userId);
         void UpdatePassword(User user);
-
+        ViewUserProfile GetUserProfile(int id);
     }
 }

@@ -17,6 +17,7 @@ namespace AskAMech.Web.Controllers
         private readonly IGetUserProfileUseCase _getUserProfileUseCase;
         private readonly IUpdateUserPasswordUseCase _updateUserPasswordUseCase;
         private readonly IGetEmployeeUseCase _getEmployeeUseCase;
+        private readonly IGetViewUserProfile _getViewUserProfile;
 
         public UserController(IModelPresenter modelPresenter,
                               ISecurityManagerUseCase securityManagerUseCase,
@@ -25,7 +26,8 @@ namespace AskAMech.Web.Controllers
                               IEditUserProfileUseCase editUserProfileUseCase,
                               IGetUserProfileUseCase getUserProfileUseCase,
                               IUpdateUserPasswordUseCase updateUserPasswordUseCase,
-                              IGetEmployeeUseCase getEmployeeUseCase)
+                              IGetEmployeeUseCase getEmployeeUseCase,
+                              IGetViewUserProfile getViewUserProfile)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
@@ -35,6 +37,7 @@ namespace AskAMech.Web.Controllers
             _getUserProfileUseCase = getUserProfileUseCase ?? throw new ArgumentNullException(nameof(getUserProfileUseCase));
             _updateUserPasswordUseCase = updateUserPasswordUseCase ?? throw new ArgumentNullException(nameof(updateUserPasswordUseCase));
             _getEmployeeUseCase = getEmployeeUseCase ?? throw new ArgumentNullException(nameof(getEmployeeUseCase));
+            _getViewUserProfile = getViewUserProfile ?? throw new ArgumentNullException(nameof(getViewUserProfile));
             ;
         }
 
@@ -113,6 +116,26 @@ namespace AskAMech.Web.Controllers
             var request = new GetEmployeeRequest { Id = employeeId };
             _getEmployeeUseCase.Execute(request, _modelPresenter);
             return PartialView("_EmployeeDetails", _modelPresenter.Model);
+        }
+
+        [HttpGet]
+        public IActionResult ViewUserProfile(int id)
+        {
+            _securityManagerUseCase.VerifyUserIsAuthenticated(_modelPresenter);
+            if (_modelPresenter.HasValidationErrors)
+            {
+                var model = _modelPresenter.Model as ErrorResponse;
+                return RedirectToAction("Index", "Error",
+                    new
+                    {
+                        message = model?.Message,
+                        code = model?.Code
+                    });
+            }
+
+            var request = new GetViewUserProfileRequest { Id = id };
+            _getViewUserProfile.Execute(request, _modelPresenter);
+            return View(_modelPresenter.Model);
         }
     }
 }

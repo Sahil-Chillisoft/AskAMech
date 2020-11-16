@@ -1,0 +1,84 @@
+﻿@using AskAMech.Core.Domain
+@model AskAMech.Core.UseCases.Responses.GetViewUserProfileResponse
+
+@{
+    ViewData["Title"] = "View Profile";
+}
+
+<div class="container bg-ghost-white">
+    <form>
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="display-4 text-center">
+                    <i class="material-icons md-45">account_circle</i>
+                    @Model.UserProfile.Username User Profile
+                </h1>
+            </div>
+        </div>
+        <hr />
+
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-12">
+                <label class="text-bold">Username: @Model.UserProfile.Username</label>
+            </div>
+        </div>
+
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-12">
+                <label class="text-bold">About: @Model.UserProfile.About</label>
+            </div>
+        </div>
+
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-6">
+                @switch (Model.UserProfile.UserRoleId)
+                {
+                    case 1:
+                        <label class="text-bold">Role: @UserRole.Admin</label>
+                        break;
+                    case 2:
+                        <label class="text-bold">Role: @UserRole.Mechanic</label>
+                        break;
+                    case 3:
+                        <label class="text-bold">Role: General User</label>
+                        break;
+                }
+            </div>
+        </div>
+
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-12">
+                <label class="text-bold">Date Joined: @Model.UserProfile.DateCreated.ToString("MM/dd/yyyy")</label>
+            </div>
+        </div>
+        
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-12">
+                <label class="text-bold">Member for: @Model.UserProfile.MembershipDuration Days</label>
+            </div>
+        </div>
+
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-12">
+                <label class="text-bold">Last Seen: @Model.UserProfile.DateLastLoggedIn.ToString("MM/dd/yyyy")</label>
+            </div>
+        </div>
+
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-12">
+                <label class="text-bold">No. of Questions Posted: @Model.UserProfile.QuestionCount</label>
+            </div>
+        </div>
+
+        <div class="row md-Padding-Top-10">
+            <div class="col-md-12">
+                <label class="text-bold">No. of Answers Posted: @Model.UserProfile.AnswerCount</label>
+            </div>
+        </div>
+    </form>
+    <hr/>
+</div>
+
+@section Scripts {
+    <script src="~/js/User/edit.js"></script>
+}

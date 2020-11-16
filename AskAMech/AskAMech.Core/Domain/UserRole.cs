@@ -1,4 +1,6 @@
-﻿namespace AskAMech.Core.Domain
+﻿using System.ComponentModel;
+
+namespace AskAMech.Core.Domain
 {
     public enum UserRole
     {

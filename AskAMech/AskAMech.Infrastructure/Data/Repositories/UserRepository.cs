@@ -196,5 +196,42 @@ namespace AskAMech.Infrastructure.Data.Repositories
             #endregion
         }
 
+        public ViewUserProfile GetUserProfile(int id)
+        {
+            #region SQL
+            var sql = @"select u.Id, up.Username, up.About, u.UserRoleId, u.DateCreated, u.DateLastLoggedIn,
+                        datediff(day, u.DateCreated, getdate()) as MembershipDuration,
+                        case when q.QuestionCount is null then 0 else q.QuestionCount end as QuestionCount, 
+                        case when a.AnswerCount is null then 0 else a.AnswerCount end as AnswerCount
+                        from Users u
+                        inner join UserProfile up on u.Id = up.UserId
+                        left join 
+                        (
+	                        select CreatedByUserId as UserId, 
+	                        count(Id) as QuestionCount  
+	                        from Questions 
+	                        group by CreatedByUserId
+                        ) as q on u.Id = q.UserId
+                        left join 
+                        (
+	                        select AnsweredByUserId as UserId, 
+	                        count(Id) as AnswerCount
+	                        from Answers
+	                        group by AnsweredByUserId 
+                        ) as a on u.Id = a.UserId
+                        where u.Id = @UserId ";
+            #endregion
+
+            #region Execustion
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            var userProfile = connection.Query<ViewUserProfileEntity>(sql,
+                new
+                {
+                    UserId = id
+                }).FirstOrDefault();
+            #endregion
+
+            return _mapper.Map<ViewUserProfile>(userProfile);
+        }
     }
 }

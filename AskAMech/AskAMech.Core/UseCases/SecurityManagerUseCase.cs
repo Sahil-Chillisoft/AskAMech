@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
+﻿using System.Net;
 using AskAMech.Core.Domain;
 using AskAMech.Core.UseCases.Interfaces;
 using AskAMech.Core.UseCases.Responses;
@@ -33,6 +30,23 @@ namespace AskAMech.Core.UseCases
             if (UserSecurityManager.IsAuthenticated &&
                 (UserSecurityManager.UserRoleId == (int)UserRole.Mechanic ||
                  UserSecurityManager.UserRoleId == (int)UserRole.GeneralUser))
+            {
+                presenter.Success(true);
+            }
+            else
+            {
+                var response = new ErrorResponse
+                {
+                    Message = "Access Denied",
+                    Code = HttpStatusCode.Unauthorized
+                };
+                presenter.Error(response, true);
+            }
+        }
+
+        public void VerifyUserIsAuthenticated(IPresenter presenter)
+        {
+            if (UserSecurityManager.IsAuthenticated)
             {
                 presenter.Success(true);
             }
