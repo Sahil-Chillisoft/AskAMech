@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using AskAMech.Core.UseCases.Requests;
 using AskAMech.Core.UseCases.Responses;
-using AskAMech.Core.Domain;
 using AskAMech.Core.UseCases.Interfaces;
 using AskAMech.Core.Gateways.Repositories;
 
 namespace AskAMech.Core.UseCases
 {
-    public class GetCatergoryUseCase : IGetCategoryUseCase
+    public class GetCategoryUseCase : IGetCategoryUseCase
     {
         private readonly ICategoryRepository _categoryRepository;
-        public GetCatergoryUseCase(ICategoryRepository categoryRepository)
+        public GetCategoryUseCase(ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
         }
@@ -20,11 +17,11 @@ namespace AskAMech.Core.UseCases
         public void Execute(CreateCategoryRequest request, IPresenter presenter)
         {
             var allCategories = _categoryRepository.GetCategories();
-            var responsee = new GetCategoryResponse
+            var response = new GetCategoryResponse
             {
                 AllCategories = allCategories
             };
-            presenter.Success(responsee);
+            presenter.Success(response);
 
         }
     }

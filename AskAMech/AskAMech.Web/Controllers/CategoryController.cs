@@ -11,12 +11,12 @@ namespace AskAMech.Web.Controllers
     {
         private readonly IModelPresenter _modelPresenter;
         private readonly ISecurityManagerUseCase _securityManagerUseCase;
-        private readonly ICreateCatergoryUseCase _createCategoryUseCase;
+        private readonly ICreateCategoryUseCase _createCategoryUseCase;
         private readonly IGetCategoryUseCase _getCategoryUseCase;
 
         public CategoryController(IModelPresenter modelPresenter,
                                   ISecurityManagerUseCase securityManagerUseCase,
-                                  ICreateCatergoryUseCase createCategoryUseCase,
+                                  ICreateCategoryUseCase createCategoryUseCase,
                                   IGetCategoryUseCase getCategoryUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
@@ -64,7 +64,7 @@ namespace AskAMech.Web.Controllers
         public IActionResult QuestionCategoryList(CreateCategoryRequest request)
         {
             _getCategoryUseCase.Execute(request, _modelPresenter);
-            return PartialView("_QuestionCatergoryList", _modelPresenter.Model);
+            return PartialView("_QuestionCategoryList", _modelPresenter.Model);
         }
     }
 }

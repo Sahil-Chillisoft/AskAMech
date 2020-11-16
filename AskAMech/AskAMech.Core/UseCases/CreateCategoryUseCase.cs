@@ -7,7 +7,7 @@ using AskAMech.Core.Gateways.Repositories;
 
 namespace AskAMech.Core.UseCases
 {
-    public class CreateCategoryUseCase : ICreateCatergoryUseCase
+    public class CreateCategoryUseCase : ICreateCategoryUseCase
     {
         private readonly ICategoryRepository _categoryRepository;
         

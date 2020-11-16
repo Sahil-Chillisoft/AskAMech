@@ -52,8 +52,8 @@ namespace AskAMech.Web
             services.AddTransient<IGetEmployeesUseCase, GetEmployeesUseCase>();
             services.AddTransient<IGetRoleUseCase, GetRolesUseCase>();
             services.AddTransient<IGetEmployeesAutocompleteUseCase, GetEmployeesAutocompleteUseCase>();
-            services.AddTransient<ICreateCatergoryUseCase, CreateCategoryUseCase>();
-            services.AddTransient<IGetCategoryUseCase, GetCatergoryUseCase>();
+            services.AddTransient<ICreateCategoryUseCase, CreateCategoryUseCase>();
+            services.AddTransient<IGetCategoryUseCase, GetCategoryUseCase>();
             services.AddTransient<IEditEmployeeUseCase, EditEmployeeUseCase>();
             services.AddTransient<ICreateUserUseCase, CreateUserUseCase>();
             services.AddTransient<IGetEmployeeForUserUseCase, GetEmployeeForUserUseCase>();

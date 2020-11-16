@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace AskAMech.Core.UseCases.Responses
 {
     public class CreateCategoryResponse
     {
-        [DisplayName(" Catergory Description")]
-        [Required(ErrorMessage = "* Catergory Description required")]
+        [DisplayName(" Category Description")]
+        [Required(ErrorMessage = "* Category Description required")]
         public string Description { get; set; }
         public string? ErrorMessage { get; set; }
     }
