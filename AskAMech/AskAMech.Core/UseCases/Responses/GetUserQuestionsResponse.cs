@@ -5,6 +5,8 @@ namespace AskAMech.Core.UseCases.Responses
 {
     public class GetUserQuestionsResponse
     {
-        public IEnumerable<ViewUserQuestions> UserQuestions { get; set; }
+        public List<ViewUserQuestions> UserQuestions { get; set; }
+        public Pagination Pagination { get; set; }
+        public bool IsFirstLoad { get; set; }
     }
 }

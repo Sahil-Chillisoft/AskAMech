@@ -174,9 +174,9 @@ namespace AskAMech.Web.Controllers
             return PartialView("_DeleteSuccess");
         }
 
-        public IActionResult UserQuestions(int id)
+        [HttpPost]
+        public IActionResult UserQuestions(GetUserQuestionsRequest request)
         {
-            var request = new GetUserQuestionsRequest { UserId = id };
             _getUserQuestions.Execute(request, _modelPresenter);
             return PartialView("_UserQuestions", _modelPresenter.Model);
         }

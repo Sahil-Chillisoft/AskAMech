@@ -74,10 +74,10 @@ namespace AskAMech.Infrastructure.Data.Repositories
                         from Questions 
                         where Id = @Id ";
             #endregion
-            
+
             #region Execution
             using var connection = new SqlConnection(_sqlHelper.ConnectionString);
-            var question = connection.Query<QuestionEntity>(sql, 
+            var question = connection.Query<QuestionEntity>(sql,
                 new
                 {
                     Id = id
@@ -113,6 +113,26 @@ namespace AskAMech.Infrastructure.Data.Repositories
             #endregion
 
             return questionCount;
+        }
+
+        public int GetUserQuestionCount(int userId)
+        {
+            #region SQL
+            var sql = @"select count(Id) as QuestionCount
+                        from Questions
+                        where CreatedByUserId = @UserId ";
+            #endregion
+
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            var userQuestionCount = connection.ExecuteScalar<int>(sql,
+                new
+                {
+                    userId = userId
+                });
+            #endregion
+
+            return userQuestionCount;
         }
 
         public void CreateQuestion(Question question)
@@ -184,7 +204,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             #endregion
         }
 
-        public List<ViewUserQuestions> GetUserQuestions(int userId)
+        public List<ViewUserQuestions> GetUserQuestions(int userId, Pagination pagination)
         {
             #region SQL
             var sql = @"select q.*, C.Description as CategoryDescription, 
@@ -198,7 +218,10 @@ namespace AskAMech.Infrastructure.Data.Repositories
 	                        from Answers
 	                        group by QuestionId
                         ) as a on q.Id = a.QuestionId
-                        where q.CreatedByUserId = @UserId";
+                        where q.CreatedByUserId = @UserId
+                        order by q.DateCreated 
+                        offset @Offset rows
+                        fetch next @PageSize rows only ";
             #endregion
 
             #region Execution
@@ -206,7 +229,9 @@ namespace AskAMech.Infrastructure.Data.Repositories
             var userQuestions = connection.Query<ViewUserQuestionsEntity>(sql,
                 new
                 {
-                    UserId = userId
+                    UserId = userId,
+                    Offset = pagination.Offset,
+                    PageSize = pagination.PageSize
                 }).ToList();
             #endregion
 
