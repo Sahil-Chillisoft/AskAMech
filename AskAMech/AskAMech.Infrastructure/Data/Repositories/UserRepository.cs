@@ -196,7 +196,6 @@ namespace AskAMech.Infrastructure.Data.Repositories
             #endregion
         }
         
-
         public ViewUserProfile GetUserProfile(int id)
         {
             #region SQL
@@ -234,6 +233,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
 
             return _mapper.Map<ViewUserProfile>(userProfile);
         }
+
         public void UpdateDatedDeleted(int? userId)
         {
 
@@ -244,7 +244,6 @@ namespace AskAMech.Infrastructure.Data.Repositories
             #endregion
 
             #region Execution
-
             using var connection = new SqlConnection(_sqlHelper.ConnectionString);
             connection.Execute(sql,
                 new

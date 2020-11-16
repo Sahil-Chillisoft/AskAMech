@@ -1,24 +1,34 @@
-﻿<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteLabel" aria-hidden="true" data-backdrop="static">
+﻿<div class="modal fade" id="deleteUserAccountModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserAccountLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header badge-warning">
-                <h5 class="modal-title">Delete</h5>
+            <div class="modal-header modal-danger">
+                <h5 class="modal-title">Delete User Account</h5>
             </div>
             <form>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <h6>Are you sure you want to Deactivate your account</h6>
+                            <h6>Are you sure you want to deactivate your account?</h6>
+                            <br />
+                            <p>
+                                If you delete your user account you won't be able to log back
+                                into AskAMech and your user profile details will not be visible anymore.
+                            </p>
+                            <br />
+                            <p>
+                                Your posted questions and answers will still be available to the public even
+                                after you delete your account.
+                            </p>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="DeactivateAccount" type="button" class="btn btn-danger">YES</button>
-                    <button id="Cancel" type="button" class="btn btn-success">Cancel</button>
+                    <button id="DeactivateAccount" type="button" class="btn btn-danger">Yes</button>
+                    <button id="CancelDeactivateAccount" type="button" class="btn btn-secondary">Cancel</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<script src="~/js/User/Delete.js"></script>
+<script src="~/js/User/delete.js"></script>

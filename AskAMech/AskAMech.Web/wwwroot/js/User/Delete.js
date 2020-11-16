@@ -2,21 +2,56 @@
 
     $('#Delete').click(function (event) {
         event.preventDefault();
-        displayDeletePasswordModal()
-        $.ajax({
-            url: '/User/DeleteAccount',
-            type: 'POST',
-            success: function (data) {
-                if(data.success) {
-                    displaySuccessModal();
-                }   
-            }
-        });
+        displayConfirmDeleteUserAccountModal();
+    });
+
+
+    $('#DeactivateAccount').click(function (event) {
+        event.preventDefault();
+        deleteUserAccount();
+    });
+
+
+    $('#Confirm').click(function (event) {
+        event.preventDefault();
+        loadDashboard();
+    });
+
+
+    $('#CancelDeactivateAccount').click(function (event) {
+        event.preventDefault();
+        window.location.reload();
     });
 });
 
-function displaySuccessModal() {
-    var successModal = $('#DeleteSuccessDiv');
+function displayConfirmDeleteUserAccountModal() {
+    var deletePasswordDiv = $('#DeletePasswordDiv');
+    $.ajax({
+        url: '/User/Delete',
+        type: 'GET',
+        cache: false,
+        success: function (data) {
+            deletePasswordDiv.html(data);
+            deletePasswordDiv.find('.modal').modal('show');
+        }
+    });
+}
+
+function deleteUserAccount() {
+    $.ajax({
+        url: '/User/DeleteAccount',
+        type: 'POST',
+        cache: false,
+        success: function (data) {
+            if (data.success) {
+                displayDeleteSuccessModal();
+            }
+        }
+    });
+}
+
+function displayDeleteSuccessModal() {
+    var successModal = $('#DeletePasswordDiv');
     $.ajax({
         url: '/User/DeleteSuccess',
         type: 'GET',
@@ -27,16 +62,7 @@ function displaySuccessModal() {
         }
     });
 }
-function displayDeletePasswordModal() {
-    var deletePasswordModal = $('#DeleteSuccessDiv');
-    $.ajax({
-        url: '/User/Delete',
-        type: 'GET',
-        cache: false,
-        success: function (data) {
-            deletePasswordModal.html(data);
-            deletePasswordModal.find('.modal').modal('show');
-            $('#DeleteSuccessDiv').hide();
-        }
-    });
+
+function loadDashboard() {
+    window.location.href = '/Home/Index';
 }
