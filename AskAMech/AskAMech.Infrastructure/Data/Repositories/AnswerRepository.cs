@@ -46,9 +46,11 @@ namespace AskAMech.Infrastructure.Data.Repositories
         {
             #region SQL
             var sql = @"select a.Id, A.Description, a.AnsweredByUserId, 
-                        up.Username, a.IsAcceptedAnswer, a.DateCreated 
+                        up.Username, a.IsAcceptedAnswer, a.DateCreated, 
+                        u.UserRoleId                        
                         from Answers a 
                         inner join UserProfile up on a.AnsweredByUserId = up.UserId
+                        inner join Users u on up.UserId = u.Id
                         where a.QuestionId = @QuestionId ";
             #endregion
 

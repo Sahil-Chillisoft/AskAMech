@@ -11,5 +11,6 @@ namespace AskAMech.Infrastructure.Data.Entities
         public string Username { get; set; }
         public bool IsAcceptedAnswer { get; set; }
         public DateTime DateCreated { get; set; }
+        public int UserRoleId { get; set; }
     }
 }

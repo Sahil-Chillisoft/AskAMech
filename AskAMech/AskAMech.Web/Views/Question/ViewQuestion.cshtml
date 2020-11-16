@@ -90,6 +90,10 @@
                                     <a asp-controller="User" asp-action="ViewUserProfile" asp-route-id="@item.AnsweredByUserId">
                                         @item.Username
                                     </a>
+                                    @if (item.UserRoleId == (int)UserRole.Mechanic)
+                                    {
+                                        <i class="material-icons md-15 icon-green" title="Certified Mechanic">build</i>
+                                    }
                                     on @item.DateCreated.ToString("dd/MM/yyyy HH:mm")
                                 </div>
                             </div>

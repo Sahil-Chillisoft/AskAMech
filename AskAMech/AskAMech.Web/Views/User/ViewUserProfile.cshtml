@@ -33,10 +33,10 @@
                 @switch (Model.UserProfile.UserRoleId)
                 {
                     case 1:
-                        <label class="text-bold">Role: @UserRole.Admin</label>
+                        <label class="text-bold">Role: @UserRole.Admin <i class="material-icons md-15 icon-green" title="Certified Admin">security</i></label>
                         break;
                     case 2:
-                        <label class="text-bold">Role: @UserRole.Mechanic</label>
+                        <label class="text-bold">Role: @UserRole.Mechanic <i class="material-icons md-15 icon-green" title="Certified Mechanic">build</i></label>
                         break;
                     case 3:
                         <label class="text-bold">Role: General User</label>
