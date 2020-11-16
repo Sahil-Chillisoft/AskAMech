@@ -1,29 +1,34 @@
 ﻿$(document).ready(function () {
-    var userId = $('#UserId').val();
 
-    var isFirstLoad = $('#IsFirstLoad').val();
-    if (isFirstLoad == undefined) {
-        isFirstLoad = true;
-    } else {
-        isFirstLoad = false;
+    var dateDeleted = $('#DateDeleted').val();
+
+    if (dateDeleted === null || dateDeleted === undefined) {
+        var userId = $('#UserId').val();
+
+        var isFirstLoad = $('#IsFirstLoad').val();
+        if (isFirstLoad == undefined) {
+            isFirstLoad = true;
+        } else {
+            isFirstLoad = false;
+        }
+
+        if (isFirstLoad)
+            getUserQuestions(userId, 1, false, true);
+
+        var currentPage = parseInt($('#Page').val());
+
+        $('#PreviousPage').click(function (event) {
+            event.preventDefault();
+            getUserQuestions(userId, currentPage - 1, true, isFirstLoad);
+        });
+
+        $('#NextPage').click(function (event) {
+            event.preventDefault();
+            getUserQuestions(userId, currentPage + 1, true, isFirstLoad);
+        });
+
+        pagingControls(currentPage);
     }
-
-    if (isFirstLoad)
-        getUserQuestions(userId, 1, false, true);
-
-    var currentPage = parseInt($('#Page').val());
-
-    $('#PreviousPage').click(function (event) {
-        event.preventDefault();
-        getUserQuestions(userId, currentPage - 1, true, isFirstLoad);
-    });
-
-    $('#NextPage').click(function (event) {
-        event.preventDefault();
-        getUserQuestions(userId, currentPage + 1, true, isFirstLoad);
-    });
-
-    pagingControls(currentPage);
 });
 
 function getUserQuestions(userId, page, isPagingRequest, isFirstLoad) {

@@ -199,7 +199,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public ViewUserProfile GetUserProfile(int id)
         {
             #region SQL
-            var sql = @"select u.Id, up.Username, up.About, u.UserRoleId, u.DateCreated, u.DateLastLoggedIn,
+            var sql = @"select u.Id, up.Username, up.About, u.UserRoleId, u.DateCreated, u.DateLastLoggedIn, u.DateDeleted,
                         datediff(day, u.DateCreated, getdate()) as MembershipDuration,
                         case when q.QuestionCount is null then 0 else q.QuestionCount end as QuestionCount, 
                         case when a.AnswerCount is null then 0 else a.AnswerCount end as AnswerCount

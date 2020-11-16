@@ -26,19 +26,26 @@ namespace AskAMech.Core.UseCases
                 Password = request.Password
             };
 
-            var getUser = _userRepository.GetUser(user);
+            var userDetails = _userRepository.GetUser(user);
             var response = new LoginResponse();
-            
-            if (getUser.Id == 0)
+
+            if (userDetails.DateDeleted != null)
+            {
+                response.Email = request.Email;
+                response.Password = request.Password;
+                response.LoginErrorMessage = "Error: Your account has been deactivated";
+                presenter.Error(response, true);
+            }
+            else if (userDetails.Id == 0)
             {
                 response.Email = request.Email;
                 response.Password = request.Password;
                 response.LoginErrorMessage = "Error: Email address or password is incorrect";
-                presenter.Error(response, true);   
+                presenter.Error(response, true);
             }
             else
             {
-                var userProfile = _userProfileRepository.GetUserProfile(getUser.Id);
+                var userProfile = _userProfileRepository.GetUserProfile(userDetails.Id);
                 if (userProfile.Id == 0)
                 {
                     response.Email = request.Email;
@@ -48,8 +55,8 @@ namespace AskAMech.Core.UseCases
                 }
                 else
                 {
-                    UserSecurityManager.InitializeUser(getUser.Id, userProfile.Username, getUser.UserRoleId, true);
-                    _userRepository.UpdateLastLoggedInDate(getUser.Id);
+                    UserSecurityManager.InitializeUser(userDetails.Id, userProfile.Username, userDetails.UserRoleId, true);
+                    _userRepository.UpdateLastLoggedInDate(userDetails.Id);
                     presenter.Success(response);
                 }
             }

@@ -13,5 +13,6 @@ namespace AskAMech.Core.Domain
         public int MembershipDuration { get; set; }
         public int QuestionCount { get; set; }
         public int AnswerCount { get; set; }
+        public DateTime? DateDeleted { get; set; }
     }
 }
