@@ -18,6 +18,7 @@ namespace AskAMech.Web.Controllers
         private readonly IUpdateUserPasswordUseCase _updateUserPasswordUseCase;
         private readonly IGetEmployeeUseCase _getEmployeeUseCase;
         private readonly IGetViewUserProfile _getViewUserProfile;
+        private readonly IDeleteuserAccountUseCase _deleteuserAccountUseCase;
 
         public UserController(IModelPresenter modelPresenter,
                               ISecurityManagerUseCase securityManagerUseCase,
@@ -27,9 +28,10 @@ namespace AskAMech.Web.Controllers
                               IGetUserProfileUseCase getUserProfileUseCase,
                               IUpdateUserPasswordUseCase updateUserPasswordUseCase,
                               IGetEmployeeUseCase getEmployeeUseCase,
-                              IGetViewUserProfile getViewUserProfile)
-        {
-            _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
+                              IGetViewUserProfile getViewUserProfile,
+                              IDeleteuserAccountUseCase deleteuserAccountUseCase)
+            {
+        _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _createUserUseCase = createUserUseCase ?? throw new ArgumentNullException(nameof(createUserUseCase));
             _getEmployeeForUserUseCase = getEmployeeForUserUseCase ?? throw new ArgumentNullException(nameof(getEmployeeForUserUseCase));
@@ -38,7 +40,7 @@ namespace AskAMech.Web.Controllers
             _updateUserPasswordUseCase = updateUserPasswordUseCase ?? throw new ArgumentNullException(nameof(updateUserPasswordUseCase));
             _getEmployeeUseCase = getEmployeeUseCase ?? throw new ArgumentNullException(nameof(getEmployeeUseCase));
             _getViewUserProfile = getViewUserProfile ?? throw new ArgumentNullException(nameof(getViewUserProfile));
-            ;
+            _deleteuserAccountUseCase = deleteuserAccountUseCase ?? throw new ArgumentNullException(nameof(deleteuserAccountUseCase));
         }
 
         [HttpGet]
@@ -136,6 +138,25 @@ namespace AskAMech.Web.Controllers
             var request = new GetViewUserProfileRequest { Id = id };
             _getViewUserProfile.Execute(request, _modelPresenter);
             return View(_modelPresenter.Model);
+        }
+
+        [HttpGet]
+        public IActionResult Delete()
+        {
+            return PartialView("_DeleteAccount");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteAccount()
+        {
+            _deleteuserAccountUseCase.Execute(_modelPresenter);
+            return Json(new { Success = true });
+        }
+
+        [HttpGet]
+        public IActionResult DeleteSuccess()
+        {
+            return PartialView("_DeleteSuccess");
         }
     }
 }

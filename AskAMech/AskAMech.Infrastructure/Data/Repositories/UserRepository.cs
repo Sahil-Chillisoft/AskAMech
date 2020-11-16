@@ -195,6 +195,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
                 });
             #endregion
         }
+        
 
         public ViewUserProfile GetUserProfile(int id)
         {
@@ -232,6 +233,27 @@ namespace AskAMech.Infrastructure.Data.Repositories
             #endregion
 
             return _mapper.Map<ViewUserProfile>(userProfile);
+        }
+        public void UpdateDatedDeleted(int? userId)
+        {
+
+            #region SQL
+            var sql = @"update Users 
+                        set DateDeleted = @DateDeleted 
+                        where Id = @UserId ";
+            #endregion
+
+            #region Execution
+
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            connection.Execute(sql,
+                new
+                {
+                    DateDeleted = DateTime.Now,
+                    UserId = userId
+                });
+
+            #endregion
         }
     }
 }

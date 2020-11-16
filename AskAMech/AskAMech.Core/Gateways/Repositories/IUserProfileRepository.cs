@@ -8,5 +8,6 @@ namespace AskAMech.Core.Gateways.Repositories
         bool IsExistingUsername(string username);
         void Create(UserProfile userProfile);
         void Update(UserProfile userProfile);
+        
     }
 }
