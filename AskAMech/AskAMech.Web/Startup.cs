@@ -71,6 +71,7 @@ namespace AskAMech.Web
             services.AddTransient<IGetEmployeeUseCase, GetEmployeeUseCase>();
             services.AddTransient<IGetViewUserProfile, GetViewUserProfileUseCase>();
             services.AddTransient<IDeleteuserAccountUseCase, DeleteuserAccountUseCase>();
+            services.AddTransient<IGetUserQuestions, GetUserQuestionsUseCase>();
 
 
             services.AddTransient<IUserRepository, UserRepository>();

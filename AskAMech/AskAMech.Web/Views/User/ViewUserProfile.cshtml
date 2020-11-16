@@ -1,12 +1,11 @@
 ﻿@using AskAMech.Core.Domain
 @model AskAMech.Core.UseCases.Responses.GetViewUserProfileResponse
-
 @{
     ViewData["Title"] = "View Profile";
 }
-
-<div class="container bg-ghost-white">
-    <form>
+<form>
+    <div class="container bg-ghost-white">
+        @Html.HiddenFor(x => x.UserProfile.Id, new { id = "UserId" })
         <div class="row">
             <div class="col-md-12">
                 <h1 class="display-4 text-center">
@@ -51,7 +50,7 @@
                 <label class="text-bold">Date Joined: @Model.UserProfile.DateCreated.ToString("MM/dd/yyyy")</label>
             </div>
         </div>
-        
+
         <div class="row md-Padding-Top-10">
             <div class="col-md-12">
                 <label class="text-bold">Member for: @Model.UserProfile.MembershipDuration Days</label>
@@ -75,10 +74,11 @@
                 <label class="text-bold">No. of Answers Posted: @Model.UserProfile.AnswerCount</label>
             </div>
         </div>
-    </form>
+    </div>
     <hr/>
-</div>
+    <div id="UserQuestionsDiv"></div>
+</form>
 
 @section Scripts {
-    <script src="~/js/User/edit.js"></script>
+    <script src="~/js/User/viewUserProfile.js"></script>
 }

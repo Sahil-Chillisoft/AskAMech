@@ -20,6 +20,7 @@ namespace AskAMech.Infrastructure.Data.Mapping
             CreateMap<ViewAnswersEntity, ViewAnswers>();
             CreateMap<QuestionEntity, Question>();
             CreateMap<ViewUserProfileEntity, ViewUserProfile>();
+            CreateMap<ViewUserQuestionsEntity, ViewUserQuestions>();
         }
     }
 }

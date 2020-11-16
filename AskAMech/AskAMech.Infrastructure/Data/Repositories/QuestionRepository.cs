@@ -183,5 +183,34 @@ namespace AskAMech.Infrastructure.Data.Repositories
                 });
             #endregion
         }
+
+        public List<ViewUserQuestions> GetUserQuestions(int userId)
+        {
+            #region SQL
+            var sql = @"select q.*, C.Description as CategoryDescription, 
+                        case when a.AnswerCount is null then 0 else a.AnswerCount end as AnswerCount
+                        from Questions q
+                        inner join Category c on q.CategoryId = c.Id
+                        left join 
+                        (
+	                        select QuestionId, 
+	                        count(Id) as AnswerCount
+	                        from Answers
+	                        group by QuestionId
+                        ) as a on q.Id = a.QuestionId
+                        where q.CreatedByUserId = @UserId";
+            #endregion
+
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            var userQuestions = connection.Query<ViewUserQuestionsEntity>(sql,
+                new
+                {
+                    UserId = userId
+                }).ToList();
+            #endregion
+
+            return _mapper.Map<List<ViewUserQuestions>>(userQuestions);
+        }
     }
 }

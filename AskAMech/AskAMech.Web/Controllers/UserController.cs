@@ -19,6 +19,7 @@ namespace AskAMech.Web.Controllers
         private readonly IGetEmployeeUseCase _getEmployeeUseCase;
         private readonly IGetViewUserProfile _getViewUserProfile;
         private readonly IDeleteuserAccountUseCase _deleteuserAccountUseCase;
+        private readonly IGetUserQuestions _getUserQuestions;
 
         public UserController(IModelPresenter modelPresenter,
                               ISecurityManagerUseCase securityManagerUseCase,
@@ -29,9 +30,10 @@ namespace AskAMech.Web.Controllers
                               IUpdateUserPasswordUseCase updateUserPasswordUseCase,
                               IGetEmployeeUseCase getEmployeeUseCase,
                               IGetViewUserProfile getViewUserProfile,
-                              IDeleteuserAccountUseCase deleteuserAccountUseCase)
-            {
-        _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
+                              IDeleteuserAccountUseCase deleteuserAccountUseCase,
+                              IGetUserQuestions getUserQuestions)
+        {
+            _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _createUserUseCase = createUserUseCase ?? throw new ArgumentNullException(nameof(createUserUseCase));
             _getEmployeeForUserUseCase = getEmployeeForUserUseCase ?? throw new ArgumentNullException(nameof(getEmployeeForUserUseCase));
@@ -41,6 +43,7 @@ namespace AskAMech.Web.Controllers
             _getEmployeeUseCase = getEmployeeUseCase ?? throw new ArgumentNullException(nameof(getEmployeeUseCase));
             _getViewUserProfile = getViewUserProfile ?? throw new ArgumentNullException(nameof(getViewUserProfile));
             _deleteuserAccountUseCase = deleteuserAccountUseCase ?? throw new ArgumentNullException(nameof(deleteuserAccountUseCase));
+            _getUserQuestions = getUserQuestions ?? throw new ArgumentNullException(nameof(getUserQuestions));
         }
 
         [HttpGet]
@@ -157,6 +160,13 @@ namespace AskAMech.Web.Controllers
         public IActionResult DeleteSuccess()
         {
             return PartialView("_DeleteSuccess");
+        }
+
+        public IActionResult UserQuestions(int id)
+        {
+            var request = new GetUserQuestionsRequest { UserId = id };
+            _getUserQuestions.Execute(request, _modelPresenter);
+            return PartialView("_UserQuestions", _modelPresenter.Model);
         }
     }
 }

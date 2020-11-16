@@ -12,5 +12,6 @@ namespace AskAMech.Core.Gateways.Repositories
         void CreateQuestion(Question question);
         ViewQuestionDetails GetQuestionDetails(int id);
         void Update(Question question);
+        List<ViewUserQuestions> GetUserQuestions(int userId);
     }
 }
