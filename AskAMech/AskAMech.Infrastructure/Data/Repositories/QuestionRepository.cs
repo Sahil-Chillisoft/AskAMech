@@ -115,12 +115,15 @@ namespace AskAMech.Infrastructure.Data.Repositories
             return questionCount;
         }
 
-        public int GetUserQuestionCount(int userId)
+        public int GetUserQuestionCount(int userId, int? categoryId)
         {
             #region SQL
             var sql = @"select count(Id) as QuestionCount
                         from Questions
                         where CreatedByUserId = @UserId ";
+
+            if (categoryId != 0)
+                sql += "and CategoryId = @CategoryId";
             #endregion
 
             #region Execution
@@ -128,7 +131,8 @@ namespace AskAMech.Infrastructure.Data.Repositories
             var userQuestionCount = connection.ExecuteScalar<int>(sql,
                 new
                 {
-                    userId = userId
+                    userId = userId,
+                    CategoryId = categoryId
                 });
             #endregion
 
@@ -204,7 +208,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             #endregion
         }
 
-        public List<ViewUserQuestions> GetUserQuestions(int userId, Pagination pagination)
+        public List<ViewUserQuestions> GetUserQuestions(int userId, int? categoryId, Pagination pagination)
         {
             #region SQL
             var sql = @"select q.*, C.Description as CategoryDescription, 
@@ -218,10 +222,14 @@ namespace AskAMech.Infrastructure.Data.Repositories
 	                        from Answers
 	                        group by QuestionId
                         ) as a on q.Id = a.QuestionId
-                        where q.CreatedByUserId = @UserId
-                        order by q.DateCreated 
-                        offset @Offset rows
-                        fetch next @PageSize rows only ";
+                        where q.CreatedByUserId = @UserId ";
+
+            if (categoryId != 0)
+                sql += "and CategoryId = @categoryId ";
+
+            sql += @"order by q.DateCreated 
+                     offset @Offset rows
+                     fetch next @PageSize rows only";
             #endregion
 
             #region Execution
@@ -230,6 +238,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
                 new
                 {
                     UserId = userId,
+                    CategoryId = categoryId,
                     Offset = pagination.Offset,
                     PageSize = pagination.PageSize
                 }).ToList();

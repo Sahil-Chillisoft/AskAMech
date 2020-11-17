@@ -24,7 +24,7 @@ namespace AskAMech.Core.UseCases
             if (request.Pagination != null && request.Pagination.IsPagingRequest)
                 recordCount = request.Pagination.RecordCount;
             else
-                recordCount = _questionRepository.GetUserQuestionCount(request.UserId);
+                recordCount = _questionRepository.GetUserQuestionCount(request.UserId, request.CategoryId);
 
             var page = 1;
             if (request.Pagination?.Page != 0)
@@ -38,7 +38,7 @@ namespace AskAMech.Core.UseCases
                 PageSize = (int)PageSize.Medium
             };
 
-            var userQuestions = _questionRepository.GetUserQuestions(request.UserId, pagination);
+            var userQuestions = _questionRepository.GetUserQuestions(request.UserId, request.CategoryId, pagination);
             var categories = _categoryRepository.GetCategories();
 
             var response = new GetUserQuestionsResponse
