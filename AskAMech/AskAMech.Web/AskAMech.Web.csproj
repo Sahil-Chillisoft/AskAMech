@@ -16,4 +16,8 @@
     <ProjectReference Include="..\AskAMech.Infrastructure\AskAMech.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\js\Answers\" />
+  </ItemGroup>
+
 </Project>
