@@ -1,4 +1,5 @@
 ﻿using System;
+using AskAMech.Core.Domain;
 using AskAMech.Core.UseCases.Interfaces;
 using AskAMech.Core.UseCases.Requests;
 using AskAMech.Core.UseCases.Responses;
@@ -179,6 +180,24 @@ namespace AskAMech.Web.Controllers
         {
             _getUserQuestions.Execute(request, _modelPresenter);
             return PartialView("_UserQuestions", _modelPresenter.Model);
+        }
+
+        [HttpGet]
+        public IActionResult MyQuestion()
+        {
+            var request = new GetUserQuestionsRequest
+            {
+                UserId = UserSecurityManager.UserId
+            };
+            _getUserQuestions.Execute(request, _modelPresenter);
+            return View("MyQuestion", _modelPresenter.Model);
+        }
+
+        [HttpPost]
+        public IActionResult MyQuestion(GetUserQuestionsRequest request)
+        {
+            _getUserQuestions.Execute(request, _modelPresenter);
+            return View("MyQuestion", _modelPresenter.Model);
         }
     }
 }

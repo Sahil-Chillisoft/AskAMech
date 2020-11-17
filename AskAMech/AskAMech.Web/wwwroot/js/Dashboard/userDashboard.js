@@ -1,7 +1,7 @@
 ﻿function Navigate(id) {
     switch (id) {
         case 'divMyQuestions':
-            window.location.href = '';
+            window.location.href = '/User/MyQuestion';
             break;
         case 'divMyAnswers':
             window.location.href = '';
