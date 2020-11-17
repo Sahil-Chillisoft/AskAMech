@@ -1,22 +1,41 @@
 ﻿$(document).ready(function () {
-
     $('#Create').click(function (event) {
         event.preventDefault();
-        var url = '/Question/Create';
-        var request = getFormData();
-        $.post(url, request).done(function (data) {
-            if (data.success) {
-                displaySuccessModal();
-            } 
-        });
+
+        if (isValidData()) {
+            var url = '/Question/Create';
+            var request = getFormData();
+            $.post(url, request).done(function (data) {
+                if (data.success) {
+                    displaySuccessModal();
+                }
+            });
+        }
     });
 
     $('#Confirm').click(function (event) {
         event.preventDefault();
-        window.location.reload();
-        //TODO: Redirect the user to the view/edit version of their question
+        window.location.href = '/Dashboard/UserDashboard';
     });
 });
+
+function isValidData() {
+    var isValid = true;
+    var title = $('#Title').val();
+    var description = $('#Description').val();
+
+    if (title === '') {
+        $('#TitleValidation').text('* Question Title Required');
+        isValid = false;
+    }
+
+    if (description === '') {
+        $('#DescriptionValidation').text('* Question Description Required');
+        isValid = false;
+    }
+
+    return isValid;
+}
 
 function getFormData() {
     var data = {
