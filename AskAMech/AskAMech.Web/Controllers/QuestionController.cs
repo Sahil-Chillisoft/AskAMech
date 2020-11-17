@@ -1,4 +1,5 @@
 ﻿using System;
+using AskAMech.Core.Domain;
 using AskAMech.Core.UseCases.Interfaces;
 using AskAMech.Core.UseCases.Requests;
 using AskAMech.Web.Presenters;
@@ -17,6 +18,7 @@ namespace AskAMech.Web.Controllers
         private readonly IGetQuestionViewUseCase _getQuestionViewUseCase;
         private readonly IEditQuestionUseCase _editQuestionUseCase;
         private readonly IGetEditQuestionUseCase _getEditQuestionUseCase;
+        private readonly IGetUserQuestions _getUserQuestions;
 
         public QuestionController(IModelPresenter modelPresenter,
                                   ISecurityManagerUseCase securityManagerUseCase,
@@ -25,7 +27,8 @@ namespace AskAMech.Web.Controllers
                                   IGetCreateQuestionUseCase getCreateQuestionUseCase,
                                   IGetQuestionViewUseCase getQuestionViewUseCase, 
                                   IEditQuestionUseCase editQuestionUseCase, 
-                                  IGetEditQuestionUseCase getEditQuestionUseCase)
+                                  IGetEditQuestionUseCase getEditQuestionUseCase, 
+                                  IGetUserQuestions getUserQuestions)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
@@ -35,6 +38,7 @@ namespace AskAMech.Web.Controllers
             _getQuestionViewUseCase = getQuestionViewUseCase ?? throw new ArgumentNullException(nameof(getQuestionViewUseCase));
             _editQuestionUseCase = editQuestionUseCase ?? throw new ArgumentNullException(nameof(editQuestionUseCase));
             _getEditQuestionUseCase = getEditQuestionUseCase ?? throw new ArgumentNullException(nameof(getEditQuestionUseCase));
+            _getUserQuestions = getUserQuestions ?? throw new ArgumentNullException(nameof(getUserQuestions));
         }
 
         [HttpGet]
@@ -112,5 +116,25 @@ namespace AskAMech.Web.Controllers
         {
             return PartialView("_EditSuccess");
         }
+
+        [HttpGet]
+        public IActionResult MyQuestions()
+        {
+            var request = new GetUserQuestionsRequest
+            {
+                UserId = UserSecurityManager.UserId
+            };
+            _getUserQuestions.Execute(request, _modelPresenter);
+            return View(_modelPresenter.Model);
+        }
+
+        [HttpPost]
+        public IActionResult MyQuestions(GetUserQuestionsRequest request)
+        {
+            request.UserId = UserSecurityManager.UserId;
+            _getUserQuestions.Execute(request, _modelPresenter);
+            return View(_modelPresenter.Model);
+        }
+
     }
 }
