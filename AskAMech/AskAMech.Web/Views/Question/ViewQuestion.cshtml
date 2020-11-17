@@ -76,7 +76,7 @@
                                 @if (isQuestionAuthor)
                                 {
                                     <div class="card-header">
-                                        <input type="checkbox" />
+                                        <input type="checkbox" id="AcceptedAnswer"/>
                                         <label> Mark as Accepted Answer</label>
                                     </div>
                                 }
@@ -109,6 +109,9 @@
                 </div>
             }
         </div>
-
     </div>
 </form>
+
+@section Scripts{ 
+    <script src="~/js/Question/viewQustion.js"></script>
+}
