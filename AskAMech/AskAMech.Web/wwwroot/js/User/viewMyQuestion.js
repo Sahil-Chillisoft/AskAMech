@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
 
     var currentPage = parseInt($('#Page').val());
-
+    
     $('#PreviousPage').click(function (event) {
         event.preventDefault();
         getResults(currentPage - 1, true);
