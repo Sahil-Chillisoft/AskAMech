@@ -51,6 +51,7 @@ namespace AskAMech.Core.UseCases
                     RecordCount = recordCount
                 },
                 IsFirstLoad = false,
+                CategoryId = request.CategoryId,
                 Categories = categories
             };
             presenter.Success(response);

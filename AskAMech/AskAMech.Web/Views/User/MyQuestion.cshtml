@@ -7,10 +7,32 @@
         <div class="row">
             <div class="col-md-12">
                 <h2 class="text-center">
-                   My Questions
+                    My Questions
                 </h2>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <a id="SearchButton" title="Search" href="#"><i class="material-icons md-45">search</i></a>
+            </div>
+        </div>
+        <div id="searchDiv" class="bg-light hide">
+            <div class="row md-Padding-Top-10">
+                <div class="col-md-1"></div>
+                <div class="col-md-4">
+                    @Html.LabelFor(x => x.CategoryId, "Category", new { @class = "text-bold" })
+                    @Html.DropDownListFor(x => x.CategoryId,
+                        new SelectList(Model.Categories, "Id", "Description"), "--All--",
+                        new { @class = "form-control full-width", data_val = false })
+                </div>
+                <div class="col-md-2">
+                    <label>&nbsp;</label>
+                    <button id="SearchQuestions" type="button" class="btn btn-primary full-width">Search</button>
+                </div>
+            </div>
+            <br />
+        </div>
+
         @Html.HiddenFor(x => x.IsFirstLoad, new { id = "IsFirstLoad" })
         <div class="row md-Padding-Top-20">
             <div class="col-md-12">

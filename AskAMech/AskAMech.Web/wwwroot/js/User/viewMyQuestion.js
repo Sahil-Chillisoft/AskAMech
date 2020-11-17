@@ -1,7 +1,21 @@
 ﻿$(document).ready(function () {
 
+    renderSearchDivOnPageLoad();
+
+    $('#SearchButton').click(function (event) {
+        event.preventDefault();
+        var searchDiv = $('#searchDiv');
+        searchDiv.toggle();
+    });
+
+
     var currentPage = parseInt($('#Page').val());
-    
+
+    $('#SearchQuestions').click(function (event) {
+        event.preventDefault();
+        getResults(1, false);
+    });
+
     $('#PreviousPage').click(function (event) {
         event.preventDefault();
         getResults(currentPage - 1, true);
@@ -15,8 +29,17 @@
     pagingControls(currentPage);
 });
 
+function renderSearchDivOnPageLoad() {
+    var category = $('#CategoryId').val();
+
+    if (category !== '') {
+        var searchDiv = $('#searchDiv');
+        searchDiv.show();
+    }
+}
 
 function getResults(page, isPagingRequest) {
+   
     var categoryId = parseInt($('#CategoryId').val());
     var totalPages = parseInt($('#TotalPages').val());
     var recordCount = parseInt($('#RecordCount').val());
