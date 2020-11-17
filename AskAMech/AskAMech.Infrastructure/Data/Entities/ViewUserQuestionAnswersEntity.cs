@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AskAMech.Core.Domain
+namespace AskAMech.Infrastructure.Data.Entities
 {
-    public class ViewUserQuestionAnswers
+    public class ViewUserQuestionAnswersEntity
     {
         public int QuestionId { get; set; }
         public string QuestiotionDescription { get; set; }

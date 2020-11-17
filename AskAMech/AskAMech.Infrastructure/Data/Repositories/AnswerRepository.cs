@@ -11,7 +11,7 @@ using Dapper;
 
 namespace AskAMech.Infrastructure.Data.Repositories
 {
-    public class AnswerRepository: IAnswersRepository
+    public class AnswerRepository : IAnswersRepository
     {
         private readonly SqlHelper _sqlHelper;
         private readonly IMapper _mapper;
@@ -33,7 +33,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             using var connection = new SqlConnection(_sqlHelper.ConnectionString);
             connection.Execute(sql, new
             {
-                QuestionId = answer.QuestionId, 
+                QuestionId = answer.QuestionId,
                 Description = answer.Description,
                 AnsweredByUserId = answer.AnsweredByUserId,
                 IsAcceptedAnswer = answer.IsAcceptedAnswer,
@@ -64,6 +64,29 @@ namespace AskAMech.Infrastructure.Data.Repositories
             #endregion
 
             return _mapper.Map<List<ViewAnswers>>(answers);
+        }
+
+        public List<ViewUserQuestionAnswers> GetUserQuestionAnswers(int userId)
+        {
+            #region SQL
+            var sql = @"select distinct q.id as QuestionId, q.Description as QuestiotionDescription,
+                           q.CategoryId, c.Description as CategoryDescription, 
+                           up.Username as AskedBy, q.DateCreated as QuestionCreationDate   
+                           from Questions q
+                           inner join Category c on q.CategoryId = c.Id
+                           inner join Answers a on a.QuestionId = q.Id 
+                           inner join UserProfile up on q.CreatedByUserId = up.UserId
+                           where a.AnsweredByUserId = @UserId";
+            #endregion
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            var answers = connection.Query<ViewUserQuestionAnswersEntity>(sql,
+                new
+                {
+                    AnsweredByUserId=userId
+                }).ToList();
+            #endregion
+            return _mapper.Map<List<ViewUserQuestionAnswers>>(answers);
         }
     }
 }
