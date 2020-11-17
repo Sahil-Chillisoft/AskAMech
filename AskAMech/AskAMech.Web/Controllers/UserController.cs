@@ -196,6 +196,7 @@ namespace AskAMech.Web.Controllers
         [HttpPost]
         public IActionResult MyQuestion(GetUserQuestionsRequest request)
         {
+            request.UserId = UserSecurityManager.UserId;
             _getUserQuestions.Execute(request, _modelPresenter);
             return View("MyQuestion", _modelPresenter.Model);
         }

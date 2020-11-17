@@ -9,10 +9,13 @@ namespace AskAMech.Core.UseCases
     public class GetUserQuestionsUseCase : IGetUserQuestions
     {
         private readonly IQuestionRepository _questionRepository;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public GetUserQuestionsUseCase(IQuestionRepository questionRepository)
+        public GetUserQuestionsUseCase(IQuestionRepository questionRepository,
+                                       ICategoryRepository categoryRepository)
         {
-            _questionRepository = questionRepository;
+            _questionRepository = questionRepository ?? throw new ArgumentNullException(nameof(questionRepository));
+            _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
         }
 
         public void Execute(GetUserQuestionsRequest request, IPresenter presenter)
@@ -36,6 +39,8 @@ namespace AskAMech.Core.UseCases
             };
 
             var userQuestions = _questionRepository.GetUserQuestions(request.UserId, pagination);
+            var categories = _categoryRepository.GetCategories();
+
             var response = new GetUserQuestionsResponse
             {
                 UserQuestions = userQuestions,
@@ -44,8 +49,9 @@ namespace AskAMech.Core.UseCases
                     Page = page,
                     TotalPages = totalPages,
                     RecordCount = recordCount
-                }, 
-                IsFirstLoad = false
+                },
+                IsFirstLoad = false,
+                Categories = categories
             };
             presenter.Success(response);
         }
