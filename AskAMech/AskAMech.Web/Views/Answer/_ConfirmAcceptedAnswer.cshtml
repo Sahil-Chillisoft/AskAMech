@@ -1,0 +1,26 @@
+﻿@model AskAMech.Core.UseCases.Responses.GetConfirmAcceptedAnswerResponse
+
+<div class="modal fade" id="confirmAcceptedAnswerModal" tabindex="-1" role="dialog" aria-labelledby="confirmAcceptedAnswerLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Model.Title</h5>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6>@Model.Message</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="ConfirmAcceptedAnswer" type="button" class="btn btn-success">Yes</button>
+                    <button id="CloseConfirmAcceptedAnswer" type="button" class="btn btn-success">No</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/Answers/answer.js"></script>

@@ -7,6 +7,7 @@
 
 <form>
     <div class="container bg-ghost-white">
+        @Html.HiddenFor(x => x.QuestionDetails.Id, new { id = "QuestionId" })
         <div class="row">
             <div class="col-md-12">
                 <h2 class="text-center">
@@ -76,7 +77,7 @@
                                 @if (isQuestionAuthor)
                                 {
                                     <div class="card-header">
-                                        <input type="checkbox" id="AcceptedAnswer"/>
+                                        <input type="checkbox" id="AcceptedAnswer" />
                                         <label class="text-bold"> Mark as Accepted Answer</label>
                                     </div>
                                 }
@@ -112,6 +113,6 @@
     </div>
 </form>
 
-@section Scripts{ 
-    <script src="~/js/Question/viewQustion.js"></script>
+@section Scripts{
+    <script src="~/js/Answers/answer.js"></script>
 }
