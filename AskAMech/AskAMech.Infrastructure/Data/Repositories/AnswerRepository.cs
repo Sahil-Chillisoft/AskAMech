@@ -6,6 +6,8 @@ using AskAMech.Core.Domain;
 using AskAMech.Core.Gateways.Repositories;
 using AskAMech.Infrastructure.Data.Entities;
 using AskAMech.Infrastructure.Data.Helpers;
+using AskAMech.Core;
+
 using AutoMapper;
 using Dapper;
 
@@ -66,11 +68,11 @@ namespace AskAMech.Infrastructure.Data.Repositories
             return _mapper.Map<List<ViewAnswers>>(answers);
         }
 
-        public List<ViewUserQuestionAnswers> GetUserQuestionAnswers(int userId)
+        public List<ViewUserQuestionAnswers> GetUserQuestionAnswers(int userId, Pagination pagination)
         {
             #region SQL
             var sql = @"select distinct q.id as QuestionId, q.Description as QuestiotionDescription,
-                           q.CategoryId, c.Description as CategoryDescription, 
+                           q.CategoryId as QuestionAnswerCategoryId, c.Description as CategoryDescription, 
                            up.Username as AskedBy, q.DateCreated as QuestionCreationDate   
                            from Questions q
                            inner join Category c on q.CategoryId = c.Id
@@ -83,7 +85,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             var answers = connection.Query<ViewUserQuestionAnswersEntity>(sql,
                 new
                 {
-                    AnsweredByUserId=userId
+                    UserId=userId
                 }).ToList();
             #endregion
             return _mapper.Map<List<ViewUserQuestionAnswers>>(answers);

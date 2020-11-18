@@ -1,1 +1,85 @@
-﻿
+﻿@model AskAMech.Core.UseCases.Responses.GetUserQuestionAnswersResponse
+
+@{
+    ViewData["Title"] = "My Answers Based in These Questions";
+}
+<form id="EmployeeList">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center">
+                    My Answers Based in These Questions
+                </h2>
+            </div>
+        </div>
+        <hr />
+
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <a id="SearchButton" title="Search" href="#"><i class="material-icons md-45">search</i></a>
+            </div>
+        </div>
+        <div id="searchDiv" class="bg-light hide">
+            <div class="row md-Padding-Top-10">
+                <div class="col-md-1"></div>
+                @*<div class="col-md-4">
+                    @Html.LabelFor(x => x.CategoryId, "Category", new { @class = "text-bold" })
+                    @Html.DropDownListFor(x => x.CategoryId,
+                        new SelectList(Model.Categories, "Id", "Description"), "--All--",
+                        new { @class = "form-control full-width", data_val = false })
+                </div>*@
+                <div class="col-md-2">
+                    <label>&nbsp;</label>
+                    <button id="SearchQuestions" type="button" class="btn btn-primary full-width">Search</button>
+                </div>
+            </div>
+            <br />
+        </div>
+
+        <div class="row md-Padding-Top-20">
+            <div class="col-md-12">
+                @if (Model.userQuestions.Any())
+                {
+                    <table id="My AnswersTable" class="table full-width">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th></th>
+                                <th>Category Description</th>
+                                <th>Questiotion Description</th>
+                                <th>Question Creation Date</th>
+                                <th>Asked By</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-striped">
+                            @foreach (var item in Model.userQuestions)
+                            {
+                                <tr>
+                                    <td>
+                                        <a asp-controller="Answer" asp-action="MyAnswers" asp-route-id="@item.AskedBy" title="My Answers Based in These Questions">
+                                            <i class="material-icons md-30">edit</i>
+                                        </a>
+                                    </td>
+                                    <td>@item.CategoryDescription</td>
+                                    <td>@item.QuestiotionDescription</td>
+                                    <td>@item.QuestionCreationDate</td>
+                                    <td>@item.AskedBy</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <h3>No Records Found</h3>
+                }
+            </div>
+        </div>
+        <hr />
+        <partial name="_Paging" model="Model.Pagination" />
+    </div>
+</form>
+
+@section Scripts
+{
+    <script src="~/js/Answers/Answers.js"></script>
+}

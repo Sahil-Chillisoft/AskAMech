@@ -4,7 +4,7 @@
             window.location.href = '/Question/MyQuestions';
             break;
         case 'divMyAnswers':
-            window.location.href = '';
+            window.location.href = '/Answer/MyAnswers';
             break;
         case 'divLatestQuestions':
             window.location.href = '/Question/Index';

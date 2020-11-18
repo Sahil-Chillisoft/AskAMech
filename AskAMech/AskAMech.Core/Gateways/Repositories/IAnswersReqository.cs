@@ -7,6 +7,6 @@ namespace AskAMech.Core.Gateways.Repositories
     {
         void Add(Answer answer);
         List<ViewAnswers> GetAnswers(int questionId);
-        List<ViewUserQuestionAnswers> GetUserQuestionAnswers(int userId);
+        List<ViewUserQuestionAnswers> GetUserQuestionAnswers(int userId, Pagination pagination);
     }
 }
