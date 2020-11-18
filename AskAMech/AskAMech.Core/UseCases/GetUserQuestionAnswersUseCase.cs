@@ -27,7 +27,7 @@ namespace AskAMech.Core.UseCases
             if (request.Pagination != null && request.Pagination.IsPagingRequest)
                 recordCount = request.Pagination.RecordCount;
             else
-                recordCount = _questionRepository.GetUserQuestionCount(request.questionAnswers.QuestionId);
+                recordCount = _answersRepository.GetUserQuestionAnswerCount(UserSecurityManager.UserId);
 
             var page = request.Pagination?.Page ?? 1;
 
@@ -38,7 +38,7 @@ namespace AskAMech.Core.UseCases
                 Offset = (page - 1) * (int)PageSize.Medium,
                 PageSize = (int)PageSize.Medium
             };
-            var questionsAnswer = _answersRepository.GetUserQuestionAnswers(request.questionAnswers.QuestionId,  pagination);
+            var questionsAnswer = _answersRepository.GetUserQuestionAnswers(UserSecurityManager.UserId,  pagination);
             {
                 var response = new GetUserQuestionAnswersResponse
                 {

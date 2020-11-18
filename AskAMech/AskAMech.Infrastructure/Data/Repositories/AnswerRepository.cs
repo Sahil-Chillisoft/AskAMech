@@ -90,5 +90,26 @@ namespace AskAMech.Infrastructure.Data.Repositories
             #endregion
             return _mapper.Map<List<ViewUserQuestionAnswers>>(answers);
         }
+        public int GetUserQuestionAnswerCount(int userId)
+        {
+            #region SQL
+            var sql= @"select distinct count( q.id) as questionAnswerCount 
+                           from Questions q
+                           inner join Category c on q.CategoryId = c.Id
+                           inner join Answers a on a.QuestionId = q.Id 
+                           inner join UserProfile up on q.CreatedByUserId = up.UserId
+                           where a.AnsweredByUserId = @UserId";
+            #endregion
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            var questionAnswerCount = connection.ExecuteScalar<int>(sql,
+                new
+                {
+                    UserId = userId
+                });
+            #endregion
+            return questionAnswerCount;
+
+        }
     }
 }

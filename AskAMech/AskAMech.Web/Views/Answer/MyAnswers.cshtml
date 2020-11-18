@@ -55,13 +55,13 @@
                             {
                                 <tr>
                                     <td>
-                                        <a asp-controller="Answer" asp-action="MyAnswers" asp-route-id="@item.AskedBy" title="My Answers Based in These Questions">
-                                            <i class="material-icons md-30">edit</i>
+                                        <a asp-controller="Question" asp-action="ViewQuestion" asp-route-id="@item.QuestionId" title="View Question">
+                                            <i class="material-icons md-30">info</i>
                                         </a>
                                     </td>
                                     <td>@item.CategoryDescription</td>
                                     <td>@item.QuestiotionDescription</td>
-                                    <td>@item.QuestionCreationDate</td>
+                                    <td>@item.QuestionCreationDate.ToString("dd/MM/yyyy")</td>
                                     <td>@item.AskedBy</td>
                                 </tr>
                             }
