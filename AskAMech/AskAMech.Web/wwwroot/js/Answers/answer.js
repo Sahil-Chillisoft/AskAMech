@@ -1,45 +1,54 @@
 ﻿$(document).ready(function () {
 
-    var questionId = $('#QuestionId').val();
-    var isAcceptedAnswer = $('#AcceptedAnswer');
-
-    $('#AcceptedAnswer').change(function (event) {
+    $('#ConfirmAcceptedAnswer').click(function (event) {
         event.preventDefault();
-        if (isAcceptedAnswer.prop("checked") === true)
-            updateAcceptedAnswerStatus(questionId, true);
-        else
-            updateAcceptedAnswerStatus(questionId, false);
+        updateAcceptedAnswerStatus();
+    });
+
+    $('#CloseConfirmAcceptedAnswer').click(function (event) {
+        event.preventDefault();
+        window.location.reload();
     });
 });
 
-function updateAcceptedAnswerStatus(questionId, isAcceptedAnswer) {
-    $.ajax({
-        url: '/Answer/UpdateAcceptedAnswer',
-        type: 'POST',
-        cache: false,
-        data: {
-            'id': questionId,
-            'isAcceptedAnswer': isAcceptedAnswer
-        },
-        success: function (data) {
-            if (data.success) {
-                console.log('Update Success');
-                //Display Modal 
-            }
-        }
-    });
+var questionId = $('#QuestionId').val();
+var answerId;
+var isChecked;
+
+function onMarkAsAcceptedAnswerChange(checkbox, id) {
+    answerId = id;
+    isChecked = checkbox.checked;
+    displayConfirmAcceptedAnswerModal(isChecked);
 }
 
-function displayConfirmAcceptedAnswerModal() {
+function updateAcceptedAnswerStatus() {
+    //$.ajax({
+    //    url: '/Answer/UpdateAcceptedAnswer',
+    //    type: 'POST',
+    //    cache: false,
+    //    data: {
+    //        'id': questionId,
+    //        'isAcceptedAnswer': isAcceptedAnswer
+    //    },
+    //    success: function (data) {
+    //        if (data.success) {
+    //            console.log('Update Success');
+    //            //Display Modal 
+    //        }
+    //    }
+    //});
+}
+
+function displayConfirmAcceptedAnswerModal(isAcceptedAnswer) {
+    var confirmAcceptedAnswerModal = $('#ConfirmAcceptedAnswerDiv');
     $.ajax({
         url: '/Answer/ConfirmAcceptedAnswer',
         type: 'GET',
         cache: false,
+        data: { 'isAcceptedAnswer': isAcceptedAnswer },
         success: function (data) {
-            if (data.success) {
-                console.log('Update Success');
-                //Display Modal 
-            }
+            confirmAcceptedAnswerModal.html(data);
+            confirmAcceptedAnswerModal.find('.modal').modal('show');
         }
     });
 }

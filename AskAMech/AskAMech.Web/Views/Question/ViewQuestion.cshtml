@@ -77,7 +77,7 @@
                                 @if (isQuestionAuthor)
                                 {
                                     <div class="card-header">
-                                        <input type="checkbox" id="AcceptedAnswer" />
+                                        <input type="checkbox" onchange="onMarkAsAcceptedAnswerChange(this, @item.Id)" />
                                         <label class="text-bold"> Mark as Accepted Answer</label>
                                     </div>
                                 }
@@ -112,6 +112,8 @@
         </div>
     </div>
 </form>
+
+<div id="ConfirmAcceptedAnswerDiv"></div>
 
 @section Scripts{
     <script src="~/js/Answers/answer.js"></script>

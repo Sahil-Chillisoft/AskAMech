@@ -13,15 +13,17 @@ namespace AskAMech.Web.Controllers
         private readonly IModelPresenter _modelPresenter;
         private readonly ISecurityManagerUseCase _securityManagerUseCase;
         private readonly IGetUserQuestionAnswersUseCase _getUserQuestionAnswersUseCase;
-        
+        private readonly IGetConfirmAcceptedAnswerUseCase _getConfirmAcceptedAnswerUseCase;
+
         public AnswerController(IModelPresenter modelPresenter,
-                                  ISecurityManagerUseCase securityManagerUseCase,
-                                IGetUserQuestionAnswersUseCase getUserQuestionAnswersUseCase)
+                                ISecurityManagerUseCase securityManagerUseCase,
+                                IGetUserQuestionAnswersUseCase getUserQuestionAnswersUseCase, 
+                                IGetConfirmAcceptedAnswerUseCase getConfirmAcceptedAnswerUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _getUserQuestionAnswersUseCase = getUserQuestionAnswersUseCase ?? throw new ArgumentNullException(nameof(getUserQuestionAnswersUseCase));
-
+            _getConfirmAcceptedAnswerUseCase = getConfirmAcceptedAnswerUseCase ?? throw new ArgumentNullException(nameof(getConfirmAcceptedAnswerUseCase));
         }
 
         [HttpGet]
@@ -44,6 +46,25 @@ namespace AskAMech.Web.Controllers
             request.questionAnswers.AskedBy = UserSecurityManager.Username;
             _getUserQuestionAnswersUseCase.Execute(request, _modelPresenter);
             return View("MyAnswers", _modelPresenter.Model);
+        }
+
+        [HttpGet]
+        public IActionResult ConfirmAcceptedAnswer(GetConfirmAcceptedAnswerRequest request)
+        {
+            _getConfirmAcceptedAnswerUseCase.Execute(request, _modelPresenter);
+            return PartialView("_ConfirmAcceptedAnswer", _modelPresenter.Model);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateAcceptedAnswer()
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpPost]
+        public IActionResult PostAnswer()
+        {
+            throw new NotImplementedException();
         }
 
     }
