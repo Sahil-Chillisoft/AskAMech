@@ -79,13 +79,19 @@ namespace AskAMech.Infrastructure.Data.Repositories
                            inner join Answers a on a.QuestionId = q.Id 
                            inner join UserProfile up on q.CreatedByUserId = up.UserId
                            where a.AnsweredByUserId = @UserId";
+
+            sql += @"order by QuestionCreationDate
+                     offset @Offset rows
+                     fetch next @PageSize rows only ";
             #endregion
             #region Execution
             using var connection = new SqlConnection(_sqlHelper.ConnectionString);
             var answers = connection.Query<ViewUserQuestionAnswersEntity>(sql,
                 new
                 {
-                    UserId=userId
+                    UserId=userId,
+                     Offset = pagination.Offset,
+                    PageSize = pagination.PageSize
                 }).ToList();
             #endregion
             return _mapper.Map<List<ViewUserQuestionAnswers>>(answers);
