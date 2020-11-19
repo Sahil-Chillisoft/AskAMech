@@ -31,6 +31,8 @@
                     </a>
                     on @Model.QuestionDetails.DateCreated.ToString("dd/MM/yyyy HH:mm")
                 </label>
+                <br/>
+                <label>Last modified on: @Model.QuestionDetails.DateLastModified.ToString("dd/MM/yyyy HH:mm")</label>
             </div>
         </div>
     </div>
@@ -81,9 +83,16 @@
                                         <label class="text-bold"> Mark as Accepted Answer</label>
                                         @if (@item.IsAcceptedAnswer)
                                         {
-                                            <br/>
+                                            <br />
                                             <label class="text-success text-bold">* This answer has been marked as the accepted answer</label>
                                         }
+                                    </div>
+                                }
+                                else if (item.IsAcceptedAnswer)
+                                {
+                                    <div class="card-header">
+                                        <i class="material-icons md-15 icon-green">done_outline</i>
+                                        <label class="text-success text-bold"> This Answer Has Been Marked As The Accepted Answer</label>
                                     </div>
                                 }
                                 <div class="card-body ">

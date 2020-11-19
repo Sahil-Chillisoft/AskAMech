@@ -143,6 +143,7 @@ namespace AskAMech.Web.Controllers
             if (_modelPresenter.HasValidationErrors)
             {
                 var model = _modelPresenter.Model as ErrorResponse;
+                model.Message += " - Only logged in users can view the profiles of other users";
                 return RedirectToAction("Index", "Error",
                     new
                     {

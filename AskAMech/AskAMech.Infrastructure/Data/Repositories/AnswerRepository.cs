@@ -84,6 +84,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
                      offset @Offset rows
                      fetch next @PageSize rows only ";
             #endregion
+
             #region Execution
             using var connection = new SqlConnection(_sqlHelper.ConnectionString);
             var answers = connection.Query<ViewUserQuestionAnswersEntity>(sql,
@@ -94,6 +95,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
                     PageSize = pagination.PageSize
                 }).ToList();
             #endregion
+
             return _mapper.Map<List<ViewUserQuestionAnswers>>(answers);
         }
         public int GetUserQuestionAnswerCount(int userId)
@@ -115,6 +117,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
                     UserId = userId
                 });
             #endregion
+
             return questionAnswerCount;
 
         }
@@ -140,5 +143,25 @@ namespace AskAMech.Infrastructure.Data.Repositories
 
             #endregion
         }
+
+        public void ClearUpdatedAnswersForQuestion(int questionId)
+        {
+            #region SQL
+            var sql = @"update Answers
+                        set IsAcceptedAnswer = @IsAcceptedAnswer
+                        where QuestionId = @QuestionId ";
+            #endregion
+
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            connection.Execute(sql,
+                new
+                {
+                    IsAcceptedAnswer = false, 
+                    QuestionId = questionId
+                });
+            #endregion
+        }
+
     }
 }

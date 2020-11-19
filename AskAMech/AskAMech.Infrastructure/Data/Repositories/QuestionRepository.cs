@@ -47,7 +47,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             if (categoryId != 0)
                 sql += "and q.CategoryId = @CategoryId ";
 
-            sql += @"order by q.DateCreated
+            sql += @"order by q.DateCreated desc
                      offset @Offset rows
                      fetch next @PageSize rows only ";
             #endregion

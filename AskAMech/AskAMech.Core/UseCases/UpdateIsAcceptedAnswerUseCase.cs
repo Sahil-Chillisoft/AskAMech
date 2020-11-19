@@ -15,6 +15,7 @@ namespace AskAMech.Core.UseCases
 
         public void Execute(UpdateIsAcceptedAnswerRequest request, IPresenter presenter)
         {
+            _answersRepository.ClearUpdatedAnswersForQuestion(request.QuestionId);
             _answersRepository.UpdateIsAcceptedAnswer(request.QuestionId, request.AnswerId, request.IsAcceptedAnswer);
             presenter.Success(true);
         }
