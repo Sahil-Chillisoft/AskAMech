@@ -9,5 +9,6 @@ namespace AskAMech.Core.Gateways.Repositories
         List<ViewAnswers> GetAnswers(int questionId);
         List<ViewUserQuestionAnswers> GetUserQuestionAnswers(int userId, Pagination pagination);
         int GetUserQuestionAnswerCount(int userId);
+        void UpdateIsAcceptedAnswer(int questionId, int answerId, bool isAcceptedAnswer);
     }
 }

@@ -7,7 +7,6 @@ using AskAMech.Core.Gateways.Repositories;
 using AskAMech.Infrastructure.Data.Entities;
 using AskAMech.Infrastructure.Data.Helpers;
 using AskAMech.Core;
-
 using AutoMapper;
 using Dapper;
 
@@ -53,7 +52,8 @@ namespace AskAMech.Infrastructure.Data.Repositories
                         from Answers a 
                         inner join UserProfile up on a.AnsweredByUserId = up.UserId
                         inner join Users u on up.UserId = u.Id
-                        where a.QuestionId = @QuestionId ";
+                        where a.QuestionId = @QuestionId 
+                        order by a.IsAcceptedAnswer desc, a.DateCreated asc";
             #endregion
 
             #region Execution
@@ -89,8 +89,8 @@ namespace AskAMech.Infrastructure.Data.Repositories
             var answers = connection.Query<ViewUserQuestionAnswersEntity>(sql,
                 new
                 {
-                    UserId=userId,
-                     Offset = pagination.Offset,
+                    UserId = userId,
+                    Offset = pagination.Offset,
                     PageSize = pagination.PageSize
                 }).ToList();
             #endregion
@@ -99,13 +99,14 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public int GetUserQuestionAnswerCount(int userId)
         {
             #region SQL
-            var sql= @"select distinct count( q.id) as questionAnswerCount 
+            var sql = @"select distinct count( q.id) as questionAnswerCount 
                            from Questions q
                            inner join Category c on q.CategoryId = c.Id
                            inner join Answers a on a.QuestionId = q.Id 
                            inner join UserProfile up on q.CreatedByUserId = up.UserId
                            where a.AnsweredByUserId = @UserId";
             #endregion
+
             #region Execution
             using var connection = new SqlConnection(_sqlHelper.ConnectionString);
             var questionAnswerCount = connection.ExecuteScalar<int>(sql,
@@ -116,6 +117,28 @@ namespace AskAMech.Infrastructure.Data.Repositories
             #endregion
             return questionAnswerCount;
 
+        }
+
+        public void UpdateIsAcceptedAnswer(int questionId, int answerId, bool isAcceptedAnswer)
+        {
+            #region SQL
+            var sql = @"update Answers 
+                        set IsAcceptedAnswer = @IsAcceptedAnswer 
+                        where QuestionId = @QuestionId 
+                        and Id = @AnswerId ";
+            #endregion
+
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            connection.Execute(sql,
+                new
+                {
+                    IsAcceptedAnswer = isAcceptedAnswer,
+                    QuestionId = questionId,
+                    AnswerId = answerId
+                });
+
+            #endregion
         }
     }
 }

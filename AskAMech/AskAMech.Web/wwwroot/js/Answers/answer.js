@@ -22,21 +22,21 @@ function onMarkAsAcceptedAnswerChange(checkbox, id) {
 }
 
 function updateAcceptedAnswerStatus() {
-    //$.ajax({
-    //    url: '/Answer/UpdateAcceptedAnswer',
-    //    type: 'POST',
-    //    cache: false,
-    //    data: {
-    //        'id': questionId,
-    //        'isAcceptedAnswer': isAcceptedAnswer
-    //    },
-    //    success: function (data) {
-    //        if (data.success) {
-    //            console.log('Update Success');
-    //            //Display Modal 
-    //        }
-    //    }
-    //});
+    $.ajax({
+        url: '/Answer/UpdateAcceptedAnswer',
+        type: 'POST',
+        cache: false,
+        data: {
+            'questionId': questionId,
+            'answerId': answerId,
+            'isAcceptedAnswer': isChecked
+        },
+        success: function (data) {
+            if (data.success) {
+                window.location.reload();
+            }
+        }
+    });
 }
 
 function displayConfirmAcceptedAnswerModal(isAcceptedAnswer) {

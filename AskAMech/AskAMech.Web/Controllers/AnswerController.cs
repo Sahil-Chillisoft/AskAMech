@@ -3,7 +3,6 @@ using AskAMech.Core.UseCases.Interfaces;
 using AskAMech.Core.UseCases.Requests;
 using AskAMech.Web.Presenters;
 using Microsoft.AspNetCore.Mvc;
-using AskAMech.Core.UseCases.Responses;
 using AskAMech.Core.Domain;
 
 namespace AskAMech.Web.Controllers
@@ -14,16 +13,19 @@ namespace AskAMech.Web.Controllers
         private readonly ISecurityManagerUseCase _securityManagerUseCase;
         private readonly IGetUserQuestionAnswersUseCase _getUserQuestionAnswersUseCase;
         private readonly IGetConfirmAcceptedAnswerUseCase _getConfirmAcceptedAnswerUseCase;
+        private readonly IUpdateIsAcceptedAnswerUseCase _updateIsAcceptedAnswerUseCase;
 
         public AnswerController(IModelPresenter modelPresenter,
                                 ISecurityManagerUseCase securityManagerUseCase,
-                                IGetUserQuestionAnswersUseCase getUserQuestionAnswersUseCase, 
-                                IGetConfirmAcceptedAnswerUseCase getConfirmAcceptedAnswerUseCase)
+                                IGetUserQuestionAnswersUseCase getUserQuestionAnswersUseCase,
+                                IGetConfirmAcceptedAnswerUseCase getConfirmAcceptedAnswerUseCase,
+                                IUpdateIsAcceptedAnswerUseCase updateIsAcceptedAnswerUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _getUserQuestionAnswersUseCase = getUserQuestionAnswersUseCase ?? throw new ArgumentNullException(nameof(getUserQuestionAnswersUseCase));
             _getConfirmAcceptedAnswerUseCase = getConfirmAcceptedAnswerUseCase ?? throw new ArgumentNullException(nameof(getConfirmAcceptedAnswerUseCase));
+            _updateIsAcceptedAnswerUseCase = updateIsAcceptedAnswerUseCase ?? throw new ArgumentNullException(nameof(updateIsAcceptedAnswerUseCase));
         }
 
         [HttpGet]
@@ -56,9 +58,10 @@ namespace AskAMech.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateAcceptedAnswer()
+        public IActionResult UpdateAcceptedAnswer(UpdateIsAcceptedAnswerRequest request)
         {
-            throw new NotImplementedException();
+            _updateIsAcceptedAnswerUseCase.Execute(request, _modelPresenter);
+            return Json(new { Success = true });
         }
 
         [HttpPost]

@@ -77,8 +77,13 @@
                                 @if (isQuestionAuthor)
                                 {
                                     <div class="card-header">
-                                        <input type="checkbox" onchange="onMarkAsAcceptedAnswerChange(this, @item.Id)" />
+                                        <input type="checkbox" onchange="onMarkAsAcceptedAnswerChange(this, @item.Id)" checked="@item.IsAcceptedAnswer" />
                                         <label class="text-bold"> Mark as Accepted Answer</label>
+                                        @if (@item.IsAcceptedAnswer)
+                                        {
+                                            <br/>
+                                            <label class="text-success text-bold">* This answer has been marked as the accepted answer</label>
+                                        }
                                     </div>
                                 }
                                 <div class="card-body ">

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AskAMech.Core.Gateways.Repositories;
 using AskAMech.Core.UseCases;
 using AskAMech.Core.UseCases.Interfaces;
+using AskAMech.Core.UseCases.Requests;
 using AskAMech.Infrastructure.Data.Helpers;
 using AskAMech.Infrastructure.Data.Mapping;
 using AskAMech.Infrastructure.Data.Repositories;
@@ -74,6 +75,7 @@ namespace AskAMech.Web
             services.AddTransient<IGetUserQuestions, GetUserQuestionsUseCase>();
             services.AddTransient<IGetUserQuestionAnswersUseCase, GetUserQuestionAnswersUseCase>();
             services.AddTransient<IGetConfirmAcceptedAnswerUseCase, GetConfirmAcceptedAnswerUseCase>();
+            services.AddTransient<IUpdateIsAcceptedAnswerUseCase, UpdateIsAcceptedAnswerUseCase>();
 
 
             services.AddTransient<IUserRepository, UserRepository>();
