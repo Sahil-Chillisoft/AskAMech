@@ -8,6 +8,7 @@
 <form>
     <div class="container bg-ghost-white">
         @Html.HiddenFor(x => x.QuestionDetails.Id, new { id = "QuestionId" })
+        @Html.Hidden("IsAuthenticatedUser", @UserSecurityManager.IsAuthenticated, new { id = "IsAuthenticatedUser" })
         <div class="row">
             <div class="col-md-12">
                 <h2 class="text-center">
@@ -31,7 +32,7 @@
                     </a>
                     on @Model.QuestionDetails.DateCreated.ToString("dd/MM/yyyy HH:mm")
                 </label>
-                <br/>
+                <br />
                 <label>Last modified on: @Model.QuestionDetails.DateLastModified.ToString("dd/MM/yyyy HH:mm")</label>
             </div>
         </div>
@@ -128,6 +129,8 @@
 </form>
 
 <div id="ConfirmAcceptedAnswerDiv"></div>
+<div id="CreateAnswerDiv"></div>
+<div id="ErrorDiv"></div>
 
 @section Scripts{
     <script src="~/js/Answers/answer.js"></script>

@@ -76,6 +76,7 @@ namespace AskAMech.Web
             services.AddTransient<IGetUserQuestionAnswersUseCase, GetUserQuestionAnswersUseCase>();
             services.AddTransient<IGetConfirmAcceptedAnswerUseCase, GetConfirmAcceptedAnswerUseCase>();
             services.AddTransient<IUpdateIsAcceptedAnswerUseCase, UpdateIsAcceptedAnswerUseCase>();
+            services.AddTransient<ICreateAnswerUseCase, CreateAnswerUseCase>();
 
 
             services.AddTransient<IUserRepository, UserRepository>();

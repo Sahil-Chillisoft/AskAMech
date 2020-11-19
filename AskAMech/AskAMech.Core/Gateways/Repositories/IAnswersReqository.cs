@@ -5,7 +5,7 @@ namespace AskAMech.Core.Gateways.Repositories
 {
     public interface IAnswersRepository
     {
-        void Add(Answer answer);
+        void Create(Answer answer);
         List<ViewAnswers> GetAnswers(int questionId);
         List<ViewUserQuestionAnswers> GetUserQuestionAnswers(int userId, Pagination pagination);
         int GetUserQuestionAnswerCount(int userId);

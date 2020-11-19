@@ -23,10 +23,10 @@ namespace AskAMech.Infrastructure.Data.Repositories
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public void Add(Answer answer)
+        public void Create(Answer answer)
         {
             #region SQL
-            var sql = @"insert into Answer(QuestionId, Description, AnsweredByUserId, IsAcceptedAnswer, DateCreated)
+            var sql = @"insert into Answers(QuestionId, Description, AnsweredByUserId, IsAcceptedAnswer, DateCreated)
                         values(@QuestionId, @Description, @AnsweredByUserId, @IsAcceptedAnswer, @DateCreated)";
             #endregion
 

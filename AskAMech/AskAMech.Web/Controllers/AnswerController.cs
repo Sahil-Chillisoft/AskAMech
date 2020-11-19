@@ -14,18 +14,21 @@ namespace AskAMech.Web.Controllers
         private readonly IGetUserQuestionAnswersUseCase _getUserQuestionAnswersUseCase;
         private readonly IGetConfirmAcceptedAnswerUseCase _getConfirmAcceptedAnswerUseCase;
         private readonly IUpdateIsAcceptedAnswerUseCase _updateIsAcceptedAnswerUseCase;
+        private readonly ICreateAnswerUseCase _createAnswerUseCase;
 
         public AnswerController(IModelPresenter modelPresenter,
                                 ISecurityManagerUseCase securityManagerUseCase,
                                 IGetUserQuestionAnswersUseCase getUserQuestionAnswersUseCase,
                                 IGetConfirmAcceptedAnswerUseCase getConfirmAcceptedAnswerUseCase,
-                                IUpdateIsAcceptedAnswerUseCase updateIsAcceptedAnswerUseCase)
+                                IUpdateIsAcceptedAnswerUseCase updateIsAcceptedAnswerUseCase,
+                                ICreateAnswerUseCase createAnswerUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _getUserQuestionAnswersUseCase = getUserQuestionAnswersUseCase ?? throw new ArgumentNullException(nameof(getUserQuestionAnswersUseCase));
             _getConfirmAcceptedAnswerUseCase = getConfirmAcceptedAnswerUseCase ?? throw new ArgumentNullException(nameof(getConfirmAcceptedAnswerUseCase));
             _updateIsAcceptedAnswerUseCase = updateIsAcceptedAnswerUseCase ?? throw new ArgumentNullException(nameof(updateIsAcceptedAnswerUseCase));
+            _createAnswerUseCase = createAnswerUseCase ?? throw new ArgumentNullException(nameof(createAnswerUseCase));
         }
 
         [HttpGet]
@@ -64,11 +67,23 @@ namespace AskAMech.Web.Controllers
             return Json(new { Success = true });
         }
 
-        [HttpPost]
-        public IActionResult PostAnswer()
+        [HttpGet]
+        public IActionResult Create()
         {
-            throw new NotImplementedException();
+            return PartialView("_Create");
         }
 
+        [HttpPost]
+        public IActionResult Create(CreateAnswerRequest request)
+        {
+            _createAnswerUseCase.Execute(request, _modelPresenter);
+            return Json(new { Success = true });
+        }
+
+        [HttpGet]
+        public IActionResult Error()
+        {
+            return PartialView("_Error");
+        }
     }
 }

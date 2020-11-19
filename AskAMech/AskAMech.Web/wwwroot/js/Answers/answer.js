@@ -5,11 +5,47 @@
         updateAcceptedAnswerStatus();
     });
 
+
     $('#CloseConfirmAcceptedAnswer').click(function (event) {
         event.preventDefault();
         window.location.reload();
     });
+
+
+    $('#PostAnswer').click(function (event) {
+        event.preventDefault();
+        var isAuthenticatedUser = $('#IsAuthenticatedUser').val();
+        if (isAuthenticatedUser === 'True')
+            displayAnswerModal();
+        else
+            displayErrorModal();
+    });
+
+
+    $('#CreateAnswer').click(function (event) {
+        event.preventDefault();
+        var answer = $('#Answer').val();
+        if (isValidAnswer(answer)) {
+            createAnswer(answer);
+        }
+        else {
+            $('#AnswerValidation').text('* Answer cannot be blank');
+        }
+    });
+
+
+    $('#ClosePostAnswer').click(function (event) {
+        event.preventDefault();
+        window.location.reload();
+    });
+
+
+    $('#ConfirmError').click(function (event) {
+        event.preventDefault();
+        window.location.reload();
+    });
 });
+
 
 var questionId = $('#QuestionId').val();
 var answerId;
@@ -39,6 +75,30 @@ function updateAcceptedAnswerStatus() {
     });
 }
 
+function createAnswer(answer) {
+    $.ajax({
+        url: '/Answer/Create',
+        type: 'POST',
+        cache: false,
+        data: {
+            'questionId': questionId,
+            'description': answer
+        },
+        success: function (data) {
+            if (data.success) {
+                window.location.reload();
+            }
+        }
+    });
+}
+
+function isValidAnswer(answer) {
+    if (answer === '')
+        return false;
+    else
+        return true;
+}
+
 function displayConfirmAcceptedAnswerModal(isAcceptedAnswer) {
     var confirmAcceptedAnswerModal = $('#ConfirmAcceptedAnswerDiv');
     $.ajax({
@@ -49,6 +109,32 @@ function displayConfirmAcceptedAnswerModal(isAcceptedAnswer) {
         success: function (data) {
             confirmAcceptedAnswerModal.html(data);
             confirmAcceptedAnswerModal.find('.modal').modal('show');
+        }
+    });
+}
+
+function displayAnswerModal() {
+    var answerModal = $('#CreateAnswerDiv');
+    $.ajax({
+        url: '/Answer/Create',
+        type: 'GET',
+        cache: false,
+        success: function (data) {
+            answerModal.html(data);
+            answerModal.find('.modal').modal('show');
+        }
+    });
+}
+
+function displayErrorModal() {
+    var errorModal = $('#ErrorDiv');
+    $.ajax({
+        url: '/Answer/Error',
+        type: 'GET',
+        cache: false,
+        success: function (data) {
+            errorModal.html(data);
+            errorModal.find('.modal').modal('show');
         }
     });
 }
