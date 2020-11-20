@@ -7,13 +7,13 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="text-center">
-                    My Answers Based in These Questions
-                </h2>
+                <h1 class="display-4 text-center">
+                    <i class="material-icons md-45">star</i>
+                    Questions Which You Posted Answers To
+                </h1>
             </div>
         </div>
         <hr />
-
         <div class="row">
             <div class="col-md-12 text-right">
                 <a id="SearchButton" title="Search" href="#"><i class="material-icons md-45">search</i></a>
@@ -22,15 +22,15 @@
         <div id="searchDiv" class="bg-light hide">
             <div class="row md-Padding-Top-10">
                 <div class="col-md-1"></div>
-                @*<div class="col-md-4">
+                <div class="col-md-4">
                     @Html.LabelFor(x => x.CategoryId, "Category", new { @class = "text-bold" })
                     @Html.DropDownListFor(x => x.CategoryId,
                         new SelectList(Model.Categories, "Id", "Description"), "--All--",
                         new { @class = "form-control full-width", data_val = false })
-                </div>*@
+                </div>
                 <div class="col-md-2">
                     <label>&nbsp;</label>
-                    <button id="SearchQuestions" type="button" class="btn btn-primary full-width">Search</button>
+                    <button id="Search" type="button" class="btn btn-primary full-width">Search</button>
                 </div>
             </div>
             <br />
@@ -38,32 +38,32 @@
 
         <div class="row md-Padding-Top-20">
             <div class="col-md-12">
-                @if (Model.userQuestions.Any())
+                @if (Model.UserQuestionAnswers.Any())
                 {
                     <table id="My AnswersTable" class="table full-width">
                         <thead class="thead-dark">
                             <tr>
                                 <th></th>
-                                <th>Category Description</th>
-                                <th>Questiotion Description</th>
-                                <th>Question Creation Date</th>
+                                <th>Question</th>
+                                <th>Category</th>
+                                <th>Date Asked</th>
                                 <th>Asked By</th>
                             </tr>
                         </thead>
                         <tbody class="table-striped">
-                            @foreach (var item in Model.userQuestions)
+                            @foreach (var item in Model.UserQuestionAnswers)
                             {
-                                <tr>
-                                    <td>
-                                        <a asp-controller="Question" asp-action="ViewQuestion" asp-route-id="@item.QuestionId" title="View Question">
-                                            <i class="material-icons md-30">info</i>
-                                        </a>
-                                    </td>
-                                    <td>@item.CategoryDescription</td>
-                                    <td>@item.QuestiotionDescription</td>
-                                    <td>@item.QuestionCreationDate.ToString("dd/MM/yyyy")</td>
-                                    <td>@item.AskedBy</td>
-                                </tr>
+                            <tr>
+                                <td>
+                                    <a asp-controller="Question" asp-action="ViewQuestion" asp-route-id="@item.QuestionId" title="View Question">
+                                        <i class="material-icons md-30">info</i>
+                                    </a>
+                                </td>
+                                <td>@item.QuestionTitle</td>
+                                <td>@item.CategoryDescription</td>
+                                <td>@item.QuestionCreationDate.ToString("dd/MM/yyyy")</td>
+                                <td>@item.AskedBy</td>
+                            </tr>
                             }
                         </tbody>
                     </table>
@@ -81,5 +81,5 @@
 
 @section Scripts
 {
-    <script src="~/js/Answers/Answers.js"></script>
+    <script src="~/js/Answers/myAnswers.js"></script>
 }

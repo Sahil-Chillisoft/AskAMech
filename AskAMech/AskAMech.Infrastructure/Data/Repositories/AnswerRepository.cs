@@ -68,19 +68,22 @@ namespace AskAMech.Infrastructure.Data.Repositories
             return _mapper.Map<List<ViewAnswers>>(answers);
         }
 
-        public List<ViewUserQuestionAnswers> GetUserQuestionAnswers(int userId, Pagination pagination)
+        public List<ViewUserQuestionAnswers> GetUserQuestionAnswers(int userId, int? categoryId, Pagination pagination)
         {
             #region SQL
-            var sql = @"select distinct q.id as QuestionId, q.Description as QuestiotionDescription,
-                           q.CategoryId as QuestionAnswerCategoryId, c.Description as CategoryDescription, 
+            var sql = @"select distinct q.id as QuestionId, q.Title as QuestionTitle,
+                           c.Description as CategoryDescription, 
                            up.Username as AskedBy, q.DateCreated as QuestionCreationDate   
                            from Questions q
                            inner join Category c on q.CategoryId = c.Id
                            inner join Answers a on a.QuestionId = q.Id 
                            inner join UserProfile up on q.CreatedByUserId = up.UserId
-                           where a.AnsweredByUserId = @UserId";
+                           where a.AnsweredByUserId = @UserId ";
 
-            sql += @"order by QuestionCreationDate
+            if (categoryId != 0)
+                sql += "and q.CategoryId = @CategoryId ";
+
+            sql += @"order by q.DateCreated
                      offset @Offset rows
                      fetch next @PageSize rows only ";
             #endregion
@@ -91,6 +94,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
                 new
                 {
                     UserId = userId,
+                    CategoryId = categoryId,
                     Offset = pagination.Offset,
                     PageSize = pagination.PageSize
                 }).ToList();
@@ -98,15 +102,18 @@ namespace AskAMech.Infrastructure.Data.Repositories
 
             return _mapper.Map<List<ViewUserQuestionAnswers>>(answers);
         }
-        public int GetUserQuestionAnswerCount(int userId)
+
+        public int GetUserQuestionAnswerCount(int userId, int? categoryId)
         {
             #region SQL
-            var sql = @"select distinct count( q.id) as questionAnswerCount 
-                           from Questions q
-                           inner join Category c on q.CategoryId = c.Id
+            var sql = @"select distinct count(q.id) as QuestionAnswerCount 
+                           from Questions q                           
                            inner join Answers a on a.QuestionId = q.Id 
                            inner join UserProfile up on q.CreatedByUserId = up.UserId
-                           where a.AnsweredByUserId = @UserId";
+                           where a.AnsweredByUserId = @UserId ";
+
+            if (categoryId != 0)
+                sql += "and q.CategoryId = @CategoryId ";
             #endregion
 
             #region Execution
@@ -114,12 +121,12 @@ namespace AskAMech.Infrastructure.Data.Repositories
             var questionAnswerCount = connection.ExecuteScalar<int>(sql,
                 new
                 {
-                    UserId = userId
+                    UserId = userId,
+                    CategoryId = categoryId
                 });
             #endregion
 
             return questionAnswerCount;
-
         }
 
         public void UpdateIsAcceptedAnswer(int questionId, int answerId, bool isAcceptedAnswer)
@@ -157,7 +164,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             connection.Execute(sql,
                 new
                 {
-                    IsAcceptedAnswer = false, 
+                    IsAcceptedAnswer = false,
                     QuestionId = questionId
                 });
             #endregion

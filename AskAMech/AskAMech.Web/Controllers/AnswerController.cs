@@ -3,7 +3,6 @@ using AskAMech.Core.UseCases.Interfaces;
 using AskAMech.Core.UseCases.Requests;
 using AskAMech.Web.Presenters;
 using Microsoft.AspNetCore.Mvc;
-using AskAMech.Core.Domain;
 
 namespace AskAMech.Web.Controllers
 {
@@ -34,21 +33,14 @@ namespace AskAMech.Web.Controllers
         [HttpGet]
         public IActionResult MyAnswers()
         {
-            var request = new GetUserQuestionAnswersRequest
-            {
-                questionAnswers = new ViewUserQuestionAnswers
-                {
-                    AskedBy = UserSecurityManager.Username
-                }
-            };
-            _getUserQuestionAnswersUseCase.Execute(request, _modelPresenter);
+            //TODO: Add security check to see if user is authenticated
+            _getUserQuestionAnswersUseCase.Execute(new GetUserQuestionAnswersRequest(), _modelPresenter);
             return View("MyAnswers", _modelPresenter.Model);
         }
 
         [HttpPost]
         public IActionResult MyAnswers(GetUserQuestionAnswersRequest request)
         {
-            request.questionAnswers.AskedBy = UserSecurityManager.Username;
             _getUserQuestionAnswersUseCase.Execute(request, _modelPresenter);
             return View("MyAnswers", _modelPresenter.Model);
         }

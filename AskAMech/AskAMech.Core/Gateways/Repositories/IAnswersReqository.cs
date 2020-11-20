@@ -7,8 +7,8 @@ namespace AskAMech.Core.Gateways.Repositories
     {
         void Create(Answer answer);
         List<ViewAnswers> GetAnswers(int questionId);
-        List<ViewUserQuestionAnswers> GetUserQuestionAnswers(int userId, Pagination pagination);
-        int GetUserQuestionAnswerCount(int userId);
+        List<ViewUserQuestionAnswers> GetUserQuestionAnswers(int userId, int? categoryId, Pagination pagination);
+        int GetUserQuestionAnswerCount(int userId, int? categoryId);
         void UpdateIsAcceptedAnswer(int questionId, int answerId, bool isAcceptedAnswer);
         void ClearUpdatedAnswersForQuestion(int questionId);
     }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using AskAMech.Core.UseCases.Requests;
 using AskAMech.Core.UseCases.Responses;
 using AskAMech.Core.Domain;
@@ -11,15 +9,15 @@ namespace AskAMech.Core.UseCases
 {
     public class GetUserQuestionAnswersUseCase : IGetUserQuestionAnswersUseCase
     {
-        private readonly IAnswersRepository _answersRepository ;
-        private readonly IQuestionRepository _questionRepository;
+        private readonly IAnswersRepository _answersRepository;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public GetUserQuestionAnswersUseCase(IAnswersRepository answersRepository, IQuestionRepository questionRepository)
+        public GetUserQuestionAnswersUseCase(IAnswersRepository answersRepository,
+                                             ICategoryRepository categoryRepository)
         {
             _answersRepository = answersRepository ?? throw new ArgumentNullException(nameof(answersRepository));
-            _questionRepository = questionRepository ?? throw new ArgumentNullException(nameof(questionRepository));
+            _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
         }
-
 
         public void Execute(GetUserQuestionAnswersRequest request, IPresenter presenter)
         {
@@ -27,7 +25,7 @@ namespace AskAMech.Core.UseCases
             if (request.Pagination != null && request.Pagination.IsPagingRequest)
                 recordCount = request.Pagination.RecordCount;
             else
-                recordCount = _answersRepository.GetUserQuestionAnswerCount(UserSecurityManager.UserId);
+                recordCount = _answersRepository.GetUserQuestionAnswerCount(UserSecurityManager.UserId, request.CategoryId);
 
             var page = request.Pagination?.Page ?? 1;
 
@@ -38,24 +36,22 @@ namespace AskAMech.Core.UseCases
                 Offset = (page - 1) * (int)PageSize.Medium,
                 PageSize = (int)PageSize.Medium
             };
-            var questionsAnswer = _answersRepository.GetUserQuestionAnswers(UserSecurityManager.UserId,  pagination);
+
+            var questionsAnswer = _answersRepository.GetUserQuestionAnswers(UserSecurityManager.UserId, request.CategoryId, pagination);
+            var categories = _categoryRepository.GetCategories();
+
+            var response = new GetUserQuestionAnswersResponse
             {
-                var response = new GetUserQuestionAnswersResponse
+                UserQuestionAnswers = questionsAnswer,
+                Categories = categories,
+                Pagination = new Pagination
                 {
-                    userQuestions = questionsAnswer,
-                    Pagination = new Pagination
-                    {
-                        Page = page,
-                        TotalPages = totalPages,
-                        RecordCount = recordCount
-                    },
-
-                };
-                presenter.Success(response);
-
-            }
-
+                    Page = page,
+                    TotalPages = totalPages,
+                    RecordCount = recordCount
+                }
+            };
+            presenter.Success(response);
         }
-         
     }
 }

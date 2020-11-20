@@ -8,10 +8,9 @@
         searchDiv.toggle();
     });
 
-
     var currentPage = parseInt($('#Page').val());
 
-    $('#SearchQuestions').click(function (event) {
+    $('#Search').click(function (event) {
         event.preventDefault();
         getResults(1, false);
     });
