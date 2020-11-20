@@ -1,6 +1,7 @@
 ﻿using System;
 using AskAMech.Core.UseCases.Interfaces;
 using AskAMech.Core.UseCases.Requests;
+using AskAMech.Core.UseCases.Responses;
 using AskAMech.Web.Presenters;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,7 +34,17 @@ namespace AskAMech.Web.Controllers
         [HttpGet]
         public IActionResult MyAnswers()
         {
-            //TODO: Add security check to see if user is authenticated
+            _securityManagerUseCase.VerifyUserIsAuthenticated(_modelPresenter);
+            if (_modelPresenter.HasValidationErrors)
+            {
+                var model = _modelPresenter.Model as ErrorResponse;
+                return RedirectToAction("Index", "Error",
+                    new
+                    {
+                        message = model?.Message,
+                        code = model?.Code
+                    });
+            }
             _getUserQuestionAnswersUseCase.Execute(new GetUserQuestionAnswersRequest(), _modelPresenter);
             return View("MyAnswers", _modelPresenter.Model);
         }
