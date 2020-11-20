@@ -42,7 +42,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             return getUser == null ? new User() : _mapper.Map<User>(getUser);
         }
 
-        public User GetUserById(int? id)
+        public User GetUserById(int id)
         {
             #region SQL
             var sql = @"select * 
@@ -62,7 +62,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             return user == null ? new User() : _mapper.Map<User>(user);
         }
 
-        public User GetUserByEmployeeId(int? employeeId)
+        public User GetUserByEmployeeId(int employeeId)
         {
             #region SQL
             var sql = @"select * 
@@ -106,7 +106,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             return isExistingEmail;
         }
 
-        public bool IsExitingEmployeeUser(int? employeeId)
+        public bool IsExitingEmployeeUser(int employeeId)
         {
             #region SQL
             var sql = @"select case when exists 
@@ -156,7 +156,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             return userId;
         }
 
-        public void UpdateLastLoggedInDate(int? userId)
+        public void UpdateLastLoggedInDate(int userId)
         {
             #region SQL
             var sql = @"update Users 
@@ -234,7 +234,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             return _mapper.Map<ViewUserProfile>(userProfile);
         }
 
-        public void UpdateDatedDeleted(int? userId)
+        public void UpdateDatedDeleted(int userId)
         {
 
             #region SQL

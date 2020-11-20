@@ -1,11 +1,13 @@
 ﻿#nullable enable
 using System;
 using AskAMech.Core.Domain;
+using AskAMech.Core.Employees.Interfaces;
+using AskAMech.Core.Employees.Requests;
+using AskAMech.Core.Employees.Responses;
+using AskAMech.Core.Error;
+using AskAMech.Core.Security;
 using Microsoft.AspNetCore.Mvc;
 using AskAMech.Web.Presenters;
-using AskAMech.Core.UseCases.Interfaces;
-using AskAMech.Core.UseCases.Requests;
-using AskAMech.Core.UseCases.Responses;
 
 namespace AskAMech.Web.Controllers
 {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AskAMech.Core
+﻿namespace AskAMech.Core
 {
     public interface IReadOnlyUseCase
     {

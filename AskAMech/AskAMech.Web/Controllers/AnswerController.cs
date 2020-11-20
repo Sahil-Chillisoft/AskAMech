@@ -1,7 +1,8 @@
 ﻿using System;
-using AskAMech.Core.UseCases.Interfaces;
-using AskAMech.Core.UseCases.Requests;
-using AskAMech.Core.UseCases.Responses;
+using AskAMech.Core.Answers.Interfaces;
+using AskAMech.Core.Answers.Requests;
+using AskAMech.Core.Error;
+using AskAMech.Core.Security;
 using AskAMech.Web.Presenters;
 using Microsoft.AspNetCore.Mvc;
 
@@ -46,14 +47,14 @@ namespace AskAMech.Web.Controllers
                     });
             }
             _getUserQuestionAnswersUseCase.Execute(new GetUserQuestionAnswersRequest(), _modelPresenter);
-            return View("MyAnswers", _modelPresenter.Model);
+            return View(_modelPresenter.Model);
         }
 
         [HttpPost]
         public IActionResult MyAnswers(GetUserQuestionAnswersRequest request)
         {
             _getUserQuestionAnswersUseCase.Execute(request, _modelPresenter);
-            return View("MyAnswers", _modelPresenter.Model);
+            return View(_modelPresenter.Model);
         }
 
         [HttpGet]

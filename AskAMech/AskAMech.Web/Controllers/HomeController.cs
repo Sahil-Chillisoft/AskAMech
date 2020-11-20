@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using AskAMech.Core.Domain;
-using AskAMech.Core.UseCases.Interfaces;
-using AskAMech.Core.UseCases.Requests;
+using AskAMech.Core.Login.Interfaces;
+using AskAMech.Core.Login.Requests;
+using AskAMech.Core.Register.Interfaces;
+using AskAMech.Core.Register.Requests;
 using Microsoft.AspNetCore.Mvc;
 using AskAMech.Web.Models;
 using AskAMech.Web.Presenters;

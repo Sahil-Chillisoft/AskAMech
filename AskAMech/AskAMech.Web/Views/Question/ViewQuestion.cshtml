@@ -1,5 +1,5 @@
 ﻿@using AskAMech.Core.Domain
-@model AskAMech.Core.UseCases.Responses.GetViewQuestionResponse
+@model AskAMech.Core.Questions.Responses.GetViewQuestionResponse
 @{
     ViewData["Title"] = "Question View";
     var isQuestionAuthor = Model.QuestionDetails.CreatedByUserId == UserSecurityManager.UserId;

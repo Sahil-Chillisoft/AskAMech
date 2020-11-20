@@ -1,8 +1,14 @@
 ﻿using System;
 using AskAMech.Core.Domain;
-using AskAMech.Core.UseCases.Interfaces;
-using AskAMech.Core.UseCases.Requests;
-using AskAMech.Core.UseCases.Responses;
+using AskAMech.Core.Employees.Interfaces;
+using AskAMech.Core.Employees.Requests;
+using AskAMech.Core.Error;
+using AskAMech.Core.Questions.Interfaces;
+using AskAMech.Core.Questions.Requests;
+using AskAMech.Core.Security;
+using AskAMech.Core.Users.Interfaces;
+using AskAMech.Core.Users.Requests;
+using AskAMech.Core.Users.Responses;
 using AskAMech.Web.Presenters;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +25,7 @@ namespace AskAMech.Web.Controllers
         private readonly IUpdateUserPasswordUseCase _updateUserPasswordUseCase;
         private readonly IGetEmployeeUseCase _getEmployeeUseCase;
         private readonly IGetViewUserProfile _getViewUserProfile;
-        private readonly IDeleteuserAccountUseCase _deleteUserAccountUseCase;
+        private readonly IDeleteUserAccountUseCase _deleteUserAccountUseCase;
         private readonly IGetUserQuestions _getUserQuestions;
 
         public UserController(IModelPresenter modelPresenter,
@@ -31,7 +37,7 @@ namespace AskAMech.Web.Controllers
                               IUpdateUserPasswordUseCase updateUserPasswordUseCase,
                               IGetEmployeeUseCase getEmployeeUseCase,
                               IGetViewUserProfile getViewUserProfile,
-                              IDeleteuserAccountUseCase deleteUserAccountUseCase,
+                              IDeleteUserAccountUseCase deleteUserAccountUseCase,
                               IGetUserQuestions getUserQuestions)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));

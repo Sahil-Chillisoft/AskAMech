@@ -1,4 +1,4 @@
-﻿@model AskAMech.Core.UseCases.Responses.GetCategoryResponse
+﻿@model AskAMech.Core.Categories.Responses.GetCategoryResponse
 
 <div class="container">
     <hr />
@@ -11,7 +11,7 @@
     </div>
     <div class="row w-50">
         <div class="col-md-12">
-            @if (Model.AllCategories.Any())
+            @if (Model.Categories.Any())
             {
                 <table id="CategoriesTable" class="table">
                     <thead class="thead-dark">
@@ -20,7 +20,7 @@
                         </tr>
                     </thead>
                     <tbody class="table-bordered">
-                        @foreach (var item in Model.AllCategories)
+                        @foreach (var item in Model.Categories)
                         {
                             <tr>
                                 <td>@item.Description</td>

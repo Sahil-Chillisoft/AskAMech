@@ -1,10 +1,11 @@
 ﻿using System;
 using AskAMech.Core.Domain;
-using AskAMech.Core.UseCases.Interfaces;
-using AskAMech.Core.UseCases.Requests;
+using AskAMech.Core.Error;
+using AskAMech.Core.Questions.Interfaces;
+using AskAMech.Core.Questions.Requests;
+using AskAMech.Core.Security;
 using AskAMech.Web.Presenters;
 using Microsoft.AspNetCore.Mvc;
-using AskAMech.Core.UseCases.Responses;
 
 namespace AskAMech.Web.Controllers
 {

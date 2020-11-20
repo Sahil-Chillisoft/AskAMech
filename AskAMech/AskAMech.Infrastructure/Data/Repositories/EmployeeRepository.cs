@@ -24,7 +24,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             _sqlHelper = sqlHelper ?? throw new ArgumentNullException(nameof(sqlHelper));
         }
 
-        public Employee GetEmployeeById(int? id)
+        public Employee GetEmployeeById(int id)
         {
             #region 
             var sql = "select * from Employee where Id = @Id ";

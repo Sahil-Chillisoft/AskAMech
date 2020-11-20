@@ -1,5 +1,5 @@
 ﻿using System.Net;
-using AskAMech.Core.UseCases.Responses;
+using AskAMech.Core.Error;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AskAMech.Web.Controllers

@@ -1,7 +1,9 @@
 ﻿using System;
-using AskAMech.Core.UseCases.Interfaces;
-using AskAMech.Core.UseCases.Requests;
-using AskAMech.Core.UseCases.Responses;
+using AskAMech.Core.Categories.Interfaces;
+using AskAMech.Core.Categories.Requests;
+using AskAMech.Core.Categories.Responses;
+using AskAMech.Core.Error;
+using AskAMech.Core.Security;
 using AskAMech.Web.Presenters;
 using Microsoft.AspNetCore.Mvc;
 
