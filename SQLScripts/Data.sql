@@ -172,7 +172,6 @@ insert into Questions(Description,CategoryId,CreatedByUserId,DateCreated,DateLas
 insert into Questions(Description,CategoryId,CreatedByUserId,DateCreated,DateLastModified) values('A month or 2 into getting my car back my engine light, VSC flashing & traction light comes on then the next day or 2 after goes off what does that mean? Should I be worried?',0,0,'','')
 insert into Questions(Description,CategoryId,CreatedByUserId,DateCreated,DateLastModified) values('Recently had an oil change with reg oil (5W20) and have instrument cluster problems in the past. Oil comes back up when accelerating',0,0,'','')
 insert into Questions(Description,CategoryId,CreatedByUserId,DateCreated,DateLastModified) values('I was driving and my flash engine light came on and lost power and barley made it home and its hard to crank up',0,0,'','')
-insert into Questions(Description,CategoryId,CreatedByUserId,DateCreated,DateLastModified) values('I was driving and my flash engine light came on and lost power and barley made it home and its hard to crank up',0,0,'','')
 insert into Questions(Description,CategoryId,CreatedByUserId,DateCreated,DateLastModified) values('Mu audi a4 starts up but motor shakes I unplug the cylinder 4-5-6 cable it still run but no power to those cable what can that be?',0,0,'','')
 insert into Questions(Description,CategoryId,CreatedByUserId,DateCreated,DateLastModified) values('My Mitsubishi Outlander died while driving it and I replaced fuel pump and relays and fuses and it still wont start its getting gas but wont start',0,0,'','')
 
@@ -207,3 +206,23 @@ insert into Questions(Description,CategoryId,CreatedByUserId,DateCreated,DateLas
 insert into Questions(Description,CategoryId,CreatedByUserId,DateCreated,DateLastModified) values('My son was driving 60 miles per hour on the interstate and turned on his brights and car just shut down. Cruised to side of the road and it started right back up. What could it be',0,0,'','')
 
 --Asnwers Data
+--Engine data
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
+
+--Transmission
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'You would need to know what transmission your truck has to get to the right filter kit You could have the 4L60 or 4L80 auto. More research is required.',0,'','')
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'possibly linkage issue, if the bank was frozen and truck hit hard enuff to dislodge the shift linkage....but if electric stuff on newer vehicle, you will probably be at the mercy of your mechanic.',0,'','')
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
+-- general maintenance
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
