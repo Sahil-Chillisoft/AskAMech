@@ -110,7 +110,9 @@
                                     {
                                         <i class="material-icons md-15 icon-green" title="Certified Mechanic">build</i>
                                     }
-                                    on @item.DateCreated.ToString("dd/MM/yyyy HH:mm")
+                                    on @item.DateCreated.ToString("dd/MM/yyyy")
+                                    <br />
+                                    <label>Date last modified: @item.DateLastModified.ToString("dd/MM/yyyy")</label>
 
                                     @if (item.AnsweredByUserId == UserSecurityManager.UserId)
                                     {

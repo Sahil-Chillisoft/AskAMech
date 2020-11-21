@@ -10,5 +10,6 @@ namespace AskAMech.Infrastructure.Data.Entities
         public int AnsweredByUserId { get; set; }
         public bool IsAcceptedAnswer { get; set; }
         public DateTime DateCreated { get; set; }
+        public DateTime DateLastModified { get; set; }
     }
 }
