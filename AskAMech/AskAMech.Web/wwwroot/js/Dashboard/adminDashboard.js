@@ -15,5 +15,8 @@
         case 'divUserRole':
             window.location.href = '/Roles/Create';
             break;
+        case 'divMyProfile':
+            window.location.href = '/User/Edit';
+            break;
     }
 }

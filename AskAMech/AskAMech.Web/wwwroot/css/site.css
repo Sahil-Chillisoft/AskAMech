@@ -335,6 +335,12 @@ body {
     cursor: pointer;
 }
 
+.bg-turquoise {
+    background-color: #009999 !important;
+    color: #fff;
+    cursor: pointer;
+}
+
 .bg-ghost-white {
     background-color: #F8F8FF !important
 }
