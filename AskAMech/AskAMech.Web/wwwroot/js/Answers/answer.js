@@ -45,6 +45,18 @@
         window.location.reload();
     });
 
+
+    $('#ConfirmDelete').click(function (event) {
+        event.preventDefault();
+        deleteAnswer();
+    });
+
+
+    $('#CancelDelete').click(function (event) {
+        event.preventDefault();
+        window.location.reload();
+    });
+
 });
 
 
@@ -93,6 +105,23 @@ function createAnswer(answer) {
     });
 }
 
+function deleteAnswer() {
+    $.ajax({
+        url: '/Answer/Delete',
+        type: 'POST',
+        cache: false,
+        data: {
+            'questionId': questionId,
+            'answerId': answerId
+        },
+        success: function (data) {
+            if (data.success) {
+                window.location.reload();
+            }
+        }
+    });
+}
+
 function isValidAnswer(answer) {
     if (answer === '')
         return false;
@@ -104,6 +133,10 @@ function editAnswerOnClick(answerId) {
     displayEditAnswerModal(questionId, answerId);
 }
 
+function deleteAnswerOnClick(id) {
+    answerId = id;
+    displayDeletionModal();
+}
 
 function displayConfirmAcceptedAnswerModal(isAcceptedAnswer) {
     var confirmAcceptedAnswerModal = $('#ConfirmAcceptedAnswerDiv');
@@ -145,6 +178,19 @@ function displayEditAnswerModal(questionId, answerId) {
         success: function (data) {
             editAnswerModal.html(data);
             editAnswerModal.find('.modal').modal('show');
+        }
+    });
+}
+
+function displayDeletionModal() {
+    var deleteModal = $('#DeleteDiv');
+    $.ajax({
+        url: '/Answer/Delete',
+        type: 'GET',
+        cache: false,
+        success: function (data) {
+            deleteModal.html(data);
+            deleteModal.find('.modal').modal('show');
         }
     });
 }

@@ -95,6 +95,7 @@ namespace AskAMech.Web
             services.AddTransient<ICreateAnswerUseCase, CreateAnswerUseCase>();
             services.AddTransient<IGetUserAnswerUseCase, GetUserAnswerUseCase>();
             services.AddTransient<IEditAnswerUseCase, EditAnswerUseCase>();
+            services.AddTransient<IDeleteAnswerUseCase, DeleteAnswerUseCase>();
 
 
             services.AddTransient<IUserRepository, UserRepository>();

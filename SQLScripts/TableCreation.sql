@@ -76,7 +76,8 @@ create table Answers
 	Description varchar(500) not null,
 	AnsweredByUserId int not null,
 	IsAcceptedAnswer bit null,
-	DateCreated DateTime not null default getdate()
+	DateCreated DateTime not null default getdate(), 
+	DateLastModified DateTime not null 
 )
 
 

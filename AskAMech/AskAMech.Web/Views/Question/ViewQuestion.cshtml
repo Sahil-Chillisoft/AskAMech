@@ -116,7 +116,7 @@
                                     {
                                         <div class="md-Padding-Top-10">
                                             <i id="EditAnswer" title="Edit Answer" onclick="editAnswerOnClick(@item.Id)" class="material-icons md-25 icon-blue mousePointer">edit</i>
-                                            <i id="DeleteAnswer" title="Delete Answer" class="material-icons md-25 icon-red mousePointer">delete_forever</i>
+                                            <i id="DeleteAnswer" title="Delete Answer" onclick="deleteAnswerOnClick(@item.Id)" class="material-icons md-25 icon-red mousePointer">delete_forever</i>
                                         </div>
                                     }
                                 </div>
@@ -139,6 +139,7 @@
 <div id="ConfirmAcceptedAnswerDiv"></div>
 <div id="CreateAnswerDiv"></div>
 <div id="EditAnswerDiv"></div>
+<div id="DeleteDiv"></div>
 <div id="ErrorDiv"></div>
 
 @section Scripts{

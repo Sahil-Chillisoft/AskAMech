@@ -18,6 +18,7 @@ namespace AskAMech.Web.Controllers
         private readonly ICreateAnswerUseCase _createAnswerUseCase;
         private readonly IGetUserAnswerUseCase _getUserAnswerUseCase;
         private readonly IEditAnswerUseCase _editAnswerUseCase;
+        private readonly IDeleteAnswerUseCase _deleteAnswerUseCase;
 
         public AnswerController(IModelPresenter modelPresenter,
                                 ISecurityManagerUseCase securityManagerUseCase,
@@ -26,7 +27,8 @@ namespace AskAMech.Web.Controllers
                                 IUpdateIsAcceptedAnswerUseCase updateIsAcceptedAnswerUseCase,
                                 ICreateAnswerUseCase createAnswerUseCase,
                                 IGetUserAnswerUseCase getUserAnswerUseCase,
-                                IEditAnswerUseCase editAnswerUseCase)
+                                IEditAnswerUseCase editAnswerUseCase,
+                                IDeleteAnswerUseCase deleteAnswerUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
@@ -36,6 +38,7 @@ namespace AskAMech.Web.Controllers
             _createAnswerUseCase = createAnswerUseCase ?? throw new ArgumentNullException(nameof(createAnswerUseCase));
             _getUserAnswerUseCase = getUserAnswerUseCase ?? throw new ArgumentNullException(nameof(getUserAnswerUseCase));
             _editAnswerUseCase = editAnswerUseCase ?? throw new ArgumentNullException(nameof(editAnswerUseCase));
+            _deleteAnswerUseCase = deleteAnswerUseCase ?? throw new ArgumentNullException(nameof(deleteAnswerUseCase));
         }
 
         [HttpGet]
@@ -101,7 +104,20 @@ namespace AskAMech.Web.Controllers
         public IActionResult Edit(EditAnswerRequest request)
         {
             _editAnswerUseCase.Execute(request, _modelPresenter);
-            return Json(new {Success = true});
+            return Json(new { Success = true });
+        }
+
+        [HttpGet]
+        public IActionResult Delete()
+        {
+            return PartialView("_Delete");
+        }
+
+        [HttpPost]
+        public IActionResult Delete(DeleteAnswerRequest request)
+        {
+            _deleteAnswerUseCase.Execute(request, _modelPresenter);
+            return Json(new { Success = true });
         }
 
         [HttpGet]

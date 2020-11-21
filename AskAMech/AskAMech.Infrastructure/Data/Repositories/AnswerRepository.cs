@@ -212,5 +212,24 @@ namespace AskAMech.Infrastructure.Data.Repositories
                 });
             #endregion
         }
+
+        public void Delete(Answer answer)
+        {
+            #region SQL
+            var sql = @"delete from Answers                        
+                        where QuestionId = @QuestionId 
+                        and Id = @AnswerId ";
+            #endregion
+
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            connection.Execute(sql,
+                new
+                {
+                    QuestionId = answer.QuestionId,
+                    AnswerId = answer.Id
+                });
+            #endregion
+        }
     }
 }

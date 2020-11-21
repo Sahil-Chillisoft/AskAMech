@@ -13,5 +13,6 @@ namespace AskAMech.Core.Gateways.Repositories
         void ClearUpdatedAnswersForQuestion(int questionId);
         Answer GetAnswer(int questionId, int answerId);
         void Update(Answer answer);
+        void Delete(Answer answer);
     }
 }
