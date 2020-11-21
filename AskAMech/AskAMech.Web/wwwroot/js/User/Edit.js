@@ -52,11 +52,33 @@
     });
 
 
+    $('#CloseUpdateNewPassword').click(function (event) {
+        event.preventDefault();
+        window.location.reload();
+    });
+
+
     $('#EmployeeDetails').click(function (event) {
         event.preventDefault();
         displayEmployeeDetailsModal();
     });
 
+    $('#ShowPassword').change(function (event) {
+        event.preventDefault();
+        var currentPassword = $('#CurrentPassword');
+        var newPassword = $('#NewPassword');
+        var confirmNewPassword = $('#ConfirmNewPassword');
+
+        if (currentPassword.attr('type') === 'password' || newPassword.attr('type') === 'password') {
+            currentPassword.attr('type', 'text');
+            newPassword.attr('type', 'text');
+            confirmNewPassword.attr('type', 'text');
+        } else {
+            currentPassword.attr('type', 'password');
+            newPassword.attr('type', 'password');
+            confirmNewPassword.attr('type', 'password');
+        }
+    });
 });
 
 function isValidUsername() {

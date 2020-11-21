@@ -9,7 +9,7 @@
             type: 'GET',
             cache: false,
             success: function (data) {
-            registerModal.html(data);
+                registerModal.html(data);
                 registerModal.find('.modal').modal('show');
             }
         });
@@ -47,4 +47,19 @@
                 }
             });
     });
+
+    registerModal.on('change',
+        '[Checkbox_CheckedChanged="modal"]',
+        function (event) {
+            event.preventDefault();
+            var password = registerModal.find('[id="Password"]');
+            var confirmPassword = registerModal.find('[id="ConfirmPassword"]');
+            if (password.attr('type') === 'password') {
+                password.attr('type', 'text');
+                confirmPassword.attr('type', 'text');
+            } else {
+                password.attr('type', 'password');
+                confirmPassword.attr('type', 'password');
+            }
+        });
 });
