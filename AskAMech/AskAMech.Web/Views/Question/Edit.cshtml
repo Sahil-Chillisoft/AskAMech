@@ -16,7 +16,7 @@
 
         <hr />
 
-        @Html.HiddenFor(x => x.Id)
+        @Html.HiddenFor(x => x.Id, new { id = "Id" })
         <div class="row md-Padding-Top-10">
             <div class="col-md-12">
                 <label asp-for="Title">Title</label>
@@ -70,13 +70,18 @@
             <div class="col-md-2">
                 <button id="Save" class="btn btn-primary full-width" type="button">Save</button>
             </div>
+            <div class="col-md-2">
+                <button id="Delete" class="btn btn-danger full-width" type="button">Delete</button>
+            </div>
         </div>
     </div>
 </form>
 
 <div id="QuestionEditSuccessDiv"></div>
+<div id="DeleteQuestionDiv"></div>
 
 @section Scripts
 {
     <script src="~/js/Question/edit.js"></script>
+    <script src="~/js/Question/delete.js"></script>
 }

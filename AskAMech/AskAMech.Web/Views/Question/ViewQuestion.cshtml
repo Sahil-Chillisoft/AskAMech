@@ -6,136 +6,164 @@
 }
 
 <form>
-    <div class="container bg-ghost-white">
-        @Html.HiddenFor(x => x.QuestionDetails.Id, new { id = "QuestionId" })
-        @Html.Hidden("IsAuthenticatedUser", @UserSecurityManager.IsAuthenticated, new { id = "IsAuthenticatedUser" })
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="text-center">
-                    @Model.QuestionDetails.Title
-                </h2>
+    @if (Model.QuestionDetails.DateDeleted != null)
+    {
+        <div class="container bg-ghost-white">
+            <div clas="row">
+                <div class="col-md-12">
+                    <h2 class="text-center text-danger">
+                        <i class="material-icons md-30 icon-red">error</i>
+                        This question has been deleted by the creator
+                    </h2>
+                </div>
+            </div>
+            <div clas="row">
+                <div class="col-md-12">
+                    @if (UserSecurityManager.IsAuthenticated)
+                    {
+                        <a asp-controller="Dashboard" asp-action="UserDashboard">Back to Dashboard</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Home" asp-action="Index">Back to Home Screen</a>
+                    }
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h5>@Model.QuestionDetails.Description</h5>
+    }
+    else
+    {
+        <div class="container bg-ghost-white">
+            @Html.HiddenFor(x => x.QuestionDetails.Id, new { id = "QuestionId" })
+            @Html.Hidden("IsAuthenticatedUser", @UserSecurityManager.IsAuthenticated, new { id = "IsAuthenticatedUser" })
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="text-center">
+                        @Model.QuestionDetails.Title
+                    </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h5>@Model.QuestionDetails.Description</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <label>Category: @Model.QuestionDetails.CategoryDescription</label>
+                    <br />
+                    <label>
+                        Asked by
+                        <a asp-controller="User" asp-action="ViewUserProfile" asp-route-id="@Model.QuestionDetails.CreatedByUserId">
+                            @Model.QuestionDetails.Username
+                        </a>
+                        on @Model.QuestionDetails.DateCreated.ToString("dd/MM/yyyy HH:mm")
+                    </label>
+                    <br />
+                    <label>Last modified on: @Model.QuestionDetails.DateLastModified.ToString("dd/MM/yyyy HH:mm")</label>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12 text-right">
-                <label>Category: @Model.QuestionDetails.CategoryDescription</label>
-                <br />
-                <label>
-                    Asked by
-                    <a asp-controller="User" asp-action="ViewUserProfile" asp-route-id="@Model.QuestionDetails.CreatedByUserId">
-                        @Model.QuestionDetails.Username
+        <div class="container">
+            <div class="row md-Padding-Top-10">
+                <div class="col-md-12 text-right">
+                    <a asp-controller="Question" asp-action="Index" class="md-Padding-Right-15">
+                        Back to list
                     </a>
-                    on @Model.QuestionDetails.DateCreated.ToString("dd/MM/yyyy HH:mm")
-                </label>
-                <br />
-                <label>Last modified on: @Model.QuestionDetails.DateLastModified.ToString("dd/MM/yyyy HH:mm")</label>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row md-Padding-Top-10">
-            <div class="col-md-12 text-right">
-                <a asp-controller="Question" asp-action="Index" class="md-Padding-Right-15">
-                    Back to list
-                </a>
-                @if (isQuestionAuthor)
-                {
-                    <a asp-controller="Question" asp-action="Edit" asp-route-id="@Model.QuestionDetails.Id" class="btn btn-primary">
-                        Edit Question
-                    </a>
-                }
-                else
-                {
-                    <button id="PostAnswer" class="btn btn-primary">
-                        Post A Answer
-                    </button>
-                }
-            </div>
-        </div>
-    </div>
-
-    <hr />
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="text-center">
-                    Answers
-                </h2>
+                    @if (isQuestionAuthor)
+                    {
+                        <a asp-controller="Question" asp-action="Edit" asp-route-id="@Model.QuestionDetails.Id" class="btn btn-primary">
+                            Edit Question
+                        </a>
+                    }
+                    else
+                    {
+                        <button id="PostAnswer" class="btn btn-primary">
+                            Post A Answer
+                        </button>
+                    }
+                </div>
             </div>
         </div>
 
-        <div class="md-Padding-Top-10">
-            @if (Model.Answers.Any())
-            {
-                foreach (var item in Model.Answers)
+        <hr />
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="text-center">
+                        Answers
+                    </h2>
+                </div>
+            </div>
+
+            <div class="md-Padding-Top-10">
+                @if (Model.Answers.Any())
                 {
-                    <div class="card card-black-border">
-                        <div class="row no-gutters">
-                            <div class="col-md-12 col-sm-10">
-                                @if (isQuestionAuthor)
-                                {
-                                    <div class="card-header">
-                                        <input type="checkbox" onchange="onMarkAsAcceptedAnswerChange(this, @item.Id)" checked="@item.IsAcceptedAnswer" />
-                                        <label class="text-bold"> Mark as Accepted Answer</label>
-                                        @if (@item.IsAcceptedAnswer)
-                                        {
-                                            <br />
-                                            <label class="text-success text-bold">* This answer has been marked as the accepted answer</label>
-                                        }
-                                    </div>
-                                }
-                                else if (item.IsAcceptedAnswer)
-                                {
-                                    <div class="card-header">
-                                        <i class="material-icons md-15 icon-green">done_outline</i>
-                                        <label class="text-success text-bold"> This Answer Has Been Marked As The Accepted Answer</label>
-                                    </div>
-                                }
-                                <div class="card-body ">
-                                    <label class="card-title">
-                                        @item.Description
-                                    </label>
-                                </div>
-                                <div class="card-footer text-right">
-                                    Answered by:
-                                    <a asp-controller="User" asp-action="ViewUserProfile" asp-route-id="@item.AnsweredByUserId">
-                                        @item.Username
-                                    </a>
-                                    @if (item.UserRoleId == (int)UserRole.Mechanic)
+                    foreach (var item in Model.Answers)
+                    {
+                        <div class="card card-black-border">
+                            <div class="row no-gutters">
+                                <div class="col-md-12 col-sm-10">
+                                    @if (isQuestionAuthor)
                                     {
-                                        <i class="material-icons md-15 icon-green" title="Certified Mechanic">build</i>
-                                    }
-                                    on @item.DateCreated.ToString("dd/MM/yyyy")
-                                    <br />
-                                    <label>Date last modified: @item.DateLastModified.ToString("dd/MM/yyyy")</label>
-
-                                    @if (item.AnsweredByUserId == UserSecurityManager.UserId)
-                                    {
-                                        <div class="md-Padding-Top-10">
-                                            <i id="EditAnswer" title="Edit Answer" onclick="editAnswerOnClick(@item.Id)" class="material-icons md-25 icon-blue mousePointer">edit</i>
-                                            <i id="DeleteAnswer" title="Delete Answer" onclick="deleteAnswerOnClick(@item.Id)" class="material-icons md-25 icon-red mousePointer">delete_forever</i>
+                                        <div class="card-header">
+                                            <input type="checkbox" onchange="onMarkAsAcceptedAnswerChange(this, @item.Id)" checked="@item.IsAcceptedAnswer" />
+                                            <label class="text-bold"> Mark as Accepted Answer</label>
+                                            @if (@item.IsAcceptedAnswer)
+                                            {
+                                                <br />
+                                                <label class="text-success text-bold">* This answer has been marked as the accepted answer</label>
+                                            }
                                         </div>
                                     }
+                                    else if (item.IsAcceptedAnswer)
+                                    {
+                                        <div class="card-header">
+                                            <i class="material-icons md-15 icon-green">done_outline</i>
+                                            <label class="text-success text-bold"> This Answer Has Been Marked As The Accepted Answer</label>
+                                        </div>
+                                    }
+                                    <div class="card-body ">
+                                        <label class="card-title">
+                                            @item.Description
+                                        </label>
+                                    </div>
+                                    <div class="card-footer text-right">
+                                        Answered by:
+                                        <a asp-controller="User" asp-action="ViewUserProfile" asp-route-id="@item.AnsweredByUserId">
+                                            @item.Username
+                                        </a>
+                                        @if (item.UserRoleId == (int)UserRole.Mechanic)
+                                        {
+                                            <i class="material-icons md-15 icon-green" title="Certified Mechanic">build</i>
+                                        }
+                                        on @item.DateCreated.ToString("dd/MM/yyyy")
+                                        <br />
+                                        <label>Date last modified: @item.DateLastModified.ToString("dd/MM/yyyy")</label>
+
+                                        @if (item.AnsweredByUserId == UserSecurityManager.UserId)
+                                        {
+                                            <div class="md-Padding-Top-10">
+                                                <i id="EditAnswer" title="Edit Answer" onclick="editAnswerOnClick(@item.Id)" class="material-icons md-25 icon-blue mousePointer">edit</i>
+                                                <i id="DeleteAnswer" title="Delete Answer" onclick="deleteAnswerOnClick(@item.Id)" class="material-icons md-25 icon-red mousePointer">delete_forever</i>
+                                            </div>
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <br />
+                        <br />
+                    }
                 }
-            }
-            else
-            {
-                <div class="col-md-12">
-                    <h3>There Are No Answers For This Question</h3>
-                </div>
-            }
+                else
+                {
+                    <div class="col-md-12">
+                        <h3>There Are No Answers For This Question</h3>
+                    </div>
+                }
+            </div>
         </div>
-    </div>
+    }
 </form>
 
 <div id="ConfirmAcceptedAnswerDiv"></div>

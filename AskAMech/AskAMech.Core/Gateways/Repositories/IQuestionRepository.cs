@@ -13,6 +13,7 @@ namespace AskAMech.Core.Gateways.Repositories
         void CreateQuestion(Question question);
         ViewQuestionDetails GetQuestionDetails(int id);
         void Update(Question question);
+        void Delete(int id);
         List<ViewUserQuestions> GetUserQuestions(int userId, int? categoryId, Pagination pagination);
     }
 }

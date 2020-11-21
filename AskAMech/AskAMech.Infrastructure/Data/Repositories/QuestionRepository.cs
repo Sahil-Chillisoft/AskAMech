@@ -39,7 +39,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
 	                        from Answers 
 	                        group by QuestionId
                         ) as a on q.Id = a.QuestionId
-                        where 1 = 1 ";
+                        where q.DateDeleted is null ";
 
             if (!string.IsNullOrEmpty(search))
                 sql += "and q.Description like @Search ";
@@ -166,7 +166,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             #region SQL
 
             var sql = @"select q.Id, q.Title, q.Description, c.Description as CategoryDescription, 
-                        q.CreatedByUserId, up.Username, q.DateCreated, q.DateLastModified 
+                        q.CreatedByUserId, up.Username, q.DateCreated, q.DateLastModified, q.DateDeleted 
                         from Questions q                        
                         inner join UserProfile up on q.CreatedByUserId = up.UserId
                         inner join Category c on q.CategoryId = c.Id
@@ -208,6 +208,25 @@ namespace AskAMech.Infrastructure.Data.Repositories
             #endregion
         }
 
+        public void Delete(int id)
+        {
+            #region SQL
+            var sql = @"update Questions 
+                        set DateDeleted = @DateDeleted
+                        where Id = @Id ";
+            #endregion
+
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            connection.Execute(sql,
+                new
+                {
+                    Id = id,
+                    DateDeleted = DateTime.Now
+                });
+            #endregion
+        }
+
         public List<ViewUserQuestions> GetUserQuestions(int userId, int? categoryId, Pagination pagination)
         {
             #region SQL
@@ -222,7 +241,8 @@ namespace AskAMech.Infrastructure.Data.Repositories
 	                        from Answers
 	                        group by QuestionId
                         ) as a on q.Id = a.QuestionId
-                        where q.CreatedByUserId = @UserId ";
+                        where q.CreatedByUserId = @UserId
+                        and q.DateDeleted is null ";
 
             if (categoryId != 0)
                 sql += "and CategoryId = @categoryId ";

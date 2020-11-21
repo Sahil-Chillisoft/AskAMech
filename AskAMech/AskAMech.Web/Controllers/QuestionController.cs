@@ -20,16 +20,18 @@ namespace AskAMech.Web.Controllers
         private readonly IEditQuestionUseCase _editQuestionUseCase;
         private readonly IGetEditQuestionUseCase _getEditQuestionUseCase;
         private readonly IGetUserQuestions _getUserQuestions;
+        private readonly IDeleteQuestionUseCase _deleteQuestionUseCase;
 
         public QuestionController(IModelPresenter modelPresenter,
                                   ISecurityManagerUseCase securityManagerUseCase,
                                   IGetQuestionsUseCase getQuestionsUseCase,
                                   ICreateQuestionUseCase createQuestionUseCase,
                                   IGetCreateQuestionUseCase getCreateQuestionUseCase,
-                                  IGetQuestionViewUseCase getQuestionViewUseCase, 
-                                  IEditQuestionUseCase editQuestionUseCase, 
-                                  IGetEditQuestionUseCase getEditQuestionUseCase, 
-                                  IGetUserQuestions getUserQuestions)
+                                  IGetQuestionViewUseCase getQuestionViewUseCase,
+                                  IEditQuestionUseCase editQuestionUseCase,
+                                  IGetEditQuestionUseCase getEditQuestionUseCase,
+                                  IGetUserQuestions getUserQuestions,
+                                  IDeleteQuestionUseCase deleteQuestionUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
@@ -40,6 +42,7 @@ namespace AskAMech.Web.Controllers
             _editQuestionUseCase = editQuestionUseCase ?? throw new ArgumentNullException(nameof(editQuestionUseCase));
             _getEditQuestionUseCase = getEditQuestionUseCase ?? throw new ArgumentNullException(nameof(getEditQuestionUseCase));
             _getUserQuestions = getUserQuestions ?? throw new ArgumentNullException(nameof(getUserQuestions));
+            _deleteQuestionUseCase = deleteQuestionUseCase ?? throw new ArgumentNullException(nameof(deleteQuestionUseCase));
         }
 
         [HttpGet]
@@ -100,7 +103,7 @@ namespace AskAMech.Web.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var request = new GetEditQuestionRequest {Id = id};
+            var request = new GetEditQuestionRequest { Id = id };
             _getEditQuestionUseCase.Execute(request, _modelPresenter);
             return View(_modelPresenter.Model);
         }
@@ -109,7 +112,7 @@ namespace AskAMech.Web.Controllers
         public IActionResult Edit(EditQuestionRequest request)
         {
             _editQuestionUseCase.Execute(request, _modelPresenter);
-            return Json(new {Success = true});
+            return Json(new { Success = true });
         }
 
         [HttpGet]
@@ -137,5 +140,17 @@ namespace AskAMech.Web.Controllers
             return View(_modelPresenter.Model);
         }
 
+        [HttpGet]
+        public IActionResult Delete()
+        {
+            return PartialView("_Delete");
+        }
+
+        [HttpPost]
+        public IActionResult Delete(DeleteQuestionRequest request)
+        {
+            _deleteQuestionUseCase.Execute(request, _modelPresenter);
+            return Json(new { Success = true });
+        }
     }
 }
