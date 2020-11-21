@@ -170,5 +170,47 @@ namespace AskAMech.Infrastructure.Data.Repositories
             #endregion
         }
 
+        public Answer GetAnswer(int questionId, int answerId)
+        {
+            #region SQL
+            var sql = @"select * from Answers 
+                        where QuestionId = @QuestionId
+                        and Id = @AnswerId ";
+            #endregion
+
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            var answer = connection.Query<AnswersEntity>(sql,
+                new
+                {
+                    QuestionId = questionId,
+                    AnswerId = answerId
+                }).FirstOrDefault();
+
+            #endregion
+
+            return _mapper.Map<Answer>(answer);
+        }
+
+        public void Update(Answer answer)
+        {
+            #region SQL
+            var sql = @"update Answers
+                        set Description = @Description
+                        where QuestionId = @QuestionId 
+                        and Id = @AnswerId ";
+            #endregion
+
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            connection.Execute(sql,
+                new
+                {
+                    Description = answer.Description,
+                    QuestionId = answer.QuestionId,
+                    AnswerId = answer.Id
+                });
+            #endregion
+        }
     }
 }

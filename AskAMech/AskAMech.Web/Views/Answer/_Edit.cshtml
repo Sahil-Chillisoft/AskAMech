@@ -1,0 +1,32 @@
+﻿@model AskAMech.Core.Answers.Responses.GetUserAnswerResponse
+
+<div class="modal fade" id="editAnswerModal" tabindex="-1" role="dialog" aria-labelledby="editAnswerLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        @Html.HiddenFor(x => x.QuestionId, new { id = "EditAnswerQuestionId" })
+        @Html.HiddenFor(x => x.AnswerId, new { id = "EditAnswerId" })
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Answer</h5>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.TextAreaFor(x => x.Description, new { id = "ModifiedAnswer", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span id="EditAnswerValidation" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="SaveEditAnswer" type="button" class="btn btn-primary">Save</button>
+                    <button id="CloseEditAnswer" type="button" class="btn btn-secondary">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="~/js/Answers/edit.js"></script>

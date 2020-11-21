@@ -44,6 +44,7 @@
         event.preventDefault();
         window.location.reload();
     });
+
 });
 
 
@@ -99,6 +100,11 @@ function isValidAnswer(answer) {
         return true;
 }
 
+function editAnswerOnClick(answerId) {
+    displayEditAnswerModal(questionId, answerId);
+}
+
+
 function displayConfirmAcceptedAnswerModal(isAcceptedAnswer) {
     var confirmAcceptedAnswerModal = $('#ConfirmAcceptedAnswerDiv');
     $.ajax({
@@ -122,6 +128,23 @@ function displayAnswerModal() {
         success: function (data) {
             answerModal.html(data);
             answerModal.find('.modal').modal('show');
+        }
+    });
+}
+
+function displayEditAnswerModal(questionId, answerId) {
+    var editAnswerModal = $('#EditAnswerDiv');
+    $.ajax({
+        url: '/Answer/Edit',
+        type: 'GET',
+        cache: false,
+        data: {
+            'questionId': questionId,
+            'answerId': answerId
+        },
+        success: function (data) {
+            editAnswerModal.html(data);
+            editAnswerModal.find('.modal').modal('show');
         }
     });
 }

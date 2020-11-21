@@ -111,6 +111,14 @@
                                         <i class="material-icons md-15 icon-green" title="Certified Mechanic">build</i>
                                     }
                                     on @item.DateCreated.ToString("dd/MM/yyyy HH:mm")
+
+                                    @if (item.AnsweredByUserId == UserSecurityManager.UserId)
+                                    {
+                                        <div class="md-Padding-Top-10">
+                                            <i id="EditAnswer" title="Edit Answer" onclick="editAnswerOnClick(@item.Id)" class="material-icons md-25 icon-blue mousePointer">edit</i>
+                                            <i id="DeleteAnswer" title="Delete Answer" class="material-icons md-25 icon-red mousePointer">delete_forever</i>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -130,6 +138,7 @@
 
 <div id="ConfirmAcceptedAnswerDiv"></div>
 <div id="CreateAnswerDiv"></div>
+<div id="EditAnswerDiv"></div>
 <div id="ErrorDiv"></div>
 
 @section Scripts{

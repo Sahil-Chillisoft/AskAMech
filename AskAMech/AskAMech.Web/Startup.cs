@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AskAMech.Core.Answers.Interfaces;
-using AskAMech.Core.Answers.Requests;
 using AskAMech.Core.Answers.UseCases;
 using AskAMech.Core.Categories.Interfaces;
 using AskAMech.Core.Categories.UseCases;
@@ -94,6 +93,8 @@ namespace AskAMech.Web
             services.AddTransient<IGetConfirmAcceptedAnswerUseCase, GetConfirmAcceptedAnswerUseCase>();
             services.AddTransient<IUpdateIsAcceptedAnswerUseCase, UpdateIsAcceptedAnswerUseCase>();
             services.AddTransient<ICreateAnswerUseCase, CreateAnswerUseCase>();
+            services.AddTransient<IGetUserAnswerUseCase, GetUserAnswerUseCase>();
+            services.AddTransient<IEditAnswerUseCase, EditAnswerUseCase>();
 
 
             services.AddTransient<IUserRepository, UserRepository>();

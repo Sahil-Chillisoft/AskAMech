@@ -159,6 +159,10 @@ body {
     font-size: 15px;
 }
 
+.material-icons.md-25 {
+    font-size: 25px;
+}
+
 .material-icons.md-30 {
     font-size: 30px;
 }
@@ -177,6 +181,14 @@ body {
 
 .icon-green {
     color: #32cd32
+}
+
+.icon-red {
+    color: #e60000
+}
+
+.icon-blue {
+    color: #0366d6
 }
 
 

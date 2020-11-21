@@ -16,13 +16,17 @@ namespace AskAMech.Web.Controllers
         private readonly IGetConfirmAcceptedAnswerUseCase _getConfirmAcceptedAnswerUseCase;
         private readonly IUpdateIsAcceptedAnswerUseCase _updateIsAcceptedAnswerUseCase;
         private readonly ICreateAnswerUseCase _createAnswerUseCase;
+        private readonly IGetUserAnswerUseCase _getUserAnswerUseCase;
+        private readonly IEditAnswerUseCase _editAnswerUseCase;
 
         public AnswerController(IModelPresenter modelPresenter,
                                 ISecurityManagerUseCase securityManagerUseCase,
                                 IGetUserQuestionAnswersUseCase getUserQuestionAnswersUseCase,
                                 IGetConfirmAcceptedAnswerUseCase getConfirmAcceptedAnswerUseCase,
                                 IUpdateIsAcceptedAnswerUseCase updateIsAcceptedAnswerUseCase,
-                                ICreateAnswerUseCase createAnswerUseCase)
+                                ICreateAnswerUseCase createAnswerUseCase,
+                                IGetUserAnswerUseCase getUserAnswerUseCase,
+                                IEditAnswerUseCase editAnswerUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
@@ -30,6 +34,8 @@ namespace AskAMech.Web.Controllers
             _getConfirmAcceptedAnswerUseCase = getConfirmAcceptedAnswerUseCase ?? throw new ArgumentNullException(nameof(getConfirmAcceptedAnswerUseCase));
             _updateIsAcceptedAnswerUseCase = updateIsAcceptedAnswerUseCase ?? throw new ArgumentNullException(nameof(updateIsAcceptedAnswerUseCase));
             _createAnswerUseCase = createAnswerUseCase ?? throw new ArgumentNullException(nameof(createAnswerUseCase));
+            _getUserAnswerUseCase = getUserAnswerUseCase ?? throw new ArgumentNullException(nameof(getUserAnswerUseCase));
+            _editAnswerUseCase = editAnswerUseCase ?? throw new ArgumentNullException(nameof(editAnswerUseCase));
         }
 
         [HttpGet]
@@ -82,6 +88,20 @@ namespace AskAMech.Web.Controllers
         {
             _createAnswerUseCase.Execute(request, _modelPresenter);
             return Json(new { Success = true });
+        }
+
+        [HttpGet]
+        public IActionResult Edit(GetUserAnswerRequest request)
+        {
+            _getUserAnswerUseCase.Execute(request, _modelPresenter);
+            return PartialView("_Edit", _modelPresenter.Model);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(EditAnswerRequest request)
+        {
+            _editAnswerUseCase.Execute(request, _modelPresenter);
+            return Json(new {Success = true});
         }
 
         [HttpGet]

@@ -11,5 +11,7 @@ namespace AskAMech.Core.Gateways.Repositories
         int GetUserQuestionAnswerCount(int userId, int? categoryId);
         void UpdateIsAcceptedAnswer(int questionId, int answerId, bool isAcceptedAnswer);
         void ClearUpdatedAnswersForQuestion(int questionId);
+        Answer GetAnswer(int questionId, int answerId);
+        void Update(Answer answer);
     }
 }
