@@ -180,8 +180,8 @@ insert into Questions(Description,CategoryId,CreatedByUserId,DateCreated,DateLas
 insert into Questions(Description,CategoryId,CreatedByUserId,DateCreated,DateLastModified) values('No reverse it stopped when I got stuck in snow bank',0,0,'','')
 insert into Questions(Description,CategoryId,CreatedByUserId,DateCreated,DateLastModified) values('Will a 99 escalade FWD tranny go in a 01 Chevy Tahoe RWD',0,0,'','')
 insert into Questions(Description,CategoryId,CreatedByUserId,DateCreated,DateLastModified) values('How to replace the gear shift lever on auto trans',0,0,'','')
-insert into Questions(Description,CategoryId,CreatedByUserId,DateCreated,DateLastModified) values('Will a 2006 dodge durango 5.7 hemi transmission be interchangeable with a 2015 dodge durango 5.7?',0,0,'','')
 insert into Questions(Description,CategoryId,CreatedByUserId,DateCreated,DateLastModified) values('Car is automatic. It shifts threw all gears. But does not engage transmission. It is a 2001 ford mustang coupe.',0,0,'','')
+insert into Questions(Description,CategoryId,CreatedByUserId,DateCreated,DateLastModified) values('Will a 2006 dodge durango 5.7 hemi transmission be interchangeable with a 2015 dodge durango 5.7?',0,0,'','')
 insert into Questions(Description,CategoryId,CreatedByUserId,DateCreated,DateLastModified) values('I have a 2005 Grand Prix ls4 5.3 V8 trans. that is bad, what car can I get a transmission from to replace mine??',0,0,'','')
 insert into Questions(Description,CategoryId,CreatedByUserId,DateCreated,DateLastModified) values('Can the transmission from a 2008 / 2009 Nissan March / Micra work in a 2010? / Which models are interchangeable?',0,0,'','')
 insert into Questions(Description,CategoryId,CreatedByUserId,DateCreated,DateLastModified) values('Someone told me the wrong dipstick for transmission fluid. I added a quart of tranny fluid where the oil dipstick goes',0,0,'','')
@@ -207,22 +207,40 @@ insert into Questions(Description,CategoryId,CreatedByUserId,DateCreated,DateLas
 
 --Asnwers Data
 --Engine data
-insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
-insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
-insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
-insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
-insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
-insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'Step 1
+Raise and support the front of the vehicle on jack stands. Remove the hydraulic line on the clutch slave cylinder using a wrench. Turn the line cap counterclockwise.
+
+Step 2
+Remove the slave cylinder by removing the two bolts, one on either end of the slave cylinder. Use the appropriate socket and a ratchet to remove the bolts.
+
+Step 3
+Install the new slave cylinder. It will come with a plastic band around the slave cylinder to hold the rod into the slave. Do not remove this band. Screw in the bolts and tighten. Attach the hydraulic line, then turn the cap clockwise with the wrench and tighten securely.
+
+Step 4
+Fill the clutch master cylinder with brake fluid. Loosen the slave cylinder bleeder screw on the side of the slave with a wrench. Leave the bleeder open until the cylinder fills with fluid and the bleeder has a steady drip. At this point, close the bleeder screw. Check the clutch master cylinder again and fill as necessary.
+
+Use a helper to bleed the air out of the slave cylinder. Open the bleeder screw once again at the slave cylinder.
+ Have the helper slowly push the clutch pedal to the floor, but do not let the pedal up again until told to do so.
+  Once the pedal is to the floor, close the bleeder screw and tighten it snugly. 
+  Have the helper let the clutch pedal up and then have him pump the clutch pedal. 
+  The rod in the slave cylinder should immediately break the plastic band. Check for good movement in the rod in the slave. If there is little movement, repeat Step 5 again.',0,'','')
+
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'The exciter wire gets its power through the amp warning light. Key on, alt stopped, the bulb lights, once the alternator is turning it makes power and the amp light goes off',0,'','')
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'It seems like a huge vacuum leak. It could be the intake manifold or base carburetor gasket. Your local auto parts store may loan you a smoke machine. Hook it up to the brake booster hose. Hope this helps.',0,'','')
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'Chances are, your battery is at fault when your car will not start in the morning. Because below freezing temperatures can cause the chemical reaction in your vehicles battery to exponentially slow down, a weak battery can often cause your car not to start.',0,'','')
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'If you’re seeing an overflow, it could be due to a radiator cap, thermostat, water pump, or radiator malfunction, Be sure you have the proper level of coolant in your vehicle. Overfilling may cause overflowing',0,'','')
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'While the engine is running, oil is picked up from the reservoir or oil pan for most vehicles. The oil is drawn into the pump, compressed and distributed throughout the engine. At lower speeds the pump generates enough volume to support the rotating assembly. As the engine speed increases, so does pump output. At a certain point the pump is moving more oil than the engine is demanding and the pressure inside the system can reach a level where it can blow seals. 
+The pressure relief valve opens to send oil back to the reservoir and keep the volume and pressure steady.',0,'','')
 
 --Transmission
 insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'You would need to know what transmission your truck has to get to the right filter kit You could have the 4L60 or 4L80 auto. More research is required.',0,'','')
 insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'possibly linkage issue, if the bank was frozen and truck hit hard enuff to dislodge the shift linkage....but if electric stuff on newer vehicle, you will probably be at the mercy of your mechanic.',0,'','')
 insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
 insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
-insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'Low transmission fluid is not only dangerous to drive with, but that low fluid could prevent your car from engaging the drive',0,'','')
 -- general maintenance
-insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
-insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
-insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
-insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
-insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'',0,'','')
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'Replace the switch - if that solves the problem - bingo!',0,'','')
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'One of the reasons why dash lights stay on after key is removed includes a short in the control module for the lights.',0,'','')
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,' if the lights are on even when the key to the ignition is taken out, the majority of times it is an issue with the ignition switch.',0,'','')
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'Best bet would be to replace the fan speed control panel. It should come off as one section for the knobs but can sometimes be a pain to get to to remove it and you basically have to take out the entire head unit to do it. The panel should detach from the bottom of the head unit. That knob definitely has some faulty internals from the sounds of it. You can replace it new or try calling a few part yards and see if you can get it cheaper that way. Alot of those places will ship it to you if you are not too far away. Make sure to note if your ac controls are manual or automatic. That is a very important difference.',0,'','')
+insert into Answers(QuestionId,Description,AnsweredByUserId,IsAcceptedAnswer,DateCreated) values(0,'The starter motor could be the problem, but first, you need to make sure the wire and cables are properly connected, and the starter is getting battery power',0,'','')
