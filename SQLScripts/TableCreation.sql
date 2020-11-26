@@ -73,7 +73,7 @@ create table Answers
 (
 	Id int not null primary key identity(1,1),
 	QuestionId int not null,
-	Description varchar(500) not null,
+	Description varchar(1024) not null,
 	AnsweredByUserId int not null,
 	IsAcceptedAnswer bit null,
 	DateCreated DateTime not null default getdate(), 
