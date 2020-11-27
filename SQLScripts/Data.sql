@@ -96,6 +96,7 @@ insert into Users (Email , Password , UserRoleId, EmployeeId, DateLastLoggedIn ,
 
 
 --User Profile Data 
+insert into UserProfile(UserId, Username, About, DateLastModified) values(1000, 'Admin', 'I am a certified system administrator on AskAMech', '2020-09-01 00:00:0')
 insert into UserProfile(UserId, Username, About, DateLastModified) values(1001, 'Martha Hughlin', 'I am a certified mechanic for AskAMech', '2020-09-01 00:00:0')
 insert into UserProfile(UserId, Username, About, DateLastModified) values(1002, 'Rosabel Munehay', 'I am a certified mechanic for AskAMech', '2020-09-01 00:00:0')
 insert into UserProfile(UserId, Username, About, DateLastModified) values(1003, 'Ulysses Twitchings', 'I am a certified mechanic for AskAMech', '2020-09-01 00:00:0')
