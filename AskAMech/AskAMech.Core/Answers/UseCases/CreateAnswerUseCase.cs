@@ -23,7 +23,8 @@ namespace AskAMech.Core.Answers.UseCases
                 Description = request.Description,
                 AnsweredByUserId = UserSecurityManager.UserId,
                 IsAcceptedAnswer = false,
-                DateCreated = DateTime.Now
+                DateCreated = DateTime.Now, 
+                DateLastModified = DateTime.Now
             };
             _answersRepository.Create(answer);
             presenter.Success(true);

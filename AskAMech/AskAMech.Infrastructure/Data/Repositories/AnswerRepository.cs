@@ -26,8 +26,8 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public void Create(Answer answer)
         {
             #region SQL
-            var sql = @"insert into Answers(QuestionId, Description, AnsweredByUserId, IsAcceptedAnswer, DateCreated)
-                        values(@QuestionId, @Description, @AnsweredByUserId, @IsAcceptedAnswer, @DateCreated)";
+            var sql = @"insert into Answers(QuestionId, Description, AnsweredByUserId, IsAcceptedAnswer, DateCreated, DateLastModified)
+                        values(@QuestionId, @Description, @AnsweredByUserId, @IsAcceptedAnswer, @DateCreated, @DateLastModified)";
             #endregion
 
             #region Execution
@@ -38,7 +38,8 @@ namespace AskAMech.Infrastructure.Data.Repositories
                 Description = answer.Description,
                 AnsweredByUserId = answer.AnsweredByUserId,
                 IsAcceptedAnswer = answer.IsAcceptedAnswer,
-                DateCreated = answer.DateCreated
+                DateCreated = answer.DateCreated, 
+                DateLastModified = answer.DateLastModified
             });
             #endregion
         }

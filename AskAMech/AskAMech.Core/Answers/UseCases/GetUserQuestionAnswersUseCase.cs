@@ -27,7 +27,9 @@ namespace AskAMech.Core.Answers.UseCases
             else
                 recordCount = _answersRepository.GetUserQuestionAnswerCount(UserSecurityManager.UserId, request.CategoryId);
 
-            var page = request.Pagination?.Page ?? 1;
+            var page = 1;
+            if (request.Pagination?.Page != 0)
+                page = request.Pagination?.Page ?? 1;
 
             var totalPages = (int)Math.Ceiling(recordCount / (double)PageSize.Medium);
 

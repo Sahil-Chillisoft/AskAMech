@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
 using AskAMech.Core.Domain;
 using AskAMech.Core.Gateways.Repositories;
 using AskAMech.Infrastructure.Data.Entities;
@@ -26,8 +24,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
         public UserDashboard GetKeyPerformanceIndicators(int userId)
         {
             #region SQL
-            var sql = @"
-                         select 
+            var sql = @"select 
                          case when q.QuestionCount is null then 0 else q.QuestionCount end as QuestionCount, 
                          case when a.AnswerCount is null then 0 else a.AnswerCount end as AnswerCount
                          from Users u
@@ -36,6 +33,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
 	                        select CreatedByUserId as UserId, 
 	                        count(Id) as QuestionCount  
 	                        from Questions 
+                            where DateDeleted is null
 	                        group by CreatedByUserId
                          ) as q on u.Id = q.UserId
                          left join 
@@ -45,8 +43,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
 	                        from Answers
 	                        group by AnsweredByUserId 
                          ) as a on u.Id = a.UserId
-                         where u.Id = @UserId
-                       ";
+                         where u.Id = @UserId ";
             #endregion
             
             #region Execution
