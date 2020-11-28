@@ -32,6 +32,8 @@ namespace AskAMech.Core.Answers.UseCases
                 page = request.Pagination?.Page ?? 1;
 
             var totalPages = (int)Math.Ceiling(recordCount / (double)PageSize.Medium);
+            if (totalPages == 0)
+                totalPages = 1;
 
             var pagination = new Pagination
             {
