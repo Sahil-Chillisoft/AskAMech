@@ -195,7 +195,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
                 });
             #endregion
         }
-        
+
         public ViewUserProfile GetUserProfile(int id)
         {
             #region SQL
@@ -210,6 +210,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
 	                        select CreatedByUserId as UserId, 
 	                        count(Id) as QuestionCount  
 	                        from Questions 
+                            where DateDeleted is null
 	                        group by CreatedByUserId
                         ) as q on u.Id = q.UserId
                         left join 
@@ -234,7 +235,7 @@ namespace AskAMech.Infrastructure.Data.Repositories
             return _mapper.Map<ViewUserProfile>(userProfile);
         }
 
-        public void UpdateDatedDeleted(int userId)
+        public void UpdateDateDeleted(int userId)
         {
 
             #region SQL
@@ -252,6 +253,26 @@ namespace AskAMech.Infrastructure.Data.Repositories
                     UserId = userId
                 });
 
+            #endregion
+        }
+
+        public void UpdateDateDeletedForEmployeeUser(int employeeId, DateTime? dateDeleted)
+        {
+            #region SQL
+            var sql = @"if exists (select * from Users where EmployeeId = @EmployeeId)
+                        update Users
+                        set DateDeleted = @DateDeleted
+                        where EmployeeId = @EmployeeId";
+            #endregion
+
+            #region Execution
+            using var connection = new SqlConnection(_sqlHelper.ConnectionString);
+            connection.Execute(sql,
+                new
+                {
+                    DateDeleted = dateDeleted,
+                    EmployeeId = employeeId
+                });
             #endregion
         }
     }

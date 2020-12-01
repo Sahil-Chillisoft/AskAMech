@@ -17,7 +17,7 @@ namespace AskAMech.Core.Users.UseCases
 
         public void Execute(IPresenter presenter)
         {
-            _userRepository.UpdateDatedDeleted(UserSecurityManager.UserId);
+            _userRepository.UpdateDateDeleted(UserSecurityManager.UserId);
             UserSecurityManager.SignOut();
             presenter.Success(true);
         }

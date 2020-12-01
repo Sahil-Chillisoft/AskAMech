@@ -1,4 +1,5 @@
-﻿using AskAMech.Core.Domain;
+﻿using System;
+using AskAMech.Core.Domain;
 
 namespace AskAMech.Core.Gateways.Repositories
 {
@@ -13,6 +14,7 @@ namespace AskAMech.Core.Gateways.Repositories
         void UpdateLastLoggedInDate(int userId);
         void UpdatePassword(User user);
         ViewUserProfile GetUserProfile(int id);
-        void UpdateDatedDeleted(int userId);
+        void UpdateDateDeleted(int userId);
+        void UpdateDateDeletedForEmployeeUser(int employeeId, DateTime? dateTime);
     }
 }
