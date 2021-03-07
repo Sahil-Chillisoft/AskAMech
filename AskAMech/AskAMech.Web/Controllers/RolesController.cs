@@ -1,6 +1,7 @@
 ﻿using System;
 using AskAMech.Core.Error;
 using AskAMech.Core.Security;
+using AskAMech.Core.Security.Interfaces;
 using AskAMech.Core.UserRoles.Interfaces;
 using AskAMech.Core.UserRoles.Requests;
 using AskAMech.Core.UserRoles.Responses;
@@ -12,25 +13,25 @@ namespace AskAMech.Web.Controllers
     public class RolesController : Controller
     {
         private readonly IModelPresenter _modelPresenter;
-        private readonly ISecurityManagerUseCase _securityManagerUseCase;
+        private readonly IVerifyUserRoleUseCase _verifyUserRoleUseCase;
         private readonly ICreateUserRoleUseCase _createUserRoleUseCase;
         private readonly IGetRoleUseCase _getRoleUseCase;
 
         public RolesController(IModelPresenter modelPresenter,
-                               ISecurityManagerUseCase securityManagerUseCase,
                                ICreateUserRoleUseCase createUserRoleUseCase,
-                               IGetRoleUseCase getRoleUseCase)
+                               IGetRoleUseCase getRoleUseCase, 
+                               IVerifyUserRoleUseCase verifyUserRoleUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
-            _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _createUserRoleUseCase = createUserRoleUseCase ?? throw new ArgumentNullException(nameof(createUserRoleUseCase));
             _getRoleUseCase = getRoleUseCase ?? throw new ArgumentNullException(nameof(getRoleUseCase));
+            _verifyUserRoleUseCase = verifyUserRoleUseCase ?? throw new ArgumentNullException(nameof(verifyUserRoleUseCase));
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            _securityManagerUseCase.VerifyUserIsAdmin(_modelPresenter);
+            _verifyUserRoleUseCase.IsAdmin(_modelPresenter);
 
             if (!_modelPresenter.HasValidationErrors)
                 return View();

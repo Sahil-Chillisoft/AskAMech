@@ -3,7 +3,7 @@ using AskAMech.Core.Domain;
 using AskAMech.Core.Error;
 using AskAMech.Core.Questions.Interfaces;
 using AskAMech.Core.Questions.Requests;
-using AskAMech.Core.Security;
+using AskAMech.Core.Security.Interfaces;
 using AskAMech.Web.Presenters;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +12,7 @@ namespace AskAMech.Web.Controllers
     public class QuestionController : Controller
     {
         private readonly IModelPresenter _modelPresenter;
-        private readonly ISecurityManagerUseCase _securityManagerUseCase;
+        private readonly IVerifyUserRoleUseCase _verifyUserRoleUseCase;
         private readonly IGetQuestionsUseCase _getQuestionsUseCase;
         private readonly ICreateQuestionUseCase _createQuestionUseCase;
         private readonly IGetCreateQuestionUseCase _getCreateQuestionUseCase;
@@ -23,7 +23,6 @@ namespace AskAMech.Web.Controllers
         private readonly IDeleteQuestionUseCase _deleteQuestionUseCase;
 
         public QuestionController(IModelPresenter modelPresenter,
-                                  ISecurityManagerUseCase securityManagerUseCase,
                                   IGetQuestionsUseCase getQuestionsUseCase,
                                   ICreateQuestionUseCase createQuestionUseCase,
                                   IGetCreateQuestionUseCase getCreateQuestionUseCase,
@@ -31,10 +30,10 @@ namespace AskAMech.Web.Controllers
                                   IEditQuestionUseCase editQuestionUseCase,
                                   IGetEditQuestionUseCase getEditQuestionUseCase,
                                   IGetUserQuestions getUserQuestions,
-                                  IDeleteQuestionUseCase deleteQuestionUseCase)
+                                  IDeleteQuestionUseCase deleteQuestionUseCase,
+                                  IVerifyUserRoleUseCase verifyUserRoleUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
-            _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _getQuestionsUseCase = getQuestionsUseCase ?? throw new ArgumentNullException(nameof(getQuestionsUseCase));
             _createQuestionUseCase = createQuestionUseCase ?? throw new ArgumentNullException(nameof(createQuestionUseCase));
             _getCreateQuestionUseCase = getCreateQuestionUseCase ?? throw new ArgumentNullException(nameof(getCreateQuestionUseCase));
@@ -43,6 +42,7 @@ namespace AskAMech.Web.Controllers
             _getEditQuestionUseCase = getEditQuestionUseCase ?? throw new ArgumentNullException(nameof(getEditQuestionUseCase));
             _getUserQuestions = getUserQuestions ?? throw new ArgumentNullException(nameof(getUserQuestions));
             _deleteQuestionUseCase = deleteQuestionUseCase ?? throw new ArgumentNullException(nameof(deleteQuestionUseCase));
+            _verifyUserRoleUseCase = verifyUserRoleUseCase ?? throw new ArgumentNullException(nameof(verifyUserRoleUseCase));
         }
 
         [HttpGet]
@@ -63,7 +63,7 @@ namespace AskAMech.Web.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            _securityManagerUseCase.VerifyUserIsMechanicOrGeneralUser(_modelPresenter);
+            _verifyUserRoleUseCase.IsMechanicOrGeneralUser(_modelPresenter);
             if (_modelPresenter.HasValidationErrors)
             {
                 var model = _modelPresenter.Model as ErrorResponse;

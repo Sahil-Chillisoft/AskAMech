@@ -1,11 +1,10 @@
 ﻿using System;
-using AskAMech.Core.Domain;
 using AskAMech.Core.Employees.Interfaces;
 using AskAMech.Core.Employees.Requests;
 using AskAMech.Core.Error;
 using AskAMech.Core.Questions.Interfaces;
 using AskAMech.Core.Questions.Requests;
-using AskAMech.Core.Security;
+using AskAMech.Core.Security.Interfaces;
 using AskAMech.Core.Users.Interfaces;
 using AskAMech.Core.Users.Requests;
 using AskAMech.Core.Users.Responses;
@@ -17,7 +16,6 @@ namespace AskAMech.Web.Controllers
     public class UserController : Controller
     {
         private readonly IModelPresenter _modelPresenter;
-        private readonly ISecurityManagerUseCase _securityManagerUseCase;
         private readonly ICreateUserUseCase _createUserUseCase;
         private readonly IGetEmployeeForUserUseCase _getEmployeeForUserUseCase;
         private readonly IEditUserProfileUseCase _editUserProfileUseCase;
@@ -27,9 +25,10 @@ namespace AskAMech.Web.Controllers
         private readonly IGetViewUserProfile _getViewUserProfile;
         private readonly IDeleteUserAccountUseCase _deleteUserAccountUseCase;
         private readonly IGetUserQuestions _getUserQuestions;
+        private readonly IVerifyUserIsAuthenticatedUseCase _verifyUserIsAuthenticatedUseCase;
+        private readonly IVerifyUserRoleUseCase _verifyUserRoleUseCase;
 
         public UserController(IModelPresenter modelPresenter,
-                              ISecurityManagerUseCase securityManagerUseCase,
                               ICreateUserUseCase createUserUseCase,
                               IGetEmployeeForUserUseCase getEmployeeForUserUseCase,
                               IEditUserProfileUseCase editUserProfileUseCase,
@@ -38,10 +37,11 @@ namespace AskAMech.Web.Controllers
                               IGetEmployeeUseCase getEmployeeUseCase,
                               IGetViewUserProfile getViewUserProfile,
                               IDeleteUserAccountUseCase deleteUserAccountUseCase,
-                              IGetUserQuestions getUserQuestions)
+                              IGetUserQuestions getUserQuestions, 
+                              IVerifyUserIsAuthenticatedUseCase verifyUserIsAuthenticatedUseCase, 
+                              IVerifyUserRoleUseCase verifyUserRoleUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
-            _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _createUserUseCase = createUserUseCase ?? throw new ArgumentNullException(nameof(createUserUseCase));
             _getEmployeeForUserUseCase = getEmployeeForUserUseCase ?? throw new ArgumentNullException(nameof(getEmployeeForUserUseCase));
             _editUserProfileUseCase = editUserProfileUseCase ?? throw new ArgumentNullException(nameof(editUserProfileUseCase));
@@ -51,12 +51,14 @@ namespace AskAMech.Web.Controllers
             _getViewUserProfile = getViewUserProfile ?? throw new ArgumentNullException(nameof(getViewUserProfile));
             _deleteUserAccountUseCase = deleteUserAccountUseCase ?? throw new ArgumentNullException(nameof(deleteUserAccountUseCase));
             _getUserQuestions = getUserQuestions ?? throw new ArgumentNullException(nameof(getUserQuestions));
+            _verifyUserIsAuthenticatedUseCase = verifyUserIsAuthenticatedUseCase;
+            _verifyUserRoleUseCase = verifyUserRoleUseCase;
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            _securityManagerUseCase.VerifyUserIsAdmin(_modelPresenter);
+            _verifyUserRoleUseCase.IsAdmin(_modelPresenter);
 
             if (!_modelPresenter.HasValidationErrors)
                 return View();
@@ -87,7 +89,7 @@ namespace AskAMech.Web.Controllers
         [HttpGet]
         public IActionResult Edit()
         {
-            _securityManagerUseCase.VerifyUserIsAuthenticated(_modelPresenter);
+            _verifyUserIsAuthenticatedUseCase.IsAuthenticated(_modelPresenter);
             if (_modelPresenter.HasValidationErrors)
             {
                 var model = _modelPresenter.Model as ErrorResponse;
@@ -145,7 +147,7 @@ namespace AskAMech.Web.Controllers
         [HttpGet]
         public IActionResult ViewUserProfile(int id)
         {
-            _securityManagerUseCase.VerifyUserIsAuthenticated(_modelPresenter);
+            _verifyUserIsAuthenticatedUseCase.IsAuthenticated(_modelPresenter);
             if (_modelPresenter.HasValidationErrors)
             {
                 var model = _modelPresenter.Model as ErrorResponse;

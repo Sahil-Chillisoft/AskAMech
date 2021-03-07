@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
-using AskAMech.Core.Domain;
 using AskAMech.Core.Login.Interfaces;
 using AskAMech.Core.Login.Requests;
 using AskAMech.Core.Register.Interfaces;
 using AskAMech.Core.Register.Requests;
+using AskAMech.Core.Security.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using AskAMech.Web.Models;
 using AskAMech.Web.Presenters;
@@ -16,15 +16,17 @@ namespace AskAMech.Web.Controllers
         private readonly IModelPresenter _modelPresenter;
         private readonly ILoginUseCase _loginUseCase;
         private readonly IRegisterUseCase _registerUseCase;
+        private readonly ISecurityManagerUseCase _securityManagerUseCase;
 
         public HomeController(IModelPresenter modelPresenter,
                               ILoginUseCase loginUseCase,
-                              IRegisterUseCase registerUseCase)
+                              IRegisterUseCase registerUseCase, 
+                              ISecurityManagerUseCase securityManagerUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
             _loginUseCase = loginUseCase ?? throw new ArgumentNullException(nameof(loginUseCase));
             _registerUseCase = registerUseCase ?? throw new ArgumentNullException(nameof(registerUseCase));
-
+            _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
         }
 
         [HttpGet]
@@ -88,7 +90,7 @@ namespace AskAMech.Web.Controllers
         [HttpPost]
         public IActionResult SignOut()
         {
-            UserSecurityManager.SignOut();
+            _securityManagerUseCase.SignOut();
             return RedirectToAction("Index");
         }
 

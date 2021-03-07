@@ -3,7 +3,7 @@ using AskAMech.Core.Categories.Interfaces;
 using AskAMech.Core.Categories.Requests;
 using AskAMech.Core.Categories.Responses;
 using AskAMech.Core.Error;
-using AskAMech.Core.Security;
+using AskAMech.Core.Security.Interfaces;
 using AskAMech.Web.Presenters;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,25 +12,25 @@ namespace AskAMech.Web.Controllers
     public class CategoryController : Controller
     {
         private readonly IModelPresenter _modelPresenter;
-        private readonly ISecurityManagerUseCase _securityManagerUseCase;
         private readonly ICreateCategoryUseCase _createCategoryUseCase;
         private readonly IGetCategoryUseCase _getCategoryUseCase;
+        private readonly IVerifyUserRoleUseCase _verifyUserRoleUseCase;
 
         public CategoryController(IModelPresenter modelPresenter,
-                                  ISecurityManagerUseCase securityManagerUseCase,
                                   ICreateCategoryUseCase createCategoryUseCase,
-                                  IGetCategoryUseCase getCategoryUseCase)
+                                  IGetCategoryUseCase getCategoryUseCase,
+                                  IVerifyUserRoleUseCase verifyUserRoleUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
-            _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _createCategoryUseCase = createCategoryUseCase ?? throw new ArgumentNullException(nameof(createCategoryUseCase));
             _getCategoryUseCase = getCategoryUseCase ?? throw new ArgumentNullException(nameof(getCategoryUseCase));
+            _verifyUserRoleUseCase = verifyUserRoleUseCase ?? throw new ArgumentNullException(nameof(verifyUserRoleUseCase));
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            _securityManagerUseCase.VerifyUserIsAdmin(_modelPresenter);
+            _verifyUserRoleUseCase.IsAdmin(_modelPresenter);
 
             if (!_modelPresenter.HasValidationErrors)
                 return View();

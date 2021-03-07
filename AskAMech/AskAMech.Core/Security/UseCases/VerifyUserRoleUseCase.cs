@@ -1,12 +1,13 @@
 ﻿using System.Net;
 using AskAMech.Core.Domain;
 using AskAMech.Core.Error;
+using AskAMech.Core.Security.Interfaces;
 
-namespace AskAMech.Core.Security
+namespace AskAMech.Core.Security.UseCases
 {
-    public class SecurityManagerUseCase : ISecurityManagerUseCase
+    public class VerifyUserRoleUseCase : IVerifyUserRoleUseCase
     {
-        public void VerifyUserIsAdmin(IPresenter presenter)
+        public void IsAdmin(IPresenter presenter)
         {
             if (UserSecurityManager.IsAuthenticated &&
                 UserSecurityManager.UserRoleId == (int)UserRole.Admin)
@@ -24,28 +25,11 @@ namespace AskAMech.Core.Security
             }
         }
 
-        public void VerifyUserIsMechanicOrGeneralUser(IPresenter presenter)
+        public void IsMechanicOrGeneralUser(IPresenter presenter)
         {
             if (UserSecurityManager.IsAuthenticated &&
                 (UserSecurityManager.UserRoleId == (int)UserRole.Mechanic ||
                  UserSecurityManager.UserRoleId == (int)UserRole.GeneralUser))
-            {
-                presenter.Success(true);
-            }
-            else
-            {
-                var response = new ErrorResponse
-                {
-                    Message = "Access Denied",
-                    Code = HttpStatusCode.Unauthorized
-                };
-                presenter.Error(response, true);
-            }
-        }
-
-        public void VerifyUserIsAuthenticated(IPresenter presenter)
-        {
-            if (UserSecurityManager.IsAuthenticated)
             {
                 presenter.Success(true);
             }

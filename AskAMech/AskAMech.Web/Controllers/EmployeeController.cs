@@ -5,7 +5,7 @@ using AskAMech.Core.Employees.Interfaces;
 using AskAMech.Core.Employees.Requests;
 using AskAMech.Core.Employees.Responses;
 using AskAMech.Core.Error;
-using AskAMech.Core.Security;
+using AskAMech.Core.Security.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using AskAMech.Web.Presenters;
 
@@ -14,7 +14,7 @@ namespace AskAMech.Web.Controllers
     public class EmployeeController : Controller
     {
         private readonly IModelPresenter _modelPresenter;
-        private readonly ISecurityManagerUseCase _securityManagerUseCase;
+        private readonly IVerifyUserRoleUseCase _verifyUserRoleUseCase;
         private readonly ICreateEmployeeUseCase _createEmployeeUseCase;
         private readonly IGetEmployeesUseCase _getEmployeesUseCase;
         private readonly IGetEmployeesAutocompleteUseCase _getEmployeesAutocompleteUseCase;
@@ -24,17 +24,16 @@ namespace AskAMech.Web.Controllers
         private readonly IEditEmployeeUserPassword _editEmployeeUserPassword;
 
         public EmployeeController(IModelPresenter modelPresenter,
-                                  ISecurityManagerUseCase securityManagerUseCase,
                                   ICreateEmployeeUseCase createEmployeeUseCase,
                                   IGetEmployeesUseCase getEmployeeUseCase,
                                   IGetEmployeesAutocompleteUseCase getEmployeesAutocompleteUseCase,
                                   IGetEmployeeForEditUseCase getEmployeeForEditUseCase,
                                   IEditEmployeeUseCase editEmployeeUseCase,
                                   IUpdateEmployeeActiveStatusUseCase updateEmployeeActiveStatusUseCase,
-                                  IEditEmployeeUserPassword editEmployeeUserPassword)
+                                  IEditEmployeeUserPassword editEmployeeUserPassword, 
+                                  IVerifyUserRoleUseCase verifyUserRoleUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
-            _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _createEmployeeUseCase = createEmployeeUseCase ?? throw new ArgumentNullException(nameof(createEmployeeUseCase));
             _getEmployeesUseCase = getEmployeeUseCase ?? throw new ArgumentNullException(nameof(getEmployeeUseCase));
             _getEmployeeForEditUseCase = getEmployeeForEditUseCase ?? throw new ArgumentNullException(nameof(getEmployeeForEditUseCase));
@@ -42,12 +41,13 @@ namespace AskAMech.Web.Controllers
             _editEmployeeUseCase = editEmployeeUseCase ?? throw new ArgumentNullException(nameof(editEmployeeUseCase));
             _updateEmployeeActiveStatusUseCase = updateEmployeeActiveStatusUseCase ?? throw new ArgumentNullException(nameof(updateEmployeeActiveStatusUseCase));
             _editEmployeeUserPassword = editEmployeeUserPassword ?? throw new ArgumentNullException(nameof(editEmployeeUserPassword));
+            _verifyUserRoleUseCase = verifyUserRoleUseCase ?? throw new ArgumentNullException(nameof(verifyUserRoleUseCase));
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            _securityManagerUseCase.VerifyUserIsAdmin(_modelPresenter);
+            _verifyUserRoleUseCase.IsAdmin(_modelPresenter);
 
             if (_modelPresenter.HasValidationErrors)
             {
@@ -75,7 +75,7 @@ namespace AskAMech.Web.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            _securityManagerUseCase.VerifyUserIsAdmin(_modelPresenter);
+            _verifyUserRoleUseCase.IsAdmin(_modelPresenter);
 
             if (!_modelPresenter.HasValidationErrors)
                 return View();

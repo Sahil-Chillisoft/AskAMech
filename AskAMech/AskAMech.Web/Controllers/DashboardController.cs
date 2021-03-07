@@ -3,7 +3,7 @@ using AskAMech.Core.Dashboard.Interfaces;
 using AskAMech.Core.Dashboard.Requests;
 using AskAMech.Core.Domain;
 using AskAMech.Core.Error;
-using AskAMech.Core.Security;
+using AskAMech.Core.Security.Interfaces;
 using AskAMech.Web.Presenters;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,22 +12,22 @@ namespace AskAMech.Web.Controllers
     public class DashboardController : Controller
     {
         private readonly IModelPresenter _modelPresenter;
-        private readonly ISecurityManagerUseCase _securityManagerUseCase;
         private readonly IUserDashboardUseCase _userDashboardUseCase;
+        private readonly IVerifyUserRoleUseCase _verifyUserRoleUseCase;
 
         public DashboardController(IModelPresenter modelPresenter,
-                                   ISecurityManagerUseCase securityManagerUseCase,
-                                   IUserDashboardUseCase userDashboardUseCase)
+                                   IUserDashboardUseCase userDashboardUseCase, 
+                                   IVerifyUserRoleUseCase verifyUserRoleUseCase)
         {
             _modelPresenter = modelPresenter ?? throw new ArgumentNullException(nameof(modelPresenter));
-            _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _userDashboardUseCase = userDashboardUseCase ?? throw new ArgumentNullException(nameof(userDashboardUseCase));
+            _verifyUserRoleUseCase = verifyUserRoleUseCase ?? throw new ArgumentNullException(nameof(verifyUserRoleUseCase));
         }
 
         [HttpGet]
         public IActionResult UserDashboard()
         {
-            _securityManagerUseCase.VerifyUserIsMechanicOrGeneralUser(_modelPresenter);
+            _verifyUserRoleUseCase.IsMechanicOrGeneralUser(_modelPresenter);
 
             if (_modelPresenter.HasValidationErrors)
             {
@@ -48,7 +48,7 @@ namespace AskAMech.Web.Controllers
         [HttpGet]
         public IActionResult AdminDashboard()
         {
-            _securityManagerUseCase.VerifyUserIsAdmin(_modelPresenter);
+            _verifyUserRoleUseCase.IsAdmin(_modelPresenter);
 
             if (!_modelPresenter.HasValidationErrors)
                 return View();

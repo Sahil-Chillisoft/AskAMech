@@ -17,7 +17,8 @@ using AskAMech.Core.Questions.Interfaces;
 using AskAMech.Core.Questions.UseCases;
 using AskAMech.Core.Register.Interfaces;
 using AskAMech.Core.Register.UseCases;
-using AskAMech.Core.Security;
+using AskAMech.Core.Security.Interfaces;
+using AskAMech.Core.Security.UseCases;
 using AskAMech.Core.UserRoles.Interfaces;
 using AskAMech.Core.UserRoles.UseCases;
 using AskAMech.Core.Users.Interfaces;
@@ -50,14 +51,38 @@ namespace AskAMech.Web
         {
             services.AddControllersWithViews();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            AutoMapperService(services);
+            DatabaseConnectionService(services);
+            UseCaseServices(services);
+            RepositoryServices(services);
+        }
 
+        private void AutoMapperService(IServiceCollection services)
+        {
             services.AddAutoMapper(typeof(Startup));
             services.AddAutoMapper(c => c.AddProfile<MappingProfiles>(), typeof(Startup));
+        }
 
+        private void DatabaseConnectionService(IServiceCollection services)
+        {
             var connectionString = new SqlHelper(Configuration.GetConnectionString("AskAMechDbConnectionString"));
             services.AddSingleton(connectionString);
+        }
 
+        private void RepositoryServices(IServiceCollection services)
+        {
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IUserProfileRepository, UserProfileRepository>();
+            services.AddTransient<IEmployeeRepository, EmployeeRepository>();
+            services.AddTransient<IUserDashboardRepository, UserDashboardRepository>();
+            services.AddTransient<IQuestionRepository, QuestionRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<IRolesRepository, RolesRepository>();
+            services.AddTransient<IAnswersRepository, AnswerRepository>();
+        }
 
+        private void UseCaseServices(IServiceCollection services)
+        {
             services.AddTransient<IModelPresenter, ModelPresenter>();
             services.AddTransient<ISecurityManagerUseCase, SecurityManagerUseCase>();
             services.AddTransient<ILoginUseCase, LoginUseCase>();
@@ -97,16 +122,8 @@ namespace AskAMech.Web
             services.AddTransient<IEditAnswerUseCase, EditAnswerUseCase>();
             services.AddTransient<IDeleteAnswerUseCase, DeleteAnswerUseCase>();
             services.AddTransient<IDeleteQuestionUseCase, DeleteQuestionUseCase>();
-
-
-            services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IUserProfileRepository, UserProfileRepository>();
-            services.AddTransient<IEmployeeRepository, EmployeeRepository>();
-            services.AddTransient<IUserDashboardRepository, UserDashboardRepository>();
-            services.AddTransient<IQuestionRepository, QuestionRepository>();
-            services.AddTransient<ICategoryRepository, CategoryRepository>();
-            services.AddTransient<IRolesRepository, RolesRepository>();
-            services.AddTransient<IAnswersRepository, AnswerRepository>();
+            services.AddTransient<IVerifyUserIsAuthenticatedUseCase, VerifyUserIsAuthenticatedUseCase>();
+            services.AddTransient<IVerifyUserRoleUseCase, VerifyUserRoleUseCase>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

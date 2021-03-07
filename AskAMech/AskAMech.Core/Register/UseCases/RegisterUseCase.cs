@@ -4,6 +4,7 @@ using AskAMech.Core.Gateways.Repositories;
 using AskAMech.Core.Register.Interfaces;
 using AskAMech.Core.Register.Requests;
 using AskAMech.Core.Register.Responses;
+using AskAMech.Core.Security.Interfaces;
 
 namespace AskAMech.Core.Register.UseCases
 {
@@ -11,10 +12,14 @@ namespace AskAMech.Core.Register.UseCases
     {
         private readonly IUserRepository _userRepository;
         private readonly IUserProfileRepository _userProfileRepository;
+        private readonly ISecurityManagerUseCase _securityManagerUseCase;
        
-        public RegisterUseCase(IUserRepository userRepository, IUserProfileRepository userProfileRepository)
+        public RegisterUseCase(IUserRepository userRepository, 
+                               IUserProfileRepository userProfileRepository, 
+                               ISecurityManagerUseCase securityManagerUseCase)
         {
             _userProfileRepository = userProfileRepository ?? throw new ArgumentNullException(nameof(userProfileRepository));
+            _securityManagerUseCase = securityManagerUseCase ?? throw new ArgumentNullException(nameof(securityManagerUseCase));
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
 
@@ -31,7 +36,7 @@ namespace AskAMech.Core.Register.UseCases
                     var userId = CreateUserAndReturnId(request);
                     CreateUserProfile(userId, request.Username);
                     var user = _userRepository.GetUserById(userId);
-                    UserSecurityManager.InitializeUser(user.Id, request.Username, user.UserRoleId, true);
+                    _securityManagerUseCase.InitializeUser(user.Id, request.Username, user.UserRoleId, true);
                     _userRepository.UpdateLastLoggedInDate(userId);
                     presenter.Success(response);
                 }
