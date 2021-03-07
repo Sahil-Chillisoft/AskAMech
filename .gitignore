@@ -11,3 +11,9 @@
 /AskAMech/AskAMech.Infrastructure/bin/Debug/netcoreapp3.1
 /AskAMech/AskAMech.Web/bin/Debug/netcoreapp3.1
 /AskAMech/AskAMech.Web/obj
+/AskAMech/AskAMech.Web.Tests/obj
+/AskAMech/AskAMech.Web.Tests/bin/Debug/netcoreapp3.1
+/AskAMech/AskAMech.Infrastructure.Tests/obj
+/AskAMech/AskAMech.Infrastructure.Tests/bin/Debug/netcoreapp3.1
+/AskAMech/AskAMech.Core.Tests/obj
+/AskAMech/AskAMech.Core.Tests/bin/Debug/netcoreapp3.1
