@@ -1,5 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Net;
+using AskAMech.Core;
 using AskAMech.Core.Answers.Interfaces;
+using AskAMech.Core.Answers.Requests;
+using AskAMech.Core.Answers.Responses;
+using AskAMech.Core.Domain;
 using AskAMech.Core.Error;
 using AskAMech.Core.Security.Interfaces;
 using AskAMech.Web.Controllers;
@@ -17,57 +23,142 @@ namespace AskAMech.Web.Tests.Controllers
         [TestFixture]
         public class MyAnswers
         {
-            [Test]
-            public void ShouldBeAnHttpGetRequest()
+            [TestFixture]
+            public class Get
             {
-                //Arrange 
-                var myAnswersControllerType = typeof(AnswerController);
-                //Act 
-                var propertyInfo = myAnswersControllerType.GetMethod("MyAnswers", new Type[] { });
-                //Assert                
-                propertyInfo.Should().BeDecoratedWith<HttpGetAttribute>();
-            }
+                [Test]
+                public void ShouldBeAnHttpGetRequest()
+                {
+                    //Arrange 
+                    var myAnswersControllerType = typeof(AnswerController);
 
-            [Test]
-            public void ShouldCallVerifyUserIsAuthenticatedUseCase()
-            {
-                //Arrange 
-                var builder = AnswersControllerBuilder.Create();
-                var sut = builder
-                    .Build();
-                //Act 
-                sut.MyAnswers();
-                //Assert                
-                builder.VerifyUserIsAuthenticatedUseCase.Received(1).IsAuthenticated(Arg.Any<IModelPresenter>());
-            }
+                    //Act 
+                    var propertyInfo = myAnswersControllerType.GetMethod("MyAnswers", new Type[] { });
 
-            [Test]
-            public void GivenAuthenticatedUser_ModelShouldHaveNoValidationErrors()
-            {
-                //Arrange 
-                var builder = AnswersControllerBuilder.Create();
-                var sut = builder
-                    .WithAuthenticatedUser()
-                    .Build();
-                //Act 
-                sut.MyAnswers();
-                //Assert                
-                builder.ModelPresenter.HasValidationErrors.Should().BeFalse();
-            }
+                    //Assert                
+                    propertyInfo.Should().BeDecoratedWith<HttpGetAttribute>();
+                }
 
-            [Ignore("wip")]
-            [Test]
-            public void GivenUnauthenticatedUser_ModelShouldHaveValidationErrors()
-            {
-                //Arrange 
-                var builder = AnswersControllerBuilder.Create();
-                var sut = builder
-                    .WithUnauthenticatedUser()
-                    .Build();
-                //Act 
-                sut.MyAnswers();
-                //Assert                
-                Assert.AreEqual(true, builder.ModelPresenter.HasValidationErrors);
+                [Test]
+                public void ShouldCallVerifyUserIsAuthenticatedUseCase()
+                {
+                    //Arrange 
+                    var builder = AnswersControllerBuilder.Create();
+                    var sut = builder
+                        .Build();
+
+                    //Act 
+                    sut.MyAnswers();
+
+                    //Assert                
+                    builder.VerifyUserIsAuthenticatedUseCase.Received(1).IsAuthenticated(Arg.Any<IModelPresenter>());
+                }
+
+                [Test]
+                public void GivenAuthenticatedUser_ModelShouldHaveNoValidationErrors()
+                {
+                    //Arrange 
+                    var builder = AnswersControllerBuilder.Create();
+                    var sut = builder
+                        .WithAuthenticatedUser()
+                        .Build();
+
+                    //Act 
+                    sut.MyAnswers();
+
+                    //Assert                
+                    builder.ModelPresenter.HasValidationErrors.Should().BeFalse();
+                }
+
+                [Test]
+                public void GivenUnauthenticatedUser_ModelShouldHaveValidationErrors()
+                {
+                    //Arrange 
+                    var errorResponse = new ErrorResponse
+                    {
+                        Message = "Access Denied",
+                        Code = HttpStatusCode.Unauthorized
+                    };
+                    var builder = AnswersControllerBuilder.Create();
+                    var sut = builder
+                        .WithUnauthenticatedUser(errorResponse)
+                        .Build();
+
+                    //Act 
+                    sut.MyAnswers();
+
+                    //Assert     
+                    var model = builder.ModelPresenter.Model as ErrorResponse;
+                    Assert.AreEqual(true, builder.ModelPresenter.HasValidationErrors);
+                    Assert.AreEqual(errorResponse.Message, model?.Message);
+                    Assert.AreEqual(errorResponse.Code, model?.Code);
+                }
+
+                [Test]
+                public void ShouldCallGetUserQuestionAnswersUseCase()
+                {
+                    //Arrange 
+                    var builder = AnswersControllerBuilder.Create();
+                    var sut = builder.Build();
+
+                    //Act             
+                    sut.MyAnswers();
+
+                    //Assert
+                    builder.GetUserQuestionAnswersUseCase.Received(1).Execute(Arg.Any<GetUserQuestionAnswersRequest>(), Arg.Any<IPresenter>());
+                }
+
+                [Test]
+                public void GivenIsAuthorizedUser_ShouldRenderViewWithModel()
+                {
+                    //Arrange 
+                    var response = new GetUserQuestionAnswersResponse
+                    {
+                        CategoryId = 1,
+                        Categories = new List<Category>
+                        {
+                            new Category
+                            {
+                                Id = 1,
+                                Description = "Category 1"
+                            },
+                            new Category
+                            {
+                                Id = 2,
+                                Description = "Category 2"
+                            }
+                        },
+                        UserQuestionAnswers = new List<ViewUserQuestionAnswers>
+                        {
+                            new ViewUserQuestionAnswers
+                            {
+                                QuestionId = 1,
+                                CategoryDescription = "Description 1"
+                            },
+                            new ViewUserQuestionAnswers
+                            {
+                                QuestionId = 2,
+                                CategoryDescription = "Description 2"
+                            }
+                        },
+                        Pagination = new Pagination
+                        {
+                            IsPagingRequest = false
+                        }
+                    };
+                    var builder = AnswersControllerBuilder.Create();
+                    var sut = builder
+                        .WithGetUserQuestionAnswerUseCase(response)
+                        .Build();
+
+                    //Act             
+                    var viewResult = sut.MyAnswers() as ViewResult;
+                    var model = viewResult?.Model as GetUserQuestionAnswersResponse;
+
+                    //Assert
+                    viewResult.Should().NotBeNull();
+                    model.Should().BeSameAs(response);
+                }
             }
         }
 
@@ -91,7 +182,7 @@ namespace AskAMech.Web.Tests.Controllers
             {
                 var builder = new AnswersControllerBuilder
                 {
-                    ModelPresenter = Substitute.For<IModelPresenter>(),
+                    ModelPresenter = new ModelPresenter(),
                     GetUserQuestionAnswersUseCase = Substitute.For<IGetUserQuestionAnswersUseCase>(),
                     GetConfirmAcceptedAnswerUseCase = Substitute.For<IGetConfirmAcceptedAnswerUseCase>(),
                     UpdateIsAcceptedAnswerUseCase = Substitute.For<IUpdateIsAcceptedAnswerUseCase>(),
@@ -111,10 +202,17 @@ namespace AskAMech.Web.Tests.Controllers
                 return this;
             }
 
-            public AnswersControllerBuilder WithUnauthenticatedUser()
+            public AnswersControllerBuilder WithUnauthenticatedUser(ErrorResponse errorResponse)
             {
                 VerifyUserIsAuthenticatedUseCase.When(m => m.IsAuthenticated(ModelPresenter))
-                    .Do(info => { ModelPresenter.Error(Arg.Any<ErrorResponse>(), true); });
+                    .Do(info => { ModelPresenter.Error(errorResponse, true); });
+                return this;
+            }
+
+            public AnswersControllerBuilder WithGetUserQuestionAnswerUseCase(GetUserQuestionAnswersResponse response)
+            {
+                GetUserQuestionAnswersUseCase.When(m => m.Execute(Arg.Any<GetUserQuestionAnswersRequest>(), ModelPresenter))
+                    .Do(info => { ModelPresenter.Success(response); });
                 return this;
             }
 
