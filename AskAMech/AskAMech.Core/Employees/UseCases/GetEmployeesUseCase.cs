@@ -3,35 +3,25 @@ using AskAMech.Core.Employees.Interfaces;
 using AskAMech.Core.Employees.Requests;
 using AskAMech.Core.Employees.Responses;
 using AskAMech.Core.Gateways.Repositories;
+using AskAMech.Core.PaginationHelpers;
 
 namespace AskAMech.Core.Employees.UseCases
 {
     public class GetEmployeesUseCase : IGetEmployeesUseCase
     {
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly IGetEmployeesUseCasePagination _getEmployeesUseCasePagination;
 
-        public GetEmployeesUseCase(IEmployeeRepository employeeRepository)
+        public GetEmployeesUseCase(IEmployeeRepository employeeRepository, 
+                                   IGetEmployeesUseCasePagination getEmployeesUseCasePagination)
         {
             _employeeRepository = employeeRepository ?? throw new ArgumentNullException(nameof(employeeRepository));
+            _getEmployeesUseCasePagination = getEmployeesUseCasePagination ?? throw new ArgumentNullException(nameof(getEmployeesUseCasePagination));
         }
 
         public void Execute(GetEmployeesRequest request, IPresenter presenter)
         {
-            int recordCount;
-            if (request.Pagination != null && request.Pagination.IsPagingRequest)
-                recordCount = request.Pagination.RecordCount;
-            else
-                recordCount = _employeeRepository.GetCount(request.Search);
-
-            var page = request.Pagination?.Page ?? 1;
-
-            var totalPages = (int)Math.Ceiling(recordCount / (double)PageSize.Medium);
-
-            var pagination = new Pagination
-            {
-                Offset = (page - 1) * (int)PageSize.Medium,
-                PageSize = (int)PageSize.Medium
-            };
+            var pagination = _getEmployeesUseCasePagination.GetEntityPagination(request.Pagination, request.Search);
 
             var employees = _employeeRepository.GetEmployees(request.Search, pagination);
 
@@ -39,12 +29,7 @@ namespace AskAMech.Core.Employees.UseCases
             {
                 Employees = employees,
                 Search = request.Search,
-                Pagination = new Pagination
-                {
-                    Page = page,
-                    TotalPages = totalPages,
-                    RecordCount = recordCount
-                }
+                Pagination = pagination
             };
             presenter.Success(response);
         }

@@ -13,6 +13,7 @@ using AskAMech.Core.Employees.UseCases;
 using AskAMech.Core.Gateways.Repositories;
 using AskAMech.Core.Login.Interfaces;
 using AskAMech.Core.Login.UseCases;
+using AskAMech.Core.PaginationHelpers;
 using AskAMech.Core.Questions.Interfaces;
 using AskAMech.Core.Questions.UseCases;
 using AskAMech.Core.Register.Interfaces;
@@ -55,6 +56,7 @@ namespace AskAMech.Web
             DatabaseConnectionService(services);
             UseCaseServices(services);
             RepositoryServices(services);
+            PaginationHelperServices(services);
         }
 
         private void AutoMapperService(IServiceCollection services)
@@ -124,6 +126,11 @@ namespace AskAMech.Web
             services.AddTransient<IDeleteQuestionUseCase, DeleteQuestionUseCase>();
             services.AddTransient<IVerifyUserIsAuthenticatedUseCase, VerifyUserIsAuthenticatedUseCase>();
             services.AddTransient<IVerifyUserRoleUseCase, VerifyUserRoleUseCase>();
+        }
+
+        private void PaginationHelperServices(IServiceCollection services)
+        {
+            services.AddTransient<IGetEmployeesUseCasePagination, GetEmployeesUseCasePagination>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
