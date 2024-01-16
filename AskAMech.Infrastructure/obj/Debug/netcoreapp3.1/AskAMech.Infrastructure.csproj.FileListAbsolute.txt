@@ -1,0 +1,13 @@
+C:\Users\znkul\Desktop\C#APPs\AskAMech\AskAMech\AskAMech.Infrastructure\bin\Debug\netcoreapp3.1\AskAMech.Infrastructure.deps.json
+C:\Users\znkul\Desktop\C#APPs\AskAMech\AskAMech\AskAMech.Infrastructure\bin\Debug\netcoreapp3.1\AskAMech.Infrastructure.dll
+C:\Users\znkul\Desktop\C#APPs\AskAMech\AskAMech\AskAMech.Infrastructure\bin\Debug\netcoreapp3.1\AskAMech.Infrastructure.pdb
+C:\Users\znkul\Desktop\C#APPs\AskAMech\AskAMech\AskAMech.Infrastructure\bin\Debug\netcoreapp3.1\AskAMech.Core.dll
+C:\Users\znkul\Desktop\C#APPs\AskAMech\AskAMech\AskAMech.Infrastructure\bin\Debug\netcoreapp3.1\AskAMech.Core.pdb
+C:\Users\znkul\Desktop\C#APPs\AskAMech\AskAMech\AskAMech.Infrastructure\obj\Debug\netcoreapp3.1\AskAMech.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\znkul\Desktop\C#APPs\AskAMech\AskAMech\AskAMech.Infrastructure\obj\Debug\netcoreapp3.1\AskAMech.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\znkul\Desktop\C#APPs\AskAMech\AskAMech\AskAMech.Infrastructure\obj\Debug\netcoreapp3.1\AskAMech.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\znkul\Desktop\C#APPs\AskAMech\AskAMech\AskAMech.Infrastructure\obj\Debug\netcoreapp3.1\AskAMech.Infrastructure.AssemblyInfo.cs
+C:\Users\znkul\Desktop\C#APPs\AskAMech\AskAMech\AskAMech.Infrastructure\obj\Debug\netcoreapp3.1\AskAMech.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\znkul\Desktop\C#APPs\AskAMech\AskAMech\AskAMech.Infrastructure\obj\Debug\netcoreapp3.1\AskAMech.Infrastructure.csproj.CopyComplete
+C:\Users\znkul\Desktop\C#APPs\AskAMech\AskAMech\AskAMech.Infrastructure\obj\Debug\netcoreapp3.1\AskAMech.Infrastructure.dll
+C:\Users\znkul\Desktop\C#APPs\AskAMech\AskAMech\AskAMech.Infrastructure\obj\Debug\netcoreapp3.1\AskAMech.Infrastructure.pdb

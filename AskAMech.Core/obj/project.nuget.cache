@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "UIp3926ECL7Tbuxpp3YQM7BCyVP+XTdcLfTt++ji6nZaM5YC0CyoYRr4SqYKHbBlSTinzTJv3Yg4G1HecST9BA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\znkul\\Desktop\\C#APPs\\AskAMech\\AskAMech\\AskAMech.Core\\AskAMech.Core.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\znkul\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\3.1.0\\microsoft.windowsdesktop.app.ref.3.1.0.nupkg.sha512",
+    "C:\\Users\\znkul\\.nuget\\packages\\microsoft.netcore.app.ref\\3.1.0\\microsoft.netcore.app.ref.3.1.0.nupkg.sha512",
+    "C:\\Users\\znkul\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512"
+  ],
+  "logs": []
+}

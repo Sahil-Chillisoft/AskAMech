@@ -1,0 +1,10 @@
+C:\Users\znkul\Desktop\C#APPs\AskAMech\AskAMech\AskAMech.Core\bin\Debug\netcoreapp3.1\AskAMech.Core.deps.json
+C:\Users\znkul\Desktop\C#APPs\AskAMech\AskAMech\AskAMech.Core\bin\Debug\netcoreapp3.1\AskAMech.Core.dll
+C:\Users\znkul\Desktop\C#APPs\AskAMech\AskAMech\AskAMech.Core\bin\Debug\netcoreapp3.1\AskAMech.Core.pdb
+C:\Users\znkul\Desktop\C#APPs\AskAMech\AskAMech\AskAMech.Core\obj\Debug\netcoreapp3.1\AskAMech.Core.csproj.AssemblyReference.cache
+C:\Users\znkul\Desktop\C#APPs\AskAMech\AskAMech\AskAMech.Core\obj\Debug\netcoreapp3.1\AskAMech.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\znkul\Desktop\C#APPs\AskAMech\AskAMech\AskAMech.Core\obj\Debug\netcoreapp3.1\AskAMech.Core.AssemblyInfoInputs.cache
+C:\Users\znkul\Desktop\C#APPs\AskAMech\AskAMech\AskAMech.Core\obj\Debug\netcoreapp3.1\AskAMech.Core.AssemblyInfo.cs
+C:\Users\znkul\Desktop\C#APPs\AskAMech\AskAMech\AskAMech.Core\obj\Debug\netcoreapp3.1\AskAMech.Core.csproj.CoreCompileInputs.cache
+C:\Users\znkul\Desktop\C#APPs\AskAMech\AskAMech\AskAMech.Core\obj\Debug\netcoreapp3.1\AskAMech.Core.dll
+C:\Users\znkul\Desktop\C#APPs\AskAMech\AskAMech\AskAMech.Core\obj\Debug\netcoreapp3.1\AskAMech.Core.pdb
